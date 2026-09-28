@@ -1,1313 +1,888 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Skills Market | Learn Skills. Build Your Future.</title>
+  <title>Skills Market | Learn Skills. Build Your Future.</title>
 
-<style>
-
-/* =========================
-   RESET
-========================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #050505;
-    color: #ffffff;
-    line-height: 1.6;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.container {
-    width: min(1180px, 92%);
-    margin: auto;
-}
-
-
-/* =========================
-   LOADER
-========================= */
-
-#site-loader {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 999999;
-
-    background: #050505;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    opacity: 1;
-    visibility: visible;
-
-    transition:
-        opacity 0.7s ease,
-        visibility 0.7s ease;
-}
-
-#site-loader.hide-loader {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.loader-content {
-    text-align: center;
-}
-
-.loader-content img {
-    width: 115px;
-    height: 115px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 18px;
-
-    animation: logoPulse 1.5s ease-in-out infinite;
-}
-
-.loader-line {
-    width: 0;
-    height: 3px;
-    background: #e50914;
-    margin: auto;
-    border-radius: 10px;
-
-    animation: loaderLine 1.5s ease forwards;
-}
-
-.loader-text {
-    margin-top: 15px;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 4px;
-}
-
-@keyframes loaderLine {
-    from {
-        width: 0;
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    to {
-        width: 160px;
-    }
-}
-
-@keyframes logoPulse {
-    0%, 100% {
-        transform: scale(1);
+    html {
+      scroll-behavior: smooth;
     }
 
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-
-/* =========================
-   NAVBAR
-========================= */
-
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-
-    background: rgba(5, 5, 5, 0.92);
-    backdrop-filter: blur(12px);
-
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.nav-inner {
-    min-height: 75px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    font-size: 19px;
-    font-weight: 800;
-}
-
-.logo img {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-}
-
-.logo span {
-    color: #ffffff;
-}
-
-.logo span b {
-    color: #e50914;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-.nav-links a {
-    color: #d8d8d8;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
-    color: #e50914;
-}
-
-.nav-btn {
-    padding: 11px 20px;
-    background: #e50914;
-    border-radius: 8px;
-    color: white !important;
-    font-weight: 700;
-}
-
-.nav-btn:hover {
-    background: #ff1c27;
-    transform: translateY(-2px);
-}
-
-
-/* =========================
-   HERO
-========================= */
-
-.hero {
-    min-height: 720px;
-
-    display: flex;
-    align-items: center;
-    text-align: center;
-
-    position: relative;
-    overflow: hidden;
-
-    background:
-        radial-gradient(circle at 50% 40%,
-        rgba(229,9,20,0.17),
-        transparent 38%),
-        #050505;
-}
-
-.hero::before {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    border: 1px solid rgba(229,9,20,0.08);
-    border-radius: 50%;
-
-    box-shadow:
-        0 0 100px rgba(229,9,20,0.08);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-
-    max-width: 900px;
-    margin: auto;
-}
-
-.badge {
-    display: inline-block;
-
-    padding: 8px 16px;
-
-    border: 1px solid rgba(229,9,20,0.35);
-    background: rgba(229,9,20,0.08);
-
-    color: #ff3340;
-
-    border-radius: 50px;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    margin-bottom: 25px;
-}
-
-.hero h2 {
-    font-size: clamp(32px, 5vw, 60px);
-    line-height: 1.1;
-
-    margin-bottom: 15px;
-}
-
-.typing-title {
-    min-height: 58px;
-
-    font-size: clamp(24px, 4vw, 42px);
-
-    color: #e50914;
-
-    margin-bottom: 25px;
-}
-
-.typing-cursor {
-    color: #ffffff;
-    animation: blink 0.8s infinite;
-}
-
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
-
-.hero p {
-    max-width: 720px;
-    margin: auto;
-
-    color: #a9a9a9;
-
-    font-size: 17px;
-}
-
-.hero-buttons {
-    margin-top: 35px;
-
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.btn-red,
-.btn-outline {
-    padding: 14px 25px;
-
-    border-radius: 9px;
-
-    font-weight: 700;
-
-    transition: 0.3s;
-}
-
-.btn-red {
-    background: #e50914;
-    color: white;
-
-    box-shadow:
-        0 10px 30px rgba(229,9,20,0.22);
-}
-
-.btn-red:hover {
-    transform: translateY(-3px);
-    background: #ff1c27;
-}
-
-.btn-outline {
-    border: 1px solid #444;
-    color: white;
-}
-
-.btn-outline:hover {
-    border-color: #e50914;
-    color: #e50914;
-}
-
-.features {
-    margin-top: 45px;
-
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.feature {
-    padding: 9px 15px;
-
-    border: 1px solid #222;
-    border-radius: 50px;
-
-    color: #bbb;
-    font-size: 13px;
-
-    background: rgba(255,255,255,0.02);
-}
-
-
-/* =========================
-   STATS
-========================= */
-
-.stats {
-    padding: 65px 0;
-
-    background: #0a0a0a;
-
-    border-top: 1px solid #151515;
-    border-bottom: 1px solid #151515;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat h3 {
-    font-size: 35px;
-    color: #e50914;
-}
-
-.stat p {
-    color: #999;
-    font-size: 14px;
-}
-
-
-/* =========================
-   GENERAL SECTION
-========================= */
-
-section:not(.hero) {
-    scroll-margin-top: 80px;
-}
-
-.section {
-    padding: 100px 0;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 55px;
-}
-
-.section-title span {
-    color: #e50914;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.section-title h2 {
-    font-size: clamp(30px, 4vw, 45px);
-    margin-top: 10px;
-}
-
-.section-title p {
-    color: #888;
-    max-width: 650px;
-    margin: 12px auto 0;
-}
-
-
-/* =========================
-   ABOUT
-========================= */
-
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-}
-
-.about-text h2 {
-    font-size: 40px;
-    margin-bottom: 20px;
-}
-
-.about-text h2 span {
-    color: #e50914;
-}
-
-.about-text p {
-    color: #999;
-    margin-bottom: 20px;
-}
-
-.about-box {
-    padding: 35px;
-
-    border: 1px solid #222;
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(229,9,20,0.12),
-            rgba(255,255,255,0.02)
-        );
-
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-
-.about-box h3 {
-    font-size: 25px;
-    margin-bottom: 20px;
-}
-
-.about-list {
-    list-style: none;
-}
-
-.about-list li {
-    padding: 12px 0;
-    border-bottom: 1px solid #222;
-    color: #bbb;
-}
-
-.about-list li::before {
-    content: "✓";
-    color: #e50914;
-    margin-right: 10px;
-    font-weight: bold;
-}
-
-
-/* =========================
-   COURSES
-========================= */
-
-.courses {
-    background: #090909;
-}
-
-.course-empty {
-    max-width: 750px;
-    margin: auto;
-
-    text-align: center;
-
-    padding: 70px 30px;
-
-    border: 1px dashed #333;
-    border-radius: 20px;
-
-    background: rgba(255,255,255,0.015);
-}
-
-.course-empty .icon {
-    width: 75px;
-    height: 75px;
-
-    margin: 0 auto 20px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: rgba(229,9,20,0.1);
-    color: #e50914;
-
-    font-size: 30px;
-}
-
-.course-empty h3 {
-    font-size: 27px;
-    margin-bottom: 10px;
-}
-
-.course-empty p {
-    color: #888;
-}
-
-
-/* =========================
-   WHY SKILLS MARKET
-========================= */
-
-.why-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.why-card {
-    padding: 35px 28px;
-
-    background: #0c0c0c;
-
-    border: 1px solid #202020;
-    border-radius: 16px;
-
-    transition: 0.35s;
-}
-
-.why-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(229,9,20,0.5);
-
-    box-shadow:
-        0 15px 40px rgba(229,9,20,0.08);
-}
-
-.why-icon {
-    font-size: 30px;
-    margin-bottom: 18px;
-}
-
-.why-card h3 {
-    margin-bottom: 10px;
-}
-
-.why-card p {
-    color: #888;
-    font-size: 14px;
-}
-
-
-/* =========================
-   TRAINERS
-========================= */
-
-.trainers {
-    background: #090909;
-}
-
-.trainer-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-}
-
-.trainer {
-    padding: 30px;
-    text-align: center;
-
-    border: 1px solid #222;
-    border-radius: 18px;
-
-    background: #0d0d0d;
-}
-
-.trainer-photo {
-    width: 100px;
-    height: 100px;
-
-    margin: 0 auto 20px;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #e50914,
-            #171717
-        );
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 32px;
-    font-weight: 800;
-}
-
-.trainer h3 {
-    margin-bottom: 5px;
-}
-
-.trainer p {
-    color: #888;
-    font-size: 14px;
-}
-
-
-/* =========================
-   TESTIMONIALS
-========================= */
-
-.testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.testimonial {
-    padding: 30px;
-
-    background: #0c0c0c;
-
-    border: 1px solid #222;
-    border-radius: 16px;
-}
-
-.stars {
-    color: #e50914;
-    margin-bottom: 15px;
-}
-
-.testimonial p {
-    color: #aaa;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.user {
-    font-weight: 700;
-}
-
-.user small {
-    display: block;
-    color: #666;
-    font-weight: normal;
-    margin-top: 3px;
-}
-
-
-/* =========================
-   FAQ
-========================= */
-
-.faq {
-    max-width: 850px;
-    margin: auto;
-}
-
-.faq-item {
-    border-bottom: 1px solid #222;
-}
-
-.faq-question {
-    width: 100%;
-
-    padding: 22px 5px;
-
-    background: none;
-    border: none;
-
-    color: white;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.faq-question span {
-    color: #e50914;
-    font-size: 22px;
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-
-    transition: max-height 0.35s ease;
-
-    color: #888;
-}
-
-.faq-answer p {
-    padding: 0 5px 20px;
-}
-
-
-/* =========================
-   CTA
-========================= */
-
-.cta {
-    padding: 90px 20px;
-
-    text-align: center;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(229,9,20,0.18),
-            transparent 55%
-        ),
-        #0a0a0a;
-}
-
-.cta h2 {
-    font-size: clamp(30px, 5vw, 50px);
-    margin-bottom: 15px;
-}
-
-.cta p {
-    color: #999;
-    margin-bottom: 30px;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-    padding: 55px 0 25px;
-
-    background: #030303;
-
-    border-top: 1px solid #161616;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 50px;
-
-    padding-bottom: 40px;
-}
-
-.footer-brand p {
-    color: #777;
-    max-width: 400px;
-    margin-top: 15px;
-}
-
-.footer-col h4 {
-    margin-bottom: 18px;
-}
-
-.footer-col a {
-    display: block;
-
-    color: #777;
-
-    margin: 9px 0;
-
-    font-size: 14px;
-}
-
-.footer-col a:hover {
-    color: #e50914;
-}
-
-.footer-bottom {
-    border-top: 1px solid #171717;
-
-    padding-top: 22px;
-
-    text-align: center;
-
-    color: #555;
-
-    font-size: 13px;
-}
-
-
-/* =========================
-   SCROLL REVEAL
-========================= */
-
-.reveal {
-    opacity: 0;
-    transform: translateY(35px);
-
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 800px) {
-
-    .nav-links {
-        display: none;
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      line-height: 1.6;
     }
 
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    .about-grid {
-        grid-template-columns: 1fr;
+    img {
+      max-width: 100%;
+      display: block;
     }
 
-    .why-grid,
-    .trainer-grid,
-    .testimonial-grid {
-        grid-template-columns: 1fr;
+    .container {
+      width: 90%;
+      max-width: 1180px;
+      margin: auto;
     }
 
-    .footer-grid {
-        grid-template-columns: 1fr;
+    /* ================= NAVBAR ================= */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #eeeeee;
     }
 
-    .hero {
-        min-height: 680px;
+    .navbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
     }
 
-    .hero p {
-        font-size: 15px;
-    }
-
-}
-
-@media (max-width: 480px) {
-
-    .stats-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .logo span {
-        font-size: 16px;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 800;
     }
 
     .logo img {
-        width: 42px;
-        height: 42px;
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+    }
+
+    .logo span {
+      color: #111111;
+    }
+
+    .logo strong {
+      color: #e50914;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: #e50914;
+    }
+
+    .login-btn {
+      background: #e50914;
+      color: white !important;
+      padding: 11px 18px;
+      border-radius: 7px;
+    }
+
+    .login-btn:hover {
+      background: #b80710;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(229,9,20,0.10), transparent 30%),
+        linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+      padding: 80px 0 90px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #fff0f1;
+      color: #e50914;
+      border: 1px solid #ffd1d4;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 70px);
+      line-height: 1.05;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 span {
+      color: #e50914;
     }
 
     .hero h2 {
-        font-size: 34px;
+      font-size: 28px;
+      margin-bottom: 18px;
     }
 
-    .typing-title {
-        font-size: 25px;
+    .hero p {
+      color: #666666;
+      font-size: 17px;
+      max-width: 620px;
+      margin-bottom: 30px;
     }
 
-    .section {
-        padding: 75px 0;
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 35px;
     }
 
-}
+    .btn {
+      display: inline-block;
+      padding: 14px 23px;
+      border-radius: 7px;
+      font-weight: 700;
+      border: 1px solid #e50914;
+    }
 
-</style>
+    .btn-primary {
+      background: #e50914;
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #b80710;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #e50914;
+    }
+
+    .btn-outline:hover {
+      background: #fff0f1;
+    }
+
+    .hero-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .feature-chip {
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      padding: 9px 13px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* HERO IMAGE */
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image-box {
+      background: #111111;
+      border-radius: 24px;
+      padding: 14px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.16);
+    }
+
+    .hero-image-box img {
+      width: 100%;
+      height: 430px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .image-label {
+      position: absolute;
+      bottom: 25px;
+      left: -18px;
+      background: #e50914;
+      color: white;
+      padding: 13px 18px;
+      border-radius: 9px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(229,9,20,0.25);
+    }
+
+    /* ================= SECTION ================= */
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 50px;
+    }
+
+    .section-heading .small-title {
+      color: #e50914;
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: 1.15;
+      margin-bottom: 15px;
+    }
+
+    .section-heading p {
+      color: #666666;
+    }
+
+    /* ================= OPPORTUNITIES ================= */
+
+    .opportunity-section {
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .opportunity-section .section-heading p {
+      color: #bbbbbb;
+    }
+
+    .opportunity-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .opportunity-card {
+      background: #1b1b1b;
+      border: 1px solid #2d2d2d;
+      padding: 28px 22px;
+      border-radius: 14px;
+      transition: 0.25s ease;
+    }
+
+    .opportunity-card:hover {
+      transform: translateY(-5px);
+      border-color: #e50914;
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background: #e50914;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      margin-bottom: 20px;
+    }
+
+    .opportunity-card h3 {
+      margin-bottom: 10px;
+      font-size: 19px;
+    }
+
+    .opportunity-card p {
+      color: #aaaaaa;
+      font-size: 14px;
+    }
+
+    /* ================= STATS ================= */
+
+    .stats {
+      background: #f7f7f7;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid #eeeeee;
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 30px;
+      font-weight: 800;
+      color: #e50914;
+      margin-bottom: 5px;
+    }
+
+    .stat-card p {
+      color: #666666;
+      font-size: 14px;
+    }
+
+    /* ================= JOURNEY ================= */
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .journey-image {
+      background: #111111;
+      padding: 12px;
+      border-radius: 20px;
+    }
+
+    .journey-image img {
+      height: 430px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 13px;
+    }
+
+    .journey-content .small-title {
+      color: #e50914;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .journey-content h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .journey-content > p {
+      color: #666666;
+      margin-bottom: 28px;
+    }
+
+    .mission-vision {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .mv-card {
+      border: 1px solid #eeeeee;
+      padding: 23px;
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .mv-card h3 {
+      margin-bottom: 9px;
+    }
+
+    .mv-card p {
+      color: #666666;
+      font-size: 14px;
+    }
+
+    .know-more {
+      margin-top: 28px;
+      display: inline-block;
+      color: #e50914;
+      font-weight: 800;
+    }
+
+    /* ================= CTA ================= */
+
+    .cta {
+      background: #e50914;
+      color: white;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      max-width: 650px;
+      margin: 0 auto 25px;
+      color: #ffe5e7;
+    }
+
+    .cta .btn {
+      background: #ffffff;
+      color: #e50914;
+      border-color: white;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      background: #0b0b0b;
+      color: white;
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-inner p {
+      color: #999999;
+      font-size: 13px;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 900px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .journey-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .opportunity-grid,
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero {
+        padding-top: 55px;
+      }
+
+      .hero-image-box img,
+      .journey-image img {
+        height: 330px;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .navbar {
+        min-height: 68px;
+      }
+
+      .logo {
+        font-size: 19px;
+      }
+
+      .logo img {
+        width: 38px;
+        height: 38px;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .hero h1 {
+        letter-spacing: -1px;
+      }
+
+      .hero h2 {
+        font-size: 23px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .opportunity-grid,
+      .stats-grid,
+      .mission-vision {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image-box img,
+      .journey-image img {
+        height: 280px;
+      }
+
+      .image-label {
+        left: 10px;
+        bottom: 20px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
+  <!-- ================= NAVBAR ================= -->
 
-<!-- =========================
-     OPENING LOADER
-========================= -->
+  <header>
+    <div class="container navbar">
 
-<div id="site-loader">
+      <a href="#" class="logo">
+        <img src="1000238871.png" alt="Skills Market Logo">
+        <span>Skills <strong>Market</strong></span>
+      </a>
 
-    <div class="loader-content">
-
-        <!-- YOUR ORIGINAL LOGO -->
-        <img src="1000238871.png" alt="Skills Market">
-
-        <div class="loader-line"></div>
-
-        <div class="loader-text">
-            SKILLS MARKET
-        </div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="login.html" class="login-btn">Member Login</a></li>
+      </ul>
 
     </div>
-
-</div>
-
+  </header>
 
 
-<!-- =========================
-     NAVBAR
-========================= -->
+  <!-- ================= HERO ================= -->
 
-<nav class="navbar">
+  <main>
 
-    <div class="container nav-inner">
+    <section class="hero">
 
-        <a href="#home" class="logo">
+      <div class="container hero-grid">
 
-            <img src="1000238871.png" alt="Skills Market Logo">
+        <div>
 
-            <span>
-                SKILLS <b>MARKET</b>
-            </span>
+          <div class="badge">🎓 Your Learning Partner</div>
 
-        </a>
+          <h1>
+            Skills Today,<br>
+            <span>Opportunities Tomorrow</span>
+          </h1>
 
+          <h2>
+            Learn Skills. Build Your Future.
+          </h2>
 
-        <div class="nav-links">
+          <p>
+            Explore practical digital programs, develop in-demand skills,
+            build your portfolio, and prepare yourself for new opportunities
+            from anywhere in the world.
+          </p>
 
-            <a href="#home">Home</a>
-
-            <a href="#about">About</a>
-
-            <a href="#courses">Courses</a>
-
-            <a href="#why">Why Us</a>
-
-            <a href="#faq">FAQ</a>
-
-            <a href="#courses" class="nav-btn">
-                Get Started
+          <div class="hero-buttons">
+            <a href="#packages" class="btn btn-primary">
+              Get Started →
             </a>
 
+            <a href="#about" class="btn btn-outline">
+              Watch How It Works
+            </a>
+          </div>
+
+          <div class="hero-features">
+            <div class="feature-chip">✓ Flexible Learning</div>
+            <div class="feature-chip">✓ Expert Mentorship</div>
+            <div class="feature-chip">✓ Certification</div>
+            <div class="feature-chip">✓ Lifetime Access</div>
+          </div>
+
         </div>
 
-    </div>
 
-</nav>
+        <!-- HERO IMAGE -->
 
+        <div class="hero-image">
 
+          <div class="hero-image-box">
 
-<!-- =========================
-     HERO
-========================= -->
+            <!-- Replace hero.jpg with your own Skills Market image -->
+            <img
+              src="hero.jpg"
+              alt="Skills Market Digital Learning"
+              onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80';"
+            >
 
-<section class="hero" id="home">
+          </div>
 
-    <div class="container">
+          <div class="image-label">
+            Skills Create Opportunities
+          </div>
 
-        <div class="hero-content reveal">
+        </div>
 
-            <div class="badge">
-                ● Your Learning Partner
-            </div>
+      </div>
 
-
-            <h2>
-                Skills Today,
-                <br>
-                Opportunities Tomorrow
-            </h2>
-
-
-            <h1 class="typing-title">
-
-                <span id="typing-text"></span>
-
-                <span class="typing-cursor">|</span>
-
-            </h1>
+    </section>
 
 
+    <!-- ================= OPPORTUNITIES ================= -->
+
+    <section class="opportunity-section">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <div class="small-title">
+            Skills Create Opportunities
+          </div>
+
+          <h2>
+            Turn Your Skills Into Opportunities
+          </h2>
+
+          <p>
+            Learn practical skills and build the knowledge you need
+            to move toward your goals.
+          </p>
+
+        </div>
+
+
+        <div class="opportunity-grid">
+
+          <div class="opportunity-card">
+            <div class="icon">📚</div>
+            <h3>Flexible Learning</h3>
             <p>
-                Explore high-impact digital programs, master
-                in-demand skills, build your portfolio, and
-                unlock new opportunities from anywhere in the world.
+              Learn at your own pace with accessible digital learning resources.
             </p>
+          </div>
 
+          <div class="opportunity-card">
+            <div class="icon">👨‍🏫</div>
+            <h3>Expert Mentorship</h3>
+            <p>
+              Learn through practical guidance and structured learning.
+            </p>
+          </div>
 
-            <div class="hero-buttons">
+          <div class="opportunity-card">
+            <div class="icon">🏆</div>
+            <h3>Certification</h3>
+            <p>
+              Complete eligible programs and showcase your learning achievements.
+            </p>
+          </div>
 
-                <a href="#courses" class="btn-red">
-                    Get Started →
-                </a>
-
-                <a href="#about" class="btn-outline">
-                    Watch How It Works
-                </a>
-
-            </div>
-
-
-            <div class="features">
-
-                <div class="feature">
-                    ✓ Flexible Learning
-                </div>
-
-                <div class="feature">
-                    ✓ Expert Mentorship
-                </div>
-
-                <div class="feature">
-                    ✓ Certification
-                </div>
-
-                <div class="feature">
-                    ✓ Lifetime Access
-                </div>
-
-            </div>
+          <div class="opportunity-card">
+            <div class="icon">♾️</div>
+            <h3>Lifetime Access</h3>
+            <p>
+              Access your eligible learning resources for long-term reference.
+            </p>
+          </div>
 
         </div>
 
-    </div>
+      </div>
 
-</section>
+    </section>
 
 
+    <!-- ================= STATS ================= -->
 
-<!-- =========================
-     STATS
-========================= -->
+    <section class="stats">
 
-<section class="stats">
+      <div class="container">
 
-    <div class="container">
+        <div class="section-heading">
+
+          <div class="small-title">
+            Skills Market
+          </div>
+
+          <h2>
+            Built Around Practical Learning
+          </h2>
+
+          <p>
+            A digital learning platform focused on useful skills,
+            accessible education, and continuous growth.
+          </p>
+
+        </div>
+
 
         <div class="stats-grid">
 
-            <div class="stat reveal">
+          <div class="stat-card">
+            <div class="stat-number">01</div>
+            <p>Practical Learning</p>
+          </div>
 
-                <h3>
-                    <span class="counter" data-target="1000">0</span>+
-                </h3>
+          <div class="stat-card">
+            <div class="stat-number">24/7</div>
+            <p>Digital Access</p>
+          </div>
 
-                <p>
-                    Learners
-                </p>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <p>Online Learning</p>
+          </div>
 
-            </div>
-
-
-            <div class="stat reveal">
-
-                <h3>
-                    <span class="counter" data-target="20">0</span>+
-                </h3>
-
-                <p>
-                    Skill Areas
-                </p>
-
-            </div>
-
-
-            <div class="stat reveal">
-
-                <h3>
-                    <span class="counter" data-target="24">0</span>/7
-                </h3>
-
-                <p>
-                    Learning Access
-                </p>
-
-            </div>
-
-
-            <div class="stat reveal">
-
-                <h3>
-                    100%
-                </h3>
-
-                <p>
-                    Digital Platform
-                </p>
-
-            </div>
+          <div class="stat-card">
+            <div class="stat-number">∞</div>
+            <p>Growth Mindset</p>
+          </div>
 
         </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= JOURNEY ================= -->
+
+    <section id="about">
+
+      <div class="container journey-grid">
+
+        <div class="journey-image">
+
+          <!-- Replace journey.jpg with your own Skills Market image -->
+          <img
+            src="journey.jpg"
+            alt="Skills Market Journey"
+            onerror="this.src='https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=80';"
+          >
+
+        </div>
+
+
+        <div class="journey-content">
+
+          <div class="small-title">
+            About Skills Market
+          </div>
+
+          <h2>
+            Discover Our Journey Of Growth
+          </h2>
+
+          <p>
+            Skills Market is being built as a modern digital learning
+            ecosystem where people can discover practical skills,
+            improve their knowledge, build confidence, and work toward
+            better opportunities.
+          </p>
+
+
+          <div class="mission-vision">
+
+            <div class="mv-card">
+
+              <h3>🎯 Our Mission</h3>
+
+              <p>
+                Make practical, career-focused learning accessible
+                and easier to apply in the real world.
+              </p>
+
+            </div>
+
+
+            <div class="mv-card">
+
+              <h3>🚀 Our Vision</h3>
+
+              <p>
+                Build a learning community where skills create
+                confidence, opportunities, and long-term growth.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <a href="#contact" class="know-more">
+            Know More →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta" id="contact">
+
+      <div class="container">
+
+        <h2>
+          Ready To Build Your Skills?
+        </h2>
+
+        <p>
+          Explore Skills Market and take the next step in your
+          digital learning journey.
+        </p>
+
+        <a href="#packages" class="btn">
+          Explore Programs →
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    <div class="container footer-inner">
+
+      <div class="logo">
+        <img src="1000238871.png" alt="Skills Market Logo">
+        <span>Skills <strong>Market</strong></span>
+      </div>
+
+      <p>
+        © 2026 Skills Market. All Rights Reserved.
+      </p>
 
     </div>
 
-</section>
+  </footer>
 
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section class="section" id="about">
-
-    <div class="container">
-
-        <div class="section-title reveal">
-
-            <span>About Skills Market</span>
-
-            <h2>
-                Learn. Practice. Grow.
-            </h2>
-
-            <p>
-                A digital learning platform designed to help
-                learners develop practical and modern skills.
-            </p>
-
-        </div>
-
-
-        <div class="about-grid">
-
-            <div class="about-text reveal">
-
-                <h2>
-                    Build Skills That
-                    <span>Move You Forward.</span>
-                </h2>
-
-                <p>
-                    Skills Market is being built to make digital
-                    learning simple, practical and accessible.
-                </p>
-
-                <p>
-                    Learn useful skills, practice what you learn,
-                    create projects and keep improving step by step.
-                </p>
-
-                <a href="#courses" class="btn-red">
-                    Explore Platform →
-                </a>
-
-            </div>
-
-
-            <div class="about-box reveal">
-
-                <h3>
-                    What You'll Find
-                </h3>
-
-                <ul class="about-list">
-
-                    <li>
-                        Practical Skill Development
-                    </li>
-
-                    <li>
-                        Structured Learning
-                    </li>
-
-                    <li>
-                        Expert Guidance
-                    </li>
-
-                    <li>
-                        Project-Based Learning
-                    </li>
-
-                    <li>
-                        Digital Resources
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     COURSES
-========================= -->
-
-<section class="section courses" id="courses">
-
-    <div class="container">
-
-        <div class="section-title reveal">
-
-            <span>Courses</span>
-
-            <h2>
-                Learn What's Next
-            </h2>
-
-            <p>
-                New learning programs are currently being prepared.
-            </p>
-
-        </div>
-
-
-        <div class="course-empty reveal">
-
-            <div class="icon">
-                ✦
-            </div>
-
-            <h3>
-                Courses Coming Soon
-            </h3>
-
-            <p>
-                We're preparing practical digital programs
-                designed to help you build valuable skills.
-            </p>
-
-            <br>
-
-            <a href="#home" class="btn-outline">
-                Stay Connected
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     WHY SKILLS MARKET
-========================= -->
-
-<section class="section" id="why">
-
-    <div class="container">
-
-        <div class="section-title reveal">
-
-            <span>Why Skills Market</span>
-
-            <h2>
-                Learning With Purpose
-            </h2>
-
-            <p>
-                Everything is designed around practical learning
-                and long-term skill development.
-            </p>
-
-        </div>
-
-
-        <div class="why-grid">
-
-            <div class="why-card reveal">
+</body>
+</html>
