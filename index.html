@@ -5,1372 +5,1291 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Skills Market | Learn. Grow. Build.</title>
-<meta name="description" content="Skills Market - Learn practical digital skills, grow your confidence and build better opportunities.">
 
 <style>
-:root{
-  --red:#ff2020;
-  --red2:#c90000;
-  --black:#050505;
-  --dark:#0b0b0b;
-  --card:#111111;
-  --soft:#171717;
-  --white:#ffffff;
-  --muted:#a8a8a8;
-  --border:rgba(255,255,255,.09);
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,Helvetica,sans-serif;
-  scroll-behavior:smooth;
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-  background:var(--black);
-  color:var(--white);
-  line-height:1.6;
-  overflow-x:hidden;
+    background:#050505;
+    color:#fff;
+    line-height:1.6;
 }
 
 a{
-  color:inherit;
-  text-decoration:none;
+    text-decoration:none;
+    color:inherit;
 }
 
 .container{
-  width:min(1180px,92%);
-  margin:auto;
-}
-
-section{
-  padding:95px 0;
-}
-
-.section-head{
-  max-width:720px;
-  margin:0 auto 55px;
-  text-align:center;
-}
-
-.section-tag{
-  display:inline-block;
-  color:#ff3b3b;
-  font-size:13px;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  margin-bottom:12px;
-}
-
-.section-head h2{
-  font-size:clamp(32px,5vw,52px);
-  line-height:1.1;
-  margin-bottom:16px;
-}
-
-.section-head p{
-  color:var(--muted);
-  font-size:16px;
+    width:90%;
+    max-width:1200px;
+    margin:auto;
 }
 
 /* NAVBAR */
-
 header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(5,5,5,.92);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:999;
+    background:rgba(5,5,5,.94);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #222;
 }
 
 .navbar{
-  min-height:76px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:22px;
-  font-weight:900;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    font-weight:800;
 }
 
 .logo img{
-  width:45px;
-  height:45px;
-  object-fit:contain;
-  border-radius:50%;
+    width:45px;
+    height:45px;
+    object-fit:contain;
 }
 
 .logo span{
-  color:#fff;
-}
-
-.logo b{
-  color:var(--red);
+    color:#ff1f2d;
 }
 
 .nav-links{
-  display:flex;
-  align-items:center;
-  gap:27px;
+    display:flex;
+    gap:28px;
+    align-items:center;
 }
 
 .nav-links a{
-  color:#ddd;
-  font-size:14px;
-  font-weight:600;
-  transition:.25s;
+    color:#ddd;
+    font-size:15px;
+    transition:.3s;
 }
 
 .nav-links a:hover{
-  color:var(--red);
+    color:#ff2635;
 }
 
-.nav-buttons{
-  display:flex;
-  gap:10px;
-  align-items:center;
+.nav-btn{
+    background:#ff1f2d;
+    padding:11px 20px;
+    border-radius:7px;
+    font-weight:700;
+    color:white!important;
 }
 
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:12px 21px;
-  border-radius:7px;
-  font-weight:800;
-  font-size:14px;
-  transition:.25s;
-  cursor:pointer;
-  border:1px solid transparent;
-}
-
-.btn-red{
-  background:var(--red);
-  color:#fff;
-}
-
-.btn-red:hover{
-  background:#ff3b3b;
-  transform:translateY(-2px);
-}
-
-.btn-outline{
-  border-color:#444;
-  color:#fff;
-  background:transparent;
-}
-
-.btn-outline:hover{
-  border-color:var(--red);
-  color:var(--red);
-}
-
-.menu-btn{
-  display:none;
-  background:none;
-  border:0;
-  color:white;
-  font-size:28px;
-  cursor:pointer;
+.menu{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
 }
 
 /* HERO */
-
 .hero{
-  min-height:720px;
-  display:flex;
-  align-items:center;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 80% 35%,rgba(255,20,20,.18),transparent 30%),
-    radial-gradient(circle at 15% 70%,rgba(255,0,0,.08),transparent 25%),
-    #050505;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  width:500px;
-  height:500px;
-  border:1px solid rgba(255,40,40,.12);
-  border-radius:50%;
-  right:-180px;
-  top:100px;
-}
-
-.hero-grid{
-  display:grid;
-  grid-template-columns:1.08fr .92fr;
-  align-items:center;
-  gap:60px;
+    min-height:680px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    background:
+    radial-gradient(circle at 75% 45%,rgba(255,0,30,.25),transparent 35%);
 }
 
 .hero-content{
-  position:relative;
-  z-index:2;
+    max-width:700px;
 }
 
-.hero-badge{
-  display:inline-flex;
-  padding:8px 14px;
-  border:1px solid rgba(255,40,40,.3);
-  background:rgba(255,20,20,.08);
-  border-radius:30px;
-  color:#ff5b5b;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:20px;
+.badge{
+    display:inline-block;
+    padding:8px 15px;
+    border:1px solid #ff2938;
+    border-radius:30px;
+    color:#ff4a55;
+    margin-bottom:22px;
+    font-size:14px;
 }
 
 .hero h1{
-  font-size:clamp(45px,6vw,78px);
-  line-height:.98;
-  letter-spacing:-3px;
-  margin-bottom:24px;
+    font-size:64px;
+    line-height:1.08;
+    margin-bottom:22px;
 }
 
 .hero h1 span{
-  color:var(--red);
+    color:#ff2635;
 }
 
 .hero p{
-  color:#bcbcbc;
-  max-width:600px;
-  font-size:18px;
-  margin-bottom:32px;
+    color:#aaa;
+    font-size:18px;
+    max-width:620px;
+    margin-bottom:30px;
 }
 
-.hero-actions{
-  display:flex;
-  gap:13px;
-  flex-wrap:wrap;
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
 }
 
-.hero-note{
-  margin-top:25px;
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  color:#999;
-  font-size:13px;
+.btn{
+    padding:14px 25px;
+    border-radius:7px;
+    font-weight:700;
+    display:inline-block;
+}
+
+.btn-primary{
+    background:#ff1f2d;
+}
+
+.btn-secondary{
+    border:1px solid #444;
 }
 
 .hero-visual{
-  min-height:500px;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    position:absolute;
+    right:7%;
+    width:400px;
+    height:400px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.hero-circle{
-  width:330px;
-  height:330px;
-  border-radius:50%;
-  border:1px solid rgba(255,30,30,.35);
-  background:radial-gradient(circle,rgba(255,20,20,.14),rgba(10,10,10,.4));
-  box-shadow:0 0 100px rgba(255,0,0,.12);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
+.circle{
+    width:320px;
+    height:320px;
+    border:1px solid #ff1f2d;
+    border-radius:50%;
+    box-shadow:0 0 80px rgba(255,20,40,.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.hero-circle img{
-  width:190px;
-  height:190px;
-  object-fit:contain;
-  border-radius:50%;
-  filter:drop-shadow(0 15px 35px rgba(255,0,0,.25));
+.circle img{
+    width:190px;
+    height:190px;
+    object-fit:contain;
 }
-
-.float-card{
-  position:absolute;
-  background:rgba(20,20,20,.9);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px 18px;
-  box-shadow:0 15px 50px rgba(0,0,0,.4);
-  backdrop-filter:blur(10px);
-}
-
-.float-card strong{
-  display:block;
-  font-size:16px;
-}
-
-.float-card small{
-  color:#999;
-}
-
-.card-one{top:45px;left:15px;}
-.card-two{right:0;top:145px;}
-.card-three{bottom:55px;left:45px;}
 
 /* TRUST */
-
 .trust{
-  padding:25px 0;
-  background:#0b0b0b;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
+    border-top:1px solid #222;
+    border-bottom:1px solid #222;
+    background:#0b0b0b;
 }
 
 .trust-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
 }
 
 .trust-item{
-  text-align:center;
-  padding:18px;
-  border-right:1px solid var(--border);
+    padding:28px 15px;
+    text-align:center;
+    border-right:1px solid #222;
 }
 
 .trust-item:last-child{
-  border-right:0;
+    border:0;
 }
 
-.trust-item strong{
-  display:block;
-  font-size:16px;
-  margin-bottom:4px;
+.trust-item h3{
+    color:#ff2938;
+    font-size:28px;
 }
 
-.trust-item span{
-  color:#888;
-  font-size:13px;
+.trust-item p{
+    color:#aaa;
 }
 
-/* OPPORTUNITY */
-
-.opportunity{
-  background:#080808;
+/* COMMON */
+section{
+    padding:90px 0;
 }
 
-.opportunity-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:25px;
+.section-heading{
+    text-align:center;
+    max-width:720px;
+    margin:0 auto 50px;
 }
 
-.opportunity-card{
-  min-height:330px;
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:45px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  overflow:hidden;
-  position:relative;
-  background:
-    linear-gradient(145deg,rgba(255,30,30,.16),transparent 55%),
-    #101010;
+.section-heading span{
+    color:#ff2635;
+    font-weight:700;
 }
 
-.opportunity-card:nth-child(2){
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.07),transparent 55%),
-    #101010;
+.section-heading h2{
+    font-size:42px;
+    margin:10px 0;
 }
 
-.opportunity-card::after{
-  content:"SM";
-  position:absolute;
-  right:25px;
-  top:20px;
-  font-size:110px;
-  font-weight:900;
-  color:rgba(255,255,255,.025);
+.section-heading p{
+    color:#999;
 }
 
-.opportunity-card h3{
-  font-size:35px;
-  max-width:450px;
-  line-height:1.1;
-  position:relative;
-  z-index:2;
-}
-
-.opportunity-card p{
-  color:#999;
-  margin-top:15px;
-  max-width:520px;
-  position:relative;
-  z-index:2;
-}
-
-/* ABOUT */
-
-.about-grid{
-  display:grid;
-  grid-template-columns:.9fr 1.1fr;
-  gap:70px;
-  align-items:center;
-}
-
-.about-visual{
-  min-height:430px;
-  border-radius:25px;
-  background:
-    radial-gradient(circle at center,rgba(255,20,20,.2),transparent 45%),
-    #101010;
-  border:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-}
-
-.about-visual img{
-  width:220px;
-  height:220px;
-  object-fit:contain;
-  border-radius:50%;
-  position:relative;
-  z-index:2;
-}
-
-.about-ring{
-  position:absolute;
-  width:310px;
-  height:310px;
-  border:1px solid rgba(255,30,30,.25);
-  border-radius:50%;
-}
-
-.about-content h2{
-  font-size:clamp(35px,5vw,55px);
-  line-height:1.08;
-  margin:10px 0 20px;
-}
-
-.about-content>p{
-  color:#aaa;
-  margin-bottom:28px;
-}
-
-.mission-box{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-  margin-bottom:28px;
-}
-
-.mission{
-  padding:22px;
-  background:#101010;
-  border:1px solid var(--border);
-  border-radius:14px;
-}
-
-.mission h3{
-  margin-bottom:8px;
-}
-
-.mission p{
-  color:#999;
-  font-size:14px;
-}
-
-/* PACKAGES */
-
-.packages{
-  background:#080808;
-}
-
-.package-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
-.package{
-  background:#101010;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:30px;
-  position:relative;
-  transition:.3s;
-}
-
-.package:hover{
-  transform:translateY(-8px);
-  border-color:rgba(255,30,30,.55);
-}
-
-.package.featured{
-  border-color:var(--red);
-  box-shadow:0 20px 70px rgba(255,0,0,.1);
-}
-
-.popular{
-  position:absolute;
-  top:18px;
-  right:18px;
-  background:var(--red);
-  padding:5px 10px;
-  border-radius:20px;
-  font-size:10px;
-  font-weight:900;
-}
-
-.package-icon{
-  width:50px;
-  height:50px;
-  border-radius:12px;
-  background:rgba(255,30,30,.1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  margin-bottom:20px;
-}
-
-.package h3{
-  font-size:25px;
-  margin-bottom:10px;
-}
-
-.package>p{
-  color:#999;
-  font-size:14px;
-  min-height:65px;
-}
-
-.package ul{
-  list-style:none;
-  margin:22px 0;
-}
-
-.package li{
-  color:#bbb;
-  padding:8px 0;
-  font-size:14px;
-  border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-.package li::before{
-  content:"✓";
-  color:#ff3333;
-  font-weight:bold;
-  margin-right:9px;
-}
-
-/* WHY */
-
-.why-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-
-.why-content h2{
-  font-size:clamp(35px,5vw,55px);
-  line-height:1.05;
-  margin:10px 0 20px;
-}
-
-.why-content>p{
-  color:#999;
-  margin-bottom:28px;
-}
-
-.feature-list{
-  display:grid;
-  gap:15px;
+/* FEATURES */
+.features{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
 }
 
 .feature{
-  display:flex;
-  gap:15px;
-  padding:18px;
-  border:1px solid var(--border);
-  border-radius:14px;
-  background:#0d0d0d;
+    padding:30px 22px;
+    border:1px solid #252525;
+    border-radius:12px;
+    background:#0b0b0b;
+    transition:.3s;
+}
+
+.feature:hover{
+    transform:translateY(-5px);
+    border-color:#ff2635;
 }
 
 .feature-icon{
-  width:45px;
-  height:45px;
-  flex:0 0 45px;
-  border-radius:10px;
-  background:rgba(255,20,20,.1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#ff4040;
+    font-size:34px;
+    margin-bottom:15px;
 }
 
 .feature h3{
-  font-size:16px;
-  margin-bottom:4px;
+    margin-bottom:8px;
 }
 
 .feature p{
-  color:#888;
-  font-size:13px;
+    color:#999;
+    font-size:14px;
 }
 
-.stats-box{
-  min-height:430px;
-  border-radius:25px;
-  border:1px solid var(--border);
-  padding:35px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-  background:
-    radial-gradient(circle at 50% 20%,rgba(255,0,0,.14),transparent 40%),
-    #101010;
+/* OPPORTUNITY */
+.opportunity{
+    background:#0a0a0a;
+}
+
+.opportunity-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.opportunity-visual{
+    min-height:400px;
+    border-radius:20px;
+    border:1px solid #292929;
+    background:
+    radial-gradient(circle at center,rgba(255,20,40,.22),transparent 60%),
+    #111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.opportunity-visual img{
+    width:220px;
+    max-width:70%;
+}
+
+.opportunity-text span{
+    color:#ff2635;
+    font-weight:700;
+}
+
+.opportunity-text h2{
+    font-size:43px;
+    line-height:1.15;
+    margin:12px 0 20px;
+}
+
+.opportunity-text p{
+    color:#999;
+    margin-bottom:25px;
+}
+
+/* ABOUT */
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.about-visual{
+    min-height:450px;
+    border-radius:20px;
+    background:#0d0d0d;
+    border:1px solid #252525;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.about-visual img{
+    width:250px;
+}
+
+.about-text span{
+    color:#ff2635;
+    font-weight:700;
+}
+
+.about-text h2{
+    font-size:42px;
+    margin:12px 0 20px;
+}
+
+.about-text p{
+    color:#999;
+    margin-bottom:25px;
+}
+
+.mission-vision{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:25px;
+}
+
+.mv{
+    padding:20px;
+    background:#0c0c0c;
+    border:1px solid #252525;
+    border-radius:10px;
+}
+
+.mv h3{
+    color:#ff2635;
+    margin-bottom:8px;
+}
+
+.mv p{
+    margin:0;
+    font-size:14px;
+}
+
+/* PACKAGES */
+.packages{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.package{
+    background:#0b0b0b;
+    border:1px solid #252525;
+    border-radius:14px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.package:hover{
+    transform:translateY(-7px);
+    border-color:#ff2635;
+}
+
+.package-top{
+    padding:25px;
+    background:linear-gradient(135deg,#151515,#080808);
+}
+
+.package-top h3{
+    font-size:25px;
+}
+
+.package-top p{
+    color:#999;
+}
+
+.package-body{
+    padding:25px;
+}
+
+.price{
+    font-size:30px;
+    font-weight:800;
+    margin-bottom:18px;
+}
+
+.package ul{
+    list-style:none;
+    margin-bottom:25px;
+}
+
+.package li{
+    padding:7px 0;
+    color:#aaa;
+}
+
+.package li::before{
+    content:"✓ ";
+    color:#ff2635;
+}
+
+/* WHY */
+.why{
+    background:#0a0a0a;
+}
+
+.why-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.why-text h2{
+    font-size:43px;
+    margin:12px 0 20px;
+}
+
+.why-text span{
+    color:#ff2635;
+    font-weight:700;
+}
+
+.why-text p{
+    color:#999;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
 }
 
 .stat{
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:25px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+    padding:30px;
+    border:1px solid #252525;
+    border-radius:12px;
+    background:#101010;
 }
 
-.stat strong{
-  font-size:40px;
-  color:#fff;
-}
-
-.stat span{
-  color:#888;
-  font-size:13px;
+.stat h3{
+    font-size:38px;
+    color:#ff2635;
 }
 
 /* FOUNDER */
-
-.founder{
-  background:#080808;
-}
-
-.founder-card{
-  border:1px solid var(--border);
-  border-radius:25px;
-  overflow:hidden;
-  display:grid;
-  grid-template-columns:.7fr 1.3fr;
-  background:#101010;
+.founder-grid{
+    display:grid;
+    grid-template-columns:350px 1fr;
+    gap:55px;
+    align-items:center;
 }
 
 .founder-photo{
-  min-height:450px;
-  background:
-    radial-gradient(circle at center,rgba(255,20,20,.18),transparent 50%),
-    #0c0c0c;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    height:400px;
+    background:#101010;
+    border:1px solid #292929;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .founder-photo img{
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  object-fit:contain;
+    width:220px;
+    max-width:80%;
 }
 
-.founder-content{
-  padding:55px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+.founder-text span{
+    color:#ff2635;
+    font-weight:700;
 }
 
-.founder-content h2{
-  font-size:42px;
-  margin:8px 0 5px;
+.founder-text h2{
+    font-size:42px;
+    margin:10px 0;
 }
 
-.founder-role{
-  color:#ff3939;
-  font-weight:800;
-  margin-bottom:20px;
+.founder-text h4{
+    color:#bbb;
+    margin-bottom:20px;
 }
 
-.founder-content p{
-  color:#999;
-  margin-bottom:20px;
+.founder-text p{
+    color:#999;
 }
 
 /* COURSES */
-
-.course-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
+.courses{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
 }
 
 .course{
-  border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
-  background:#101010;
-  transition:.3s;
+    background:#0c0c0c;
+    border:1px solid #252525;
+    border-radius:12px;
+    overflow:hidden;
 }
 
-.course:hover{
-  transform:translateY(-6px);
+.course-img{
+    height:180px;
+    background:
+    linear-gradient(135deg,rgba(255,0,30,.4),#101010);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
 }
 
-.course-cover{
-  height:175px;
-  background:
-    linear-gradient(135deg,rgba(255,0,0,.25),transparent),
-    linear-gradient(45deg,#171717,#080808);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
+.course-content{
+    padding:22px;
 }
 
-.course-cover span{
-  font-size:52px;
-  font-weight:900;
-  color:rgba(255,255,255,.09);
+.course-content h3{
+    margin-bottom:8px;
 }
 
-.course-body{
-  padding:23px;
-}
-
-.course-tag{
-  color:#ff3b3b;
-  font-size:11px;
-  font-weight:900;
-  text-transform:uppercase;
-}
-
-.course h3{
-  font-size:19px;
-  margin:8px 0;
-}
-
-.course p{
-  color:#888;
-  font-size:13px;
-  margin-bottom:15px;
-}
-
-.course-bottom{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.course-content p{
+    color:#999;
+    font-size:14px;
 }
 
 .rating{
-  color:#ffb000;
-  font-size:13px;
-}
-
-.course-link{
-  color:#ff3b3b;
-  font-size:13px;
-  font-weight:800;
+    color:#ffb000;
+    margin:12px 0;
 }
 
 /* TEAM */
-
 .team{
-  background:#080808;
-}
-
-.team-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
 }
 
 .team-card{
-  background:#101010;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:35px;
-  text-align:center;
+    text-align:center;
+    padding:30px 20px;
+    border:1px solid #252525;
+    border-radius:14px;
+    background:#0c0c0c;
 }
 
 .team-photo{
-  width:110px;
-  height:110px;
-  margin:0 auto 20px;
-  border-radius:50%;
-  background:linear-gradient(145deg,#241010,#111);
-  border:1px solid rgba(255,30,30,.25);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#ff4040;
-  font-size:35px;
-  font-weight:900;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    margin:0 auto 18px;
+    background:#181818;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:2px solid #ff2635;
 }
 
-.team-card h3{
-  margin-bottom:5px;
-}
-
-.team-card .role{
-  color:#ff3b3b;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:12px;
+.team-photo img{
+    width:75px;
 }
 
 .team-card p{
-  color:#888;
-  font-size:13px;
+    color:#999;
+    font-size:14px;
 }
 
 /* SKILLS */
-
 .skills{
-  background:#080808;
-}
-
-.skill-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
 }
 
 .skill{
-  padding:22px;
-  border:1px solid var(--border);
-  background:#101010;
-  border-radius:14px;
-  transition:.25s;
+    padding:13px 20px;
+    border:1px solid #292929;
+    border-radius:30px;
+    background:#0c0c0c;
+    color:#ddd;
 }
 
 .skill:hover{
-  border-color:#ff3030;
-  transform:translateY(-4px);
-}
-
-.skill span{
-  font-size:25px;
-  display:block;
-  margin-bottom:12px;
-}
-
-.skill h3{
-  font-size:16px;
-}
-
-.skill p{
-  color:#777;
-  font-size:12px;
+    border-color:#ff2635;
 }
 
 /* TESTIMONIAL */
-
-.testimonial-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
+.testimonials{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
 }
 
 .testimonial{
-  background:#101010;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:28px;
-}
-
-.stars{
-  color:#ffb000;
-  margin-bottom:15px;
+    background:#0c0c0c;
+    border:1px solid #252525;
+    border-radius:12px;
+    padding:25px;
 }
 
 .testimonial p{
-  color:#aaa;
-  font-size:14px;
-  margin-bottom:22px;
+    color:#aaa;
+    margin-bottom:20px;
 }
 
-.testimonial-user{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.user-circle{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:#1b1b1b;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#ff3b3b;
-  font-weight:900;
-}
-
-.testimonial-user strong{
-  font-size:14px;
-}
-
-.testimonial-user span{
-  display:block;
-  color:#777;
-  font-size:11px;
-}
-
-/* AFFILIATE */
-
-.affiliate{
-  background:
-    radial-gradient(circle at 80% 50%,rgba(255,0,0,.14),transparent 35%),
-    #090909;
-}
-
-.affiliate-box{
-  border:1px solid rgba(255,30,30,.3);
-  border-radius:25px;
-  padding:65px;
-  background:linear-gradient(120deg,rgba(255,20,20,.08),rgba(255,255,255,.02));
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:center;
-}
-
-.affiliate-box h2{
-  font-size:clamp(35px,5vw,55px);
-  line-height:1.05;
-  margin:10px 0 18px;
-}
-
-.affiliate-box p{
-  color:#999;
-}
-
-.affiliate-list{
-  display:grid;
-  gap:13px;
-}
-
-.affiliate-item{
-  padding:17px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:#0e0e0e;
-}
-
-.affiliate-item strong{
-  display:block;
-  margin-bottom:3px;
-}
-
-.affiliate-item span{
-  color:#777;
-  font-size:12px;
+.testimonial h4{
+    color:#fff;
 }
 
 /* FAQ */
-
 .faq{
-  background:#080808;
-}
-
-.faq-wrap{
-  max-width:850px;
-  margin:auto;
+    max-width:850px;
+    margin:auto;
 }
 
 .faq-item{
-  border-bottom:1px solid var(--border);
+    border-bottom:1px solid #292929;
 }
 
 .faq-question{
-  width:100%;
-  background:none;
-  color:#fff;
-  border:0;
-  padding:22px 5px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  text-align:left;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.faq-question span{
-  color:#ff3030;
-  font-size:23px;
+    padding:22px 0;
+    display:flex;
+    justify-content:space-between;
+    cursor:pointer;
+    font-weight:700;
 }
 
 .faq-answer{
-  max-height:0;
-  overflow:hidden;
-  transition:.3s;
+    display:none;
+    padding:0 0 20px;
+    color:#999;
 }
 
-.faq-answer p{
-  color:#888;
-  padding:0 5px 20px;
-  font-size:14px;
+.faq-item.active .faq-answer{
+    display:block;
 }
 
 /* CTA */
-
 .cta{
-  padding:80px 0;
+    padding:90px 20px;
+    text-align:center;
+    background:
+    radial-gradient(circle at center,rgba(255,0,30,.25),transparent 55%),
+    #0b0b0b;
 }
 
-.cta-box{
-  text-align:center;
-  padding:75px 25px;
-  border-radius:25px;
-  border:1px solid rgba(255,30,30,.25);
-  background:
-    radial-gradient(circle,rgba(255,0,0,.14),transparent 55%),
-    #101010;
+.cta h2{
+    font-size:48px;
+    margin-bottom:15px;
 }
 
-.cta-box h2{
-  font-size:clamp(35px,5vw,58px);
-  line-height:1.05;
-  margin-bottom:17px;
-}
-
-.cta-box p{
-  color:#999;
-  max-width:650px;
-  margin:0 auto 27px;
+.cta p{
+    color:#999;
+    margin-bottom:28px;
 }
 
 /* FOOTER */
-
 footer{
-  background:#050505;
-  border-top:1px solid var(--border);
-  padding:65px 0 25px;
+    border-top:1px solid #222;
+    background:#050505;
+    padding:60px 0 25px;
 }
 
 .footer-grid{
-  display:grid;
-  grid-template-columns:1.3fr 1fr 1fr 1fr;
-  gap:45px;
-  padding-bottom:50px;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:40px;
 }
 
 .footer-brand p{
-  color:#777;
-  font-size:13px;
-  max-width:320px;
-  margin-top:15px;
+    color:#888;
+    margin-top:15px;
+    max-width:330px;
 }
 
-.footer-title{
-  font-weight:800;
-  margin-bottom:18px;
+.footer-col h3{
+    margin-bottom:18px;
 }
 
-.footer-links{
-  display:grid;
-  gap:11px;
-}
-
-.footer-links a{
-  color:#777;
-  font-size:13px;
-}
-
-.footer-links a:hover{
-  color:#ff3b3b;
-}
-
-.footer-bottom{
-  border-top:1px solid var(--border);
-  padding-top:22px;
-  color:#666;
-  font-size:12px;
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1000px){
-
-  .nav-links{
-    display:none;
-  }
-
-  .nav-links.show{
-    display:flex;
-    position:absolute;
-    top:76px;
-    left:0;
-    width:100%;
-    padding:22px;
-    background:#080808;
-    border-bottom:1px solid var(--border);
-    flex-direction:column;
-    align-items:flex-start;
-    gap:18px;
-  }
-
-  .menu-btn{
+.footer-col a{
     display:block;
-  }
-
-  .nav-buttons{
-    display:none;
-  }
-
-  .hero-grid,
-  .about-grid,
-  .why-grid,
-  .founder-card,
-  .affiliate-box{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    padding:80px 0;
-  }
-
-  .hero-visual{
-    min-height:400px;
-  }
-
-  .package-grid,
-  .course-grid,
-  .team-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .skill-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .footer-grid{
-    grid-template-columns:1fr 1fr;
-  }
+    color:#888;
+    margin:9px 0;
 }
 
-@media(max-width:650px){
+.footer-col a:hover{
+    color:#ff2635;
+}
 
-  section{
-    padding:70px 0;
-  }
+.copyright{
+    border-top:1px solid #222;
+    margin-top:40px;
+    padding-top:20px;
+    text-align:center;
+    color:#666;
+    font-size:13px;
+}
 
-  .container{
-    width:90%;
-  }
+/* MOBILE */
+@media(max-width:900px){
 
-  .logo{
-    font-size:18px;
-  }
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:75px;
+        left:0;
+        width:100%;
+        background:#080808;
+        flex-direction:column;
+        padding:25px;
+        border-bottom:1px solid #222;
+    }
 
-  .logo img{
-    width:39px;
-    height:39px;
-  }
+    .nav-links.show{
+        display:flex;
+    }
 
-  .hero{
-    min-height:auto;
-    padding:75px 0;
-  }
+    .menu{
+        display:block;
+    }
 
-  .hero h1{
-    font-size:48px;
-    letter-spacing:-2px;
-  }
+    .hero{
+        min-height:700px;
+    }
 
-  .hero p{
-    font-size:16px;
-  }
+    .hero h1{
+        font-size:45px;
+    }
 
-  .hero-visual{
-    min-height:330px;
-  }
+    .hero-visual{
+        opacity:.18;
+        right:-100px;
+    }
 
-  .hero-circle{
-    width:250px;
-    height:250px;
-  }
+    .trust-grid,
+    .features,
+    .packages,
+    .courses,
+    .team,
+    .testimonials{
+        grid-template-columns:1fr 1fr;
+    }
 
-  .hero-circle img{
-    width:140px;
-    height:140px;
-  }
+    .opportunity-grid,
+    .about-grid,
+    .why-grid{
+        grid-template-columns:1fr;
+    }
 
-  .float-card{
-    padding:11px 13px;
-  }
+    .founder-grid{
+        grid-template-columns:1fr;
+    }
 
-  .float-card strong{
-    font-size:12px;
-  }
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
 
-  .float-card small{
-    font-size:9px;
-  }
+@media(max-width:600px){
 
-  .card-one{
-    left:0;
-    top:15px;
-  }
+    section{
+        padding:65px 0;
+    }
 
-  .card-two{
-    right:0;
-    top:100px;
-  }
+    .hero{
+        min-height:650px;
+    }
 
-  .card-three{
-    left:10px;
-    bottom:20px;
-  }
+    .hero h1{
+        font-size:39px;
+    }
 
-  .trust-grid{
-    grid-template-columns:1fr 1fr;
-  }
+    .hero p{
+        font-size:16px;
+    }
 
-  .trust-item{
-    border-bottom:1px solid var(--border);
-  }
+    .section-heading h2,
+    .about-text h2,
+    .why-text h2{
+        font-size:32px;
+    }
 
-  .trust-item:nth-child(2){
-    border-right:0;
-  }
+    .trust-grid,
+    .features,
+    .packages,
+    .courses,
+    .team,
+    .testimonials,
+    .stats,
+    .mission-vision{
+        grid-template-columns:1fr;
+    }
 
-  .opportunity-grid,
-  .mission-box{
-    grid-template-columns:1fr;
-  }
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
 
-  .opportunity-card{
-    min-height:270px;
-    padding:30px;
-  }
+    .opportunity-text h2{
+        font-size:34px;
+    }
 
-  .opportunity-card h3{
-    font-size:28px;
-  }
-
-  .package-grid,
-  .course-grid,
-  .team-grid,
-  .testimonial-grid{
-    grid-template-columns:1fr;
-  }
-
-  .skill-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .stats-box{
-    padding:20px;
-  }
-
-  .stat{
-    padding:18px;
-  }
-
-  .stat strong{
-    font-size:30px;
-  }
-
-  .founder-content{
-    padding:35px 25px;
-  }
-
-  .founder-content h2{
-    font-size:34px;
-  }
-
-  .affiliate-box{
-    padding:35px 22px;
-  }
-
-  .footer-grid{
-    grid-template-columns:1fr;
-    gap:30px;
-  }
-
-  .footer-bottom{
-    flex-direction:column;
-  }
+    .cta h2{
+        font-size:35px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <header>
-  <div class="container navbar">
+<div class="container navbar">
 
-    <a href="#home" class="logo">
-      <img src="1000238871.png" alt="Skills Market Logo">
-      <span>Skills <b>Market</b></span>
-    </a>
+<a href="#" class="logo">
+<img src="1000238871.png">
+Skills <span>Market</span>
+</a>
 
-    <nav class="nav-links" id="navLinks">
-      <a href="#home">Home</a>
-      <a href="#about">About Us</a>
-      <a href="#packages">Courses</a>
-      <a href="#team">Team</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-    </nav>
+<div class="menu" onclick="toggleMenu()">☰</div>
 
-    <div class="nav-buttons">
-      <a href="#" class="btn btn-outline">Login</a>
-      <a href="#" class="btn btn-red">Register</a>
-    </div>
+<nav class="nav-links" id="navLinks">
+<a href="#home">Home</a>
+<a href="#about">About Us</a>
+<a href="#courses">Courses</a>
+<a href="#team">Team</a>
+<a href="#faq">FAQ</a>
+<a href="#">Login</a>
+<a href="#" class="nav-btn">Register</a>
+</nav>
 
-    <button class="menu-btn" id="menuBtn">☰</button>
-
-  </div>
+</div>
 </header>
 
 
-<main>
-
 <!-- HERO -->
-
 <section class="hero" id="home">
-  <div class="container hero-grid">
 
-    <div class="hero-content">
+<div class="container">
 
-      <div class="hero-badge">
-        🚀 Learn Skills. Build Opportunities.
-      </div>
+<div class="hero-content">
 
-      <h1>
-        Turn Your <span>Skills</span><br>
-        Into Opportunities.
-      </h1>
+<div class="badge">🚀 Build Skills. Build Opportunities.</div>
 
-      <p>
-        Skills Market is a modern learning ecosystem designed to help you
-        learn practical digital skills, build confidence and move toward
-        better opportunities.
-      </p>
+<h1>
+Learn Skills.<br>
+<span>Build Your Future.</span>
+</h1>
 
-      <div class="hero-actions">
+<p>
+Skills Market is a modern learning platform designed to help ambitious people learn practical digital skills, grow their confidence and discover new opportunities.
+</p>
+
+<div class="hero-buttons">
+<a href="#courses" class="btn btn-primary">Explore Courses →</a>
+<a href="#about" class="btn btn-secondary">Discover Skills</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="hero-visual">
+<div class="circle">
+<img src="1000238871.png">
+</div>
+</div>
+
+</section>
+
+
+<!-- TRUST -->
+<div class="trust">
+
+<div class="container trust-grid">
+
+<div class="trust-item">
+<h3>10K+</h3>
+<p>Learners</p>
+</div>
+
+<div class="trust-item">
+<h3>50+</h3>
+<p>Skill Programs</p>
+</div>
+
+<div class="trust-item">
+<h3>24/7</h3>
+<p>Learning Access</p>
+</div>
+
+<div class="trust-item">
+<h3>100%</h3>
+<p>Growth Focused</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FEATURES -->
+<section>
+
+<div class="container">
+
+<div class="section-heading">
+<span>WHY LEARN WITH US</span>
+<h2>Everything You Need To Grow</h2>
+<p>Learn practical skills from a platform designed around real-world growth.</p>
+</div>
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-icon">🎓</div>
+<h3>Quality Learning</h3>
+<p>Learn through structured and practical educational content.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">👨‍🏫</div>
+<h3>Expert Mentorship</h3>
+<p>Learn concepts that are connected with real-world applications.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🏆</div>
+<h3>Certification</h3>
+<p>Complete learning programs and build your learning profile.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">♾️</div>
+<h3>Lifetime Access</h3>
+<p>Learn at your own pace and revisit your learning resources.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- OPPORTUNITY -->
+<section class="opportunity">
+
+<div class="container opportunity-grid">
+
+<div class="opportunity-visual">
+<img src="1000238871.png">
+</div>
+
+<div class="opportunity-text">
+
+<span>SKILLS CREATE OPPORTUNITIES</span>
+
+<h2>Turn Your Skills Into Opportunities</h2>
+
+<p>
+The right skill can open new doors. Skills Market brings practical digital learning, growth resources and a community-focused environment together in one place.
+</p>
+
+<a href="#courses" class="btn btn-primary">Start Learning →</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+
+<div class="container about-grid">
+
+<div class="about-visual">
+<img src="1000238871.png">
+</div>
+
+<div class="about-text">
+
+<span>ABOUT US</span>
+
+<h2>Discover Our Journey Of Growth</h2>
+
+<p>
+We are building a modern learning ecosystem that helps ambitious people learn practical skills, build confidence, and move toward better opportunities.
+</p>
+
+<div class="mission-vision">
+
+<div class="mv">
+<h3>🎯 Our Mission</h3>
+<p>
+Make practical, career-focused learning accessible and easy to apply in the real world.
+</p>
+</div>
+
+<div class="mv">
+<h3>🚀 Our Vision</h3>
+<p>
+Build a community where skills create confidence, opportunities, and long-term growth.
+</p>
+</div>
+
+</div>
+
+<br>
+
+<a href="#courses" class="btn btn-primary">Know More →</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PACKAGES -->
+<section>
+
+<div class="container">
+
+<div class="section-heading">
+
+<span>COURSE PACKAGES</span>
+
+<h2>Choose Your Learning Path</h2>
+
+<p>
+Explore structured learning options designed for different goals and skill levels.
+</p>
+
+</div>
+
+<div class="packages">
+
+<div class="package">
+<div class="package-top">
+<h3>Starter</h3>
+<p>Begin your skill journey</p>
+</div>
+<div class="package-body">
+<div class="price">₹499</div>
+<ul>
+<li>Digital Skill Basics</li>
+<li>Learning Resources</li>
+<li>Community Access</li>
+<li>Lifetime Learning</li>
+</ul>
+<a href="#" class="btn btn-primary">Explore Package</a>
+</div>
+</div>
+
+<div class="package">
+<div class="package-top">
+<h3>Creator</h3>
+<p>Build your digital skills</p>
+</div>
+<div class="package-body">
+<div class="price">₹999</div>
+<ul>
+<li>Content Creation</li>
+<li>Social Media Skills</li>
+<li>Practical Projects</li>
+<li>Growth Resources</li>
+</ul>
+<a href="#" class="btn btn-primary">Explore Package</a>
+</div>
+</div>
+
+<div class="package">
+<div class="package-top">
+<h3>Pro</h3>
+<p>Build advanced skills</p>
+</div>
+<div class="package-body">
+<div class="price">₹1,999</div>
+<ul>
+<li>Advanced Digital Skills</li>
+<li>Business Learning</li>
+<li>Mentorship Resources</li>
+<li>Growth Ecosystem</li>
+</ul>
+<a href="#" class="btn btn-primary">Explore Package</a>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- WHY -->
+<section class="why">
+
+<div class="container why-grid">
+
+<div class="why-text">
+
+<span>WHY SKILLS MARKET</span>
+
+<h2>Learning Built Around Real-World Growth</h2>
+
+<p>
+Skills Market focuses on practical digital skills that can help learners understand today's online ecosystem and develop useful capabilities for their future.
+</p>
+
+<br>
+
+<a href="#courses" class="btn btn-primary">Explore Learning →</a>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h3>10K+</h3>
+<p>Active Learners</p>
+</div>
+
+<div class="stat">
+<h3>50+</h3>
+<p>Skill Programs</p>
+</div>
+
+<div class="stat">
+<h3>24/7</h3>
+<p>Learning Access</p>
+</div>
+
+<div class="stat">
+<h3>100%</h3>
+<p>Growth Focused</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOUNDER -->
+<section>
+
+<div class="container founder-grid">
+
+<div class="founder-photo">
+<img src="1000238871.png">
+</div>
+
+<div class="founder-text">
+
+<span>OUR FOUNDER</span>
+
+<h2>Building A New Learning Ecosystem</h2>
+
+<h4>Founder & CEO — Skills Market</h4>
+
+<p>
+Skills Market is being built with a simple idea: practical skills can create new possibilities. Our goal is to create an ecosystem where people can learn, improve and explore digital opportunities.
+</p>
+
+<br>
+
+<a href="#about" class="btn btn-primary">Our Story →</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- COURSES -->
+<section id="courses">
+
+<div class="container">
+
+<div class="section-heading">
+
+<span>TOP COURSES</span>
+
+<h2>Explore Our Digital Skills</h2>
+
+<p>
+Discover practical courses across digital business, content, marketing and technology.
+</p>
+
+</div>
+
+<div class="courses">
+
+<div class="course">
+<div class="course-img">📱</div>
+<div class="course-content">
+<h3>Digital Marketing</h3>
+<p>Learn the fundamentals of modern digital marketing.</p>
+<div class="rating">★★★★★</div>
+<a href="#" class="btn btn-primary">View Course</a>
+</div>
+</div>
+
+<div class="course">
+<div class="course-img">🎨</div>
+<div class="course-content">
+<h3>Canva Mastery</h3>
+<p>Create professional graphics and digital content.</p>
+<div class="rating">★★★★★</div>
+<a href="#" class="btn btn-primary">View Course</a>
+</div>
+</div>
+
+<div class="course">
+<div class="course-img">📈</div>
+<div class="course-content">
+<h3>Affiliate Marketing</h3>
+<p>Understand affiliate marketing and digital promotion.</p>
+<div class="rating">★★★★★</div>
+<a href="#" class="btn btn-primary">View Course</a>
+</div>
+</div>
+
+<div class="course">
+<div class="course-img">🎥</div>
+<div class="course-content">
+<h3>Content Creation</h3>
+<p>Learn the foundations of creating engaging content.</p>
+<div class="rating">★★★★★</div>
+<a href="#" class="btn btn-primary">View Course</a>
+</div>
+</div>
+
+<div class="course">
+<div class="course-img">💻</div>
+<div class="course-content">
+<h3>Web Development</h3>
+<p>Start building modern websites and digital projects.</p>
+<div class="rating">★★★★★</div>
+<a href="#" class="btn btn-primary">View Course</a>
+</div>
+</div>
+
+<div class="course">
+<div class="course-im
