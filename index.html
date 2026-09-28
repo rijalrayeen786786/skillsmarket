@@ -6,6 +6,8 @@
 
 <title>Skills Market | Learn. Grow. Build.</title>
 
+<meta name="description" content="Skills Market - Learn practical skills, build confidence and create new opportunities.">
+
 <style>
 *{
     margin:0;
@@ -21,6 +23,7 @@ html{
 body{
     background:#080808;
     color:#fff;
+    line-height:1.6;
     overflow-x:hidden;
 }
 
@@ -29,40 +32,131 @@ a{
     color:inherit;
 }
 
+img{
+    max-width:100%;
+    display:block;
+}
+
+:root{
+    --red:#e50914;
+    --red-dark:#b8000b;
+    --black:#080808;
+    --dark:#111;
+    --card:#151515;
+    --border:rgba(255,255,255,.09);
+    --gray:#a7a7a7;
+}
+
+/* =========================
+   COMMON
+========================= */
+
 .container{
-    width:90%;
+    width:92%;
     max-width:1200px;
     margin:auto;
 }
 
-/* ================= NAVBAR ================= */
+section{
+    padding:95px 0;
+}
+
+.section-heading{
+    text-align:center;
+    max-width:750px;
+    margin:0 auto 55px;
+}
+
+.section-heading span{
+    color:var(--red);
+    font-size:14px;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.section-heading h2{
+    font-size:42px;
+    line-height:1.15;
+    margin:12px 0 16px;
+}
+
+.section-heading p{
+    color:var(--gray);
+    font-size:16px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 27px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:.3s;
+    cursor:pointer;
+    border:1px solid transparent;
+}
+
+.btn-primary{
+    background:var(--red);
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:#ff1a25;
+    transform:translateY(-2px);
+}
+
+.btn-outline{
+    border-color:rgba(255,255,255,.25);
+    color:#fff;
+}
+
+.btn-outline:hover{
+    border-color:var(--red);
+    color:var(--red);
+    transform:translateY(-2px);
+}
+
+/* =========================
+   NAVBAR
+========================= */
 
 .navbar{
     position:sticky;
     top:0;
-    z-index:9999;
-    background:rgba(8,8,8,.95);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid #252525;
+    z-index:999;
+    width:100%;
+    background:rgba(8,8,8,.94);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
 }
 
-.nav{
-    height:78px;
+.nav-container{
+    min-height:76px;
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:25px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
 }
 
 .logo img{
-    height:52px;
-    width:auto;
-    display:block;
+    width:155px;
+    max-height:52px;
+    object-fit:contain;
 }
 
 .nav-links{
     display:flex;
-    gap:30px;
     align-items:center;
+    gap:28px;
 }
 
 .nav-links a{
@@ -73,7 +167,7 @@ a{
 }
 
 .nav-links a:hover{
-    color:#e50914;
+    color:var(--red);
 }
 
 .nav-buttons{
@@ -82,258 +176,214 @@ a{
     gap:10px;
 }
 
-.login{
-    padding:11px 18px;
+.nav-buttons .btn{
+    padding:10px 17px;
+    font-size:13px;
+}
+
+.menu-btn{
+    display:none;
+    background:none;
+    border:0;
     color:#fff;
-    font-weight:700;
+    font-size:28px;
+    cursor:pointer;
 }
 
-.register{
-    padding:12px 21px;
-    border-radius:7px;
-    background:#e50914;
-    color:#fff;
-    font-weight:700;
-    transition:.3s;
-}
-
-.register:hover{
-    background:#ff2020;
-    transform:translateY(-2px);
-}
-
-/* ================= HERO ================= */
+/* =========================
+   HERO
+========================= */
 
 .hero{
-    min-height:680px;
+    min-height:720px;
     display:flex;
     align-items:center;
     position:relative;
     overflow:hidden;
     background:
-        radial-gradient(circle at 85% 30%,rgba(229,9,20,.20),transparent 32%),
-        linear-gradient(135deg,#080808,#111);
+        radial-gradient(circle at 80% 35%, rgba(229,9,20,.18), transparent 32%),
+        radial-gradient(circle at 15% 80%, rgba(229,9,20,.08), transparent 30%),
+        #080808;
 }
 
 .hero::before{
     content:"";
     position:absolute;
-    width:420px;
-    height:420px;
+    width:500px;
+    height:500px;
+    right:-180px;
+    top:80px;
+    border:1px solid rgba(229,9,20,.12);
     border-radius:50%;
-    border:1px solid rgba(229,9,20,.18);
-    right:-130px;
-    top:-120px;
 }
 
 .hero-content{
+    max-width:800px;
     position:relative;
     z-index:2;
-    max-width:780px;
 }
 
-.badge{
-    display:inline-block;
+.hero-badge{
+    display:inline-flex;
     padding:8px 15px;
-    border:1px solid rgba(255,40,40,.4);
+    border:1px solid rgba(229,9,20,.4);
     background:rgba(229,9,20,.08);
-    color:#ff3b3b;
+    color:#ff5a61;
     border-radius:50px;
     font-size:13px;
-    font-weight:700;
+    font-weight:bold;
     margin-bottom:22px;
 }
 
 .hero h1{
-    font-size:64px;
-    line-height:1.05;
+    font-size:68px;
+    line-height:1.03;
     letter-spacing:-2px;
     margin-bottom:22px;
 }
 
 .hero h1 span{
-    color:#e50914;
+    color:var(--red);
 }
 
 .hero p{
-    color:#aaa;
     max-width:650px;
+    color:#aaa;
     font-size:18px;
-    line-height:1.8;
+    margin-bottom:32px;
 }
 
 .hero-buttons{
     display:flex;
-    gap:14px;
-    margin-top:32px;
+    flex-wrap:wrap;
+    gap:13px;
 }
 
-.btn-red{
-    background:#e50914;
-    color:#fff;
-    padding:15px 27px;
-    border-radius:7px;
-    font-weight:700;
-    display:inline-block;
-    transition:.3s;
+.hero-stats{
+    display:flex;
+    flex-wrap:wrap;
+    gap:45px;
+    margin-top:55px;
 }
 
-.btn-red:hover{
-    transform:translateY(-3px);
-    background:#ff2020;
+.stat h3{
+    font-size:28px;
 }
 
-.btn-outline{
-    border:1px solid #444;
-    color:#fff;
-    padding:15px 27px;
-    border-radius:7px;
-    font-weight:700;
-    display:inline-block;
-    transition:.3s;
+.stat p{
+    font-size:13px;
+    margin:0;
+    color:#888;
 }
 
-.btn-outline:hover{
-    border-color:#e50914;
-    color:#ff3030;
-}
-
-/* ================= BENEFITS ================= */
+/* =========================
+   BENEFITS
+========================= */
 
 .benefits{
-    background:#0e0e0e;
-    border-top:1px solid #222;
-    border-bottom:1px solid #222;
-    padding:35px 0;
+    padding:65px 0;
+    background:#0d0d0d;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
 }
 
-.benefit-grid{
+.benefits-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
+    gap:25px;
 }
 
 .benefit{
     text-align:center;
-    padding:10px 20px;
-    border-right:1px solid #292929;
-}
-
-.benefit:last-child{
-    border-right:none;
+    padding:20px;
 }
 
 .benefit-icon{
+    width:60px;
+    height:60px;
+    margin:0 auto 17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:rgba(229,9,20,.1);
+    border:1px solid rgba(229,9,20,.25);
+    color:var(--red);
     font-size:25px;
-    margin-bottom:10px;
 }
 
 .benefit h3{
     font-size:17px;
-    margin-bottom:5px;
+    margin-bottom:7px;
 }
 
 .benefit p{
-    color:#777;
+    color:#888;
     font-size:13px;
 }
 
-/* ================= PROMO ================= */
+/* =========================
+   PROMO
+========================= */
 
 .promo{
-    padding:100px 0;
     background:#080808;
 }
 
 .promo-box{
-    min-height:380px;
-    border:1px solid #292929;
-    border-radius:22px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:50px;
+    min-height:390px;
     position:relative;
     overflow:hidden;
+    border-radius:22px;
+    padding:70px;
+    display:flex;
+    align-items:center;
     background:
-        radial-gradient(circle at center,rgba(229,9,20,.16),transparent 55%),
-        #101010;
+        linear-gradient(90deg,rgba(0,0,0,.95),rgba(0,0,0,.65)),
+        radial-gradient(circle at 80% 50%,rgba(229,9,20,.35),transparent 35%),
+        #151515;
+    border:1px solid var(--border);
 }
 
-.promo-box::before{
+.promo-box::after{
     content:"";
     position:absolute;
-    width:300px;
-    height:300px;
-    border:1px solid rgba(229,9,20,.18);
+    width:330px;
+    height:330px;
+    right:-80px;
+    top:30px;
+    border:35px solid rgba(229,9,20,.08);
     border-radius:50%;
 }
 
 .promo-content{
+    max-width:650px;
     position:relative;
     z-index:2;
 }
 
-.promo-small{
-    color:#e50914;
-    font-size:13px;
-    font-weight:800;
-    letter-spacing:2px;
+.promo-content span{
+    color:var(--red);
     text-transform:uppercase;
-    margin-bottom:15px;
-}
-
-.promo h2{
-    font-size:48px;
-    margin-bottom:15px;
-}
-
-.promo h3{
-    color:#e50914;
-    font-size:24px;
-    margin-bottom:15px;
-}
-
-.promo p{
-    color:#999;
-    max-width:650px;
-    margin:auto;
-    line-height:1.7;
-}
-
-/* ================= COMMON ================= */
-
-section{
-    padding:95px 0;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:55px;
-}
-
-.section-title .small{
-    color:#e50914;
     font-size:13px;
-    font-weight:800;
-    text-transform:uppercase;
+    font-weight:bold;
     letter-spacing:2px;
-    margin-bottom:10px;
 }
 
-.section-title h2{
-    font-size:42px;
-    margin-bottom:13px;
+.promo-content h2{
+    font-size:45px;
+    line-height:1.1;
+    margin:14px 0;
 }
 
-.section-title p{
-    color:#8f8f8f;
-    max-width:650px;
-    margin:auto;
-    line-height:1.7;
+.promo-content p{
+    color:#aaa;
+    max-width:580px;
 }
 
-/* ================= ABOUT ================= */
+/* =========================
+   ABOUT
+========================= */
 
 .about{
     background:#0d0d0d;
@@ -341,33 +391,28 @@ section{
 
 .about-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:70px;
+    grid-template-columns:1.1fr .9fr;
+    gap:60px;
     align-items:center;
 }
 
-.about-box{
-    border:1px solid #292929;
-    background:#101010;
-    border-radius:18px;
-    padding:40px;
+.about-text span{
+    color:var(--red);
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:2px;
+    text-transform:uppercase;
 }
 
-.about-box .red-line{
-    width:55px;
-    height:4px;
-    background:#e50914;
-    margin-bottom:20px;
+.about-text h2{
+    font-size:43px;
+    line-height:1.15;
+    margin:13px 0 20px;
 }
 
-.about-box h3{
-    font-size:30px;
-    margin-bottom:17px;
-}
-
-.about-box p{
+.about-text > p{
     color:#999;
-    line-height:1.8;
+    margin-bottom:28px;
 }
 
 .about-points{
@@ -375,59 +420,82 @@ section{
     gap:18px;
 }
 
-.point{
-    display:flex;
-    gap:15px;
+.about-point{
     padding:20px;
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:12px;
+    border-left:3px solid var(--red);
+    background:#121212;
+    border-radius:0 10px 10px 0;
 }
 
-.point-icon{
-    width:42px;
-    height:42px;
-    min-width:42px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:9px;
-    background:#e50914;
-}
-
-.point h4{
+.about-point h3{
     margin-bottom:5px;
 }
 
-.point p{
+.about-point p{
     color:#888;
     font-size:14px;
-    line-height:1.5;
 }
 
-/* ================= COURSE PACKAGE ================= */
+.about-visual{
+    min-height:430px;
+    border-radius:22px;
+    background:
+        radial-gradient(circle at 50% 45%,rgba(229,9,20,.3),transparent 35%),
+        linear-gradient(145deg,#181818,#090909);
+    border:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.about-visual::before{
+    content:"SKILLS";
+    position:absolute;
+    font-size:90px;
+    font-weight:900;
+    color:rgba(255,255,255,.025);
+    transform:rotate(-15deg);
+}
+
+.about-logo{
+    width:190px;
+    position:relative;
+    z-index:2;
+    filter:drop-shadow(0 15px 35px rgba(229,9,20,.25));
+}
+
+/* =========================
+   COURSE PACKAGE
+========================= */
 
 .course-package{
     background:#080808;
 }
 
-.package-placeholder{
-    border:1px dashed #383838;
-    border-radius:18px;
-    min-height:220px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.package-box{
+    padding:55px;
     text-align:center;
-    color:#666;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:linear-gradient(145deg,#151515,#0e0e0e);
 }
 
-.package-placeholder h3{
-    color:#999;
-    margin-bottom:8px;
+.package-box h2{
+    font-size:36px;
+    margin-bottom:12px;
 }
 
-/* ================= OUR TEAM ================= */
+.package-box p{
+    color:#888;
+    max-width:650px;
+    margin:0 auto 25px;
+}
+
+/* =========================
+   OUR TEAM
+========================= */
 
 .team{
     background:#0d0d0d;
@@ -436,102 +504,123 @@ section{
 .team-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:22px;
+    gap:25px;
 }
 
 .team-card{
-    background:#101010;
-    border:1px solid #292929;
-    border-radius:16px;
-    overflow:hidden;
+    min-height:330px;
+    border-radius:18px;
+    border:1px solid var(--border);
+    background:#141414;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    padding:30px 20px;
     text-align:center;
-    transition:.3s;
+    position:relative;
+    overflow:hidden;
 }
 
-.team-card:hover{
-    transform:translateY(-7px);
-    border-color:#e50914;
+.team-card::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    top:35px;
+    border-radius:50%;
+    background:rgba(229,9,20,.1);
 }
 
 .team-photo{
-    height:280px;
-    background:linear-gradient(145deg,#1a1a1a,#080808);
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:#202020;
+    border:3px solid rgba(229,9,20,.5);
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#555;
-    font-size:14px;
+    color:#666;
+    margin-bottom:20px;
+    position:relative;
+    z-index:2;
 }
 
-.team-info{
-    padding:25px;
+.team-card h3{
+    font-size:20px;
 }
 
-.team-info h3{
-    margin-bottom:7px;
+.team-card p{
+    color:var(--red);
+    font-size:13px;
 }
 
-.team-info p{
-    color:#e50914;
-    font-size:14px;
-}
+/* =========================
+   TOP COURSES
+========================= */
 
-/* ================= TOP COURSES ================= */
-
-.top-courses{
+.courses{
     background:#080808;
 }
 
 .course-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:22px;
+    gap:25px;
 }
 
 .course-card{
-    background:#101010;
-    border:1px solid #292929;
-    border-radius:16px;
+    border:1px solid var(--border);
+    border-radius:18px;
     overflow:hidden;
+    background:#131313;
     transition:.3s;
 }
 
 .course-card:hover{
-    transform:translateY(-7px);
-    border-color:#e50914;
+    transform:translateY(-6px);
+    border-color:rgba(229,9,20,.45);
 }
 
 .course-image{
     height:190px;
-    background:linear-gradient(135deg,#1b1b1b,#090909);
+    background:
+        linear-gradient(135deg,rgba(229,9,20,.5),transparent),
+        #202020;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#555;
+    font-size:40px;
+    font-weight:900;
+    color:rgba(255,255,255,.85);
 }
 
 .course-content{
-    padding:24px;
+    padding:25px;
+}
+
+.course-tag{
+    color:var(--red);
+    font-size:12px;
+    font-weight:bold;
+    text-transform:uppercase;
 }
 
 .course-content h3{
-    margin-bottom:10px;
+    font-size:21px;
+    margin:9px 0;
 }
 
 .course-content p{
     color:#888;
-    line-height:1.6;
     font-size:14px;
+    margin-bottom:20px;
 }
 
-.course-link{
-    display:inline-block;
-    color:#e50914;
-    font-weight:700;
-    margin-top:18px;
-}
-
-/* ================= INSTRUCTORS ================= */
+/* =========================
+   INSTRUCTORS
+========================= */
 
 .instructors{
     background:#0d0d0d;
@@ -539,40 +628,39 @@ section{
 
 .instructor-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
 }
 
-.instructor{
+.instructor-card{
     text-align:center;
-    background:#101010;
-    border:1px solid #292929;
-    border-radius:16px;
     padding:30px 20px;
+    background:#141414;
+    border:1px solid var(--border);
+    border-radius:16px;
 }
 
 .instructor-photo{
-    width:120px;
-    height:120px;
-    margin:0 auto 20px;
+    width:110px;
+    height:110px;
+    margin:0 auto 17px;
     border-radius:50%;
-    background:#1b1b1b;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#555;
+    background:#202020;
+    border:2px solid rgba(229,9,20,.35);
 }
 
-.instructor h3{
-    margin-bottom:7px;
+.instructor-card h3{
+    font-size:17px;
 }
 
-.instructor p{
+.instructor-card p{
     color:#888;
-    font-size:14px;
+    font-size:13px;
 }
 
-/* ================= TESTIMONIALS ================= */
+/* =========================
+   TESTIMONIALS
+========================= */
 
 .testimonials{
     background:#080808;
@@ -581,216 +669,252 @@ section{
 .testimonial-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:22px;
+    gap:25px;
 }
 
 .testimonial{
-    background:#101010;
-    border:1px solid #292929;
-    border-radius:16px;
     padding:30px;
+    background:#141414;
+    border:1px solid var(--border);
+    border-radius:17px;
 }
 
 .stars{
-    color:#e50914;
-    margin-bottom:18px;
+    color:#ffbd00;
+    margin-bottom:15px;
+    letter-spacing:3px;
 }
 
 .testimonial p{
-    color:#999;
-    line-height:1.7;
+    color:#aaa;
     font-size:14px;
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
-.testimonial h4{
-    font-size:15px;
+.testimonial-user{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-/* ================= EXPLORE ================= */
+.user-circle{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:var(--red);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
 
-.explore{
+.testimonial-user h4{
+    font-size:14px;
+}
+
+.testimonial-user span{
+    color:#777;
+    font-size:12px;
+}
+
+/* =========================
+   DIGITAL SKILLS
+========================= */
+
+.digital{
     background:#0d0d0d;
 }
 
-.explore-grid{
+.digital-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
 }
 
-.explore-card{
-    min-height:220px;
-    border:1px solid #292929;
-    border-radius:16px;
-    padding:30px;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-    background:linear-gradient(145deg,#151515,#090909);
+.digital-card{
+    padding:27px 20px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    background:#141414;
     transition:.3s;
 }
 
-.explore-card:hover{
-    transform:translateY(-6px);
-    border-color:#e50914;
+.digital-card:hover{
+    border-color:rgba(229,9,20,.45);
+    transform:translateY(-4px);
 }
 
-.explore-card span{
-    color:#e50914;
+.digital-icon{
+    font-size:28px;
+    margin-bottom:16px;
+}
+
+.digital-card h3{
+    font-size:17px;
+    margin-bottom:7px;
+}
+
+.digital-card p{
+    color:#888;
     font-size:13px;
-    font-weight:700;
-    margin-bottom:10px;
 }
 
-.explore-card h3{
-    font-size:24px;
-}
-
-/* ================= FAQ ================= */
+/* =========================
+   FAQ
+========================= */
 
 .faq{
     background:#080808;
 }
 
-.faq-list{
+.faq-container{
     max-width:850px;
     margin:auto;
 }
 
-details{
-    background:#111;
-    border:1px solid #292929;
-    margin-bottom:12px;
-    border-radius:10px;
-    overflow:hidden;
+.faq-item{
+    border-bottom:1px solid var(--border);
 }
 
-summary{
+.faq-question{
+    width:100%;
+    padding:22px 5px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:none;
+    border:0;
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    text-align:left;
     cursor:pointer;
-    padding:20px;
-    font-weight:700;
-    list-style:none;
-    position:relative;
 }
 
-summary::-webkit-details-marker{
-    display:none;
-}
-
-summary::after{
-    content:"+";
-    position:absolute;
-    right:20px;
-    color:#e50914;
+.faq-question span{
+    color:var(--red);
     font-size:22px;
 }
 
-details[open] summary::after{
-    content:"−";
-}
-
-.answer{
-    padding:0 20px 20px;
+.faq-answer{
+    display:none;
     color:#888;
-    line-height:1.7;
+    padding:0 5px 22px;
     font-size:14px;
 }
 
-/* ================= CTA ================= */
+.faq-item.active .faq-answer{
+    display:block;
+}
+
+/* =========================
+   CTA
+========================= */
 
 .cta{
+    padding:70px 0;
     background:
-        radial-gradient(circle at center,rgba(229,9,20,.18),transparent 50%),
-        #090909;
-    text-align:center;
-    border-top:1px solid #222;
-    border-bottom:1px solid #222;
+        linear-gradient(90deg,rgba(229,9,20,.9),rgba(160,0,8,.9));
+}
+
+.cta-box{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
 }
 
 .cta h2{
-    font-size:48px;
-    margin-bottom:15px;
+    font-size:38px;
+    line-height:1.15;
 }
 
 .cta p{
-    color:#999;
-    margin-bottom:30px;
+    margin-top:10px;
+    color:rgba(255,255,255,.8);
 }
 
-/* ================= FOOTER ================= */
+.cta .btn{
+    background:#fff;
+    color:#111;
+    white-space:nowrap;
+}
+
+/* =========================
+   FOOTER
+========================= */
 
 footer{
     background:#050505;
-    padding:55px 0 25px;
+    border-top:1px solid var(--border);
+    padding:65px 0 25px;
 }
 
 .footer-grid{
     display:grid;
-    grid-template-columns:2fr 1fr 1fr;
-    gap:50px;
-    padding-bottom:40px;
-    border-bottom:1px solid #222;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    gap:45px;
 }
 
-.footer-logo img{
-    height:50px;
-    width:auto;
-    margin-bottom:15px;
-}
-
-.footer p{
-    color:#777;
-    line-height:1.7;
-    font-size:14px;
-    max-width:400px;
-}
-
-.footer h4{
+.footer-logo{
+    width:155px;
     margin-bottom:18px;
 }
 
-.footer a{
+.footer-about p{
+    color:#777;
+    font-size:14px;
+    max-width:320px;
+}
+
+.footer-column h3{
+    font-size:15px;
+    margin-bottom:18px;
+}
+
+.footer-column a{
     display:block;
     color:#777;
-    margin-bottom:10px;
     font-size:14px;
+    margin-bottom:10px;
+    transition:.3s;
 }
 
-.footer a:hover{
-    color:#e50914;
+.footer-column a:hover{
+    color:var(--red);
 }
 
-.copyright{
-    text-align:center;
-    color:#555;
-    font-size:13px;
-    padding-top:25px;
+.footer-bottom{
+    border-top:1px solid var(--border);
+    margin-top:45px;
+    padding-top:22px;
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    color:#666;
+    font-size:12px;
 }
 
-/* ================= MOBILE ================= */
+/* =========================
+   MOBILE
+========================= */
 
-@media(max-width:850px){
+@media(max-width:1000px){
 
     .nav-links{
+        gap:17px;
+    }
+
+    .nav-buttons{
         display:none;
     }
 
-    .hero{
-        min-height:600px;
-    }
-
     .hero h1{
-        font-size:43px;
+        font-size:55px;
     }
 
-    .benefit-grid{
-        grid-template-columns:1fr 1fr;
-        gap:25px 0;
-    }
-
-    .benefit{
-        border-right:none;
+    .benefits-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
     .about-grid{
@@ -799,85 +923,137 @@ footer{
 
     .team-grid,
     .course-grid,
-    .instructor-grid,
-    .testimonial-grid,
-    .explore-grid{
-        grid-template-columns:1fr;
+    .testimonial-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .instructor-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .digital-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
     .footer-grid{
-        grid-template-columns:1fr;
-    }
-
-    .promo h2{
-        font-size:38px;
-    }
-
-    .cta h2{
-        font-size:35px;
+        grid-template-columns:repeat(2,1fr);
     }
 }
 
-@media(max-width:500px){
+@media(max-width:700px){
+
+    section{
+        padding:70px 0;
+    }
 
     .container{
-        width:92%;
+        width:90%;
+    }
+
+    .nav-container{
+        min-height:68px;
     }
 
     .logo img{
-        height:43px;
+        width:125px;
     }
 
-    .nav{
-        height:68px;
+    .menu-btn{
+        display:block;
     }
 
-    .login{
+    .nav-links{
+        display:none;
+        position:absolute;
+        left:0;
+        top:68px;
+        width:100%;
+        padding:20px;
+        background:#0b0b0b;
+        border-bottom:1px solid var(--border);
+        flex-direction:column;
+        align-items:flex-start;
+        gap:18px;
+    }
+
+    .nav-links.active{
+        display:flex;
+    }
+
+    .nav-buttons{
+        display:flex;
+        position:absolute;
+        top:310px;
+        left:20px;
+        right:20px;
         display:none;
     }
 
     .hero{
-        padding:70px 0;
+        min-height:auto;
+        padding:90px 0;
     }
 
     .hero h1{
-        font-size:38px;
+        font-size:44px;
+        letter-spacing:-1px;
     }
 
     .hero p{
         font-size:16px;
     }
 
-    .hero-buttons{
-        flex-direction:column;
+    .hero-stats{
+        gap:25px;
+        margin-top:40px;
     }
 
-    .hero-buttons a{
-        text-align:center;
-    }
-
-    section{
-        padding:70px 0;
-    }
-
-    .section-title h2{
-        font-size:32px;
-    }
-
-    .about-box{
-        padding:25px;
-    }
-
-    .promo{
-        padding:70px 0;
+    .section-heading h2{
+        font-size:34px;
     }
 
     .promo-box{
+        padding:40px 25px;
+        min-height:340px;
+    }
+
+    .promo-content h2{
+        font-size:35px;
+    }
+
+    .about-text h2{
+        font-size:34px;
+    }
+
+    .package-box{
         padding:35px 20px;
     }
 
-    .promo h2{
-        font-size:32px;
+    .team-grid,
+    .course-grid,
+    .testimonial-grid,
+    .instructor-grid,
+    .digital-grid,
+    .benefits-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cta-box{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .cta h2{
+        font-size:31px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
     }
 }
 </style>
@@ -885,16 +1061,18 @@ footer{
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- =========================
+     NAVBAR
+========================= -->
 
 <header class="navbar">
-    <div class="container nav">
+    <div class="container nav-container">
 
         <a href="#home" class="logo">
             <img src="1000238871.png" alt="Skills Market">
         </a>
 
-        <nav class="nav-links">
+        <nav class="nav-links" id="navLinks">
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#team">Our Team</a>
@@ -903,24 +1081,27 @@ footer{
         </nav>
 
         <div class="nav-buttons">
-            <a href="#" class="login">Login</a>
-            <a href="#" class="register">Register</a>
+            <a href="#" class="btn btn-outline">Login</a>
+            <a href="#" class="btn btn-primary">Register</a>
         </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
     </div>
 </header>
 
 
-<!-- ================= HERO ================= -->
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero" id="home">
-
     <div class="container">
 
         <div class="hero-content">
 
-            <div class="badge">
-                🔴 Welcome to Skills Market
+            <div class="hero-badge">
+                🚀 Learn. Grow. Build.
             </div>
 
             <h1>
@@ -929,20 +1110,78 @@ footer{
             </h1>
 
             <p>
-                Learn practical digital skills, discover new opportunities
-                and build your future with Skills Market.
+                Welcome to Skills Market — a modern learning ecosystem
+                designed to help you learn practical skills, build confidence
+                and move toward better opportunities.
             </p>
 
             <div class="hero-buttons">
-
-                <a href="#courses" class="btn-red">
+                <a href="#courses" class="btn btn-primary">
                     Explore Courses →
                 </a>
 
-                <a href="#about" class="btn-outline">
-                    Discover More
+                <a href="#about" class="btn btn-outline">
+                    Discover Skills
                 </a>
+            </div>
 
+            <div class="hero-stats">
+
+                <div class="stat">
+                    <h3>10K+</h3>
+                    <p>Learners</p>
+                </div>
+
+                <div class="stat">
+                    <h3>50+</h3>
+                    <p>Skill Programs</p>
+                </div>
+
+                <div class="stat">
+                    <h3>24/7</h3>
+                    <p>Learning Access</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================
+     BENEFITS
+========================= -->
+
+<section class="benefits">
+
+    <div class="container">
+
+        <div class="benefits-grid">
+
+            <div class="benefit">
+                <div class="benefit-icon">⚡</div>
+                <h3>Flexible Learning</h3>
+                <p>Learn at your own pace from anywhere.</p>
+            </div>
+
+            <div class="benefit">
+                <div class="benefit-icon">🎓</div>
+                <h3>Expert Mentorship</h3>
+                <p>Learn with practical guidance and support.</p>
+            </div>
+
+            <div class="benefit">
+                <div class="benefit-icon">🏆</div>
+                <h3>Certification</h3>
+                <p>Build proof of your learning and skills.</p>
+            </div>
+
+            <div class="benefit">
+                <div class="benefit-icon">♾️</div>
+                <h3>Lifetime Access</h3>
+                <p>Keep learning whenever you need it.</p>
             </div>
 
         </div>
@@ -952,42 +1191,9 @@ footer{
 </section>
 
 
-<!-- ================= BENEFITS ================= -->
-
-<section class="benefits">
-
-    <div class="container benefit-grid">
-
-        <div class="benefit">
-            <div class="benefit-icon">📚</div>
-            <h3>Flexible Learning</h3>
-            <p>Learn at your own pace.</p>
-        </div>
-
-        <div class="benefit">
-            <div class="benefit-icon">👨‍🏫</div>
-            <h3>Expert Mentorship</h3>
-            <p>Learn from practical guidance.</p>
-        </div>
-
-        <div class="benefit">
-            <div class="benefit-icon">🏆</div>
-            <h3>Certification</h3>
-            <p>Build proof of your learning.</p>
-        </div>
-
-        <div class="benefit">
-            <div class="benefit-icon">♾️</div>
-            <h3>Lifetime Access</h3>
-            <p>Keep learning whenever you need.</p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= PROMO ================= -->
+<!-- =========================
+     PROMO
+========================= -->
 
 <section class="promo">
 
@@ -995,207 +1201,4 @@ footer{
 
         <div class="promo-box">
 
-            <div class="promo-content">
-
-                <div class="promo-small">
-                    Skills Market
-                </div>
-
-                <h2>Skills Create Opportunities</h2>
-
-                <h3>Turn Your Skills Into Opportunities</h3>
-
-                <p>
-                    Build practical skills, improve your confidence
-                    and move toward new digital opportunities.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= ABOUT ================= -->
-
-<section class="about" id="about">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <div class="small">ABOUT US</div>
-
-            <h2>Discover Our Journey Of Growth</h2>
-
-            <p>
-                We are building a modern learning ecosystem that helps
-                ambitious people learn practical skills, build confidence,
-                and move toward better opportunities.
-            </p>
-
-        </div>
-
-
-        <div class="about-grid">
-
-            <div class="about-box">
-
-                <div class="red-line"></div>
-
-                <h3>Our Mission</h3>
-
-                <p>
-                    Make practical, career-focused learning accessible
-                    and easy to apply in the real world.
-                </p>
-
-                <br>
-
-                <h3>Our Vision</h3>
-
-                <p>
-                    Build a community where skills create confidence,
-                    opportunities, and long-term growth.
-                </p>
-
-            </div>
-
-
-            <div class="about-points">
-
-                <div class="point">
-
-                    <div class="point-icon">🎯</div>
-
-                    <div>
-                        <h4>Practical Learning</h4>
-                        <p>
-                            Learn skills designed for real-world application.
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <div class="point">
-
-                    <div class="point-icon">🚀</div>
-
-                    <div>
-                        <h4>Growth Focused</h4>
-                        <p>
-                            Build confidence and move toward better opportunities.
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <div class="point">
-
-                    <div class="point-icon">💡</div>
-
-                    <div>
-                        <h4>Modern Skills</h4>
-                        <p>
-                            Explore useful skills for today's digital world.
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= COURSE PACKAGE ================= -->
-
-<section class="course-package" id="package">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <div class="small">COURSE PACKAGES</div>
-
-            <h2>Our Course Packages</h2>
-
-            <p>
-                Course packages will be added here.
-            </p>
-
-        </div>
-
-        <div class="package-placeholder">
-
-            <div>
-                <h3>Course Packages Coming Soon</h3>
-                <p>We are preparing our learning programs.</p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= OUR TEAM ================= -->
-
-<section class="team" id="team">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <div class="small">OUR TEAM</div>
-
-            <h2>Meet Our Team</h2>
-
-            <p>
-                The people working behind Skills Market.
-            </p>
-
-        </div>
-
-
-        <div class="team-grid">
-
-            <div class="team-card">
-
-                <div class="team-photo">
-                    PHOTO
-                </div>
-
-                <div class="team-info">
-                    <h3>Rijal Choudhary</h3>
-                    <p>Founder & CEO</p>
-                </div>
-
-            </div>
-
-
-            <div class="team-card">
-
-                <div class="team-photo">
-                    PHOTO
-                </div>
-
-                <div class="team-info">
-                    <h3>Skills Market Team</h3>
-                    <p>Management Team</p>
-                </div>
-
-            </div>
-
-
-            <div class
+            <div class="p
