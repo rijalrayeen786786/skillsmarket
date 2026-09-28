@@ -1,1363 +1,2159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Skills Market | Learn. Grow. Build.</title>
-
-<style>
-:root{
-    --red:#e50920;
-    --red2:#ff3347;
-    --black:#050505;
-    --dark:#0b0b0d;
-    --card:#111114;
-    --line:#242429;
-    --text:#fff;
-    --muted:#9b9ba3;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    background:var(--black);
-    color:var(--text);
-    line-height:1.6;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-img{
-    max-width:100%;
-}
-
-.container{
-    width:92%;
-    max-width:1200px;
-    margin:auto;
-}
-
-section{
-    padding:90px 0;
-}
-
-/* TOP BAR */
-.topbar{
-    background:#080808;
-    border-bottom:1px solid #181818;
-    color:#aaa;
-    font-size:13px;
-}
-
-.topbar-inner{
-    min-height:38px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.topbar span{
-    margin-right:22px;
-}
-
-/* NAVBAR */
-header{
-    position:sticky;
-    top:0;
-    z-index:9999;
-    background:rgba(5,5,5,.96);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid #202024;
-}
-
-.nav{
-    height:78px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:22px;
-    font-weight:800;
-}
-
-.logo img{
-    width:47px;
-    height:47px;
-    object-fit:contain;
-}
-
-.logo b{
-    color:var(--red2);
-}
-
-.navlinks{
-    display:flex;
-    align-items:center;
-    gap:25px;
-}
-
-.navlinks a{
-    color:#d6d6d9;
-    font-size:14px;
-    transition:.25s;
-}
-
-.navlinks a:hover{
-    color:#fff;
-}
-
-.login{
-    border:1px solid #444;
-    padding:10px 18px;
-    border-radius:7px;
-}
-
-.register{
-    background:var(--red);
-    padding:11px 19px;
-    border-radius:7px;
-    color:white!important;
-    font-weight:700;
-}
-
-.menu{
-    display:none;
-    font-size:28px;
-    cursor:pointer;
-}
-
-/* HERO */
-.hero{
-    min-height:650px;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-    position:relative;
-    background:
-        radial-gradient(circle at 80% 50%,rgba(229,9,32,.24),transparent 35%),
-        linear-gradient(180deg,#070707,#050505);
-}
-
-.hero-content{
-    width:58%;
-    position:relative;
-    z-index:2;
-}
-
-.small-title{
-    color:#ff4354;
-    font-size:14px;
-    font-weight:800;
-    letter-spacing:1px;
-    margin-bottom:14px;
-}
-
-.hero h1{
-    font-size:65px;
-    line-height:1.05;
-    margin-bottom:20px;
-}
-
-.hero h1 span{
-    color:var(--red2);
-}
-
-.hero p{
-    max-width:620px;
-    color:#a7a7ad;
-    font-size:18px;
-    margin-bottom:30px;
-}
-
-.buttons{
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
-}
-
-.btn{
-    display:inline-block;
-    padding:14px 24px;
-    border-radius:7px;
-    font-weight:700;
-    transition:.25s;
-}
-
-.btn-red{
-    background:var(--red);
-}
-
-.btn-red:hover{
-    background:#ff1d35;
-    transform:translateY(-2px);
-}
-
-.btn-outline{
-    border:1px solid #444;
-    color:#eee;
-}
-
-.btn-outline:hover{
-    border-color:var(--red);
-}
-
-.hero-art{
-    position:absolute;
-    right:4%;
-    width:470px;
-    height:470px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.hero-ring{
-    width:370px;
-    height:370px;
-    border:1px solid rgba(255,40,60,.65);
-    border-radius:50%;
-    box-shadow:
-        0 0 60px rgba(229,9,32,.15),
-        inset 0 0 50px rgba(229,9,32,.08);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.hero-ring img{
-    width:210px;
-    height:210px;
-    object-fit:contain;
-}
-
-/* STATS */
-.stats-strip{
-    background:#0b0b0d;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-}
-
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-}
-
-.stat-box{
-    text-align:center;
-    padding:28px 15px;
-    border-right:1px solid var(--line);
-}
-
-.stat-box:last-child{
-    border-right:0;
-}
-
-.stat-box h3{
-    color:var(--red2);
-    font-size:30px;
-}
-
-.stat-box p{
-    color:#999;
-}
-
-/* SECTION HEAD */
-.section-head{
-    text-align:center;
-    max-width:750px;
-    margin:0 auto 50px;
-}
-
-.section-head .label{
-    color:var(--red2);
-    font-size:13px;
-    font-weight:800;
-    letter-spacing:1px;
-}
-
-.section-head h2{
-    font-size:43px;
-    line-height:1.15;
-    margin:10px 0 15px;
-}
-
-.section-head p{
-    color:var(--muted);
-}
-
-/* FEATURES */
-.features{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
-}
-
-.feature{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:13px;
-    padding:30px;
-    transition:.3s;
-}
-
-.feature:hover{
-    transform:translateY(-6px);
-    border-color:#8e101e;
-}
-
-.icon{
-    width:58px;
-    height:58px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:12px;
-    background:rgba(229,9,32,.1);
-    font-size:27px;
-    margin-bottom:20px;
-}
-
-.feature h3{
-    margin-bottom:8px;
-}
-
-.feature p{
-    color:var(--muted);
-    font-size:14px;
-}
-
-/* ABOUT */
-.about{
-    background:#09090b;
-}
-
-.about-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:70px;
-    align-items:center;
-}
-
-.about-image{
-    min-height:470px;
-    border-radius:20px;
-    border:1px solid var(--line);
-    background:
-        radial-gradient(circle,#351017,transparent 60%),
-        #101014;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.about-image img{
-    width:260px;
-}
-
-.about-copy .label{
-    color:var(--red2);
-    font-size:13px;
-    font-weight:800;
-}
-
-.about-copy h2{
-    font-size:43px;
-    line-height:1.15;
-    margin:10px 0 20px;
-}
-
-.about-copy>p{
-    color:#9b9ba3;
-    margin-bottom:25px;
-}
-
-.mv-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin:25px 0;
-}
-
-.mv{
-    background:#101014;
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:18px;
-}
-
-.mv h4{
-    color:var(--red2);
-    margin-bottom:7px;
-}
-
-.mv p{
-    color:#92929a;
-    font-size:13px;
-}
-
-/* PACKAGES */
-.packages{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.package{
-    background:#0d0d10;
-    border:1px solid var(--line);
-    border-radius:14px;
-    overflow:hidden;
-    transition:.3s;
-}
-
-.package:hover{
-    transform:translateY(-7px);
-    border-color:#9d1524;
-}
-
-.package.featured{
-    border:1px solid var(--red);
-    box-shadow:0 0 35px rgba(229,9,32,.1);
-}
-
-.package-top{
-    padding:27px;
-    background:linear-gradient(135deg,#19191d,#0b0b0d);
-}
-
-.package-top small{
-    color:var(--red2);
-    font-weight:800;
-}
-
-.package-top h3{
-    font-size:24px;
-    margin:5px 0;
-}
-
-.package-top p{
-    color:#8d8d95;
-    font-size:14px;
-}
-
-.package-body{
-    padding:25px;
-}
-
-.price{
-    font-size:32px;
-    font-weight:800;
-    margin-bottom:20px;
-}
-
-.price del{
-    color:#666;
-    font-size:15px;
-    font-weight:400;
-    margin-left:7px;
-}
-
-.package ul{
-    list-style:none;
-    margin-bottom:24px;
-}
-
-.package li{
-    color:#aaa;
-    padding:7px 0;
-    font-size:14px;
-}
-
-.package li::before{
-    content:"✓";
-    color:#ff3347;
-    margin-right:9px;
-    font-weight:bold;
-}
-
-/* COURSES */
-.courses{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.course{
-    background:#0d0d10;
-    border:1px solid var(--line);
-    border-radius:13px;
-    overflow:hidden;
-    transition:.3s;
-}
-
-.course:hover{
-    transform:translateY(-5px);
-    border-color:#87121f;
-}
-
-.course-image{
-    height:180px;
-    background:
-        linear-gradient(135deg,rgba(229,9,32,.55),rgba(20,20,25,.95));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:50px;
-}
-
-.course-body{
-    padding:22px;
-}
-
-.course-body h3{
-    margin-bottom:7px;
-}
-
-.course-body p{
-    color:#92929a;
-    font-size:14px;
-}
-
-.course-info{
-    display:flex;
-    justify-content:space-between;
-    color:#777;
-    font-size:12px;
-    margin:14px 0;
-}
-
-.stars{
-    color:#ffb300;
-}
-
-/* WHY */
-.why{
-    background:#09090b;
-}
-
-.why-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:65px;
-    align-items:center;
-}
-
-.why-copy .label{
-    color:var(--red2);
-    font-weight:800;
-    font-size:13px;
-}
-
-.why-copy h2{
-    font-size:43px;
-    line-height:1.15;
-    margin:10px 0 18px;
-}
-
-.why-copy p{
-    color:#999;
-}
-
-.why-list{
-    margin-top:25px;
-    display:grid;
-    gap:13px;
-}
-
-.why-item{
-    display:flex;
-    gap:15px;
-    padding:17px;
-    background:#101014;
-    border:1px solid var(--line);
-    border-radius:10px;
-}
-
-.why-item strong{
-    color:var(--red2);
-}
-
-.why-item p{
-    font-size:13px;
-}
-
-.why-visual{
-    min-height:430px;
-    border-radius:20px;
-    border:1px solid var(--line);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:
-        radial-gradient(circle,rgba(229,9,32,.2),transparent 60%),
-        #101014;
-}
-
-.why-visual img{
-    width:230px;
-}
-
-/* BIG STATS */
-.big-stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-}
-
-.big-stat{
-    text-align:center;
-    padding:32px 15px;
-    background:#0d0d10;
-    border:1px solid var(--line);
-    border-radius:12px;
-}
-
-.big-stat h3{
-    font-size:40px;
-    color:var(--red2);
-}
-
-.big-stat p{
-    color:#999;
-}
-
-/* FOUNDER */
-.founder{
-    background:#09090b;
-}
-
-.founder-grid{
-    display:grid;
-    grid-template-columns:370px 1fr;
-    gap:65px;
-    align-items:center;
-}
-
-.founder-photo{
-    min-height:430px;
-    border-radius:20px;
-    border:1px solid var(--line);
-    background:#111114;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.founder-photo img{
-    width:245px;
-}
-
-.founder-copy .label{
-    color:var(--red2);
-    font-weight:800;
-}
-
-.founder-copy h2{
-    font-size:43px;
-    line-height:1.15;
-    margin:10px 0;
-}
-
-.founder-copy h4{
-    color:#bbb;
-    margin-bottom:20px;
-}
-
-.founder-copy p{
-    color:#999;
-    margin-bottom:15px;
-}
-
-/* TEAM */
-.team{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
-}
-
-.person{
-    text-align:center;
-    padding:30px;
-    border:1px solid var(--line);
-    border-radius:14px;
-    background:#0d0d10;
-}
-
-.person-img{
-    width:125px;
-    height:125px;
-    margin:0 auto 18px;
-    border-radius:50%;
-    background:#17171b;
-    border:2px solid #a81929;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:48px;
-}
-
-.person p{
-    color:#999;
-    font-size:14px;
-}
-
-/* TESTIMONIALS */
-.testimonials{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.review{
-    background:#0d0d10;
-    border:1px solid var(--line);
-    border-radius:13px;
-    padding:25px;
-}
-
-.review .stars{
-    margin-bottom:15px;
-}
-
-.review p{
-    color:#aaa;
-    font-size:14px;
-    margin-bottom:20px;
-}
-
-.reviewer{
-    font-weight:700;
-}
-
-.reviewer span{
-    display:block;
-    color:#777;
-    font-size:12px;
-    margin-top:3px;
-}
-
-/* CERTIFICATES */
-.certificates{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.certificate{
-    padding:30px;
-    text-align:center;
-    background:#0d0d10;
-    border:1px solid var(--line);
-    border-radius:13px;
-}
-
-.certificate-icon{
-    font-size:45px;
-    margin-bottom:15px;
-}
-
-.certificate h3{
-    margin-bottom:6px;
-}
-
-.certificate p{
-    color:#888;
-    font-size:13px;
-}
-
-/* FAQ */
-.faq{
-    max-width:850px;
-    margin:auto;
-}
-
-.faq-item{
-    border-bottom:1px solid var(--line);
-}
-
-.question{
-    padding:21px 0;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    cursor:pointer;
-    font-weight:700;
-}
-
-.plus{
-    color:var(--red2);
-    font-size:23px;
-    transition:.2s;
-}
-
-.answer{
-    display:none;
-    color:#999;
-    padding:0 0 20px;
-    font-size:14px;
-}
-
-.faq-item.open .answer{
-    display:block;
-}
-
-.faq-item.open .plus{
-    transform:rotate(45deg);
-}
-
-/* CTA */
-.cta{
-    background:
-        radial-gradient(circle at center,rgba(229,9,32,.25),transparent 58%),
-        #0a0a0c;
-    text-align:center;
-    padding:100px 20px;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-}
-
-.cta h2{
-    font-size:48px;
-    margin-bottom:13px;
-}
-
-.cta p{
-    color:#999;
-    margin-bottom:28px;
-}
-
-/* FOOTER */
-footer{
-    background:#050505;
-    padding:65px 0 25px;
-}
-
-.footer-grid{
-    display:grid;
-    grid-template-columns:2fr 1fr 1fr 1fr;
-    gap:40px;
-}
-
-.footer-brand p{
-    color:#777;
-    max-width:360px;
-    margin-top:15px;
-    font-size:14px;
-}
-
-.footer-col h3{
-    margin-bottom:18px;
-}
-
-.footer-col a{
-    display:block;
-    color:#777;
-    margin:9px 0;
-    font-size:14px;
-}
-
-.footer-col a:hover{
-    color:#fff;
-}
-
-.copyright{
-    margin-top:45px;
-    padding-top:22px;
-    border-top:1px solid #1d1d20;
-    text-align:center;
-    color:#666;
-    font-size:12px;
-}
-
-/* MOBILE */
-@media(max-width:950px){
-
-    .navlinks{
-        display:none;
-        position:absolute;
-        left:0;
-        right:0;
-        top:78px;
-        background:#080808;
-        flex-direction:column;
-        align-items:stretch;
-        padding:20px;
-        border-bottom:1px solid var(--line);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Skills Market | Learn Skills. Build Your Future.</title>
+  <meta name="description" content="Skills Market helps you learn practical digital skills and build real opportunities.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --orange:#ff5a00;
+      --orange-light:#ff7a00;
+      --navy:#0b1533;
+      --purple:#7040df;
+      --text:#17213b;
+      --muted:#68748a;
+      --white:#ffffff;
+      --light:#faf9fd;
+      --border:#e8e9ef;
+      --green:#10a86b;
+      --shadow:0 20px 60px rgba(16,25,55,.09);
+      --radius:24px;
     }
 
-    .navlinks.show{
-        display:flex;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    .menu{
-        display:block;
+    html{
+      scroll-behavior:smooth;
     }
 
-    .hero-content{
-        width:100%;
+    body{
+      font-family:"DM Sans",sans-serif;
+      color:var(--text);
+      background:#fff;
+      overflow-x:hidden;
     }
 
-    .hero-art{
-        opacity:.18;
-        right:-100px;
+    a{
+      text-decoration:none;
+      color:inherit;
     }
 
-    .features,
-    .packages,
-    .courses,
-    .team,
-    .testimonials,
-    .certificates{
-        grid-template-columns:1fr 1fr;
+    button{
+      font-family:inherit;
     }
 
-    .about-grid,
-    .why-grid,
-    .founder-grid{
-        grid-template-columns:1fr;
+    .container{
+      width:min(1160px,calc(100% - 40px));
+      margin:auto;
     }
 
-    .footer-grid{
-        grid-template-columns:1fr 1fr;
-    }
-}
+    /* ================= TOP BAR ================= */
 
-@media(max-width:600px){
-
-    section{
-        padding:65px 0;
-    }
-
-    .topbar-inner{
-        justify-content:center;
-        text-align:center;
+    .topbar{
+      background:var(--navy);
+      color:white;
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:20px;
+      font-size:12px;
+      font-weight:600;
     }
 
-    .topbar span:last-child{
-        display:none;
+    .topbar a{
+      color:#ffad7b;
+      font-weight:800;
     }
+
+    /* ================= NAVBAR ================= */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+
+    .nav{
+      height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .brand-logo{
+      width:44px;
+      height:44px;
+      border-radius:14px 19px 14px 19px;
+      background:linear-gradient(135deg,var(--orange),#ff8c1a,var(--purple));
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-family:Manrope,sans-serif;
+      font-size:25px;
+      font-weight:800;
+      box-shadow:0 10px 25px rgba(255,90,0,.22);
+    }
+
+    .brand-name{
+      font-family:Manrope,sans-serif;
+      font-weight:800;
+      font-size:21px;
+      line-height:1;
+    }
+
+    .brand-name span{
+      color:var(--orange);
+    }
+
+    .brand-sub{
+      font-size:9px;
+      color:#8a92a2;
+      letter-spacing:1px;
+      margin-top:5px;
+    }
+
+    .desktop-nav{
+      display:flex;
+      gap:28px;
+      align-items:center;
+      font-size:14px;
+      font-weight:700;
+      color:#4c566b;
+    }
+
+    .desktop-nav a{
+      transition:.2s;
+    }
+
+    .desktop-nav a:hover{
+      color:var(--orange);
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .login{
+      color:#4e586c;
+    }
+
+    .nav-cta{
+      color:#fff;
+      padding:13px 20px;
+      border-radius:14px;
+      background:linear-gradient(90deg,var(--orange),var(--orange-light));
+      box-shadow:0 10px 25px rgba(255,90,0,.2);
+    }
+
+    .menu-btn{
+      display:none;
+      width:45px;
+      height:45px;
+      border:1px solid var(--border);
+      border-radius:13px;
+      background:#fff;
+      cursor:pointer;
+    }
+
+    .menu-btn span{
+      display:block;
+      width:21px;
+      height:2px;
+      background:var(--navy);
+      margin:5px auto;
+    }
+
+    .mobile-menu{
+      display:none;
+      padding:10px 20px 20px;
+      background:#fff;
+      border-top:1px solid var(--border);
+    }
+
+    .mobile-menu.show{
+      display:grid;
+      gap:5px;
+    }
+
+    .mobile-menu a{
+      padding:13px;
+      border-radius:12px;
+      font-weight:700;
+    }
+
+    .mobile-menu a:hover{
+      background:#fff3ed;
+      color:var(--orange);
+    }
+
+    /* ================= GENERAL ================= */
+
+    .section{
+      padding:95px 0;
+    }
+
+    .section-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#c84e1b;
+      background:#fff1e9;
+      border:1px solid #ffd0bc;
+      padding:8px 15px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.7px;
+    }
+
+    .section-title{
+      font-family:Manrope,sans-serif;
+      font-size:48px;
+      line-height:1.08;
+      letter-spacing:-2px;
+      margin:20px 0 40px;
+      font-weight:800;
+    }
+
+    .section-title span{
+      color:var(--orange);
+    }
+
+    .center{
+      text-align:center;
+    }
+
+    .center .section-tag{
+      justify-content:center;
+    }
+
+    /* ================= HERO ================= */
 
     .hero{
-        min-height:620px;
+      position:relative;
+      min-height:700px;
+      padding:70px 0 80px;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 88% 20%,#fff0e7,transparent 30%),
+        linear-gradient(180deg,#fff,#fffaf7);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      gap:65px;
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:#f4efff;
+      color:#6840c6;
+      border:1px solid #ded2ff;
+      font-weight:800;
+      font-size:14px;
+    }
+
+    .hero-small{
+      color:#6e788b;
+      font-size:18px;
+      margin:22px 0 10px;
+      font-weight:600;
     }
 
     .hero h1{
-        font-size:43px;
+      font-family:Manrope,sans-serif;
+      font-size:clamp(48px,6vw,74px);
+      line-height:1.03;
+      letter-spacing:-4px;
+      font-weight:800;
     }
 
-    .hero p{
-        font-size:16px;
+    .hero h1 span{
+      color:var(--orange);
     }
 
-    .hero-art{
-        right:-160px;
+    .hero-description{
+      max-width:600px;
+      margin-top:22px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.75;
     }
 
-    .hero-ring{
-        width:300px;
-        height:300px;
+    .hero-buttons{
+      display:flex;
+      gap:13px;
+      margin:30px 0;
     }
 
-    .stats-grid,
-    .features,
-    .packages,
-    .courses,
-    .team,
-    .testimonials,
-    .certificates,
-    .big-stats,
-    .mv-grid{
-        grid-template-columns:1fr;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:16px 25px;
+      border-radius:16px;
+      font-weight:800;
+      border:0;
+      cursor:pointer;
+      transition:.25s;
     }
 
-    .stat-box{
-        border-right:0;
-        border-bottom:1px solid var(--line);
+    .btn:hover{
+      transform:translateY(-3px);
     }
 
-    .stat-box:last-child{
-        border-bottom:0;
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(90deg,var(--orange),var(--orange-light));
+      box-shadow:0 15px 30px rgba(255,90,0,.22);
     }
 
-    .section-head h2,
-    .about-copy h2,
-    .why-copy h2,
-    .founder-copy h2{
-        font-size:33px;
+    .btn-secondary{
+      background:#fff;
+      border:1px solid var(--border);
+      color:var(--navy);
+      box-shadow:0 10px 25px rgba(20,30,60,.05);
     }
 
-    .about-image,
-    .why-visual,
-    .founder-photo{
-        min-height:320px;
+    .play{
+      width:32px;
+      height:32px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#f0e9ff;
+      color:var(--purple);
     }
 
-    .cta h2{
-        font-size:35px;
+    .benefits{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      max-width:600px;
+    }
+
+    .benefit{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:13px;
+      border:1px solid #eee6df;
+      border-radius:15px;
+      background:#fffdfa;
+      font-weight:800;
+      font-size:13px;
+    }
+
+    .benefit-icon{
+      width:35px;
+      height:35px;
+      display:grid;
+      place-items:center;
+      background:#fff0e8;
+      color:var(--orange);
+      border-radius:10px;
+    }
+
+    /* HERO VISUAL */
+
+    .hero-visual{
+      position:relative;
+    }
+
+    .visual-card{
+      height:500px;
+      position:relative;
+      overflow:hidden;
+      border-radius:35px;
+      background:linear-gradient(145deg,#fff,#f4efff);
+      border:1px solid #eee9f4;
+      box-shadow:var(--shadow);
+    }
+
+    .visual-label{
+      position:absolute;
+      z-index:5;
+      top:30px;
+      left:25px;
+      background:#fff;
+      padding:20px 22px;
+      border-radius:22px;
+      box-shadow:0 15px 35px rgba(25,30,60,.12);
+    }
+
+    .visual-label strong{
+      font-family:Manrope,sans-serif;
+      font-size:17px;
+    }
+
+    .visual-label strong span{
+      color:var(--orange);
+    }
+
+    .visual-label p{
+      margin-top:8px;
+      color:#6b7589;
+      font-size:12px;
+    }
+
+    .steps{
+      position:absolute;
+      right:25px;
+      bottom:25px;
+      width:75%;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:5px;
+    }
+
+    .step{
+      height:60px;
+      display:flex;
+      align-items:center;
+      padding-left:25px;
+      color:#3c3761;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:1px;
+      background:linear-gradient(90deg,#ddd7f9,#a79ae9);
+      border:1px solid #c9c0f0;
+      transform:skewY(-3deg);
+      box-shadow:inset 0 0 20px rgba(255,255,255,.6);
+    }
+
+    .step:nth-child(1){width:100%}
+    .step:nth-child(2){width:92%}
+    .step:nth-child(3){width:83%}
+    .step:nth-child(4){width:73%}
+    .step:nth-child(5){width:62%}
+
+    .person{
+      position:absolute;
+      bottom:105px;
+      right:39%;
+      font-size:55px;
+      color:#18223b;
+      z-index:4;
+    }
+
+    .person-body{
+      width:45px;
+      height:75px;
+      background:#18223b;
+      border-radius:25px 25px 10px 10px;
+      margin:auto;
+    }
+
+    .satisfaction{
+      position:absolute;
+      right:15px;
+      bottom:20px;
+      z-index:10;
+      background:#fff;
+      border-radius:20px;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      box-shadow:0 15px 35px rgba(20,30,60,.13);
+    }
+
+    .satisfaction-icon{
+      width:38px;
+      height:38px;
+      border-radius:13px;
+      display:grid;
+      place-items:center;
+      background:var(--purple);
+      color:#fff;
+    }
+
+    .satisfaction strong{
+      font-family:Manrope,sans-serif;
+      font-size:22px;
+    }
+
+    .satisfaction small{
+      color:#697388;
+    }
+
+    /* ================= PROMO ================= */
+
+    .promo{
+      padding:0 0 30px;
+      margin-top:-5px;
+    }
+
+    .promo-box{
+      padding:23px 28px;
+      border-radius:22px;
+      color:#fff;
+      background:linear-gradient(100deg,#11162a,#332142);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:var(--shadow);
+    }
+
+    .promo-box small{
+      color:#ffb185;
+      letter-spacing:2px;
+      font-weight:800;
+    }
+
+    .promo-box strong{
+      display:block;
+      margin-top:5px;
+      font-family:Manrope,sans-serif;
+      font-size:19px;
+    }
+
+    .promo-box a{
+      background:var(--orange);
+      color:white;
+      padding:13px 18px;
+      border-radius:13px;
+      font-weight:800;
+    }
+
+    /* ================= ABOUT ================= */
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      gap:80px;
+    }
+
+    .about-visual{
+      height:500px;
+      position:relative;
+    }
+
+    .about-photo{
+      position:absolute;
+      border-radius:28px;
+      overflow:hidden;
+      border:6px solid #fff;
+      box-shadow:var(--shadow);
+    }
+
+    .about-photo.one{
+      width:72%;
+      height:72%;
+      left:0;
+      top:0;
+      background:linear-gradient(140deg,#d8ebed,#ffc9ae,#ded5fa);
+    }
+
+    .about-photo.two{
+      width:65%;
+      height:62%;
+      right:0;
+      bottom:0;
+      background:linear-gradient(140deg,#171f36,#7555bd);
+      display:grid;
+      place-items:center;
+    }
+
+    .fake-screen{
+      background:#fff;
+      color:var(--navy);
+      padding:25px 35px;
+      border-radius:12px;
+      text-align:center;
+      font-family:Manrope,sans-serif;
+      font-weight:800;
+      box-shadow:0 15px 35px rgba(0,0,0,.2);
+    }
+
+    .fake-screen span{
+      color:var(--orange);
+    }
+
+    .floating-stat{
+      position:absolute;
+      background:#fff;
+      padding:15px 20px;
+      border-radius:18px;
+      box-shadow:0 12px 30px rgba(25,30,60,.12);
+      font-size:13px;
+    }
+
+    .floating-stat strong{
+      color:var(--orange);
+      font-family:Manrope,sans-serif;
+      font-size:24px;
+    }
+
+    .stat-top{
+      top:35px;
+      right:-10px;
+    }
+
+    .stat-bottom{
+      bottom:35px;
+      left:-15px;
+    }
+
+    .about-content h2{
+      font-family:Manrope,sans-serif;
+      font-size:45px;
+      line-height:1.1;
+      letter-spacing:-2px;
+      margin:18px 0;
+    }
+
+    .about-content h2 span{
+      color:var(--orange);
+    }
+
+    .about-content>p{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:17px;
+    }
+
+    .mission{
+      padding:22px;
+      border-radius:20px;
+      background:#fafafd;
+      border:1px solid var(--border);
+      margin-top:16px;
+    }
+
+    .mission h3{
+      font-family:Manrope,sans-serif;
+      margin-bottom:8px;
+    }
+
+    .mission p{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    /* ================= PACKAGES ================= */
+
+    .packages{
+      background:#faf9fc;
+    }
+
+    .package-list{
+      max-width:900px;
+      margin:auto;
+      display:grid;
+      gap:14px;
+    }
+
+    .package{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:23px;
+      overflow:hidden;
+      transition:.3s;
+    }
+
+    .package.active{
+      border:2px solid #ff8a45;
+      box-shadow:0 18px 45px rgba(255,90,0,.08);
+    }
+
+    .package-head{
+      width:100%;
+      border:0;
+      background:#fff;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      padding:23px 25px;
+      text-align:left;
+      color:var(--navy);
+      font-family:Manrope,sans-serif;
+      font-size:18px;
+      font-weight:800;
+    }
+
+    .course-count{
+      margin-left:auto;
+      margin-right:15px;
+      padding:8px 13px;
+      border-radius:999px;
+      background:#f1efff;
+      color:#5c43bb;
+      font-size:12px;
+      font-family:"DM Sans",sans-serif;
+    }
+
+    .arrow{
+      width:40px;
+      height:40px;
+      border:1px solid var(--border);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      transition:.3s;
+    }
+
+    .package.active .arrow{
+      transform:rotate(180deg);
+    }
+
+    .package-body{
+      display:none;
+      padding:0 25px 25px;
+    }
+
+    .package.active .package-body{
+      display:block;
+    }
+
+    .package-image{
+      height:280px;
+      border-radius:23px;
+      background:linear-gradient(135deg,#fff4ea,#f2edff);
+      display:grid;
+      place-items:center;
+      text-align:center;
+    }
+
+    .package-image small{
+      letter-spacing:3px;
+      color:#72798b;
+    }
+
+    .package-image h3{
+      font-family:Manrope,sans-serif;
+      font-size:55px;
+      margin:10px 0 0;
+    }
+
+    .package-image strong{
+      color:var(--orange);
+      font-size:28px;
+    }
+
+    .package-info{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:20px;
+    }
+
+    .package-info h3{
+      font-family:Manrope,sans-serif;
+      font-size:23px;
+    }
+
+    .rating{
+      color:#e9a500;
+    }
+
+    .rating span{
+      color:var(--navy);
+      font-weight:800;
+      margin-left:6px;
+    }
+
+    .price{
+      margin:12px 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .price del{
+      color:#9299a8;
+    }
+
+    .price strong{
+      color:var(--orange);
+      font-family:Manrope,sans-serif;
+      font-size:34px;
+      margin-left:10px;
+    }
+
+    .package-description{
+      color:var(--muted);
+      line-height:1.6;
+      margin:10px 0 20px;
+    }
+
+    /* ================= COURSES ================= */
+
+    .courses-heading{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:30px;
+      margin-bottom:40px;
+    }
+
+    .courses-heading h2{
+      font-family:Manrope,sans-serif;
+      font-size:48px;
+      line-height:1.05;
+      letter-spacing:-2px;
+    }
+
+    .courses-heading h2 span{
+      color:var(--orange);
+    }
+
+    .courses-heading p{
+      max-width:390px;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .course-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .course-card{
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:25px;
+      background:#fff;
+      transition:.3s;
+    }
+
+    .course-card:hover{
+      transform:translateY(-7px);
+      border-color:#ffc09b;
+      box-shadow:0 20px 45px rgba(255,90,0,.08);
+    }
+
+    .course-icon{
+      width:50px;
+      height:50px;
+      display:grid;
+      place-items:center;
+      background:#fff0e8;
+      color:var(--orange);
+      border-radius:15px;
+      font-size:23px;
+      font-weight:800;
+    }
+
+    .course-card h3{
+      font-family:Manrope,sans-serif;
+      margin:18px 0 8px;
+      font-size:19px;
+    }
+
+    .course-card p{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+      min-height:48px;
+    }
+
+    .course-card a{
+      display:inline-block;
+      color:var(--orange);
+      font-weight:800;
+      margin-top:15px;
+    }
+
+    /* ================= WHY ================= */
+
+    .why{
+      background:#faf8ff;
+    }
+
+    .why-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+    }
+
+    .why-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:25px;
+    }
+
+    .why-number{
+      color:var(--purple);
+      font-weight:800;
+    }
+
+    .why-card h3{
+      font-family:Manrope,sans-serif;
+      margin:15px 0 8px;
+    }
+
+    .why-card p{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    /* ================= STATS ================= */
+
+    .stats-box{
+      background:var(--navy);
+      color:white;
+      border-radius:30px;
+      padding:40px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+    }
+
+    .stat{
+      text-align:center;
+      border-right:1px solid rgba(255,255,255,.12);
+    }
+
+    .stat:last-child{
+      border:0;
+    }
+
+    .stat strong{
+      display:block;
+      color:#ff8749;
+      font-family:Manrope,sans-serif;
+      font-size:38px;
+    }
+
+    .stat span{
+      color:#bdc5d4;
+      font-size:13px;
+    }
+
+    .demo-note{
+      text-align:center;
+      color:#9a806d;
+      font-size:12px;
+      margin-top:12px;
+    }
+
+    /* ================= FOUNDER ================= */
+
+    .founder-box{
+      padding:55px;
+      border-radius:32px;
+      background:linear-gradient(120deg,#fff2e9,#f7f1ff);
+      display:grid;
+      grid-template-columns:160px 1fr;
+      gap:45px;
+      align-items:center;
+    }
+
+    .founder-avatar{
+      width:155px;
+      height:155px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--orange),var(--purple));
+      color:#fff;
+      font-family:Manrope,sans-serif;
+      font-size:38px;
+      font-weight:800;
+    }
+
+    .founder-box h2{
+      font-family:Manrope,sans-serif;
+      font-size:40px;
+      margin:17px 0;
+    }
+
+    .founder-box p{
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    /* ================= EXPERTS ================= */
+
+    .expert-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .expert{
+      padding:30px;
+      border:1px solid var(--border);
+      border-radius:25px;
+      text-align:center;
+    }
+
+    .expert-avatar{
+      width:90px;
+      height:90px;
+      border-radius:50%;
+      margin:auto;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,#ffd1b7,#d9ccff);
+      font-family:Manrope,sans-serif;
+      font-weight:800;
+      font-size:23px;
+    }
+
+    .expert h3{
+      font-family:Manrope,sans-serif;
+      margin:16px 0 5px;
+    }
+
+    .expert p{
+      color:var(--muted);
+    }
+
+    /* ================= STORIES ================= */
+
+    .stories{
+      background:#faf9fc;
+    }
+
+    .story-grid{
+           display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .story{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:25px;
+      padding:28px;
+      transition:.3s;
+    }
+
+    .story:hover{
+      transform:translateY(-6px);
+      box-shadow:var(--shadow);
+    }
+
+    .story-stars{
+      color:#f2a900;
+      letter-spacing:3px;
+      margin-bottom:18px;
+    }
+
+    .story p{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:15px;
+    }
+
+    .story-user{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-top:22px;
+    }
+
+    .story-avatar{
+      width:45px;
+      height:45px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#ffd0b5,#d8ccff);
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      color:var(--navy);
+    }
+
+    .story-user strong{
+      display:block;
+      font-size:14px;
+    }
+
+    .story-user small{
+      color:#8991a1;
+    }
+
+    /* ================= CERTIFICATE ================= */
+
+    .certificate-section{
+      background:#fff;
+    }
+
+    .certificate-wrap{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:70px;
+      align-items:center;
+    }
+
+    .certificate{
+      position:relative;
+      padding:45px 35px;
+      min-height:350px;
+      border:10px solid #f3eee7;
+      outline:2px solid #d9c8a8;
+      outline-offset:-18px;
+      border-radius:8px;
+      background:
+        radial-gradient(circle at 20% 20%,#fff6dc,transparent 25%),
+        linear-gradient(135deg,#fffdf7,#fff8e9);
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .certificate small{
+      color:#9b7c3f;
+      letter-spacing:3px;
+      font-weight:800;
+    }
+
+    .certificate h3{
+      font-family:Manrope,sans-serif;
+      font-size:38px;
+      margin:15px 0;
+      color:var(--navy);
+    }
+
+    .certificate h4{
+      font-size:25px;
+      color:var(--orange);
+      margin:10px 0;
+    }
+
+    .certificate p{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .certificate-id{
+      margin-top:25px;
+      font-size:11px;
+      color:#888;
+      letter-spacing:1px;
+    }
+
+    .certificate-content h2{
+      font-family:Manrope,sans-serif;
+      font-size:44px;
+      line-height:1.1;
+      letter-spacing:-2px;
+      margin:18px 0;
+    }
+
+    .certificate-content h2 span{
+      color:var(--orange);
+    }
+
+    .certificate-content p{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:17px;
+    }
+
+    .certificate-points{
+      margin-top:25px;
+      display:grid;
+      gap:12px;
+    }
+
+    .certificate-point{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+    }
+
+    .certificate-point i{
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#fff0e8;
+      color:var(--orange);
+      font-style:normal;
+    }
+
+    /* ================= FAQ ================= */
+
+    .faq{
+      background:#faf8ff;
+    }
+
+    .faq-list{
+      max-width:850px;
+      margin:auto;
+      display:grid;
+      gap:13px;
+    }
+
+    .faq-item{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      overflow:hidden;
+    }
+
+    .faq-question{
+      width:100%;
+      border:0;
+      background:#fff;
+      padding:22px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      text-align:left;
+      font-size:16px;
+      font-weight:800;
+      color:var(--navy);
+      cursor:pointer;
+    }
+
+    .faq-icon{
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      border:1px solid var(--border);
+      display:grid;
+      place-items:center;
+      transition:.3s;
+      flex-shrink:0;
+    }
+
+    .faq-item.active .faq-icon{
+      transform:rotate(45deg);
+      background:#fff0e8;
+      color:var(--orange);
+    }
+
+    .faq-answer{
+      display:none;
+      padding:0 24px 22px;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+    }
+
+    .faq-item.active .faq-answer{
+      display:block;
+    }
+
+    /* ================= FINAL CTA ================= */
+
+    .final-cta{
+      padding:90px 0;
+    }
+
+    .cta-box{
+      position:relative;
+      overflow:hidden;
+      border-radius:32px;
+      padding:75px 40px;
+      text-align:center;
+      color:#fff;
+      background:
+        radial-gradient(circle at 15% 20%,rgba(255,122,0,.35),transparent 30%),
+        radial-gradient(circle at 85% 80%,rgba(112,64,223,.4),transparent 30%),
+        linear-gradient(135deg,#0b1533,#171d3c);
+      box-shadow:var(--shadow);
+    }
+
+    .cta-box:before,
+    .cta-box:after{
+      content:"";
+      position:absolute;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:50%;
+    }
+
+    .cta-box:before{
+      width:280px;
+      height:280px;
+      left:-130px;
+      top:-150px;
+    }
+
+    .cta-box:after{
+      width:350px;
+      height:350px;
+      right:-180px;
+      bottom:-190px;
+    }
+
+    .cta-content{
+      position:relative;
+      z-index:2;
+    }
+
+    .cta-box small{
+      color:#ffad7b;
+      font-weight:800;
+      letter-spacing:2px;
+    }
+
+    .cta-box h2{
+      font-family:Manrope,sans-serif;
+      font-size:clamp(38px,5vw,60px);
+      line-height:1.05;
+      letter-spacing:-2px;
+      margin:18px auto;
+      max-width:750px;
+    }
+
+    .cta-box p{
+      max-width:650px;
+      margin:auto;
+      color:#c6ccda;
+      line-height:1.7;
+    }
+
+    .cta-buttons{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      margin-top:30px;
+    }
+
+    .cta-white{
+      background:#fff;
+      color:var(--navy);
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer{
+      background:#080f26;
+      color:#fff;
+      padding:65px 0 25px;
     }
 
     .footer-grid{
-        grid-template-columns:1fr;
+      display:grid;
+      grid-template-columns:1.5fr 1fr 1fr 1fr;
+      gap:50px;
+      padding-bottom:50px;
     }
-}
-</style>
+
+    .footer-brand{
+      max-width:320px;
+    }
+
+    .footer-brand .brand{
+      margin-bottom:18px;
+    }
+
+    .footer-brand .brand-name{
+      color:#fff;
+    }
+
+    .footer-brand p{
+      color:#9ea8bd;
+      line-height:1.7;
+      font-size:14px;
+    }
+
+    .footer-col h4{
+      font-family:Manrope,sans-serif;
+      margin-bottom:18px;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ea8bd;
+      font-size:14px;
+      margin:11px 0;
+      transition:.2s;
+    }
+
+    .footer-col a:hover{
+      color:#ff8b50;
+    }
+
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,.1);
+      padding-top:22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      color:#7f899f;
+      font-size:12px;
+    }
+
+    /* ================= REVEAL ANIMATION ================= */
+
+    .reveal{
+      opacity:0;
+      transform:translateY(25px);
+      transition:opacity .7s ease,transform .7s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media(max-width:950px){
+
+      .desktop-nav,
+      .nav-actions{
+        display:none;
+      }
+
+      .menu-btn{
+        display:block;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .certificate-wrap{
+        grid-template-columns:1fr;
+      }
+
+      .hero-grid{
+        gap:45px;
+      }
+
+      .hero{
+        padding-top:55px;
+      }
+
+      .about-grid{
+        gap:45px;
+      }
+
+      .course-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .why-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .expert-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .story-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .stats-box{
+        grid-template-columns:repeat(2,1fr);
+        gap:30px;
+      }
+
+      .stat:nth-child(2){
+        border-right:0;
+      }
+
+      .founder-box{
+        grid-template-columns:120px 1fr;
+      }
+
+      .founder-avatar{
+        width:120px;
+        height:120px;
+      }
+
+      .footer-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:650px){
+
+      .container{
+        width:min(100% - 28px,1160px);
+      }
+
+      .topbar{
+        font-size:10px;
+        gap:8px;
+      }
+
+      .nav{
+        height:68px;
+      }
+
+      .brand-logo{
+        width:40px;
+        height:40px;
+      }
+
+      .brand-name{
+        font-size:18px;
+      }
+
+      .brand-sub{
+        display:none;
+      }
+
+      .section{
+        padding:65px 0;
+      }
+
+      .section-title{
+        font-size:36px;
+        letter-spacing:-1.5px;
+      }
+
+      .hero{
+        min-height:auto;
+        padding:50px 0 60px;
+      }
+
+      .hero h1{
+        font-size:45px;
+        letter-spacing:-2.5px;
+      }
+
+      .hero-small{
+        font-size:16px;
+      }
+
+      .hero-description{
+        font-size:15px;
+        line-height:1.65;
+      }
+
+      .hero-buttons{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .benefits{
+        grid-template-columns:1fr;
+      }
+
+      .visual-card{
+        height:390px;
+      }
+
+      .visual-label{
+        top:18px;
+        left:18px;
+        padding:15px;
+      }
+
+      .steps{
+        right:15px;
+        width:78%;
+      }
+
+      .step{
+        height:48px;
+        padding-left:15px;
+        font-size:9px;
+      }
+
+      .person{
+        bottom:90px;
+        right:34%;
+      }
+
+      .satisfaction{
+        right:10px;
+        bottom:12px;
+        padding:10px 12px;
+      }
+
+      .satisfaction strong{
+        font-size:18px;
+      }
+
+      .promo-box{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:18px;
+      }
+
+      .promo-box a{
+        width:100%;
+        text-align:center;
+      }
+
+      .about-visual{
+        height:380px;
+      }
+
+      .about-content h2{
+        font-size:36px;
+      }
+
+      .about-content>p{
+        font-size:15px;
+      }
+
+      .package-head{
+        padding:17px;
+        font-size:15px;
+      }
+
+      .course-count{
+        font-size:10px;
+        padding:6px 9px;
+        margin-right:8px;
+      }
+
+      .arrow{
+        width:34px;
+        height:34px;
+      }
+
+      .package-body{
+        padding:0 17px 18px;
+      }
+
+      .package-image{
+        height:220px;
+      }
+
+      .package-image h3{
+        font-size:42px;
+      }
+
+      .package-info{
+        display:block;
+      }
+
+      .price{
+        display:block;
+      }
+
+      .price strong{
+        display:block;
+        margin:5px 0;
+      }
+
+      .courses-heading{
+        display:block;
+      }
+
+      .courses-heading h2{
+        font-size:36px;
+        margin-bottom:18px;
+      }
+
+      .courses-heading p{
+        font-size:14px;
+      }
+
+      .course-grid,
+      .why-grid,
+      .expert-grid,
+      .story-grid{
+        grid-template-columns:1fr;
+      }
+
+      .stats-box{
+        grid-template-columns:1fr 1fr;
+        padding:28px 15px;
+      }
+
+      .stat{
+        border-right:1px solid rgba(255,255,255,.12);
+      }
+
+      .stat:nth-child(2),
+      .stat:nth-child(4){
+        border-right:0;
+      }
+
+      .stat strong{
+        font-size:28px;
+      }
+
+      .stat span{
+        font-size:11px;
+      }
+
+      .founder-box{
+        grid-template-columns:1fr;
+        padding:35px 25px;
+        text-align:center;
+      }
+
+      .founder-avatar{
+        margin:auto;
+      }
+
+      .founder-box h2{
+        font-size:32px;
+      }
+
+      .certificate-wrap{
+        gap:40px;
+      }
+
+      .certificate{
+        padding:35px 20px;
+        min-height:300px;
+      }
+
+      .certificate h3{
+        font-size:29px;
+      }
+
+      .certificate-content h2{
+        font-size:34px;
+      }
+
+      .cta-box{
+        padding:55px 22px;
+      }
+
+      .cta-buttons{
+        flex-direction:column;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr 1fr;
+        gap:35px 20px;
+      }
+
+      .footer-bottom{
+        flex-direction:column;
+        text-align:center;
+      }
+    }
+
+  </style>
 </head>
 
 <body>
 
 <!-- TOP BAR -->
+
 <div class="topbar">
-<div class="container topbar-inner">
-<div>
-<span>📞 Support Available</span>
-<span>✉️ support@skillsmarket.in</span>
-</div>
-<span>🚀 Learn • Grow • Build</span>
-</div>
+  <span>🚀 Learn practical skills. Build real opportunities.</span>
+  <a href="#courses">Explore Courses →</a>
 </div>
 
 
 <!-- NAVBAR -->
+
 <header>
-<div class="container nav">
 
-<a href="#home" class="logo">
-<img src="1000238871.png" alt="Skills Market Logo">
-Skills <b>Market</b>
-</a>
+  <div class="container nav">
 
-<div class="menu" onclick="toggleMenu()">☰</div>
+    <a href="#home" class="brand">
 
-<nav class="navlinks" id="navlinks">
-<a href="#home">Home</a>
-<a href="#about">About Us</a>
-<a href="#courses">Courses</a>
-<a href="#packages">Packages</a>
-<a href="#contact">Contact</a>
-<a href="#" class="login">Login</a>
-<a href="#" class="register">Register</a>
-</nav>
+      <div class="brand-logo">S</div>
 
-</div>
+      <div>
+        <div class="brand-name">Skills <span>Market</span></div>
+        <div class="brand-sub">LEARN • BUILD • GROW</div>
+      </div>
+
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="#about">About</a>
+      <a href="#packages">Packages</a>
+      <a href="#courses">Courses</a>
+      <a href="#experts">Experts</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="login" href="#">Login</a>
+      <a class="nav-cta" href="#packages">Get Started →</a>
+    </div>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#packages">Packages</a>
+    <a href="#courses">Courses</a>
+    <a href="#experts">Experts</a>
+    <a href="#faq">FAQ</a>
+    <a href="#packages">Get Started →</a>
+  </div>
+
 </header>
 
 
 <!-- HERO -->
+
 <section class="hero" id="home">
 
-<div class="container">
+  <div class="container hero-grid">
 
-<div class="hero-content">
+    <div class="reveal">
 
-<div class="small-title">
-WELCOME TO SKILLS MARKET
-</div>
+      <div class="hero-badge">
+        🎓 Your Learning Partner
+      </div>
 
-<h1>
-Learn Skills.<br>
-<span>Build Your Future.</span>
-</h1>
+      <div class="hero-small">
+        Skills Today · Opportunities Tomorrow
+      </div>
 
-<p>
-Learn practical digital skills, explore modern opportunities
-and build the knowledge you need for your next step.
-</p>
+      <h1>
+        Learn Skills.<br>
+        <span>Build Your Future.</span>
+      </h1>
 
-<div class="buttons">
+      <p class="hero-description">
+        Explore high-impact digital programs, master in-demand skills,
+        build your portfolio, and unlock better opportunities from
+        anywhere in the world.
+      </p>
 
-<a href="#courses" class="btn btn-red">
-Explore Courses →
-</a>
+      <div class="hero-buttons">
 
-<a href="#about" class="btn btn-outline">
-Discover Skills
-</a>
+        <a href="#packages" class="btn btn-primary">
+          Get Started →
+        </a>
 
-</div>
+        <a href="#about" class="btn btn-secondary">
+          <span class="play">▶</span>
+          Watch How It Works
+        </a>
 
-</div>
+      </div>
 
-</div>
+      <div class="benefits">
 
-<div class="hero-art">
-<div class="hero-ring">
-<img src="1000238871.png" alt="Skills Market">
-</div>
-</div>
+        <div class="benefit">
+          <span class="benefit-icon">⚡</span>
+          Flexible Learning
+        </div>
+
+        <div class="benefit">
+          <span class="benefit-icon">👨‍🏫</span>
+          Expert Mentorship
+        </div>
+
+        <div class="benefit">
+          <span class="benefit-icon">🏆</span>
+          Certification
+        </div>
+
+        <div class="benefit">
+          <span class="benefit-icon">♾</span>
+          Lifetime Access
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-visual reveal">
+
+      <div class="visual-card">
+
+        <div class="visual-label">
+          <strong>Skills <span>Create</span> Opportunities</strong>
+          <p>Learn practical skills. Take action.</p>
+        </div>
+
+        <div class="steps">
+
+          <div class="step">01 · LEARN</div>
+          <div class="step">02 · PRACTICE</div>
+          <div class="step">03 · BUILD</div>
+          <div class="step">04 · GROW</div>
+          <div class="step">05 · OPPORTUNITY</div>
+
+        </div>
+
+        <div class="person">
+          ●
+          <div class="person-body"></div>
+        </div>
+
+        <div class="satisfaction">
+
+          <div class="satisfaction-icon">✓</div>
+
+          <div>
+            <strong>100%</strong><br>
+            <small>Learning Focused</small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 
-<!-- STATS STRIP -->
-<div class="stats-strip">
+<!-- PROMO -->
 
-<div class="container stats-grid">
+<section class="promo">
 
-<div class="stat-box">
-<h3>50+</h3>
-<p>Skill Programs</p>
-</div>
+  <div class="container">
 
-<div class="stat-box">
-<h3>24/7</h3>
-<p>Learning Access</p>
-</div>
+    <div class="promo-box reveal">
 
-<div class="stat-box">
-<h3>100%</h3>
-<p>Growth Focused</p>
-</div>
+      <div>
+        <small>SKILLS CREATE OPPORTUNITIES</small>
+        <strong>Turn Your Skills Into Opportunities.</strong>
+      </div>
 
-<div class="stat-box">
-<h3>∞</h3>
-<p>Learning Possibilities</p>
-</div>
+      <a href="#courses">Explore Courses →</a>
 
-</div>
+    </div>
 
-</div>
-
-
-<!-- FEATURES -->
-<section>
-
-<div class="container">
-
-<div class="section-head">
-<div class="label">LEARNING EXPERIENCE</div>
-<h2>Learn Smarter. Grow Faster.</h2>
-<p>
-Everything you need to build practical skills in one learning ecosystem.
-</p>
-</div>
-
-<div class="features">
-
-<div class="feature">
-<div class="icon">🤖</div>
-<h3>AI-Powered Learning</h3>
-<p>
-Explore modern AI tools and practical learning resources
-for today's digital world.
-</p>
-</div>
-
-<div class="feature">
-<div class="icon">🎓</div>
-<h3>Interactive Classes</h3>
-<p>
-Learn through structured lessons, practical examples and
-engaging educational content.
-</p>
-</div>
-
-<div class="feature">
-<div class="icon">▶️</div>
-<h3>Smart Recordings</h3>
-<p>
-Revisit your learning material and learn at a pace that
-works for you.
-</p>
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
 
 <!-- ABOUT -->
-<section class="about" id="about">
 
-<div class="container about-grid">
+<section class="section" id="about">
 
-<div class="about-image">
-<img src="1000238871.png" alt="Skills Market">
-</div>
+  <div class="container about-grid">
 
-<div class="about-copy">
+    <div class="about-visual reveal">
 
-<div class="label">ABOUT US</div>
+      <div class="about-photo one"></div>
 
-<h2>Where Skills Meet Opportunities</h2>
+      <div class="about-photo two">
+        <div class="fake-screen">
+          SKILLS<br>
+          <span>MARKET</span>
+        </div>
+      </div>
 
-<p>
-Skills Market is being built as a modern learning ecosystem
-focused on practical digital skills, useful knowledge and
-continuous growth.
-</p>
+      <div class="floating-stat stat-top">
+        <strong>01</strong><br>
+        Learning First
+      </div>
 
-<div class="mv-grid">
+      <div class="floating-stat stat-bottom">
+        <strong>∞</strong><br>
+        Growth Mindset
+      </div>
 
-<div class="mv">
-<h4>🎯 Mission</h4>
-<p>
-Make practical skill-based learning accessible and easy
-to apply.
-</p>
-</div>
+    </div>
 
-<div class="mv">
-<h4>🚀 Vision</h4>
-<p>
-Build a community where skills create confidence and
-opportunities.
-</p>
-</div>
 
-<div class="mv">
-<h4>🌱 Goal</h4>
-<p>
-Help learners continuously develop useful digital skills.
-</p>
-</div>
+    <div class="about-content reveal">
 
-</div>
+      <span class="section-tag">● ABOUT US</span>
 
-<a href="#courses" class="btn btn-red">
-Learn More →
-</a>
+      <h2>
+        Discover Our <span>Journey Of Growth</span>
+      </h2>
 
-</div>
+      <p>
+        We are building a modern learning ecosystem that helps ambitious
+        people learn practical skills, build confidence, and move toward
+        better opportunities.
+      </p>
 
-</div>
+      <div class="mission">
+        <h3>Our Mission</h3>
+        <p>
+          Make practical, career-focused learning accessible and easy to
+          apply in the real world.
+        </p>
+      </div>
+
+      <div class="mission">
+        <h3>Our Vision</h3>
+        <p>
+          Build a community where skills create confidence, opportunities,
+          and long-term growth.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 
 <!-- PACKAGES -->
-<section id="packages">
 
-<div class="container">
+<section class="section packages" id="packages">
 
-<div class="section-head">
-<div class="label">COURSES & PACKAGES</div>
-<h2>Find Your Perfect Learning Package</h2>
-<p>
-Choose a learning path based on your goals and interests.
-</p>
-</div>
+  <div class="container">
 
-<div class="packages">
+    <div class="center reveal">
 
-<!-- PACKAGE 1 -->
-<div class="package">
+      <span class="section-tag">● OUR COURSE PACKAGES</span>
 
-<div class="package-top">
-<small>STARTER</small>
-<h3>Starter Package</h3>
-<p>Start your learning journey</p>
-</div>
+      <h2 class="section-title">
+        Choose Perfect <span>Course Packages</span> For You
+      </h2>
 
-<div class="package-body">
-
-<div class="price">
-₹499 <del>₹999</del>
-</div>
-
-<ul>
-<li>Digital Skill Basics</li>
-<li>Learning Resources</li>
-<li>Basic Skill Training</li>
-<li>Course Access</li>
-</ul>
-
-<a href="#contact" class="btn btn-outline">
-Get Started →
-</a>
-
-</div>
-</div>
+    </div>
 
 
-<!-- PACKAGE 2 -->
-<div class="package">
-
-<div class="package-top">
-<small>CREATOR</small>
-<h3>Creator Package</h3>
-<p>Build your digital skills</p>
-</div>
-
-<div class="package-body">
-
-<div class="price">
-₹999 <del>₹1,999</del>
-</div>
-
-<ul>
-<li>Content Creation</li>
-<li>Canva Mastery</li>
-<li>Social Media Skills</li>
-<li>Learning Resources</li>
-</ul>
-
-<a href="#contact" class="btn btn-outline">
-Get Started →
-</a>
-
-</div>
-</div>
+    <div class="package-list">
 
 
-<!-- PACKAGE 3 -->
-<div class="package featured">
+      <!-- STARTER -->
 
-<div class="package-top">
-<small>POPULAR</small>
-<h3>Pro Package</h3>
-<p>Grow with practical skills</p>
-</div>
+      <div class="package active reveal">
 
-<div class="package-body">
+        <button class="package-head">
 
-<div class="price">
-₹1,999 <del>₹3,999</del>
-</div>
+          Starter
 
-<ul>
-<li>Digital Marketing</li>
-<li>Affiliate Marketing</li>
-<li>Instagram Growth</li>
-<li>Lead Generation</li>
-</ul>
+          <span class="course-count">2 Courses</span>
 
-<a href="#contact" class="btn btn-red">
-Choose Package →
-</a>
+          <span class="arrow">⌄</span>
 
-</div>
-</div>
+        </button>
+
+        <div class="package-body">
+
+          <div class="package-image">
+
+            <div>
+              <small>START YOUR JOURNEY</small>
+              <h3>STARTER</h3>
+              <strong>₹260</strong>
+            </div>
+
+          </div>
+
+          <div class="package-info">
+
+            <h3>Starter Package</h3>
+
+            <div class="rating">
+              ★★★★★
+              <span>4.8</span>
+            </div>
+
+          </div>
+
+          <div class="price">
+            <div>
+              <del>₹599</del>
+              <strong>₹260</strong>
+            </div>
+          </div>
+
+          <p class="package-description">
+            A simple starting package for learners who want to begin
+            building practical digital skills.
+          </p>
+
+          <a href="#" class="btn btn-primary">
+            Enroll Now →
+          </a>
+
+        </div>
+
+      </div>
 
 
-<!-- PACKAGE 4 -->
-<div class="package">
+      <!-- CREATOR -->
 
-<div class="package-top">
-<small>PREMIUM</small>
-<h3>Premium Package</h3>
-<p>Advanced digital learning</p>
-</div>
+      <div class="package reveal">
 
-<div class="package-body">
+        <button class="package-head">
 
-<div class="
+          Creator
+
+          <span class="course-count">4 Courses</span>
+
+          <span class="arrow">⌄</span>
+
+        </button>
+
+        <div class="package-body">
+
+          <div class="package-image">
+            <div>
+              <small>CREATE & GROW</small>
+              <h3>CREATOR</h3>
+              <strong>4 COURSES</strong>
+            </div>
+          </div>
+
+          <div class="package-info">
+            <h3>Creator Package</h3>
+            <div class="rating">★★★★★ <span>4.8</span></div>
+          </div>
+
+          <p class="package-description">
+            Build creative and digital skills through a practical
+            learning path.
+          </p>
+
+          <a href="#" class="btn btn-primary">Enroll Now →</a>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRO -->
+
+      <div class="package reveal">
+
+        <button class="package-head">
+
+          Pro
+
+          <span class="course-count">7 Courses</span>
+
+          <span class="arrow">⌄</span>
+
+        </button>
+
+        <div class="package-body">
+
+          <div class="package-image">
+            <div>
+              <small>LEVEL UP</small>
+              <h3>PRO</h3>
+              <strong>7 COURSES<
