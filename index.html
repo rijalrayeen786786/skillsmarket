@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Skills Market | Learn Skills. Build Your Future.</title>
+<title>Skills Market | Learn. Grow. Build.</title>
 
 <style>
 *{
@@ -19,8 +19,9 @@ html{
 }
 
 body{
-  background:#f7f9fc;
-  color:#111827;
+  background:#0a0a0a;
+  color:#fff;
+  line-height:1.6;
 }
 
 a{
@@ -30,17 +31,18 @@ a{
 
 /* NAVBAR */
 .navbar{
-  background:#ffffff;
-  border-bottom:1px solid #e5e7eb;
   position:sticky;
   top:0;
   z-index:1000;
+  background:rgba(8,8,8,.96);
+  border-bottom:1px solid #242424;
+  backdrop-filter:blur(12px);
 }
 
 .nav{
   width:92%;
   max-width:1250px;
-  height:75px;
+  height:76px;
   margin:auto;
   display:flex;
   align-items:center;
@@ -49,11 +51,12 @@ a{
 
 .logo{
   font-size:25px;
-  font-weight:800;
+  font-weight:900;
+  letter-spacing:-1px;
 }
 
 .logo span{
-  color:#2563eb;
+  color:#ff2020;
 }
 
 .nav-links{
@@ -62,13 +65,14 @@ a{
 }
 
 .nav-links a{
-  color:#4b5563;
+  color:#d4d4d4;
   font-size:14px;
   font-weight:600;
+  transition:.2s;
 }
 
 .nav-links a:hover{
-  color:#2563eb;
+  color:#ff2020;
 }
 
 .nav-buttons{
@@ -78,162 +82,211 @@ a{
 }
 
 .login{
-  color:#2563eb;
+  color:#fff;
+  padding:11px 17px;
   font-weight:700;
-  padding:11px 16px;
 }
 
 .register{
-  background:#2563eb;
-  color:white;
-  padding:12px 20px;
-  border-radius:8px;
-  font-weight:700;
+  background:#e50914;
+  color:#fff;
+  padding:12px 21px;
+  border-radius:7px;
+  font-weight:800;
+  box-shadow:0 0 22px rgba(229,9,20,.25);
+}
+
+.register:hover,
+.primary:hover{
+  background:#ff2020;
 }
 
 /* HERO */
 .hero{
-  padding:90px 0;
+  min-height:650px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
   background:
-  radial-gradient(circle at 85% 20%,rgba(37,99,235,.16),transparent 30%),
-  linear-gradient(135deg,#f8fbff,#eef4ff);
+    radial-gradient(circle at 80% 35%,rgba(229,9,20,.18),transparent 30%),
+    linear-gradient(135deg,#050505,#111);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  background:rgba(229,9,20,.08);
+  filter:blur(80px);
+  right:-100px;
+  bottom:-100px;
 }
 
 .hero-container{
   width:92%;
   max-width:1200px;
   margin:auto;
+  position:relative;
+  z-index:2;
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1.05fr .95fr;
   gap:60px;
   align-items:center;
 }
 
 .badge{
   display:inline-block;
+  background:#1b0909;
+  border:1px solid #4b1010;
+  color:#ff3333;
   padding:8px 15px;
   border-radius:50px;
-  background:#e5efff;
-  color:#2563eb;
   font-size:13px;
-  font-weight:700;
+  font-weight:800;
   margin-bottom:22px;
 }
 
 .hero h1{
-  font-size:58px;
-  line-height:1.08;
-  letter-spacing:-2px;
-  margin-bottom:20px;
+  font-size:60px;
+  line-height:1.06;
+  letter-spacing:-2.5px;
+  margin-bottom:22px;
 }
 
 .hero h1 span{
-  color:#2563eb;
+  color:#ff2020;
 }
 
 .hero p{
-  color:#64748b;
+  max-width:590px;
+  color:#a3a3a3;
   font-size:18px;
-  line-height:1.7;
-  max-width:580px;
+  line-height:1.8;
 }
 
 .buttons{
   display:flex;
   gap:14px;
-  margin-top:30px;
+  margin-top:32px;
 }
 
 .primary{
   display:inline-block;
-  background:#2563eb;
-  color:white;
-  padding:15px 25px;
-  border-radius:9px;
-  font-weight:700;
-  box-shadow:0 10px 25px rgba(37,99,235,.2);
+  background:#e50914;
+  color:#fff;
+  padding:15px 26px;
+  border-radius:8px;
+  font-weight:800;
+  box-shadow:0 0 30px rgba(229,9,20,.25);
+  transition:.2s;
 }
 
 .secondary{
   display:inline-block;
-  background:white;
-  border:1px solid #dbe2ea;
-  padding:15px 25px;
-  border-radius:9px;
+  border:1px solid #3a3a3a;
+  background:#111;
+  color:#fff;
+  padding:15px 26px;
+  border-radius:8px;
   font-weight:700;
 }
 
-/* DASHBOARD */
-.dashboard{
-  background:white;
-  padding:20px;
-  border-radius:20px;
-  border:1px solid #e5e7eb;
-  box-shadow:0 25px 60px rgba(15,23,42,.12);
+/* HERO VISUAL */
+.hero-visual{
+  position:relative;
 }
 
-.dashboard-top{
+.visual-card{
+  background:#111;
+  border:1px solid #292929;
+  border-radius:20px;
+  padding:28px;
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.55),
+    0 0 50px rgba(229,9,20,.08);
+}
+
+.visual-top{
   display:flex;
   justify-content:space-between;
-  padding:5px 5px 18px;
+  align-items:center;
+  margin-bottom:25px;
 }
 
-.dashboard-title{
+.visual-title{
+  font-size:18px;
   font-weight:800;
 }
 
-.notification{
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  background:#eff4ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.status{
+  color:#ff3030;
+  font-size:12px;
+  font-weight:800;
 }
 
-.profile-card{
-  background:linear-gradient(135deg,#2563eb,#1745a5);
-  color:white;
-  padding:25px;
+.visual-main{
+  border:1px solid #2c2c2c;
+  background:#0b0b0b;
   border-radius:15px;
-  margin-bottom:15px;
+  padding:24px;
 }
 
-.profile-card small{
-  opacity:.8;
+.visual-main small{
+  color:#777;
 }
 
-.profile-card h3{
-  margin:8px 0;
-  font-size:23px;
+.visual-main h2{
+  margin-top:8px;
+  font-size:27px;
 }
 
-.stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+.red-line{
+  width:100%;
+  height:7px;
+  background:#262626;
+  border-radius:20px;
+  margin-top:22px;
+  overflow:hidden;
 }
 
-.stat{
-  background:#f7f9fc;
-  padding:18px;
-  border-radius:13px;
-}
-
-.stat small{
-  color:#64748b;
-}
-
-.stat strong{
+.red-line span{
   display:block;
-  margin-top:7px;
-  font-size:23px;
+  width:72%;
+  height:100%;
+  background:#e50914;
+  border-radius:20px;
+}
+
+.visual-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+
+.visual-stat{
+  background:#151515;
+  border:1px solid #272727;
+  border-radius:12px;
+  padding:18px;
+}
+
+.visual-stat strong{
+  display:block;
+  font-size:21px;
+  margin-bottom:4px;
+}
+
+.visual-stat small{
+  color:#777;
 }
 
 /* SECTION */
 section{
-  padding:85px 0;
+  padding:90px 0;
 }
 
 .container{
@@ -244,167 +297,211 @@ section{
 
 .heading{
   text-align:center;
-  margin-bottom:45px;
+  margin-bottom:50px;
+}
+
+.heading .label{
+  color:#ff2020;
+  font-size:13px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin-bottom:10px;
 }
 
 .heading h2{
-  font-size:38px;
+  font-size:40px;
   margin-bottom:12px;
 }
 
 .heading p{
-  color:#64748b;
-  line-height:1.6;
+  color:#888;
+  max-width:650px;
+  margin:auto;
 }
 
 /* FEATURES */
+.features-section{
+  background:#0d0d0d;
+  border-top:1px solid #191919;
+  border-bottom:1px solid #191919;
+}
+
 .features{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:22px;
+  gap:20px;
 }
 
-.card{
-  background:white;
-  border:1px solid #e7ebf1;
-  border-radius:16px;
+.feature{
+  background:#111;
+  border:1px solid #252525;
+  border-radius:15px;
   padding:30px;
   transition:.25s;
 }
 
-.card:hover{
+.feature:hover{
   transform:translateY(-5px);
-  box-shadow:0 15px 35px rgba(15,23,42,.08);
+  border-color:#7d1717;
+  box-shadow:0 15px 40px rgba(0,0,0,.35);
 }
 
 .icon{
   width:52px;
   height:52px;
-  border-radius:13px;
-  background:#eaf1ff;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:24px;
-  margin-bottom:18px;
+  background:#260b0b;
+  border:1px solid #4b1010;
+  color:#ff2020;
+  border-radius:12px;
+  font-size:23px;
+  margin-bottom:20px;
 }
 
-.card h3{
+.feature h3{
   margin-bottom:10px;
+  font-size:20px;
 }
 
-.card p{
-  color:#64748b;
-  line-height:1.6;
+.feature p{
+  color:#858585;
 }
 
 /* COURSES */
 .courses-section{
-  background:white;
+  background:#080808;
 }
 
 .courses{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:24px;
+  gap:22px;
 }
 
 .course{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:17px;
   overflow:hidden;
-  box-shadow:0 7px 25px rgba(15,23,42,.05);
+  background:#111;
+  border:1px solid #272727;
+  border-radius:16px;
+  transition:.25s;
+}
+
+.course:hover{
+  transform:translateY(-5px);
+  border-color:#8e1717;
 }
 
 .course-top{
-  height:155px;
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
-  color:white;
+  height:170px;
   padding:25px;
   display:flex;
   align-items:flex-end;
+  background:
+    linear-gradient(135deg,#250808,#090909);
+  border-bottom:1px solid #292929;
+}
+
+.course-top span{
+  color:#ff2020;
+  font-size:12px;
+  font-weight:800;
+  display:block;
+  margin-bottom:7px;
 }
 
 .course-top h3{
-  font-size:23px;
+  font-size:24px;
 }
 
 .course-body{
-  padding:23px;
+  padding:24px;
 }
 
 .course-body p{
-  color:#64748b;
-  line-height:1.6;
+  color:#888;
+  min-height:75px;
 }
 
-.course-body a{
+.course-link{
   display:inline-block;
-  color:#2563eb;
-  font-weight:700;
-  margin-top:17px;
+  margin-top:18px;
+  color:#ff2020;
+  font-weight:800;
 }
 
-/* MEMBER */
-.member{
-  background:#f8faff;
+/* ABOUT */
+.about{
+  background:#0d0d0d;
 }
 
-.member-box{
-  background:#111827;
-  color:white;
-  border-radius:22px;
-  padding:55px;
+.about-box{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:45px;
+  gap:60px;
   align-items:center;
 }
 
-.member-box h2{
-  font-size:38px;
-  margin-bottom:15px;
+.about-text .label{
+  color:#ff2020;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:13px;
 }
 
-.member-box p{
-  color:#cbd5e1;
-  line-height:1.7;
+.about-text h2{
+  font-size:42px;
+  margin:12px 0 18px;
 }
 
-.member-list{
+.about-text p{
+  color:#8d8d8d;
+  line-height:1.8;
+}
+
+.about-points{
   display:grid;
-  grid-template-columns:1fr 1fr;
   gap:12px;
 }
 
-.member-item{
-  background:#1f2937;
-  border:1px solid #374151;
-  padding:17px;
-  border-radius:10px;
+.point{
+  background:#111;
+  border:1px solid #292929;
+  border-radius:11px;
+  padding:17px 20px;
+}
+
+.point span{
+  color:#ff2020;
+  margin-right:8px;
 }
 
 /* CTA */
 .cta{
   text-align:center;
-  background:white;
+  background:
+    radial-gradient(circle,rgba(229,9,20,.12),transparent 45%),
+    #080808;
+  border-top:1px solid #191919;
 }
 
 .cta h2{
-  font-size:42px;
+  font-size:44px;
   margin-bottom:14px;
 }
 
 .cta p{
-  color:#64748b;
-  margin-bottom:28px;
+  color:#888;
+  margin-bottom:30px;
 }
 
 /* FOOTER */
 footer{
-  background:#0b1120;
-  color:#94a3b8;
+  background:#050505;
+  border-top:1px solid #1d1d1d;
   padding:45px 0;
 }
 
@@ -418,19 +515,22 @@ footer{
 }
 
 .footer-logo{
-  color:white;
   font-size:22px;
-  font-weight:800;
-  margin-bottom:10px;
+  font-weight:900;
+  margin-bottom:8px;
 }
 
 .footer-logo span{
-  color:#4f8cff;
+  color:#ff2020;
 }
 
 .footer p{
-  max-width:420px;
-  line-height:1.6;
+  color:#777;
+  font-size:14px;
+}
+
+.copyright{
+  color:#666;
   font-size:14px;
 }
 
@@ -441,12 +541,16 @@ footer{
     display:none;
   }
 
+  .hero{
+    padding:70px 0;
+  }
+
   .hero-container{
     grid-template-columns:1fr;
   }
 
   .hero h1{
-    font-size:42px;
+    font-size:43px;
   }
 
   .features,
@@ -454,9 +558,13 @@ footer{
     grid-template-columns:1fr;
   }
 
-  .member-box{
+  .about-box{
     grid-template-columns:1fr;
-    padding:35px 25px;
+    gap:35px;
+  }
+
+  .about-text h2{
+    font-size:35px;
   }
 
   .footer{
@@ -470,8 +578,8 @@ footer{
     display:none;
   }
 
-  .hero{
-    padding:60px 0;
+  .hero h1{
+    font-size:38px;
   }
 
   .buttons{
@@ -482,16 +590,16 @@ footer{
     text-align:center;
   }
 
-  .stats{
+  .visual-stats{
     grid-template-columns:1fr;
   }
 
-  .member-list{
-    grid-template-columns:1fr;
+  .heading h2{
+    font-size:32px;
   }
 
   .cta h2{
-    font-size:32px;
+    font-size:34px;
   }
 }
 </style>
@@ -503,15 +611,16 @@ footer{
 <header class="navbar">
   <div class="nav">
 
-    <a href="#" class="logo">
+    <a href="#home" class="logo">
       Skills <span>Market</span>
     </a>
 
     <nav class="nav-links">
       <a href="#home">Home</a>
-      <a href="#features">Features</a>
-      <a href="#courses">Courses</a>
       <a href="#about">About</a>
+      <a href="#courses">Courses</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
     </nav>
 
     <div class="nav-buttons">
@@ -531,7 +640,7 @@ footer{
     <div>
 
       <div class="badge">
-        🚀 Welcome to Skills Market
+        🔥 Welcome to Skills Market
       </div>
 
       <h1>
@@ -540,70 +649,75 @@ footer{
       </h1>
 
       <p>
-        Learn practical digital skills, explore valuable courses,
-        and build your future with Skills Market.
+        Discover practical digital skills, learn from structured
+        courses and take the next step toward building your future.
       </p>
 
       <div class="buttons">
+
         <a href="#courses" class="primary">
-          Get Started →
+          Explore Courses →
         </a>
 
-        <a href="#features" class="secondary">
-          Explore Platform
+        <a href="#about" class="secondary">
+          Learn More
         </a>
+
       </div>
 
     </div>
 
 
-    <!-- DASHBOARD PREVIEW -->
-    <div class="dashboard">
+    <!-- PUBLIC WEBSITE VISUAL -->
+    <div class="hero-visual">
 
-      <div class="dashboard-top">
-        <div class="dashboard-title">
-          Member Dashboard
+      <div class="visual-card">
+
+        <div class="visual-top">
+
+          <div class="visual-title">
+            Skills Market
+          </div>
+
+          <div class="status">
+            ● ONLINE
+          </div>
+
         </div>
 
-        <div class="notification">
-          🔔
-        </div>
-      </div>
+        <div class="visual-main">
 
-      <div class="profile-card">
+          <small>
+            BUILD YOUR SKILLS
+          </small>
 
-        <small>Welcome back</small>
+          <h2>
+            Your Learning Journey
+          </h2>
 
-        <h3>
-          Skills Market Member 👋
-        </h3>
+          <div class="red-line">
+            <span></span>
+          </div>
 
-        <small>
-          Your learning journey starts here.
-        </small>
+          <div class="visual-stats">
 
-      </div>
+            <div class="visual-stat">
+              <strong>12+</strong>
+              <small>Courses</small>
+            </div>
 
-      <div class="stats">
+            <div class="visual-stat">
+              <strong>24/7</strong>
+              <small>Access</small>
+            </div>
 
-        <div class="stat">
-          <small>My Courses</small>
-          <strong>12</strong>
-        </div>
+            <div class="visual-stat">
+              <strong>100%</strong>
+              <small>Learning</small>
+            </div>
 
-        <div class="stat">
-          <small>Progress</small>
-          <strong>72%</strong>
-        </div>
+          </div>
 
-        <div class="stat">
-          <small>Referrals</small>
-          <strong>28</strong>
-        </div>
-
-        <div class="stat">
-          <small>Status</small>
-          <strong>Active</strong>
         </div>
 
       </div>
@@ -616,18 +730,23 @@ footer{
 
 
 <!-- FEATURES -->
-<section id="features">
+<section class="features-section" id="features">
 
   <div class="container">
 
     <div class="heading">
 
+      <div class="label">
+        Why Skills Market
+      </div>
+
       <h2>
-        Everything in One Place
+        Everything You Need To Grow
       </h2>
 
       <p>
-        Learn, manage and grow from one modern platform.
+        A modern learning platform built around practical
+        digital skills and continuous growth.
       </p>
 
     </div>
@@ -635,49 +754,49 @@ footer{
 
     <div class="features">
 
-      <div class="card">
+      <div class="feature">
 
         <div class="icon">🎓</div>
 
         <h3>
-          Learn New Skills
+          Practical Learning
         </h3>
 
         <p>
-          Build practical digital knowledge through
-          structured learning programs.
+          Learn useful digital skills through structured
+          and practical learning programs.
         </p>
 
       </div>
 
 
-      <div class="card">
-
-        <div class="icon">📊</div>
-
-        <h3>
-          Member Dashboard
-        </h3>
-
-        <p>
-          Manage your courses, profile, progress and
-          member activities in one place.
-        </p>
-
-      </div>
-
-
-      <div class="card">
+      <div class="feature">
 
         <div class="icon">🚀</div>
 
         <h3>
-          Build Your Future
+          Digital Skills
         </h3>
 
         <p>
-          Learn useful skills and keep developing your
-          digital knowledge for the future.
+          Explore skills related to marketing, websites,
+          content and the digital world.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="icon">📈</div>
+
+        <h3>
+          Keep Growing
+        </h3>
+
+        <p>
+          Build knowledge step by step and continue
+          improving your digital capabilities.
         </p>
 
       </div>
@@ -696,12 +815,16 @@ footer{
 
     <div class="heading">
 
+      <div class="label">
+        Our Courses
+      </div>
+
       <h2>
-        Explore Our Courses
+        Learn Skills That Matter
       </h2>
 
       <p>
-        Discover practical skills for the digital world.
+        Explore our upcoming learning programs.
       </p>
 
     </div>
@@ -709,12 +832,16 @@ footer{
 
     <div class="courses">
 
+
       <div class="course">
 
         <div class="course-top">
-          <h3>
-            Digital Marketing
-          </h3>
+
+          <div>
+            <span>COURSE 01</span>
+            <h3>Digital Marketing</h3>
+          </div>
+
         </div>
 
         <div class="course-body">
@@ -724,8 +851,8 @@ footer{
             audience building and online growth.
           </p>
 
-          <a href="#">
-            Explore Course →
+          <a href="#" class="course-link">
+            View Course →
           </a>
 
         </div>
@@ -736,9 +863,12 @@ footer{
       <div class="course">
 
         <div class="course-top">
-          <h3>
-            Web Development
-          </h3>
+
+          <div>
+            <span>COURSE 02</span>
+            <h3>Web Development</h3>
+          </div>
+
         </div>
 
         <div class="course-body">
@@ -748,8 +878,8 @@ footer{
             developed and launched.
           </p>
 
-          <a href="#">
-            Explore Course →
+          <a href="#" class="course-link">
+            View Course →
           </a>
 
         </div>
@@ -760,25 +890,29 @@ footer{
       <div class="course">
 
         <div class="course-top">
-          <h3>
-            Content Creation
-          </h3>
+
+          <div>
+            <span>COURSE 03</span>
+            <h3>Content Creation</h3>
+          </div>
+
         </div>
 
         <div class="course-body">
 
           <p>
-            Learn content strategy and build your
+            Learn content strategy and build a strong
             digital presence.
           </p>
 
-          <a href="#">
-            Explore Course →
+          <a href="#" class="course-link">
+            View Course →
           </a>
 
         </div>
 
       </div>
+
 
     </div>
 
@@ -787,60 +921,53 @@ footer{
 </section>
 
 
-<!-- MEMBER PLATFORM -->
-<section class="member" id="about">
+<!-- ABOUT -->
+<section class="about" id="about">
 
   <div class="container">
 
-    <div class="member-box">
+    <div class="about-box">
 
-      <div>
+      <div class="about-text">
+
+        <div class="label">
+          About Skills Market
+        </div>
 
         <h2>
-          Your Skills.<br>
-          Your Journey.
+          Learn. Practice.<br>
+          Build. Grow.
         </h2>
 
         <p>
-          Skills Market brings learning, progress and
-          useful member tools together in one platform.
+          Skills Market is designed to help learners
+          discover practical digital skills and build
+          knowledge for the modern digital world.
         </p>
 
       </div>
 
 
-      <div class="member-list">
+      <div class="about-points">
 
-        <div class="member-item">
-          📚 My Courses
+        <div class="point">
+          <span>✓</span>
+          Practical digital learning
         </div>
 
-        <div class="member-item">
-          👤 My Profile
+        <div class="point">
+          <span>✓</span>
+          Structured courses
         </div>
 
-        <div class="member-item">
-          📈 Affiliate Dashboard
+        <div class="point">
+          <span>✓</span>
+          Modern learning experience
         </div>
 
-        <div class="member-item">
-          🔗 Affiliate Link
-        </div>
-
-        <div class="member-item">
-          🏆 Leaderboard
-        </div>
-
-        <div class="member-item">
-          👥 My Referrals
-        </div>
-
-        <div class="member-item">
-          🪪 My KYC
-        </div>
-
-        <div class="member-item">
-          ⭐ Upgrade Package
+        <div class="point">
+          <span>✓</span>
+          Continuous skill development
         </div>
 
       </div>
@@ -853,20 +980,20 @@ footer{
 
 
 <!-- CTA -->
-<section class="cta">
+<section class="cta" id="contact">
 
   <div class="container">
 
     <h2>
-      Start Building Your Future
+      Ready To Start Learning?
     </h2>
 
     <p>
-      Learn skills. Take action. Keep growing.
+      Join Skills Market and start building your skills.
     </p>
 
     <a href="#" class="primary">
-      Join Skills Market →
+      Get Started →
     </a>
 
   </div>
@@ -886,13 +1013,12 @@ footer{
       </div>
 
       <p>
-        A modern learning platform for practical
-        digital skills and personal growth.
+        Learn skills. Build your future.
       </p>
 
     </div>
 
-    <div>
+    <div class="copyright">
       © 2026 Skills Market. All Rights Reserved.
     </div>
 
