@@ -8,1023 +8,1170 @@
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,Helvetica,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-  background:#0a0a0a;
-  color:#fff;
-  line-height:1.6;
+    background:#080808;
+    color:#fff;
+    overflow-x:hidden;
 }
 
 a{
-  text-decoration:none;
-  color:inherit;
-}
-
-/* NAVBAR */
-.navbar{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(8,8,8,.96);
-  border-bottom:1px solid #242424;
-  backdrop-filter:blur(12px);
-}
-
-.nav{
-  width:92%;
-  max-width:1250px;
-  height:76px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:-1px;
-}
-
-.logo span{
-  color:#ff2020;
-}
-
-.nav-links{
-  display:flex;
-  gap:30px;
-}
-
-.nav-links a{
-  color:#d4d4d4;
-  font-size:14px;
-  font-weight:600;
-  transition:.2s;
-}
-
-.nav-links a:hover{
-  color:#ff2020;
-}
-
-.nav-buttons{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.login{
-  color:#fff;
-  padding:11px 17px;
-  font-weight:700;
-}
-
-.register{
-  background:#e50914;
-  color:#fff;
-  padding:12px 21px;
-  border-radius:7px;
-  font-weight:800;
-  box-shadow:0 0 22px rgba(229,9,20,.25);
-}
-
-.register:hover,
-.primary:hover{
-  background:#ff2020;
-}
-
-/* HERO */
-.hero{
-  min-height:650px;
-  display:flex;
-  align-items:center;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 80% 35%,rgba(229,9,20,.18),transparent 30%),
-    linear-gradient(135deg,#050505,#111);
-}
-
-.hero:after{
-  content:"";
-  position:absolute;
-  width:420px;
-  height:420px;
-  border-radius:50%;
-  background:rgba(229,9,20,.08);
-  filter:blur(80px);
-  right:-100px;
-  bottom:-100px;
-}
-
-.hero-container{
-  width:92%;
-  max-width:1200px;
-  margin:auto;
-  position:relative;
-  z-index:2;
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:60px;
-  align-items:center;
-}
-
-.badge{
-  display:inline-block;
-  background:#1b0909;
-  border:1px solid #4b1010;
-  color:#ff3333;
-  padding:8px 15px;
-  border-radius:50px;
-  font-size:13px;
-  font-weight:800;
-  margin-bottom:22px;
-}
-
-.hero h1{
-  font-size:60px;
-  line-height:1.06;
-  letter-spacing:-2.5px;
-  margin-bottom:22px;
-}
-
-.hero h1 span{
-  color:#ff2020;
-}
-
-.hero p{
-  max-width:590px;
-  color:#a3a3a3;
-  font-size:18px;
-  line-height:1.8;
-}
-
-.buttons{
-  display:flex;
-  gap:14px;
-  margin-top:32px;
-}
-
-.primary{
-  display:inline-block;
-  background:#e50914;
-  color:#fff;
-  padding:15px 26px;
-  border-radius:8px;
-  font-weight:800;
-  box-shadow:0 0 30px rgba(229,9,20,.25);
-  transition:.2s;
-}
-
-.secondary{
-  display:inline-block;
-  border:1px solid #3a3a3a;
-  background:#111;
-  color:#fff;
-  padding:15px 26px;
-  border-radius:8px;
-  font-weight:700;
-}
-
-/* HERO VISUAL */
-.hero-visual{
-  position:relative;
-}
-
-.visual-card{
-  background:#111;
-  border:1px solid #292929;
-  border-radius:20px;
-  padding:28px;
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.55),
-    0 0 50px rgba(229,9,20,.08);
-}
-
-.visual-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-}
-
-.visual-title{
-  font-size:18px;
-  font-weight:800;
-}
-
-.status{
-  color:#ff3030;
-  font-size:12px;
-  font-weight:800;
-}
-
-.visual-main{
-  border:1px solid #2c2c2c;
-  background:#0b0b0b;
-  border-radius:15px;
-  padding:24px;
-}
-
-.visual-main small{
-  color:#777;
-}
-
-.visual-main h2{
-  margin-top:8px;
-  font-size:27px;
-}
-
-.red-line{
-  width:100%;
-  height:7px;
-  background:#262626;
-  border-radius:20px;
-  margin-top:22px;
-  overflow:hidden;
-}
-
-.red-line span{
-  display:block;
-  width:72%;
-  height:100%;
-  background:#e50914;
-  border-radius:20px;
-}
-
-.visual-stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:14px;
-}
-
-.visual-stat{
-  background:#151515;
-  border:1px solid #272727;
-  border-radius:12px;
-  padding:18px;
-}
-
-.visual-stat strong{
-  display:block;
-  font-size:21px;
-  margin-bottom:4px;
-}
-
-.visual-stat small{
-  color:#777;
-}
-
-/* SECTION */
-section{
-  padding:90px 0;
+    text-decoration:none;
+    color:inherit;
 }
 
 .container{
-  width:92%;
-  max-width:1200px;
-  margin:auto;
+    width:90%;
+    max-width:1200px;
+    margin:auto;
 }
 
-.heading{
-  text-align:center;
-  margin-bottom:50px;
+/* ================= NAVBAR ================= */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:9999;
+    background:rgba(8,8,8,.94);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid #252525;
 }
 
-.heading .label{
-  color:#ff2020;
-  font-size:13px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  margin-bottom:10px;
+.nav{
+    height:78px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-.heading h2{
-  font-size:40px;
-  margin-bottom:12px;
+.logo img{
+    height:52px;
+    width:auto;
+    display:block;
 }
 
-.heading p{
-  color:#888;
-  max-width:650px;
-  margin:auto;
+.nav-links{
+    display:flex;
+    gap:30px;
+    align-items:center;
 }
 
-/* FEATURES */
-.features-section{
-  background:#0d0d0d;
-  border-top:1px solid #191919;
-  border-bottom:1px solid #191919;
+.nav-links a{
+    color:#ddd;
+    font-size:14px;
+    font-weight:600;
+    transition:.3s;
 }
 
-.features{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
+.nav-links a:hover{
+    color:#ff1f1f;
 }
 
-.feature{
-  background:#111;
-  border:1px solid #252525;
-  border-radius:15px;
-  padding:30px;
-  transition:.25s;
+.nav-buttons{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
-.feature:hover{
-  transform:translateY(-5px);
-  border-color:#7d1717;
-  box-shadow:0 15px 40px rgba(0,0,0,.35);
+.login{
+    padding:11px 18px;
+    color:#fff;
+    font-weight:700;
 }
 
-.icon{
-  width:52px;
-  height:52px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#260b0b;
-  border:1px solid #4b1010;
-  color:#ff2020;
-  border-radius:12px;
-  font-size:23px;
-  margin-bottom:20px;
+.register{
+    padding:12px 21px;
+    border-radius:7px;
+    background:#e50914;
+    color:#fff;
+    font-weight:700;
+    box-shadow:0 0 20px rgba(229,9,20,.25);
+    transition:.3s;
 }
 
-.feature h3{
-  margin-bottom:10px;
-  font-size:20px;
+.register:hover{
+    background:#ff2020;
+    transform:translateY(-2px);
+    box-shadow:0 0 28px rgba(255,20,20,.4);
 }
 
-.feature p{
-  color:#858585;
+/* ================= HERO ================= */
+
+.hero{
+    min-height:680px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 85% 30%,rgba(229,9,20,.20),transparent 32%),
+        linear-gradient(135deg,#080808,#111);
 }
 
-/* COURSES */
-.courses-section{
-  background:#080808;
+.hero::before{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    border:1px solid rgba(229,9,20,.18);
+    right:-130px;
+    top:-120px;
+    animation:float 6s ease-in-out infinite;
 }
 
-.courses{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:22px;
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:780px;
+    animation:heroIn 1s ease;
 }
 
-.course{
-  overflow:hidden;
-  background:#111;
-  border:1px solid #272727;
-  border-radius:16px;
-  transition:.25s;
+.badge{
+    display:inline-block;
+    padding:8px 15px;
+    border:1px solid rgba(255,40,40,.4);
+    background:rgba(229,9,20,.08);
+    color:#ff3b3b;
+    border-radius:50px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:22px;
 }
 
-.course:hover{
-  transform:translateY(-5px);
-  border-color:#8e1717;
+.hero h1{
+    font-size:64px;
+    line-height:1.05;
+    letter-spacing:-2px;
+    margin-bottom:22px;
 }
 
-.course-top{
-  height:170px;
-  padding:25px;
-  display:flex;
-  align-items:flex-end;
-  background:
-    linear-gradient(135deg,#250808,#090909);
-  border-bottom:1px solid #292929;
+.hero h1 span{
+    color:#e50914;
 }
 
-.course-top span{
-  color:#ff2020;
-  font-size:12px;
-  font-weight:800;
-  display:block;
-  margin-bottom:7px;
+.hero p{
+    color:#aaa;
+    max-width:650px;
+    font-size:18px;
+    line-height:1.8;
 }
 
-.course-top h3{
-  font-size:24px;
+.hero-buttons{
+    display:flex;
+    gap:14px;
+    margin-top:32px;
 }
 
-.course-body{
-  padding:24px;
+.btn-red{
+    background:#e50914;
+    color:#fff;
+    padding:15px 27px;
+    border-radius:7px;
+    font-weight:700;
+    display:inline-block;
+    box-shadow:0 0 25px rgba(229,9,20,.25);
+    transition:.3s;
 }
 
-.course-body p{
-  color:#888;
-  min-height:75px;
+.btn-red:hover{
+    transform:translateY(-3px);
+    background:#ff2020;
+    box-shadow:0 0 35px rgba(255,20,20,.4);
 }
 
-.course-link{
-  display:inline-block;
-  margin-top:18px;
-  color:#ff2020;
-  font-weight:800;
+.btn-outline{
+    border:1px solid #444;
+    color:#fff;
+    padding:15px 27px;
+    border-radius:7px;
+    font-weight:700;
+    display:inline-block;
+    transition:.3s;
 }
 
-/* ABOUT */
+.btn-outline:hover{
+    border-color:#e50914;
+    color:#ff3030;
+}
+
+/* ================= STATS ================= */
+
+.stats-section{
+    background:#0e0e0e;
+    border-top:1px solid #222;
+    border-bottom:1px solid #222;
+    padding:35px 0;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+}
+
+.stat{
+    text-align:center;
+    border-right:1px solid #292929;
+}
+
+.stat:last-child{
+    border-right:none;
+}
+
+.stat h3{
+    font-size:32px;
+    color:#fff;
+    margin-bottom:5px;
+}
+
+.stat h3 span{
+    color:#e50914;
+}
+
+.stat p{
+    color:#888;
+    font-size:14px;
+}
+
+/* ================= COMMON SECTION ================= */
+
+section{
+    padding:95px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.section-title .small{
+    color:#e50914;
+    font-size:13px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.section-title h2{
+    font-size:42px;
+    margin-bottom:13px;
+}
+
+.section-title p{
+    color:#8f8f8f;
+    max-width:650px;
+    margin:auto;
+    line-height:1.7;
+}
+
+/* ================= ABOUT ================= */
+
 .about{
-  background:#0d0d0d;
+    background:#080808;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
 }
 
 .about-box{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
+    border:1px solid #292929;
+    background:#101010;
+    border-radius:18px;
+    padding:40px;
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
 }
 
-.about-text .label{
-  color:#ff2020;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  font-size:13px;
+.about-box .red-line{
+    width:55px;
+    height:4px;
+    background:#e50914;
+    margin-bottom:20px;
 }
 
-.about-text h2{
-  font-size:42px;
-  margin:12px 0 18px;
+.about-box h3{
+    font-size:30px;
+    margin-bottom:17px;
 }
 
-.about-text p{
-  color:#8d8d8d;
-  line-height:1.8;
+.about-box p{
+    color:#999;
+    line-height:1.8;
 }
 
 .about-points{
-  display:grid;
-  gap:12px;
+    display:grid;
+    gap:18px;
 }
 
 .point{
-  background:#111;
-  border:1px solid #292929;
-  border-radius:11px;
-  padding:17px 20px;
+    display:flex;
+    gap:15px;
+    padding:20px;
+    background:#101010;
+    border:1px solid #252525;
+    border-radius:12px;
+    transition:.3s;
 }
 
-.point span{
-  color:#ff2020;
-  margin-right:8px;
+.point:hover{
+    transform:translateX(6px);
+    border-color:#e50914;
 }
 
-/* CTA */
+.point-icon{
+    width:42px;
+    height:42px;
+    min-width:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:9px;
+    background:#e50914;
+}
+
+.point h4{
+    margin-bottom:5px;
+}
+
+.point p{
+    color:#888;
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* ================= COURSES EMPTY ================= */
+
+.courses{
+    background:#0d0d0d;
+}
+
+.empty-courses{
+    min-height:250px;
+    border:1px dashed #3a3a3a;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#666;
+}
+
+.empty-courses h3{
+    color:#999;
+    margin-bottom:8px;
+}
+
+.empty-courses p{
+    font-size:14px;
+}
+
+/* ================= WHY ================= */
+
+.why{
+    background:#080808;
+}
+
+.why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.why-card{
+    background:#101010;
+    border:1px solid #272727;
+    border-radius:15px;
+    padding:32px;
+    transition:.35s;
+}
+
+.why-card:hover{
+    transform:translateY(-7px);
+    border-color:#e50914;
+    box-shadow:0 15px 40px rgba(229,9,20,.08);
+}
+
+.why-icon{
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+.why-card h3{
+    margin-bottom:10px;
+}
+
+.why-card p{
+    color:#888;
+    line-height:1.7;
+    font-size:14px;
+}
+
+/* ================= TRAINERS ================= */
+
+.trainers{
+    background:#0d0d0d;
+}
+
+.trainer-empty{
+    border:1px dashed #363636;
+    border-radius:18px;
+    padding:65px 20px;
+    text-align:center;
+    color:#666;
+}
+
+.trainer-empty h3{
+    color:#999;
+    margin-bottom:8px;
+}
+
+/* ================= TESTIMONIALS ================= */
+
+.testimonials{
+    background:#080808;
+}
+
+.testimonial-empty{
+    border:1px dashed #363636;
+    border-radius:18px;
+    padding:65px 20px;
+    text-align:center;
+    color:#666;
+}
+
+.testimonial-empty h3{
+    color:#999;
+    margin-bottom:8px;
+}
+
+/* ================= FAQ ================= */
+
+.faq{
+    background:#0d0d0d;
+}
+
+.faq-list{
+    max-width:850px;
+    margin:auto;
+}
+
+details{
+    background:#111;
+    border:1px solid #292929;
+    margin-bottom:12px;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+summary{
+    cursor:pointer;
+    padding:20px;
+    font-weight:700;
+    list-style:none;
+    position:relative;
+}
+
+summary::-webkit-details-marker{
+    display:none;
+}
+
+summary::after{
+    content:"+";
+    position:absolute;
+    right:20px;
+    color:#e50914;
+    font-size:22px;
+}
+
+details[open] summary::after{
+    content:"−";
+}
+
+.answer{
+    padding:0 20px 20px;
+    color:#888;
+    line-height:1.7;
+    font-size:14px;
+}
+
+/* ================= CTA ================= */
+
 .cta{
-  text-align:center;
-  background:
-    radial-gradient(circle,rgba(229,9,20,.12),transparent 45%),
-    #080808;
-  border-top:1px solid #191919;
+    background:
+        radial-gradient(circle at center,rgba(229,9,20,.18),transparent 50%),
+        #090909;
+    text-align:center;
+    border-top:1px solid #222;
+    border-bottom:1px solid #222;
 }
 
 .cta h2{
-  font-size:44px;
-  margin-bottom:14px;
+    font-size:48px;
+    margin-bottom:15px;
 }
 
 .cta p{
-  color:#888;
-  margin-bottom:30px;
+    color:#999;
+    margin-bottom:30px;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
+
 footer{
-  background:#050505;
-  border-top:1px solid #1d1d1d;
-  padding:45px 0;
+    background:#050505;
+    padding:55px 0 25px;
 }
 
-.footer{
-  width:92%;
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  gap:30px;
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:40px;
+    border-bottom:1px solid #222;
 }
 
-.footer-logo{
-  font-size:22px;
-  font-weight:900;
-  margin-bottom:8px;
-}
-
-.footer-logo span{
-  color:#ff2020;
+.footer-logo img{
+    height:50px;
+    width:auto;
+    margin-bottom:15px;
 }
 
 .footer p{
-  color:#777;
-  font-size:14px;
+    color:#777;
+    line-height:1.7;
+    font-size:14px;
+    max-width:400px;
+}
+
+.footer h4{
+    margin-bottom:18px;
+}
+
+.footer a{
+    display:block;
+    color:#777;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.footer a:hover{
+    color:#e50914;
 }
 
 .copyright{
-  color:#666;
-  font-size:14px;
+    text-align:center;
+    color:#555;
+    font-size:13px;
+    padding-top:25px;
 }
 
-/* MOBILE */
+/* ================= ANIMATIONS ================= */
+
+@keyframes heroIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(20px);
+    }
+}
+
+/* ================= MOBILE ================= */
+
 @media(max-width:850px){
 
-  .nav-links{
-    display:none;
-  }
+    .nav-links{
+        display:none;
+    }
 
-  .hero{
-    padding:70px 0;
-  }
+    .hero{
+        min-height:600px;
+    }
 
-  .hero-container{
-    grid-template-columns:1fr;
-  }
+    .hero h1{
+        font-size:43px;
+    }
 
-  .hero h1{
-    font-size:43px;
-  }
+    .stats{
+        grid-template-columns:1fr 1fr;
+        gap:25px 0;
+    }
 
-  .features,
-  .courses{
-    grid-template-columns:1fr;
-  }
+    .stat:nth-child(2){
+        border-right:none;
+    }
 
-  .about-box{
-    grid-template-columns:1fr;
-    gap:35px;
-  }
+    .about-grid{
+        grid-template-columns:1fr;
+    }
 
-  .about-text h2{
-    font-size:35px;
-  }
+    .why-grid{
+        grid-template-columns:1fr;
+    }
 
-  .footer{
-    flex-direction:column;
-  }
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cta h2{
+        font-size:35px;
+    }
 }
 
 @media(max-width:500px){
 
-  .login{
-    display:none;
-  }
+    .container{
+        width:92%;
+    }
 
-  .hero h1{
-    font-size:38px;
-  }
+    .logo img{
+        height:43px;
+    }
 
-  .buttons{
-    flex-direction:column;
-  }
+    .nav{
+        height:68px;
+    }
 
-  .buttons a{
-    text-align:center;
-  }
+    .login{
+        display:none;
+    }
 
-  .visual-stats{
-    grid-template-columns:1fr;
-  }
+    .hero{
+        padding:70px 0;
+    }
 
-  .heading h2{
-    font-size:32px;
-  }
+    .hero h1{
+        font-size:38px;
+    }
 
-  .cta h2{
-    font-size:34px;
-  }
+    .hero p{
+        font-size:16px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .hero-buttons a{
+        text-align:center;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stat{
+        border-right:none;
+    }
+
+    section{
+        padding:70px 0;
+    }
+
+    .section-title h2{
+        font-size:32px;
+    }
+
+    .about-box{
+        padding:25px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<!-- ================= NAVBAR ================= -->
+
 <header class="navbar">
-  <div class="nav">
+    <div class="container nav">
 
-    <a href="#home" class="logo">
-      Skills <span>Market</span>
-    </a>
+        <a href="#home" class="logo">
+            <img src="1000238871.png" alt="Skills Market">
+        </a>
 
-    <nav class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#courses">Courses</a>
-      <a href="#features">Features</a>
-      <a href="#contact">Contact</a>
-    </nav>
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#courses">Courses</a>
+            <a href="#why">Why Us</a>
+            <a href="#contact">Contact</a>
+        </nav>
 
-    <div class="nav-buttons">
-      <a href="#" class="login">Login</a>
-      <a href="#" class="register">Register</a>
+        <div class="nav-buttons">
+            <a href="#" class="login">Login</a>
+            <a href="#" class="register">Register</a>
+        </div>
+
     </div>
-
-  </div>
 </header>
 
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
+
 <section class="hero" id="home">
 
-  <div class="hero-container">
+    <div class="container">
 
-    <div>
+        <div class="hero-content">
 
-      <div class="badge">
-        🔥 Welcome to Skills Market
-      </div>
+            <div class="badge">
+                🔴 Welcome to Skills Market
+            </div>
 
-      <h1>
-        Learn Skills.<br>
-        <span>Build Your Future.</span>
-      </h1>
+            <h1>
+                Learn Skills.<br>
+                <span>Build Your Future.</span>
+            </h1>
 
-      <p>
-        Discover practical digital skills, learn from structured
-        courses and take the next step toward building your future.
-      </p>
+            <p>
+                Skills Market is a modern platform designed to help
+                people discover practical skills, learn from quality
+                resources and build a stronger digital future.
+            </p>
 
-      <div class="buttons">
+            <div class="hero-buttons">
 
-        <a href="#courses" class="primary">
-          Explore Courses →
-        </a>
+                <a href="#courses" class="btn-red">
+                    Explore Courses →
+                </a>
 
-        <a href="#about" class="secondary">
-          Learn More
-        </a>
+                <a href="#about" class="btn-outline">
+                    Discover More
+                </a>
 
-      </div>
-
-    </div>
-
-
-    <!-- PUBLIC WEBSITE VISUAL -->
-    <div class="hero-visual">
-
-      <div class="visual-card">
-
-        <div class="visual-top">
-
-          <div class="visual-title">
-            Skills Market
-          </div>
-
-          <div class="status">
-            ● ONLINE
-          </div>
+            </div>
 
         </div>
 
-        <div class="visual-main">
-
-          <small>
-            BUILD YOUR SKILLS
-          </small>
-
-          <h2>
-            Your Learning Journey
-          </h2>
-
-          <div class="red-line">
-            <span></span>
-          </div>
-
-          <div class="visual-stats">
-
-            <div class="visual-stat">
-              <strong>12+</strong>
-              <small>Courses</small>
-            </div>
-
-            <div class="visual-stat">
-              <strong>24/7</strong>
-              <small>Access</small>
-            </div>
-
-            <div class="visual-stat">
-              <strong>100%</strong>
-              <small>Learning</small>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
-
-  </div>
 
 </section>
 
 
-<!-- FEATURES -->
-<section class="features-section" id="features">
+<!-- ================= STATS ================= -->
 
-  <div class="container">
+<section class="stats-section">
 
-    <div class="heading">
+    <div class="container stats">
 
-      <div class="label">
-        Why Skills Market
-      </div>
+        <div class="stat">
+            <h3>10<span>+</span></h3>
+            <p>Learning Resources</p>
+        </div>
 
-      <h2>
-        Everything You Need To Grow
-      </h2>
+        <div class="stat">
+            <h3>05<span>+</span></h3>
+            <p>Skill Categories</p>
+        </div>
 
-      <p>
-        A modern learning platform built around practical
-        digital skills and continuous growth.
-      </p>
+        <div class="stat">
+            <h3>24<span>/7</span></h3>
+            <p>Online Access</p>
+        </div>
 
-    </div>
-
-
-    <div class="features">
-
-      <div class="feature">
-
-        <div class="icon">🎓</div>
-
-        <h3>
-          Practical Learning
-        </h3>
-
-        <p>
-          Learn useful digital skills through structured
-          and practical learning programs.
-        </p>
-
-      </div>
-
-
-      <div class="feature">
-
-        <div class="icon">🚀</div>
-
-        <h3>
-          Digital Skills
-        </h3>
-
-        <p>
-          Explore skills related to marketing, websites,
-          content and the digital world.
-        </p>
-
-      </div>
-
-
-      <div class="feature">
-
-        <div class="icon">📈</div>
-
-        <h3>
-          Keep Growing
-        </h3>
-
-        <p>
-          Build knowledge step by step and continue
-          improving your digital capabilities.
-        </p>
-
-      </div>
+        <div class="stat">
+            <h3>100<span>%</span></h3>
+            <p>Digital Platform</p>
+        </div>
 
     </div>
-
-  </div>
 
 </section>
 
 
-<!-- COURSES -->
-<section class="courses-section" id="courses">
+<!-- ================= ABOUT ================= -->
 
-  <div class="container">
-
-    <div class="heading">
-
-      <div class="label">
-        Our Courses
-      </div>
-
-      <h2>
-        Learn Skills That Matter
-      </h2>
-
-      <p>
-        Explore our upcoming learning programs.
-      </p>
-
-    </div>
-
-
-    <div class="courses">
-
-
-      <div class="course">
-
-        <div class="course-top">
-
-          <div>
-            <span>COURSE 01</span>
-            <h3>Digital Marketing</h3>
-          </div>
-
-        </div>
-
-        <div class="course-body">
-
-          <p>
-            Learn digital marketing, advertising,
-            audience building and online growth.
-          </p>
-
-          <a href="#" class="course-link">
-            View Course →
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="course">
-
-        <div class="course-top">
-
-          <div>
-            <span>COURSE 02</span>
-            <h3>Web Development</h3>
-          </div>
-
-        </div>
-
-        <div class="course-body">
-
-          <p>
-            Learn how modern websites are designed,
-            developed and launched.
-          </p>
-
-          <a href="#" class="course-link">
-            View Course →
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="course">
-
-        <div class="course-top">
-
-          <div>
-            <span>COURSE 03</span>
-            <h3>Content Creation</h3>
-          </div>
-
-        </div>
-
-        <div class="course-body">
-
-          <p>
-            Learn content strategy and build a strong
-            digital presence.
-          </p>
-
-          <a href="#" class="course-link">
-            View Course →
-          </a>
-
-        </div>
-
-      </div>
-
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ABOUT -->
 <section class="about" id="about">
 
-  <div class="container">
+    <div class="container">
 
-    <div class="about-box">
+        <div class="section-title">
+            <div class="small">ABOUT SKILLS MARKET</div>
 
-      <div class="about-text">
+            <h2>Built For The Digital Future</h2>
 
-        <div class="label">
-          About Skills Market
+            <p>
+                A modern platform focused on practical knowledge,
+                useful digital skills and continuous growth.
+            </p>
         </div>
 
+
+        <div class="about-grid">
+
+            <div class="about-box">
+
+                <div class="red-line"></div>
+
+                <h3>
+                    One Platform. Multiple Possibilities.
+                </h3>
+
+                <p>
+                    Skills Market brings valuable learning resources
+                    and digital opportunities together in one place.
+                    Our goal is to create a simple and professional
+                    platform where people can discover skills and
+                    move forward with confidence.
+                </p>
+
+            </div>
+
+
+            <div class="about-points">
+
+                <div class="point">
+
+                    <div class="point-icon">✓</div>
+
+                    <div>
+                        <h4>Practical Knowledge</h4>
+                        <p>
+                            Focus on useful and applicable digital skills.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="point">
+
+                    <div class="point-icon">⚡</div>
+
+                    <div>
+                        <h4>Modern Platform</h4>
+                        <p>
+                            Clean, simple and designed for today's users.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="point">
+
+                    <div class="point-icon">🚀</div>
+
+                    <div>
+                        <h4>Future Focused</h4>
+                        <p>
+                            Built around digital learning and growth.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= COURSES ================= -->
+
+<section class="courses" id="courses">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="small">COURSES & PROGRAMS</div>
+
+            <h2>Explore Our Courses</h2>
+
+            <p>
+                Our course collection will be available here.
+            </p>
+
+        </div>
+
+
+        <!-- EMPTY FOR NOW -->
+
+        <div class="empty-courses">
+
+            <div>
+                <h3>Courses Coming Soon</h3>
+
+                <p>
+                    Course programs will be added here.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WHY SKILLS MARKET ================= -->
+
+<section class="why" id="why">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="small">WHY SKILLS MARKET</div>
+
+            <h2>Why Choose Skills Market?</h2>
+
+            <p>
+                Designed with simplicity, quality and modern
+                digital learning in mind.
+            </p>
+
+        </div>
+
+
+        <div class="why-grid">
+
+            <div class="why-card">
+
+                <div class="why-icon">🎯</div>
+
+                <h3>Focused Learning</h3>
+
+                <p>
+                    Learn through structured and practical
+                    digital resources.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">💡</div>
+
+                <h3>Useful Skills</h3>
+
+                <p>
+                    Discover skills that can be applied in
+                    real digital environments.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">🚀</div>
+
+                <h3>Modern Approach</h3>
+
+                <p>
+                    A clean platform designed for today's
+                    digital-first world.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TRAINERS ================= -->
+
+<section class="trainers">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="small">OUR TRAINERS</div>
+
+            <h2>Meet Our Trainers</h2>
+
+            <p>
+                Trainer profiles will be added here.
+            </p>
+
+        </div>
+
+
+        <div class="trainer-empty">
+
+            <h3>Trainer Section</h3>
+
+            <p>
+                Trainer profiles coming soon.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TESTIMONIALS ================= -->
+
+<section class="testimonials">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="small">TESTIMONIALS</div>
+
+            <h2>What People Say</h2>
+
+            <p>
+                Real testimonials will be added here.
+            </p>
+
+        </div>
+
+
+        <div class="testimonial-empty">
+
+            <h3>Testimonials Coming Soon</h3>
+
+            <p>
+                Genuine user feedback will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FAQ ================= -->
+
+<section class="faq">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="small">FAQ</div>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <p>
+                Find answers to common questions about Skills Market.
+            </p>
+
+        </div>
+
+
+        <div class="faq-list">
+
+            <details>
+
+                <summary>
+                    What is Skills Market?
+                </summary>
+
+                <div class="answer">
+                    Skills Market is a digital platform focused on
+                    practical skills, learning resources and growth.
+                </div>
+
+            </details>
+
+
+            <details>
+
+                <summary>
+                    When will courses be available?
+                </summary>
+
+                <div class="answer">
+                    Course programs will be added to the platform soon.
+                </div>
+
+            </details>
+
+
+            <details>
+
+                <summary>
+                    How can I join Skills Market?
+                </summary>
+
+                <div class="answer">
+                    Registration and membership options will be available
+                    through the platform.
+                </div>
+
+            </details>
+
+
+            <details>
+
+                <summary>
+                    Will there be a member dashboard?
+                </summary>
+
+                <div class="answer">
+                    Yes. Member features will be available privately
+                    after login.
+                </div>
+
+            </details>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta" id="contact">
+
+    <div class="container">
+
         <h2>
-          Learn. Practice.<br>
-          Build. Grow.
+            Ready To Build Your Future?
         </h2>
 
         <p>
-          Skills Market is designed to help learners
-          discover practical digital skills and build
-          knowledge for the modern digital world.
+            Discover Skills Market and explore what's coming next.
         </p>
 
-      </div>
-
-
-      <div class="about-points">
-
-        <div class="point">
-          <span>✓</span>
-          Practical digital learning
-        </div>
-
-        <div class="point">
-          <span>✓</span>
-          Structured courses
-        </div>
-
-        <div class="point">
-          <span>✓</span>
-          Modern learning experience
-        </div>
-
-        <div class="point">
-          <span>✓</span>
-          Continuous skill development
-        </div>
-
-      </div>
+        <a href="#" class="btn-red">
+            Join Skills Market →
+        </a>
 
     </div>
 
-  </div>
-
-</section>
-
-
-<!-- CTA -->
-<section class="cta" id="contact">
-
-  <div class="container">
-
-    <h2>
-      Ready To Start Learning?
-    </h2>
-
-    <p>
-      Join Skills Market and start building your skills.
-    </p>
-
-    <a href="#" class="primary">
-      Get Started →
-    </a>
-
-  </div>
-
-</section>
-
-
-<!-- FOOTER -->
-<footer>
-
-  <div class="footer">
-
-    <div>
-
-      <div class="footer-logo">
-        Skills <span>Market</span>
-      </div>
-
-      <p>
-        Learn skills. Build your future.
-      </p>
-
-    </div>
-
-    <div class="copyright">
-      © 2026 Skills Market. All Rights Reserved.
-    </div>
-
-  </div>
-
-</footer>
-
-</body>
-</html>
+</
