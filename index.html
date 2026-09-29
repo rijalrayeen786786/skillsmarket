@@ -133,7 +133,7 @@ section{
   position:sticky;  
   top:0;  
   z-index:1000;  
-  background:rgba(5,5,5,.88);  
+  background:rgba(5,5,5,0.88);  
   backdrop-filter:blur(16px);  
   border-bottom:1px solid rgba(255,255,255,.08);  
 }  
@@ -192,7 +192,48 @@ section{
   font-size:26px;  
   cursor:pointer;  
 }  
-  
+  /* Right Section: Buttons Wrapper */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* LOGIN Button */
+.btn-login {
+  color: #ffffff;
+  border: 1px solid #ff3b42;
+  background: transparent;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+  background: rgba(255, 59, 66, 0.15);
+}
+
+/* REGISTER Button */
+.btn-register {
+  color: #ffffff;
+  background: linear-gradient(90deg, #ff3b42, #ff6b35);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(255, 59, 66, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-register:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
 /* =========================================================  
    POSTER SLIDER  
 ========================================================= */  
@@ -1699,7 +1740,10 @@ section{
   <a href="#faq">FAQs</a>  
   <a href="#support">Contact Us</a>  
 </div>
-
+<div class="nav-actions">
+  <a href="#" class="btn-login">LOGIN</a>
+  <a href="#" class="btn-register">REGISTER</a>
+</div>
   </div>  
 </header>  <!-- =====================================================  
      POSTER SLIDER  
