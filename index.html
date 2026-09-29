@@ -1804,44 +1804,50 @@ section{
 </style>  </head>  <body>  <!-- =====================================================  
      NAVBAR  
 ===================================================== -->  <header class="navbar">
-  <div class="container nav-inner">
-    <!-- Logo Section -->
-    <a href="#home" class="logo">
-      <div class="logo-mark">SM</div>
-      <div class="logo-text">
-        <span class="brand-name">Skills<span>Market</span></span>
-        <span class="brand-tagline"></span>
+    <!-- Red & Black Top Header -->
+  <header style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; background:#0d0d0d; border-bottom:1px solid #1f1f1f;">
+      <div style="color:white; font-weight:bold; font-size:1.2rem;">Skills<span style="color:#dc2626;">Market</span></div>
+      <button onclick="toggleSidebar()" style="background:#dc2626; border:none; color:white; padding:8px 12px; border-radius:6px; cursor:pointer; font-size:1.1rem;">☰</button>
+  </header>
+
+  <!-- Overlay Background -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <!-- Red & Black Side Drawer Menu -->
+  <div class="sidebar-drawer" id="sidebarDrawer">
+      <div class="drawer-header">
+          <div class="drawer-logo">Skills<span style="color:#dc2626;">Market</span></div>
+          <button class="close-btn" onclick="toggleSidebar()">&times;</button>
       </div>
-    </a>
 
-    <!-- Center Navigation Links -->
-    <div class="menu" id="menu">
-      <a href="#home">HOME</a>
-      <a href="#courses" class="dropdown-link">COURSES <span class="arrow">▾</span></a>
-      <a href="#about">ABOUT US</a>
-      <a href="#income" class="active">INCOME SOURCES</a>
-      <a href="#contact">CONTACT US</a>
-    </div>
+      <ul class="drawer-menu">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="courses.html">Course</a></li>
+          <li><a href="packages.html">Course Packages ▼</a></li>
+          <li><a href="contact.html">Contact</a></li>
+      </ul>
 
-    <!-- Right Actions: Currency + Login + Register -->
-    <div class="nav-actions">
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
-  
-      <a href="#" class="btn-login">
-        <span class="btn-icon">➔</span> LOGIN
-      </a>
-      <a href="#" class="btn-register">
-        <span class="btn-icon">+</span> REGISTER
-      </a>
-    </div>
+      <div class="drawer-footer">
+          <a href="auth.html" class="drawer-login-btn">
+              👤 Login
+          </a>
+      </div>
   </div>
-   <script>
-  function toggleMenu() {
-    const menu = document.getElementById('menu');
-    menu.classList.toggle('active');
-  }
-</script>
-</header>  <!-- =====================================================  
+
+  <script>
+    function toggleSidebar() {
+      const drawer = document.getElementById('sidebarDrawer');
+      const overlay = document.getElementById('sidebarOverlay');
+
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
+    <!-- =====================================================  
      POSTER SLIDER  
 ===================================================== -->  <div class="poster-slider" id="posterSlider">    <div class="poster active">  
     <img  
