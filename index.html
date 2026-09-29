@@ -1,368 +1,2371 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skills Market | Next-Gen Digital Learning & Earnings Ecosystem</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-main: #0a0c10;
-            --bg-card: #121620;
-            --bg-card-hover: #1a202c;
-            --accent-red: #ff2a4b;
-            --accent-red-hover: #e01e3e;
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --border-color: #1e293b;
-            --radius-main: 16px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            overflow-x: hidden;
-        }
+<title>Skills Market | Learn. Grow. Earn.</title>
 
-        /* Modern Glassmorphic Navbar */
-        .navbar {
-            background: rgba(10, 12, 16, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 18px 0;
-        }
-        .brand-logo {
-            font-weight: 800;
-            font-size: 1.6rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-        .brand-logo span {
-            color: var(--accent-red);
-        }
-        .nav-link {
-            color: var(--text-secondary) !important;
-            font-weight: 600;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover, .nav-link.active {
-            color: var(--text-primary) !important;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        /* Custom Red Primary Button */
-        .btn-red {
-            background-color: var(--accent-red);
-            color: #ffffff;
-            font-weight: 700;
-            padding: 12px 28px;
-            border-radius: 12px;
-            border: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(255, 42, 75, 0.25);
-        }
-        .btn-red:hover {
-            background-color: var(--accent-red-hover);
-            color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 42, 75, 0.4);
-        }
-        .btn-outline-custom {
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            font-weight: 600;
-            padding: 12px 28px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            transition: all 0.3s ease;
-        }
-        .btn-outline-custom:hover {
-            background: var(--border-color);
-            color: #ffffff;
-        }
+<style>
+:root{
+  --bg:#050505;
+  --bg2:#0b0b0d;
+  --red:#e50914;
+  --red2:#ff3038;
+  --red3:#ff5a60;
+  --white:#fff;
+  --text:#a9a9b3;
+  --muted:#777782;
+  --border:rgba(255,255,255,.10);
+  --card:rgba(255,255,255,.045);
+  --shadow:rgba(229,9,20,.20);
+}
 
-        /* Hero Section */
-        .hero-section {
-            padding: 120px 0 80px;
-            background: radial-gradient(circle at 50% 0%, rgba(255, 42, 75, 0.15) 0%, rgba(10, 12, 16, 1) 70%);
-        }
-        .badge-pill {
-            background: rgba(255, 42, 75, 0.1);
-            color: var(--accent-red);
-            border: 1px solid rgba(255, 42, 75, 0.2);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-        /* Content Cards */
-        .custom-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-main);
-            padding: 32px;
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-        .custom-card:hover {
-            background: var(--bg-card-hover);
-            border-color: rgba(255, 42, 75, 0.4);
-            transform: translateY(-5px);
-        }
-        .icon-wrapper {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 42, 75, 0.1);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--accent-red);
-            margin-bottom: 24px;
-        }
+html{
+  scroll-behavior:smooth;
+}
 
-        /* Dashboard Preview Box */
-        .dashboard-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 20px;
-        }
+body{
+  font-family:"Inter",sans-serif;
+  background:
+    radial-gradient(circle at 85% 10%,rgba(229,9,20,.07),transparent 25%),
+    var(--bg);
+  color:var(--white);
+  overflow-x:hidden;
+}
 
-        /* Footer */
-        footer {
-            background: #06080b;
-            border-top: 1px solid var(--border-color);
-            padding: 80px 0 30px;
-        }
-        footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        footer a:hover {
-            color: var(--accent-red);
-        }
-    </style>
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(circle at 15% 50%,rgba(229,9,20,.035),transparent 24%);
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button{
+  font-family:inherit;
+}
+
+.container{
+  width:min(1180px,92%);
+  margin:auto;
+}
+
+section{
+  padding:95px 0;
+}
+
+.section-label{
+  color:var(--red2);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  margin-bottom:15px;
+}
+
+.section-title{
+  font-size:clamp(34px,5vw,54px);
+  line-height:1.06;
+  font-weight:900;
+  letter-spacing:-2px;
+}
+
+.section-subtitle{
+  color:var(--text);
+  line-height:1.8;
+  max-width:680px;
+  margin:17px auto 0;
+}
+
+.center{
+  text-align:center;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(5,5,5,.84);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-inner{
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-size:20px;
+  font-weight:900;
+}
+
+.logo-mark{
+  width:39px;
+  height:39px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:linear-gradient(135deg,var(--red),#850008);
+  box-shadow:0 8px 30px rgba(229,9,20,.25);
+  font-size:14px;
+}
+
+.menu-btn{
+  width:43px;
+  height:43px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:rgba(255,255,255,.04);
+  color:#fff;
+  font-size:24px;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.menu-btn:hover{
+  border-color:rgba(229,9,20,.6);
+  background:rgba(229,9,20,.10);
+}
+
+.menu{
+  position:absolute;
+  top:70px;
+  right:4%;
+  width:215px;
+  padding:10px;
+  display:none;
+  background:#0d0d10;
+  border:1px solid var(--border);
+  border-radius:17px;
+  box-shadow:0 25px 70px rgba(0,0,0,.65);
+}
+
+.menu.active{
+  display:block;
+  animation:menuIn .25s ease;
+}
+
+@keyframes menuIn{
+  from{
+    opacity:0;
+    transform:translateY(-8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.menu a{
+  display:block;
+  padding:13px 14px;
+  border-radius:10px;
+  color:#dedee5;
+  transition:.25s;
+}
+
+.menu a:hover{
+  background:rgba(229,9,20,.10);
+  color:#fff;
+}
+
+
+/* ================= POSTER ================= */
+
+.poster-slider{
+  position:relative;
+  width:100%;
+  height:300px;
+  overflow:hidden;
+  background:#000;
+}
+
+.poster{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transform:scale(1.035);
+  transition:
+    opacity .7s ease,
+    transform 5s ease;
+}
+
+.poster.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+.poster::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.30),transparent 50%,rgba(0,0,0,.28));
+  pointer-events:none;
+}
+
+.poster img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.poster-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:5;
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.22);
+  background:rgba(0,0,0,.48);
+  color:white;
+  cursor:pointer;
+  font-size:23px;
+  transition:.25s;
+}
+
+.poster-btn:hover{
+  background:var(--red);
+  border-color:var(--red);
+  transform:translateY(-50%) scale(1.06);
+}
+
+.poster-prev{
+  left:18px;
+}
+
+.poster-next{
+  right:18px;
+}
+
+.poster-dots{
+  position:absolute;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:7px;
+  z-index:5;
+}
+
+.poster-dot{
+  width:8px;
+  height:8px;
+  border:0;
+  border-radius:20px;
+  background:#777;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.poster-dot.active{
+  width:25px;
+  background:var(--red);
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+  padding:75px 0 105px;
+  background:
+    radial-gradient(circle at 85% 30%,rgba(229,9,20,.13),transparent 32%),
+    radial-gradient(circle at 15% 80%,rgba(229,9,20,.05),transparent 28%);
+}
+
+.hero-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:65px;
+}
+
+.hero-image{
+  position:relative;
+  animation:heroImage 1s ease both;
+}
+
+@keyframes heroImage{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.hero-image::before{
+  content:"";
+  position:absolute;
+  inset:8% 5% 3%;
+  border-radius:30px;
+  border:1px solid rgba(229,9,20,.20);
+  transform:rotate(-2deg);
+  z-index:-1;
+}
+
+.hero-image::after{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  right:2%;
+  bottom:-35px;
+  background:rgba(229,9,20,.16);
+  filter:blur(85px);
+  z-index:-1;
+}
+
+.hero-image img{
+  width:100%;
+  max-width:480px;
+  height:500px;
+  object-fit:cover;
+  border-radius:28px;
+  display:block;
+  margin:auto;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.60),
+    0 0 50px rgba(229,9,20,.08);
+}
+
+.hero-content{
+  animation:heroContent 1s .12s ease both;
+}
+
+@keyframes heroContent{
+  from{
+    opacity:0;
+    transform:translateX(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+.hero-content .badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:9px 15px;
+  border-radius:30px;
+  background:rgba(229,9,20,.08);
+  border:1px solid rgba(229,9,20,.30);
+  color:#ffb1b4;
+  font-size:13px;
+  font-weight:800;
+}
+
+.hero h1{
+  margin:21px 0 19px;
+  font-size:clamp(42px,5.7vw,70px);
+  line-height:1;
+  letter-spacing:-3.2px;
+  font-weight:900;
+}
+
+.gradient{
+  background:linear-gradient(90deg,#fff,var(--red2),#ff9b9f);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero-description{
+  max-width:600px;
+  color:var(--text);
+  font-size:16px;
+  line-height:1.85;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px 24px;
+  margin-top:28px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--red),#9b0009);
+  color:#fff;
+  font-weight:800;
+  border:1px solid rgba(255,255,255,.06);
+  cursor:pointer;
+  box-shadow:0 13px 35px rgba(229,9,20,.20);
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    filter .25s ease;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 45px rgba(229,9,20,.32);
+  filter:brightness(1.08);
+}
+
+
+/* ================= LEARN GROW EARN ================= */
+
+.intro{
+  background:
+    linear-gradient(180deg,#0b0b0d,#08080a);
+  position:relative;
+  overflow:hidden;
+}
+
+.intro::before{
+  content:"";
+  position:absolute;
+  width:400px;
+  height:400px;
+  left:-220px;
+  top:15%;
+  background:rgba(229,9,20,.08);
+  filter:blur(100px);
+}
+
+.intro-grid{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:65px;
+  align-items:center;
+  position:relative;
+}
+
+.intro-big{
+  font-size:clamp(38px,5vw,61px);
+  line-height:1.02;
+  font-weight:900;
+  letter-spacing:-2px;
+}
+
+.intro-big span{
+  color:var(--red2);
+}
+
+.intro-content h3{
+  font-size:30px;
+  margin-bottom:16px;
+}
+
+.intro-content p{
+  color:var(--text);
+  line-height:1.8;
+  margin-bottom:14px;
+}
+
+
+/* ================= THREE BENEFIT BOXES ================= */
+
+.benefits{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:30px;
+}
+
+.benefit{
+  min-height:190px;
+  padding:25px 18px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:17px;
+  background:
+    linear-gradient(145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.018));
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  transition:.35s ease;
+}
+
+.benefit::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:20%;
+  right:20%;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(229,9,20,.8),
+    transparent
+  );
+  opacity:.7;
+}
+
+.benefit:hover{
+  transform:translateY(-6px);
+  border-color:rgba(229,9,20,.45);
+  background:
+    linear-gradient(145deg,
+      rgba(229,9,20,.08),
+      rgba(255,255,255,.025));
+  box-shadow:0 18px 40px rgba(0,0,0,.30);
+}
+
+.benefit > div{
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:rgba(229,9,20,.09);
+  border:1px solid rgba(229,9,20,.20);
+  font-size:24px;
+  margin-bottom:13px;
+}
+
+.benefit h4{
+  margin:0 0 8px;
+  font-size:17px;
+  font-weight:800;
+  color:#fff;
+}
+
+.benefit p{
+  margin:0;
+  max-width:220px;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--text);
+}
+
+
+/* ================= COMING SOON ================= */
+
+.coming{
+  margin:40px auto 0;
+  max-width:720px;
+  min-height:210px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  border:1px solid var(--border);
+  border-radius:24px;
+  background:
+    linear-gradient(145deg,
+      rgba(229,9,20,.08),
+      rgba(255,255,255,.02));
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.coming-icon{
+  font-size:44px;
+  animation:rocketFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes rocketFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+.coming h3{
+  margin-top:12px;
+  font-size:27px;
+}
+
+.coming p{
+  color:var(--text);
+  margin-top:8px;
+}
+
+
+/* ================= CATEGORY SLIDER ================= */
+
+.categories{
+  background:#0a0a0c;
+}
+
+.slider-wrap{
+  position:relative;
+  margin-top:40px;
+}
+
+.card-track{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+  padding:4px 2px 18px;
+}
+
+.card-track::-webkit-scrollbar{
+  display:none;
+}
+
+.category-card{
+  flex:0 0 270px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  background:var(--card);
+  transition:.35s ease;
+}
+
+.category-card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(229,9,20,.38);
+  box-shadow:0 20px 45px rgba(0,0,0,.35);
+}
+
+.category-card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  display:block;
+  transition:.45s ease;
+}
+
+.category-card:hover img{
+  transform:scale(1.04);
+}
+
+.category-content{
+  padding:18px;
+}
+
+.category-content h3{
+  font-size:18px;
+}
+
+.category-content p{
+  color:var(--text);
+  font-size:13px;
+  margin-top:7px;
+  line-height:1.6;
+}
+
+.slider-controls{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
+}
+
+.control{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:#fff;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.control:hover{
+  background:var(--red);
+  border-color:var(--red);
+}
+
+
+/* ================= IMPACT ================= */
+
+.impact-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-top:45px;
+}
+
+.impact-card{
+  padding:30px 15px;
+  text-align:center;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:var(--card);
+  transition:.3s ease;
+}
+
+.impact-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(229,9,20,.35);
+}
+
+.impact-card strong{
+  display:block;
+  font-size:37px;
+  font-weight:900;
+  color:#fff;
+}
+
+.impact-card span{
+  display:block;
+  color:var(--text);
+  margin-top:7px;
+  font-size:14px;
+}
+
+
+/* ================= TRUST ================= */
+
+.trust{
+  padding-top:25px;
+}
+
+.trust-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.trust-card{
+  padding:27px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:
+    linear-gradient(145deg,
+      rgba(229,9,20,.07),
+      rgba(255,255,255,.02));
+  transition:.3s ease;
+}
+
+.trust-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(229,9,20,.35);
+}
+
+.trust-card small{
+  color:var(--red2);
+  font-weight:900;
+}
+
+.trust-card h3{
+  margin-top:8px;
+  font-size:18px;
+}
+
+
+/* ================= HOW ================= */
+
+.how{
+  background:#0a0a0c;
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:15px;
+  margin-top:45px;
+}
+
+.step{
+  padding:24px 17px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--card);
+  transition:.3s ease;
+}
+
+.step:hover{
+  transform:translateY(-5px);
+  border-color:rgba(229,9,20,.35);
+}
+
+.step small{
+  color:var(--red2);
+  font-weight:900;
+}
+
+.step h3{
+  font-size:16px;
+  line-height:1.4;
+  margin-top:17px;
+}
+
+
+/* ================= FOUNDER ================= */
+
+.founder{
+  padding:75px 0;
+}
+
+.founder-box{
+  max-width:850px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:270px 1fr;
+  align-items:center;
+  gap:45px;
+}
+
+.founder-img{
+  width:270px;
+  height:270px;
+  object-fit:cover;
+  border-radius:24px;
+  border:1px solid var(--border);
+  box-shadow:0 25px 60px rgba(0,0,0,.45);
+}
+
+.founder-info .section-label{
+  margin-bottom:8px;
+}
+
+.founder-info h2{
+  font-size:38px;
+  font-weight:900;
+}
+
+.founder-name{
+  font-size:21px;
+  font-weight:800;
+  margin-top:10px;
+}
+
+.founder-role{
+  color:var(--red2);
+  font-size:14px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.founder-info p{
+  color:var(--text);
+  line-height:1.7;
+  margin-top:14px;
+  font-size:14px;
+}
+
+
+/* ================= PROFESSIONAL INSTRUCTOR ================= */
+
+.instructors{
+  background:#0a0a0c;
+}
+
+.instructor-card{
+  flex:0 0 300px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:var(--card);
+  transition:.35s ease;
+}
+
+.instructor-card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(229,9,20,.38);
+}
+
+.instructor-card img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  display:block;
+}
+
+.instructor-info{
+  padding:20px;
+}
+
+.instructor-info h3{
+  font-size:20px;
+}
+
+.instructor-role{
+  display:block;
+  color:var(--red2);
+  font-size:13px;
+  font-weight:800;
+  margin-top:6px;
+}
+
+.instructor-info p{
+  color:var(--text);
+  line-height:1.65;
+  font-size:14px;
+  margin-top:11px;
+}
+
+
+/* ================= GUIDANCE ================= */
+
+.guidance-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:55px;
+  align-items:center;
+}
+
+.guidance-left p{
+  color:var(--text);
+  line-height:1.8;
+  margin-top:18px;
+}
+
+.guidance-list{
+  display:grid;
+  gap:15px;
+}
+
+.guidance-item{
+  padding:21px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--card);
+  transition:.3s ease;
+}
+
+.guidance-item:hover{
+  transform:translateX(5px);
+  border-color:rgba(229,9,20,.35);
+}
+
+.guidance-item h3{
+  font-size:17px;
+}
+
+.guidance-item p{
+  color:var(--text);
+  font-size:14px;
+  line-height:1.7;
+  margin-top:7px;
+}
+
+
+/* ================= REVIEWS ================= */
+
+.reviews{
+  background:#0a0a0c;
+}
+
+.review-card{
+  flex:0 0 100%;
+  text-align:center;
+  padding:35px;
+  border:1px solid var(--border);
+  border-radius:23px;
+  background:var(--card);
+}
+
+.review-card img{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid rgba(229,9,20,.45);
+}
+
+.stars{
+  color:#ffb000;
+  margin:14px 0;
+}
+
+.review-card p{
+  color:#d7d7df;
+  line-height:1.8;
+}
+
+.review-card h4{
+  margin-top:15px;
+}
+
+
+/* ================= FAQ ================= */
+
+.faq-list{
+  max-width:850px;
+  margin:40px auto 0;
+}
+
+.faq{
+  border-bottom:1px solid var(--border);
+}
+
+.faq-question{
+  width:100%;
+  padding:20px 0;
+  display:flex;
+  justify-content:space-between;
+  background:none;
+  border:0;
+  color:white;
+  font-size:15px;
+  font-weight:700;
+  text-align:left;
+  cursor:pointer;
+}
+
+.faq-question span{
+  color:var(--red2);
+  font-size:20px;
+}
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  color:var(--text);
+  line-height:1.8;
+  transition:.3s;
+}
+
+.faq.open .faq-answer{
+  max-height:150px;
+  padding-bottom:18px;
+}
+
+
+/* ================= CERTIFICATES ================= */
+
+.certificates{
+  background:#0a0a0c;
+}
+
+.cert-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:40px;
+}
+
+.cert-card{
+  padding:27px;
+  min-height:175px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:var(--card);
+  transition:.3s ease;
+}
+
+.cert-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(229,9,20,.35);
+}
+
+.cert-card .icon{
+  font-size:30px;
+}
+
+.cert-card h3{
+  margin:14px 0 7px;
+}
+
+.cert-card p{
+  color:var(--text);
+  font-size:14px;
+  line-height:1.6;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer{
+  background:#030304;
+  border-top:1px solid var(--border);
+  padding-top:65px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:40px;
+  padding-bottom:50px;
+}
+
+.footer-brand p{
+  color:var(--text);
+  line-height:1.8;
+  max-width:330px;
+  margin-top:16px;
+  font-size:14px;
+}
+
+.socials{
+  display:flex;
+  gap:8px;
+  margin-top:20px;
+}
+
+.socials a{
+  width:37px;
+  height:37px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:#cfd4df;
+  font-size:12px;
+  font-weight:800;
+  transition:.25s;
+}
+
+.socials a:hover{
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
+}
+
+.footer-title{
+  font-weight:800;
+  font-size:14px;
+  margin-bottom:17px;
+}
+
+.footer-links{
+  display:grid;
+  gap:12px;
+}
+
+.footer-links a{
+  color:var(--text);
+  font-size:13px;
+  transition:.2s;
+}
+
+.footer-links a:hover{
+  color:#fff;
+  transform:translateX(3px);
+}
+
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding:20px 0;
+  color:#74747e;
+  font-size:12px;
+  display:flex;
+  justify-content:space-between;
+}
+
+
+/* ================= SCROLL REVEAL ================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(25px);
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+  .hero-layout,
+  .intro-grid,
+  .guidance-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-content{
+    order:2;
+    text-align:center;
+  }
+
+  .hero-image{
+    order:1;
+  }
+
+  .hero-description{
+    margin:auto;
+  }
+
+  .hero-image img{
+    height:430px;
+  }
+
+  .benefits{
+    grid-template-columns:1fr;
+  }
+
+  .impact-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .steps{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .trust-grid{
+    grid-template-columns:1fr;
+  }
+
+  .founder-box{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .founder-img{
+    margin:auto;
+  }
+
+  .cert-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  section{
+    padding:70px 0;
+  }
+
+  .poster-slider{
+    height:220px;
+  }
+
+  .poster-btn{
+    width:36px;
+    height:36px;
+  }
+
+  .hero{
+    padding-top:55px;
+  }
+
+  .hero h1{
+    font-size:45px;
+    letter-spacing:-2px;
+  }
+
+  .hero-image img{
+    height:390px;
+  }
+
+  .intro-big{
+    font-size:42px;
+  }
+
+  .impact-grid,
+  .steps{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .poster-prev{
+    left:10px;
+  }
+
+  .poster-next{
+    right:10px;
+  }
+
+  .benefit{
+    min-height:180px;
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Header Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="brand-logo" href="#">SKILLS<span>MARKET</span></a>
-            
-            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-                <i class="fa-solid fa-bars fs-4"></i>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#community">Community</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-3">
-                    <a href="#login" class="nav-link">Login</a>
-                    <a href="#register" class="btn btn-red">Get Started</a>
-                </div>
-            </div>
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+  <div class="container nav-inner">
+
+    <a href="#home" class="logo">
+      <span class="logo-mark">SM</span>
+      <span>Skills Market</span>
+    </a>
+
+    <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+
+    <div class="menu" id="menu">
+      <a href="#home">Home</a>
+      <a href="#courses">Courses</a>
+      <a href="#categories">Categories</a>
+      <a href="#founder">About Us</a>
+      <a href="#faq">FAQs</a>
+      <a href="#footer">Contact Us</a>
+    </div>
+
+  </div>
+</header>
+
+
+<!-- ================= COMPACT POSTER SLIDER ================= -->
+
+<div class="poster-slider" id="posterSlider">
+
+  <div class="poster active">
+    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1800&q=85" alt="Skills Market poster">
+  </div>
+
+  <div class="poster">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=85" alt="Learning poster">
+  </div>
+
+  <div class="poster">
+    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1800&q=85" alt="Team poster">
+  </div>
+
+  <button class="poster-btn poster-prev" onclick="changePoster(-1)">‹</button>
+  <button class="poster-btn poster-next" onclick="changePoster(1)">›</button>
+
+  <div class="poster-dots">
+    <button class="poster-dot active" onclick="showPoster(0)"></button>
+    <button class="poster-dot" onclick="showPoster(1)"></button>
+    <button class="poster-dot" onclick="showPoster(2)"></button>
+  </div>
+
+</div>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+  <div class="container hero-layout">
+
+    <div class="hero-image">
+
+      <img
+        src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=900&q=85"
+        alt="Girl learning with laptop">
+
+    </div>
+
+    <div class="hero-content">
+
+      <span class="badge">
+        🎓 India's Top EdTech Platform
+      </span>
+
+      <h1>
+        Where Your Potential
+        <span class="gradient">Meets True Possibility.</span>
+      </h1>
+
+      <p class="hero-description">
+        Explore high-impact digital programs. Master in-demand skills,
+        build your portfolio, and unlock real financial freedom from anywhere.
+      </p>
+
+      <a href="#courses" class="btn">
+        Start Learning Now →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= LEARN GROW EARN ================= -->
+
+<section class="intro">
+
+  <div class="container intro-grid">
+
+    <div>
+
+      <div class="section-label">Learn. Grow. Earn.</div>
+
+      <div class="intro-big">
+        We Care About Your
+        <span>Life For Better Future</span>
+      </div>
+
+    </div>
+
+    <div class="intro-content">
+
+      <h3>Learn. Grow. Earn.</h3>
+
+      <p>
+        Skills Market is dedicated to helping you achieve your goals through
+        expert-led online courses, lifetime access, and industry-recognized certifications.
+      </p>
+
+      <p>
+        Join our vibrant community and start your journey to success today.
+      </p>
+
+      <p>
+        Our platform offers a wide variety of courses tailored to meet the needs
+        of learners at every stage. Whether you are looking to advance your career,
+        learn a new skill, or explore new opportunities, Skills Market provides
+        the resources and support you need to excel.
+      </p>
+
+      <div class="benefits">
+
+        <div class="benefit">
+          <div>⏱</div>
+          <h4>Flexible Learning</h4>
+          <p>
+            Study at your own pace, anytime that fits your schedule.
+          </p>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section text-center">
-        <div class="container">
-            <div class="badge-pill mb-4">
-                <i class="fa-solid fa-bolt"></i> NEXT-GEN DIGITAL ECOSYSTEM
-            </div>
-            <h1 class="display-3 fw-bold mb-4">Master Digital Skills & <br>Empower Your <span style="color: var(--accent-red);">Financial Freedom</span></h1>
-            <p class="text-secondary fs-5 mx-auto mb-5" style="max-width: 700px;">
-                An all-in-one ecosystem designed for modern entrepreneurs, creators, and professionals to build sustainable digital income streams.
-            </p>
-            <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap">
-                <a href="#register" class="btn btn-red">Start Your Journey <i class="fa-solid fa-arrow-right ms-2"></i></a>
-                <a href="#dashboard" class="btn btn-outline-custom"><i class="fa-solid fa-laptop-code me-2"></i> View Dashboard</a>
-            </div>
+        <div class="benefit">
+          <div>🌍</div>
+          <h4>Learn From Anywhere</h4>
+          <p>
+            Access every course on any device, wherever you are.
+          </p>
         </div>
-    </section>
 
-    <!-- Platform Features -->
-    <section id="features" class="py-5">
-        <div class="container py-5">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold display-5 mb-3">Engineered For <span style="color: var(--accent-red);">Growth</span></h2>
-                <p class="text-secondary fs-6">Everything you need to scale your digital presence and business online.</p>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="custom-card">
-                        <div class="icon-wrapper">
-                            <i class="fa-solid fa-wallet"></i>
-                        </div>
-                        <h4 class="fw-bold mb-3">Instant Daily Payouts</h4>
-                        <p class="text-secondary mb-0">Experience automated payout processing straight to your preferred bank account without long settlement delays.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="custom-card">
-                        <div class="icon-wrapper">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-                        <h4 class="fw-bold mb-3">Multi-Tier Tracking</h4>
-                        <p class="text-secondary mb-0">Track real-time analytics, direct referrals, and passive team commission metrics in a unified panel.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="custom-card">
-                        <div class="icon-wrapper">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <h4 class="fw-bold mb-3">High-Tier Security</h4>
-                        <p class="text-secondary mb-0">Enterprise-grade encryption protecting user accounts, transaction data, and personal information.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="benefit">
+          <div>🎓</div>
+          <h4>Certified Courses</h4>
+          <p>
+            Earn industry-recognized certificates on completion.
+          </p>
         </div>
-    </section>
 
-    <!-- Interactive Dashboard Preview Section -->
-    <section id="dashboard" class="py-5" style="background: rgba(255, 255, 255, 0.01);">
-        <div class="container py-5">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-5">
-                    <div class="badge-pill mb-3">LIVE ANALYTICS</div>
-                    <h2 class="fw-bold display-5 mb-4">Control Everything From One Dashboard</h2>
-                    <p class="text-secondary fs-6 mb-4">Manage your profile, monitor team performance, and track payouts seamlessly through a modern, responsive user portal.</p>
-                    <ul class="list-unstyled text-secondary lh-lg mb-4">
-                        <li><i class="fa-solid fa-circle-check text-danger me-2"></i> Real-time earnings performance graphs</li>
-                        <li><i class="fa-solid fa-circle-check text-danger me-2"></i> Dedicated affiliate link manager</li>
-                        <li><i class="fa-solid fa-circle-check text-danger me-2"></i> Automated team payout logs</li>
-                    </ul>
-                    <a href="#register" class="btn btn-red">Access Dashboard Demo</a>
-                </div>
-                <div class="col-lg-7">
-                    <div class="dashboard-box">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <div>
-                                <h6 class="text-secondary mb-1">Total Revenue</h6>
-                                <h2 class="fw-bold mb-0">₹1,48,500.00</h2>
-                            </div>
-                            <span class="badge bg-danger px-3 py-2 rounded-pill">+24.5% Today</span>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-6">
-                                <div class="stat-card">
-                                    <span class="text-secondary small">Direct Referrals</span>
-                                    <h4 class="fw-bold mt-2 mb-0">128</h4>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="stat-card">
-                                    <span class="text-secondary small">Passive Income</span>
-                                    <h4 class="fw-bold mt-2 mb-0">₹32,400</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+
+      <a href="#categories" class="btn">
+        Learn More →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= COURSES ================= -->
+
+<section id="courses">
+
+  <div class="container center">
+
+    <div class="section-label">Our Courses</div>
+
+    <h2 class="section-title">Skills Market Courses</h2>
+
+    <p class="section-subtitle">
+      Practical learning opportunities designed to help you build valuable skills.
+    </p>
+
+    <div class="coming">
+
+      <div class="coming-icon">🚀</div>
+
+      <h3>Coming Soon</h3>
+
+      <p>Our courses are being prepared for launch.</p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section class="categories" id="categories">
+
+  <div class="container">
+
+    <div class="center">
+
+      <div class="section-label">Explore</div>
+
+      <h2 class="section-title">Our Course Categories</h2>
+
+      <p class="section-subtitle">
+        Select The Industry Where You Want To Learn
+      </p>
+
+    </div>
+
+    <div class="slider-wrap">
+
+      <div class="card-track" id="categoryTrack">
+
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80">
+          <div class="category-content">
+            <h3>Web Development</h3>
+            <p>Build websites and digital experiences.</p>
+          </div>
         </div>
-    </section>
 
-    <!-- Community & Stats -->
-    <section id="community" class="py-5">
-        <div class="container py-5 text-center">
-            <div class="custom-card py-5">
-                <div class="row g-4">
-                    <div class="col-md-3">
-                        <h2 class="display-5 fw-bold text-white mb-2">15K+</h2>
-                        <p class="text-secondary mb-0">Active Members</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h2 class="display-5 fw-bold mb-2" style="color: var(--accent-red);">₹75L+</h2>
-                        <p class="text-secondary mb-0">Total Payouts</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h2 class="display-5 fw-bold text-white mb-2">99.9%</h2>
-                        <p class="text-secondary mb-0">Uptime Reliability</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h2 class="display-5 fw-bold mb-2" style="color: var(--accent-red);">24/7</h2>
-                        <p class="text-secondary mb-0">Support Availability</p>
-                    </div>
-                </div>
-            </div>
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&w=800&q=80">
+          <div class="category-content">
+            <h3>Digital Marketing</h3>
+            <p>Learn modern marketing strategies.</p>
+          </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row g-4 mb-5">
-                <div class="col-lg-4">
-                    <a class="brand-logo d-block mb-3" href="#">SKILLS<span>MARKET</span></a>
-                    <p class="text-secondary small" style="max-width: 320px;">Building professional pathways for digital entrepreneurs and modern skill creators globally.</p>
-                </div>
-                <div class="col-6 col-lg-2">
-                    <h6 class="fw-bold text-white mb-3">Platform</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#home">Home</a></li>
-                        <li class="mb-2"><a href="#features">Features</a></li>
-                        <li class="mb-2"><a href="#dashboard">Dashboard</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-lg-2">
-                    <h6 class="fw-bold text-white mb-3">Resources</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#">Documentation</a></li>
-                        <li class="mb-2"><a href="#">Support Center</a></li>
-                        <li class="mb-2"><a href="#">Community</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4">
-                    <h6 class="fw-bold text-white mb-3">Stay Connected</h6>
-                    <p class="text-secondary small mb-3">Subscribe for platform updates and release announcements.</p>
-                    <div class="d-flex gap-2">
-                        <input type="email" class="form-control bg-dark border-secondary text-white" placeholder="Enter your email">
-                        <button class="btn btn-red">Join</button>
-                    </div>
-                </div>
-            </div>
-            <hr style="border-color: var(--border-color);">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 pt-3">
-                <p class="text-secondary small mb-0">&copy; 2026 Skills Market. All Rights Reserved.</p>
-                <div class="d-flex gap-3 small text-secondary">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80">
+          <div class="category-content">
+            <h3>Business</h3>
+            <p>Develop practical business skills.</p>
+          </div>
         </div>
-    </footer>
 
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80">
+          <div class="category-content">
+            <h3>Personal Growth</h3>
+            <p>Improve skills and confidence.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="slider-controls">
+        <button class="control" onclick="slideTrack('categoryTrack',-1)">←</button>
+        <button class="control" onclick="slideTrack('categoryTrack',1)">→</button>
+      </div>
+
+    </div>
+
+    <div class="center">
+      <a href="#courses" class="btn">View All Courses →</a>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= IMPACT ================= -->
+
+<section>
+
+  <div class="container center">
+
+    <div class="section-label">Our Impact</div>
+
+    <h2 class="section-title">Our Impact In Numbers</h2>
+
+    <div class="impact-grid">
+
+      <div class="impact-card">
+        <strong>2+</strong>
+        <span>Expert Trainers</span>
+      </div>
+
+      <div class="impact-card">
+        <strong>100+</strong>
+        <span>Active Students</span>
+      </div>
+
+      <div class="impact-card">
+        <strong>50+</strong>
+        <span>Live Sessions</span>
+      </div>
+
+      <div class="impact-card">
+        <strong>100000+</strong>
+        <span>Community Earning</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= TRUST ================= -->
+
+<section class="trust">
+
+  <div class="container">
+
+    <div class="trust-grid">
+
+      <div class="trust-card">
+        <small>#01</small>
+        <h3>#1 Learning Platform</h3>
+      </div>
+
+      <div class="trust-card">
+        <small>#02</small>
+        <h3>Rated By Our Students</h3>
+      </div>
+
+      <div class="trust-card">
+        <small>#03</small>
+        <h3>Fast Growing Community</h3>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="how">
+
+  <div class="container center">
+
+    <div class="section-label">How It Works</div>
+
+    <h2 class="section-title">Your Gateway to Success</h2>
+
+    <div class="steps">
+
+      <div class="step">
+        <small>STEP 01</small>
+        <h3>Create Your Account</h3>
+      </div>
+
+      <div class="step">
+        <small>STEP 02</small>
+        <h3>Choose Your Package</h3>
+      </div>
+
+      <div class="step">
+        <small>STEP 03</small>
+        <h3>Confirm Your Payment</h3>
+      </div>
+
+      <div class="step">
+        <small>STEP 04</small>
+        <h3>Start Learning</h3>
+      </div>
+
+      <div class="step">
+        <small>STEP 05</small>
+        <h3>Start Earning</h3>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FOUNDER & CEO ================= -->
+
+<section class="founder" id="founder">
+
+  <div class="container">
+
+    <div class="founder-box">
+
+      <img
+        class="founder-img"
+        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85"
+        alt="Founder & CEO">
+
+      <div class="founder-info">
+
+        <div class="section-label">Leadership</div>
+
+        <h2>Founder & CEO</h2>
+
+        <div class="founder-name">
+          Founder Name
+        </div>
+
+        <div class="founder-role">
+          Founder & CEO, Skills Market
+        </div>
+
+        <p>
+          Building Skills Market with a vision to create practical learning
+          opportunities and help people develop valuable digital skills.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= PROFESSIONAL INSTRUCTOR ================= -->
+
+<section class="instructors">
+
+  <div class="container">
+
+    <div class="center">
+
+      <div class="section-label">Meet Our Experts</div>
+
+      <h2 class="section-title">Professional Instructor</h2>
+
+      <p class="section-subtitle">
+        Learn from professionals who bring practical knowledge,
+        experience and industry-focused guidance.
+      </p>
+
+    </div>
+
+    <div class="slider-wrap">
+
+      <div class="card-track" id="instructorTrack">
+
+        <div class="instructor-card">
+
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85">
+
+          <div class="instructor-info">
+            <h3>Instructor Name</h3>
+            <span class="instructor-role">Digital Skills Expert</span>
+            <p>Practical learning and industry-focused guidance.</p>
+          </div>
+
+        </div>
+
+        <div class="instructor-card">
+
+          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=85">
+
+          <div class="instructor-info">
+            <h3>Instructor Name</h3>
+            <span class="instructor-role">Business & Marketing Expert</span>
+            <p>Learn practical strategies through structured learning.</p>
+          </div>
+
+        </div>
+
+        <div class="instructor-card">
+
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=85">
+
+          <div class="instructor-info">
+            <h3>Instructor Name</h3>
+            <span class="instructor-role">Professional Trainer</span>
+            <p>Skill-based learning designed for real-world application.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="slider-controls">
+        <button class="control" onclick="slideTrack('instructorTrack',-1)">←</button>
+        <button class="control" onclick="slideTrack('instructorTrack',1)">→</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= EXPERT GUIDANCE ================= -->
+
+<section>
+
+  <div class="container guidance-grid">
+
+    <div>
+
+      <div class="section-label">Why Skills Market</div>
+
+      <h2 class="section-title">
+        Unlock Your Potential with Expert Guidance
+      </h2>
+
+      <p>
+        Gain practical skills, industry insights, and personalized mentorship
+        to accelerate your growth and success.
+      </p>
+
+    </div>
+
+    <div class="guidance-list">
+
+      <div class="guidance-item">
+        <h3>Learn from Industry Leaders</h3>
+        <p>
+          Our instructors are seasoned professionals who share real-world
+          experience and actionable strategies.
+        </p>
+      </div>
+
+      <div class="guidance-item">
+        <h3>Earn Recognized Certifications</h3>
+        <p>
+          Complete courses and receive certificates that validate your expertise.
+        </p>
+      </div>
+
+      <div class="guidance-item">
+        <h3>Flexible, Hands-On Learning</h3>
+        <p>
+          Access interactive labs and resources anytime, anywhere,
+          and learn at your own pace.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= REVIEWS ================= -->
+
+<section class="reviews">
+
+  <div class="container center">
+
+    <div class="section-label">Student Reviews</div>
+
+    <h2 class="section-title">What Our Students Think</h2>
+
+    <div class="slider-wrap">
+
+      <div class="card-track" id="reviewTrack">
+
+        <div class="review-card">
+
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80">
+
+          <div class="stars">★★★★★</div>
+
+          <p>
+            Student testimonial will be added here.
+          </p>
+
+          <h4>Student Name</h4>
+
+        </div>
+
+        <div class="review-card">
+
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80">
+
+          <div class="stars">★★★★★</div>
+
+          <p>
+            Your genuine student review can be added here.
+          </p>
+
+          <h4>Student Name</h4>
+
+        </div>
+
+      </div>
+
+      <div class="slider-controls">
+        <button class="control" onclick="slideTrack('reviewTrack',-1)">←</button>
+        <button class="control" onclick="slideTrack('reviewTrack',1)">→</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FAQ ================= -->
+
+<section id="faq">
+
+  <div class="container center">
+
+    <div class="section-label">FAQs</div>
+
+    <h2 class="section-title">Quick Answers to Common Questions.</h2>
+
+    <div class="faq-list">
+
+      <div class="faq">
+        <button class="faq-question">
+          01 SkillsMarket kya hai?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          SkillsMarket is a digital learning platform focused on practical skills and learning opportunities.
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="faq-question">
+          02 SkillsMarket kis ke liye hai?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          SkillsMarket is designed for learners who want to develop useful digital and professional skills.
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="faq-question">
+          03 SkillsMarket par shuruaat kaise karein?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          Create your account, explore available programs, and choose your learning opportunity.
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="faq-question">
+          04 Kya beginners ke liye bhi easy hai?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          Beginner suitability will depend on the individual course or program.
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="faq-question">
+          05 SkillsMarket ko alag kya banata hai?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          SkillsMarket focuses on practical learning, structured programs, mentorship and community.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= CERTIFICATES ================= -->
+
+<section class="certificates">
+
+  <div class="container center">
+
+    <div class="section-label">Our Certificates</div>
+
+    <h2 class="section-title">
+      Trusted & Certified By Recognized Authorities
+    </h2>
+
+    <p class="section-subtitle">
+      Official certification details can be displayed here once verified.
+    </p>
+
+    <div class="cert-grid">
+
+      <div class="cert-card">
+        <div class="icon">🏢</div>
+        <h3>MSME Registered</h3>
+        <p>Ministry of MSME, Govt. of India</p>
+      </div>
+
+      <div class="cert-card">
+        <div class="icon">✓</div>
+        <h3>GST Certified</h3>
+        <p>Goods & Services Tax Registered</p>
+      </div>
+
+      <div class="cert-card">
+        <div class="icon">🏆</div>
+        <h3>ISO 9001:2015 Certified</h3>
+        <p>Certified Quality Management</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer id="footer">
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+
+        <a href="#home" class="logo">
+          <span class="logo-mark">SM</span>
+          <span>Skills Market</span>
+        </a>
+
+        <p>
+          Learn practical digital skills, grow with the right guidance,
+          and explore new opportunities with Skills Market.
+        </p>
+
+        <div class="socials">
+          <a href="#">IG</a>
+          <a href="#">YT</a>
+          <a href="#">TG</a>
+        </div>
+
+      </div>
+
+      <div>
+        <div class="footer-title">Navigation</div>
+
+        <div class="footer-links">
+          <a href="#home">Home</a>
+          <a href="#courses">Courses</a>
+          <a href="#categories">Categories</a>
+          <a href="#founder">About Us</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-title">Quick Links</div>
+
+        <div class="footer-links">
+          <a href="#faq">FAQs</a>
+          <a href="#founder">Founder</a>
+          <a href="#categories">Course Categories</a>
+          <a href="#footer">Contact Us</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-title">Legal</div>
+
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Refund Policy</a>
+          <a href="#">Shipping Policy</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Skills Market. All Rights Reserved.</span>
+      <span>Learn. Grow. Earn.</span>
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+/* ================= MENU ================= */
+
+function toggleMenu(){
+  document.getElementById("menu").classList.toggle("active");
+}
+
+
+/* ================= POSTER SLIDER ================= */
+
+let posterIndex = 0;
+
+const posters = document.querySelectorAll(".poster");
+const posterDots = document.querySelectorAll(".poster-dot");
+
+function showPoster(index){
+
+  posterIndex = (index + posters.length) % posters.length;
+
+  posters.forEach((poster,i)=>{
+    poster.classList.toggle("active",i === posterIndex);
+  });
+
+  posterDots.forEach((dot,i)=>{
+    dot.classList.toggle("active",i === posterIndex);
+  });
+}
+
+function changePoster(direction){
+  showPoster(posterIndex + direction);
+}
+
+setInterval(()=>{
+  showPoster(posterIndex + 1);
+},5000);
+
+
+/* ================= GENERIC SLIDERS ================= */
+
+function slideTrack(id,direction){
+
+  const track = document.getElementById(id);
+
+  const amount = track.clientWidth * 0.75;
+
+  track.scrollBy({
+    left:direction * amount,
+    behavior:"smooth"
+  });
+}
+
+
+/* ================= AUTO CATEGORY SLIDER ================= */
+
+setInterval(()=>{
+
+  const track = document.getElementById("categoryTrack");
+
+  if(track){
+
+    const maxScroll =
+      track.scrollWidth - track.clientWidth;
+
+    if(track.scrollLeft >= maxScroll - 5){
+
+      track.scrollTo({
+        left:0,
+        behavior:"smooth"
+      });
+
+    }else{
+
+      track.scrollBy({
+        left:track.clientWidth * .75,
+        behavior:"smooth"
+      });
+
+    }
+
+  }
+
+},4500);
+
+
+/* ================= AUTO INSTRUCTOR SLIDER ================= */
+
+setInterval(()=>{
+
+  const track = document.getElementById("instructorTrack");
+
+  if(track){
+
+    const maxScroll =
+      track.scrollWidth - track.clientWidth;
+
+    if(track.scrollLeft >= maxScroll - 5){
+
+      track.scrollTo({
+        left:0,
+        behavior:"smooth"
+      });
+
+    }else{
+
+      track.scrollBy({
+        left:track.clientWidth * .75,
+        behavior:"smooth"
+      });
+
+    }
+
+  }
+
+},5000);
+
+
+/* ================= AUTO REVIEW SLIDER ================= */
+
+setInterval(()=>{
+
+  const track = document.getElementById("reviewTrack");
+
+  if(track){
+
+    const maxScroll =
+      track.scrollWidth - track.clientWidth;
+
+    if(track.scrollLeft >= maxScroll - 5){
+
+      track.scrollTo({
+        left:0,
+        behavior:"smooth"
+      });
+
+    }else{
+
+      track.scrollBy({
+        left:track.clientWidth,
+        behavior:"smooth"
+      });
+
+    }
+
+  }
+
+},5000);
+
+
+/* ================= FAQ ================= */
+
+document.querySelectorAll(".faq-question").forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    const current = button.parentElement;
+
+    document.querySelectorAll(".faq").forEach(faq=>{
+
+      if(faq !== current){
+        faq.classList.remove("open");
+      }
+
+    });
+
+    current.classList.toggle("open");
+
+  });
+
+});
+
+
+/* ================= MOBILE SWIPE ================= */
+
+document.querySelectorAll(".card-track").forEach(track=>{
+
+  let startX = 0;
+
+  track.addEventListener("touchstart",(e)=>{
+    startX = e.touches[0].clientX;
+  });
+
+  track.addEventListener("touchend",(e)=>{
+
+    const endX = e.changedTouches[0].clientX;
+    const difference = startX - endX;
+
+    if(Math.abs(difference) > 50){
+
+      track.scrollBy({
+        left:difference > 0
+          ? track.clientWidth * .75
+          : -track.clientWidth * .75,
+        behavior:"smooth"
+      });
+
+    }
+
+  });
+
+});
+
+
+/* ================= POSTER SWIPE ================= */
+
+let posterStartX = 0;
+
+document.getElementById("posterSlider").addEventListener(
+  "touchstart",
+  e=>{
+    posterStartX = e.touches[0].clientX;
+  }
+);
+
+document.getElementById("posterSlider").addEventListener(
+  "touchend",
+  e=>{
+
+    const endX = e.changedTouches[0].clientX;
+    const difference = posterStartX - endX;
+
+    if(Math.abs(difference) > 50){
+
+      if(difference > 0){
+        changePoster(1);
+      }else{
+        changePoster(-1);
+      }
+
+    }
+
+  }
+);
+
+
+/* ================= SCROLL MOTION ================= */
+
+const revealItems = document.querySelectorAll(
+  ".intro-grid, .coming, .category-card, .impact-card, .trust-card, .step, .founder-box, .instructor-card, .guidance-item, .review-card, .faq, .cert-card"
+);
+
+revealItems.forEach(item=>{
+  item.classList.add("reveal");
+});
+
+const revealObserver = new IntersectionObserver(
+  entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold:.12
+  }
+);
+
+revealItems.forEach(item=>{
+  revealObserver.observe(item);
+});
+
+</script>
+
 </body>
 </html>
