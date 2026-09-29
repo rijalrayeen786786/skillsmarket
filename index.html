@@ -1,247 +1,204 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillsMarket - Master High-Income Digital Skills</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Skills Market - Affiliate Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(229, 231, 235, 0.8);
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .orange-glow {
-            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.35);
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #121212 !important;
+            border-bottom: 2px solid #e50914;
+        }
+        .brand-logo {
+            color: #e50914 !important;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(circle, #2a080a 0%, #0b0b0b 100%);
+            padding: 100px 0 80px;
+            border-bottom: 1px solid #222;
+        }
+        .hero-title span {
+            color: #e50914;
+        }
+
+        /* Custom Red Buttons */
+        .btn-red {
+            background-color: #e50914;
+            color: #ffffff;
+            font-weight: 700;
+            border: none;
+            transition: 0.3s ease;
+        }
+        .btn-red:hover {
+            background-color: #b80710;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+        }
+        .btn-outline-red {
+            border: 2px solid #e50914;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .btn-outline-red:hover {
+            background-color: #e50914;
+            color: #ffffff;
+        }
+
+        /* Package Cards */
+        .card-pkg {
+            background-color: #161616;
+            border: 1px solid #282828;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+        .card-pkg:hover {
+            transform: translateY(-8px);
+            border-color: #e50914;
+            box-shadow: 0 10px 25px rgba(229, 9, 20, 0.25);
+        }
+        .popular-card {
+            border: 2px solid #e50914 !important;
+            position: relative;
+        }
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background-color: #e50914;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Features Section */
+        .feature-box {
+            background-color: #121212;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 30px 20px;
+            transition: 0.3s;
+        }
+        .feature-box:hover {
+            border-color: #e50914;
+        }
+        .feature-icon {
+            font-size: 2.2rem;
+            color: #e50914;
+        }
+
+        /* Text Accents */
+        .text-red {
+            color: #e50914 !important;
+        }
+        .price-text {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #050505;
+            border-top: 1px solid #222;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden selection:bg-orange-500 selection:text-white">
+<body>
 
-    <!-- 1. Header / Navbar -->
-    <header class="sticky top-0 z-50 glass-card border-b border-slate-200/80 px-6 py-4 transition-all">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <!-- Logo (Custom Image or Text fallback) -->
-            <a href="#" class="flex items-center gap-2 text-2xl font-black tracking-tight text-slate-900">
-                <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white w-9 h-9 rounded-xl flex items-center justify-center font-extrabold italic shadow-md shadow-orange-500/20">S</span>
-                <span>Skills<span class="text-orange-500">Market</span></span>
-            </a>
-            
-            <!-- Desktop Navigation Links (Visible on Laptop/Desktop) -->
-            <nav class="hidden md:flex items-center gap-8 font-semibold text-slate-700 text-sm">
-                <a href="#about" class="hover:text-orange-500 transition">About Us</a>
-                <a href="#packages" class="hover:text-orange-500 transition">Course Packages</a>
-                <a href="#team" class="hover:text-orange-500 transition">Our Team</a>
-                <a href="#testimonials" class="hover:text-orange-500 transition">Reviews</a>
-                <a href="#packages" class="bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold px-5 py-2.5 rounded-xl orange-glow transition transform hover:scale-105">
-                    Explore Packages
-                </a>
-            </nav>
-
-            <!-- Mobile Hamburger Button (Hidden on Desktop) -->
-            <button id="menu-btn" class="md:hidden w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition border border-slate-200">
-                <i class="fa-solid fa-bars text-lg"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- Mobile Nav Menu -->
-    <div id="mobile-menu" class="hidden md:hidden fixed inset-x-0 top-[65px] bg-white/95 backdrop-blur-xl border-b border-slate-200 p-6 shadow-2xl z-40 flex flex-col gap-4 font-semibold text-slate-700">
-        <a href="#about" class="hover:text-orange-500 transition py-1">About Us</a>
-        <a href="#packages" class="hover:text-orange-500 transition py-1">Course Packages</a>
-        <a href="#team" class="hover:text-orange-500 transition py-1">Our Team</a>
-        <a href="#testimonials" class="hover:text-orange-500 transition py-1">Reviews</a>
-        <a href="#packages" class="bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold py-3 text-center rounded-xl orange-glow mt-2">
-            Explore Packages
-        </a>
-    </div>
-
-    <!-- 2. Hero Section -->
-    <section class="px-6 pt-12 pb-16 max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-        <div class="text-center md:text-left">
-            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200/60 px-4 py-1.5 rounded-full text-xs font-bold text-orange-600 mb-6 shadow-sm">
-                <span class="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
-                #1 High-Income Skill Ecosystem
-            </div>
-            
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15] mb-5">
-                Learn Practical Skills. <br>
-                <span class="bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 bg-clip-text text-transparent">Build Real Wealth.</span>
-            </h1>
-            
-            <p class="text-slate-600 text-sm md:text-base leading-relaxed mb-8 max-w-lg">
-                Access industry-ready programs, master freelancing & digital marketing, and turn your expertise into scalable income.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <a href="#packages" class="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold px-8 py-4 rounded-xl orange-glow transition transform active:scale-95 text-center">
-                    Get Started Now <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                </a>
-                <button class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-bold px-6 py-4 rounded-xl shadow-sm flex items-center justify-center gap-2.5 transition">
-                    <i class="fa-solid fa-circle-play text-orange-500 text-lg"></i> Watch How It Works
-                </button>
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fs-3 brand-logo" href="#">SKILLS MARKET</a>
+            <div class="ms-auto">
+                <a href="#packages" class="btn btn-outline-red me-2">Packages</a>
+                <a href="#" class="btn btn-red">Login / Register</a>
             </div>
         </div>
+    </nav>
 
-        <!-- Hero Feature Cards Grid -->
-        <div class="grid grid-cols-2 gap-4">
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
-                <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-bold mb-3">
-                    <i class="fa-solid fa-laptop-code text-lg"></i>
-                </div>
-                <h4 class="text-sm font-bold text-slate-900">Practical Skills</h4>
-                <p class="text-xs text-slate-500 mt-1">Live hands-on projects</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
-                <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold mb-3">
-                    <i class="fa-solid fa-user-graduate text-lg"></i>
-                </div>
-                <h4 class="text-sm font-bold text-slate-900">Mentorship</h4>
-                <p class="text-xs text-slate-500 mt-1">1-on-1 Guidance</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
-                <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold mb-3">
-                    <i class="fa-solid fa-certificate text-lg"></i>
-                </div>
-                <h4 class="text-sm font-bold text-slate-900">Certifications</h4>
-                <p class="text-xs text-slate-500 mt-1">Boost career profile</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
-                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold mb-3">
-                    <i class="fa-solid fa-infinity text-lg"></i>
-                </div>
-                <h4 class="text-sm font-bold text-slate-900">Lifetime Access</h4>
-                <p class="text-xs text-slate-500 mt-1">Learn at your pace</p>
-            </div>
+    <!-- Hero Banner -->
+    <section class="hero text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold hero-title">Welcome to <span>SKILLS MARKET</span></h1>
+            <p class="lead mt-3 text-secondary">Start Your Digital Affiliate Business & Earn High Commissions Daily.</p>
+            <a href="#packages" class="btn btn-red btn-lg px-4 py-2 mt-3">Explore Packages</a>
         </div>
     </section>
 
-    <!-- 3. Stats & Impact Banner -->
-    <section class="px-6 py-6 max-w-6xl mx-auto">
-        <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden md:flex items-center justify-between">
-            <div class="absolute -right-6 -bottom-6 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl"></div>
+    <!-- Packages Section -->
+    <section id="packages" class="py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-2">Select Your Package</h2>
+            <p class="text-center text-secondary mb-5">High Commission Affiliate Structure</p>
             
-            <div class="mb-6 md:mb-0 max-w-md">
-                <span class="bg-white/10 text-orange-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-white/10">Growth Platform</span>
-                <h3 class="text-2xl md:text-3xl font-bold mt-3">Transforming Ambition Into Practical Results</h3>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8">
-                <div class="bg-white/5 p-4 rounded-2xl border border-white/10 min-w-[140px]">
-                    <h4 class="text-3xl font-black text-orange-400">98%</h4>
-                    <p class="text-xs text-slate-300 font-medium mt-1">Satisfaction Rate</p>
-                </div>
-                <div class="bg-white/5 p-4 rounded-2xl border border-white/10 min-w-[140px]">
-                    <h4 class="text-3xl font-black text-amber-400">6,000+</h4>
-                    <p class="text-xs text-slate-300 font-medium mt-1">Active Learners</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. About Us Section -->
-    <section id="about" class="px-6 py-16 max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-            <span class="text-orange-500 font-extrabold text-xs tracking-wider uppercase">About SkillsMarket</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1">Our Journey Of Growth</h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition">
-                <div class="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-600 flex items-center justify-center font-bold mb-4">
-                    <i class="fa-solid fa-bullseye text-xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Our Mission</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">
-                    To make practical, career-defining skills affordable and accessible for everyone, enabling continuous financial independence and growth.
-                </p>
-            </div>
-
-            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition">
-                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center font-bold mb-4">
-                    <i class="fa-solid fa-rocket text-xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Our Vision</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">
-                    Building India's largest skill-first community where action-takers create independent digital careers with confidence.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. Course Packages -->
-    <section id="packages" class="px-6 py-16 bg-slate-100/80 border-y border-slate-200/60">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-orange-500 font-extrabold text-xs tracking-wider uppercase">Our Skill Bundles</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1">Course Packages</h2>
-                <p class="text-sm text-slate-500 mt-2">Click on any package to view details and enrollment options.</p>
-            </div>
-
-            <!-- Responsive Packages Grid -->
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="row g-4">
                 
-                <!-- Package 1 -->
-                <div class="bg-white rounded-3xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-lg">Standard</span>
-                            <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md"><i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.8</span>
+                <!-- Starter Package -->
+                <div class="col-md-4">
+                    <div class="card card-pkg shadow p-3 h-100">
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <div>
+                                <h3 class="fw-bold">Starter Package</h3>
+                                <div class="price-text my-3">₹599</div>
+                                <hr class="border-secondary">
+                                <div class="text-start fs-5 mb-3">
+                                    <p class="mb-2">💰 Direct Income: <b class="text-red">₹400</b></p>
+                                    <p class="mb-0">📈 Passive Income: <b class="text-success">₹50</b></p>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-outline-red w-100 py-2 mt-3 fw-bold">Enroll Now</a>
                         </div>
-                        <h3 class="text-xl font-extrabold text-slate-900 mb-2">Standard Package</h3>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-6">Includes Digital Marketing Fundamentals, Content Creation, and Personal Branding basics.</p>
-                    </div>
-                    <div>
-                        <div class="flex items-baseline gap-2 mb-4">
-                            <span class="text-2xl font-black text-slate-900">₹260</span>
-                            <span class="text-sm text-slate-400 line-through">₹599</span>
-                        </div>
-                        <a href="#" class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl text-center text-xs orange-glow transition">Enroll Now</a>
-                    </div>
-                </div>
-
-                <!-- Package 2 -->
-                <div class="bg-white rounded-3xl border-2 border-orange-500 p-6 flex flex-col justify-between shadow-lg relative">
-                    <div class="absolute -top-3 right-6 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-lg">E-Lite</span>
-                            <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md"><i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9</span>
-                        </div>
-                        <h3 class="text-xl font-extrabold text-slate-900 mb-2">E-Lite Package</h3>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-6">Master Reel Editing, Canva Graphic Design, and Social Media Strategy.</p>
-                    </div>
-                    <div>
-                        <div class="flex items-baseline gap-2 mb-4">
-                            <span class="text-2xl font-black text-slate-900">₹699</span>
-                            <span class="text-sm text-slate-400 line-through">₹1,499</span>
-                        </div>
-                        <a href="#" class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl text-center text-xs orange-glow transition">Enroll Now</a>
                     </div>
                 </div>
 
-                <!-- Package 3 -->
-                <div class="bg-white rounded-3xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-lg">Prime</span>
-                            <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md"><i class="fa-solid fa-star text-amber-400 mr-1"></i> 5.0</span>
+                <!-- Gold Package (Popular) -->
+                <div class="col-md-4">
+                    <div class="card card-pkg popular-card shadow p-3 h-100">
+                        <span class="popular-badge">MOST POPULAR</span>
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <div>
+                                <h3 class="fw-bold">Gold Package</h3>
+                                <div class="price-text my-3 text-red">₹1,499</div>
+                                <hr class="border-secondary">
+                                <div class="text-start fs-5 mb-3">
+                                    <p class="mb-2">💰 Direct Income: <b class="text-red">₹1,000</b></p>
+                                    <p class="mb-0">📈 Passive Income: <b class="text-success">₹150</b></p>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-red w-100 py-2 mt-3 fw-bold">Enroll Now</a>
                         </div>
-                        <h3 class="text-xl font-extrabold text-slate-900 mb-2">Prime Package</h3>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-6">Complete Video Editing, CapCut Mastery, and Freelancing Client Acquisition guide.</p>
                     </div>
-                    <div>
-                        <div class="flex items-baseline gap-2 mb-4">
-                            <span class="text-2xl font-black text-slate-900">₹1,299</span>
-                            <span class="text-sm text-slate-400 line-through">₹2,999</span>
+                </div>
+
+                <!-- Master Package -->
+                <div class="col-md-4">
+                    <div class="card card-pkg shadow p-3 h-100">
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <div>
+                                <h3 class="fw-bold">Master Package</h3>
+                                <div class="price-text my-3">₹3,499</div>
+                                <hr class="border-secondary">
+                                <div class="text-start fs-5 mb-3">
+                                    <p class="mb-2">💰 Direct Income: <b class="text-red">₹2,500</b></p>
+                                    <p class="mb-0">📈 Passive Income: <b class="text-success">₹350</b></p>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-outline-red w-100 py-2 mt-3 fw-bold">Enroll Now</a>
                         </div>
-                        <a href="#" class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl text-center text-xs orange-glow transition">Enroll Now</a>
                     </div>
                 </div>
 
@@ -249,205 +206,42 @@
         </div>
     </section>
 
-    <!-- 6. Founders / Leadership -->
-    <section id="team" class="px-6 py-16 max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-            <span class="text-orange-500 font-extrabold text-xs tracking-wider uppercase">Leadership</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1">Meet The Founders</h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8">
-            <!-- Founder 1 -->
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="h-64 bg-slate-900 rounded-2xl mb-5 relative overflow-hidden flex items-end p-4">
-                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-70" alt="Devendra Devasi">
-                        <div class="relative z-10 bg-slate-900/80 backdrop-blur-md px-4 py-1.5 rounded-full text-xs text-white font-medium border border-white/20">
-                            <i class="fa-solid fa-star text-amber-400 mr-1"></i> 3+ Years Experience
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-black text-slate-900">Rijal Choudhary</h3>
-                    <span class="inline-block text-xs font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-md mt-1 mb-3">Founder & CEO</span>
-                    <p class="text-xs text-slate-600 leading-relaxed border-l-2 border-orange-500 pl-3 italic">
-                        Empowered over 5,000+ students to learn practical skills and build independent online careers through SkillsMarket.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Founder 2 -->
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="h-64 bg-slate-900 rounded-2xl mb-5 relative overflow-hidden flex items-end p-4">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-70" alt="Abhishek Kushwaha">
-                        <div class="relative z-10 bg-slate-900/80 backdrop-blur-md px-4 py-1.5 rounded-full text-xs text-white font-medium border border-white/20">
-                            <i class="fa-solid fa-chart-line text-purple-400 mr-1"></i> 200K+ Community
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-black text-slate-900">manish goyal</h3>
-                    <span class="inline-block text-xs font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-md mt-1 mb-3">Founder & CMO</span>
-                    <p class="text-xs text-slate-600 leading-relaxed border-l-2 border-purple-500 pl-3 italic">
-                        Digital marketer and content creator with 5+ years of experience guiding future digital entrepreneurs.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. Testimonials -->
-    <section id="testimonials" class="px-6 py-16 bg-slate-900 text-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-orange-400 font-extrabold text-xs tracking-wider uppercase">Student Reviews</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold mt-1">What Our Learners Say</h2>
-            </div>
-             
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Review 1 -->
-                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
-                    <div class="mb-4">
-                        <div class="flex text-amber-400 text-xs gap-1 mb-3">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed italic">
-                            "The Prime Package completely changed my perspective on freelancing. I earned my first client within 3 weeks of finishing the video editing module!"
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-3 pt-4 border-t border-slate-700/60">
-                        <div class="w-9 h-9 rounded-full bg-orange-500/20 text-orange-400 font-extrabold flex items-center justify-center text-xs">
-                            RV
-                        </div>
-                        <div>
-                            <h4 class="text-xs font-bold text-white">Rahul Verma</h4>
-                            <span class="text-[10px] text-slate-400">Freelance Video Editor</span>
-                        </div>
+    <!-- Why Join Us Section -->
+    <section class="py-5" style="background-color: #0e0e0e;">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-5">Why Join <span class="text-red">Skills Market</span>?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon mb-2">💸</div>
+                        <h4 class="fw-bold">High Commission</h4>
+                        <p class="text-secondary mb-0">Get up to 70%+ commission structure on every referral.</p>
                     </div>
                 </div>
-
-                <!-- Review 2 -->
-                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
-                    <div class="mb-4">
-                        <div class="flex text-amber-400 text-xs gap-1 mb-3">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed italic">
-                            "Super practical content! The Canva and Reel editing tips in the E-Lite bundle are very beginner-friendly and easy to follow."
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-3 pt-4 border-t border-slate-700/60">
-                        <div class="w-9 h-9 rounded-full bg-purple-500/20 text-purple-400 font-extrabold flex items-center justify-center text-xs">
-                            PS
-                        </div>
-                        <div>
-                            <h4 class="text-xs font-bold text-white">Priya Sharma</h4>
-                            <span class="text-[10px] text-slate-400">Content Creator</span>
-                        </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon mb-2">⚡</div>
+                        <h4 class="fw-bold">Same Day Payout</h4>
+                        <p class="text-secondary mb-0">Get your daily affiliate earnings disbursed promptly.</p>
                     </div>
                 </div>
-
-                <!-- Review 3 -->
-                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
-                    <div class="mb-4">
-                        <div class="flex text-amber-400 text-xs gap-1 mb-3">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed italic">
-                            "SkillsMarket provides great value at an affordable price. The community support and mentorship make a huge difference."
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-3 pt-4 border-t border-slate-700/60">
-                        <div class="w-9 h-9 rounded-full bg-emerald-500/20 text-emerald-400 font-extrabold flex items-center justify-center text-xs">
-                            AP
-                        </div>
-                        <div>
-                            <h4 class="text-xs font-bold text-white">Amit Patel</h4>
-                            <span class="text-[10px] text-slate-400">Digital Marketer</span>
-                        </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon mb-2">🤝</div>
+                        <h4 class="fw-bold">Community Support</h4>
+                        <p class="text-secondary mb-0">Access dedicated community channels and guide support.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 8. FAQ Section -->
-    <section class="px-6 py-16 max-w-4xl mx-auto">
-        <div class="text-center mb-12">
-            <span class="text-orange-500 font-extrabold text-xs tracking-wider uppercase">Got Questions?</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1">Frequently Asked Questions</h2>
-        </div>
-
-        <div class="space-y-4">
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <h4 class="font-bold text-slate-900 text-sm mb-1">How will I get access to the courses?</h4>
-                <p class="text-xs text-slate-600 leading-relaxed">Once you complete enrollment, you get instant login credentials to access all video lessons and downloadable resources.</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <h4 class="font-bold text-slate-900 text-sm mb-1">Are these courses suitable for complete beginners?</h4>
-                <p class="text-xs text-slate-600 leading-relaxed">Yes! All courses are designed step-by-step assuming no prior experience.</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <h4 class="font-bold text-slate-900 text-sm mb-1">Will I get a certificate after completion?</h4>
-                <p class="text-xs text-slate-600 leading-relaxed">Yes, you will receive a verified completion certificate that you can share on LinkedIn or with clients.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 9. Final CTA Banner -->
-    <section class="px-6 py-12 max-w-6xl mx-auto">
-        <div class="bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl p-8 md:p-12 text-white text-center shadow-xl orange-glow">
-            <h2 class="text-3xl md:text-4xl font-black mb-4">Start Learning High-Income Skills Today</h2>
-            <p class="text-orange-100 text-sm md:text-base max-w-xl mx-auto mb-8">
-                Join over 6,000+ students building high-value careers and digital independence.
-            </p>
-            <a href="#packages" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition inline-block text-sm">
-                Enroll Now & Get Started
-            </a>
-        </div>
-    </section>
-
-    <!-- 10. Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-12 px-6 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-            <div>
-                <a href="#" class="text-xl font-black text-white flex items-center gap-2 justify-center md:justify-start">
-                    <span class="bg-orange-500 text-white w-7 h-7 rounded-lg flex items-center justify-center text-sm italic font-extrabold">S</span>
-                    Skills<span class="text-orange-500">Market</span>
-                </a>
-                <p class="text-xs text-slate-500 mt-2">Empowering learners with high-income digital skills.</p>
-            </div>
-
-            <div class="flex gap-6 text-xs font-semibold">
-                <a href="#about" class="hover:text-white transition">About</a>
-                <a href="#packages" class="hover:text-white transition">Packages</a>
-                <a href="#team" class="hover:text-white transition">Team</a>
-                <a href="#testimonials" class="hover:text-white transition">Reviews</a>
-            </div>
-
-            <div class="text-xs text-slate-500">
-                © 2026 SkillsMarket. All rights reserved.
-            </div>
+    <!-- Footer -->
+    <footer class="text-secondary text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Skills Market. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- JavaScript for Mobile Navigation Toggle -->
-    <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
 </body>
 </html>
