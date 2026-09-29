@@ -1724,27 +1724,42 @@ section{
 }  
 </style>  </head>  <body>  <!-- =====================================================  
      NAVBAR  
-===================================================== -->  <header class="navbar">  
-  <div class="container nav-inner">  <a href="#home" class="logo">  
-  <span class="logo-mark">SM</span>  
-  <span>Skills Market</span>  
-</a>  
+===================================================== -->  <header class="navbar">
+  <div class="container nav-inner">
+    <!-- Logo Section -->
+    <a href="#home" class="logo">
+      <div class="logo-mark">SM</div>
+      <div class="logo-text">
+        <span class="brand-name">Skills<span>Market</span></span>
+        <span class="brand-tagline">Learn Today | Earn Tomorrow</span>
+      </div>
+    </a>
 
-<button class="menu-btn" onclick="toggleMenu()">⋮</button>  
+    <!-- Mobile Toggle Button -->
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
-<div class="menu" id="menu">  
-  <a href="#home">Home</a>  
-  <a href="#courses">Courses</a>  
-  <a href="#categories">Categories</a>  
-  <a href="#founder">About Us</a>  
-  <a href="#faq">FAQs</a>  
-  <a href="#support">Contact Us</a>  
-</div>
-<div class="nav-actions">
-  <a href="#" class="btn-login">LOGIN</a>
-  <a href="#" class="btn-register">REGISTER</a>
-</div>
-  </div>  
+    <!-- Center Navigation Links -->
+    <div class="menu" id="menu">
+      <a href="#home">HOME</a>
+      <a href="#courses" class="dropdown-link">COURSES <span class="arrow">▾</span></a>
+      <a href="#about">ABOUT US</a>
+      <a href="#income" class="active">INCOME SOURCES</a>
+      <a href="#contact">CONTACT US</a>
+    </div>
+
+    <!-- Right Actions: Currency + Login + Register -->
+    <div class="nav-actions">
+      <div class="currency-select">
+        <span>₹ IND</span> <span class="arrow">▾</span>
+      </div>
+      <a href="#" class="btn-login">
+        <span class="btn-icon">➔</span> LOGIN
+      </a>
+      <a href="#" class="btn-register">
+        <span class="btn-icon">+</span> REGISTER
+      </a>
+    </div>
+  </div>
 </header>  <!-- =====================================================  
      POSTER SLIDER  
 ===================================================== -->  <div class="poster-slider" id="posterSlider">    <div class="poster active">  
