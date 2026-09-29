@@ -211,7 +211,7 @@ section{
   inset:0;  
   opacity:0;  
   transform:scale(1.04);  
-  transition:opacity .7s ease,transform 1.5s ease;  
+  transition:opacity .5s ease,transform 1.5s ease;  
 }  
   
 .poster.active{  
@@ -498,8 +498,9 @@ section{
   padding:30px 20px;  
   color:#fff;  
   box-shadow:0 20px 60px rgba(0,0,0,.35);  
-  display:grid;  
-  grid-template-columns:repeat(3,1fr);  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
 }  
   
 .feature-item{  
@@ -1774,7 +1775,9 @@ section{
   aims to give you the tools and learning environment to move forward.  
 </p>
 
-  </div>    <div class="features-card">  <div class="feature-item">  
+  </div>    <div class="features-card"> 
+     
+     <div class="feature-item">  
   <div class="icon-circle">⏰</div>  
   <h3>Flexible Learning</h3>  
   <p>  
