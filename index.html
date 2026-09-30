@@ -158,7 +158,54 @@ section{
   box-shadow: 4px 0 20px rgba(220, 38, 38, 0.2);
   border-right: 1px solid rgba(220, 38, 38, 0.3);
 }
+/* Desktop Header Styles */
+.nav-desktop-links {
+    display: none;
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
 
+.nav-desktop-links li a {
+    color: #cccccc;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.nav-desktop-links li a:hover,
+.nav-desktop-links li a.active {
+    color: #ffffff;
+}
+
+.nav-desktop-login {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #e50914, #b20710);
+    color: #ffffff !important;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+}
+
+/* Laptop / Desktop View (992px se badi screen par) */
+@media screen and (min-width: 992px) {
+    .nav-desktop-links {
+        display: flex !important;
+    }
+    .nav-desktop-login {
+        display: flex !important;
+    }
+    .nav-mobile-btn {
+        display: none !important;
+    }
+}
 .sidebar-drawer.open {
   left: 0;
 }
@@ -1925,12 +1972,39 @@ section{
 </style>  </head>  <body>  <!-- =====================================================  
      NAVBAR  
 ===================================================== -->  <header class="navbar">
-    <!-- Red & Black Top Header -->
-  <header style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; background:#0d0d0d; border-bottom:1px solid #1f1f1f;">
-      <div style="color:white; font-weight:bold; font-size:1.2rem;">Skills<span style="color:#dc2626;">Market</span></div>
-      <button onclick="toggleSidebar()" style="background:#dc2626; border:none; color:white; padding:8px 12px; border-radius:6px; cursor:pointer; font-size:1.1rem;">☰</button>
-  </header>
+<!-- Red & Black Top Header -->
+<header style="display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#000000; border-bottom:1px solid rgba(255,255,255,0.1); position:sticky; top:0; z-index:1000;">
+    <!-- Logo -->
+    <div style="color:white; font-weight:bold; font-size:1.4rem; cursor:pointer;" onclick="location.href='index.html'">
+        Skills<span style="color:#dc2626;">Market</span>
+    </div>
 
+    <!-- Desktop Menu (Laptop par dikhega) -->
+    <ul class="nav-desktop-links">
+        <li><a href="index.html" class="active">HOME</a></li>
+        <li><a href="about.html">ABOUT US</a></li>
+        <li><a href="courses.html">COURSE</a></li>
+        <li><a href="packages.html">PACKAGES ▼</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+
+    <!-- Right Side: Desktop Login & Mobile Button -->
+    <div style="display:flex; align-items:center; gap:15px;">
+        <!-- Desktop Login Button -->
+        <a href="login.html" class="nav-desktop-login">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Login</span>
+        </a>
+
+        <!-- Mobile Toggle Button (Laptop par chhup jayega) -->
+        <button class="nav-mobile-btn" onclick="toggleSidebar()" style="background:#dc2626; border:none; color:white; padding:8px 12px; border-radius:6px; cursor:pointer;">
+            ☰
+        </button>
+    </div>
+</header>
   <!-- Overlay Background -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
