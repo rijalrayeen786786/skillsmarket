@@ -839,38 +839,146 @@ section{
    COURSES  
 ========================================================= */  
   
-#courses{  
-  padding:80px 20px;  
-  background:#050505;  
+.packages-section { 
+  padding: 60px 20px; 
+  background-color: #0a0a0a; 
+  color: #ffffff; 
+}
+.pkg-container { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+.packages-header { 
+  text-align: center; 
+  margin-bottom: 40px; 
+}
+.badge-pill { 
+  background: rgba(229, 9, 20, 0.15); 
+  color: #e50914; 
+  padding: 8px 18px; 
+  border-radius: 30px; 
+  font-size: 14px; 
+  font-weight: 600; 
+  border: 1px solid rgba(229, 9, 20, 0.3); 
+  display: inline-block; 
+  margin-bottom: 12px; 
+}
+.packages-header h2 { 
+  font-size: 28px; 
+  font-weight: 700; 
+}
+.highlight-text { 
+  color: #e50914; 
+}
+.packages-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 30px; 
+}
+.pkg-card { 
+  background: #141414; 
+  border-radius: 16px; 
+  overflow: hidden; 
+  border: 1px solid #262626; 
+  transition: transform 0.3s ease; 
+}
+.pkg-card:hover { 
+  transform: translateY(-5px); 
+  border-color: #e50914; 
+}
+.pkg-banner img { 
+  width: 100%; 
+  height: auto; 
+  display: block; 
+}
+.pkg-action-bar { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  padding: 15px 20px; 
+  background: #1a1a1a; 
+  border-bottom: 1px solid #262626; 
+}
+.price-box { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+}
+.price-current { 
+  background: #e50914; 
+  color: #ffffff; 
+  padding: 6px 14px; 
+  border-radius: 20px; 
+  font-weight: 700; 
+  font-size: 15px; 
+}
+.price-old { 
+  color: #888888; 
+  text-decoration: line-through; 
+  font-size: 14px; 
+}
+.buy-now-btn { 
+  background: linear-gradient(135deg, #e50914, #b20710); 
+  color: #ffffff !important; 
+  padding: 8px 18px; 
+  border-radius: 20px; 
+  text-decoration: none; 
+  font-weight: 600; 
+  font-size: 13px; 
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4); 
+}
+.pkg-content { 
+  padding: 20px; 
+}
+.pkg-title { 
+  font-size: 20px; 
+  font-weight: 700; 
+  margin-bottom: 10px; 
+  color: #ffffff; 
+}
+.pkg-meta { 
+  display: flex; 
+  justify-content: space-between; 
+  font-size: 13px; 
+  color: #aaaaaa; 
+  margin-bottom: 18px; 
+}
+.pkg-instructor { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  padding-top: 12px; 
+  border-top: 1px solid #262626; 
+}
+.inst-left { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+}
+.inst-avatar { 
+  width: 36px; 
+  height: 36px; 
+  background: #e50914; 
+  color: #ffffff; 
+  border-radius: 50%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-weight: 700; 
+}
+.inst-details strong { 
+  display: block; 
+  font-size: 13px; 
+  color: #ffffff; 
+}
+.inst-details small { 
+  font-size: 11px; 
+  color: #888888; 
+}
+.inst-stars { 
+  font-size: 12px; 
+  color: #f59e0b; 
 }  
-  
-.coming{  
-  max-width:500px;  
-  margin:35px auto 0;  
-  padding:50px 25px;  
-  border:1px solid rgba(255,255,255,.09);  
-  border-radius:22px;  
-  background:  
-    radial-gradient(circle at 50% 0,rgba(229,9,20,.12),transparent 55%),  
-    rgba(255,255,255,.025);  
-}  
-  
-.coming-icon{  
-  font-size:45px;  
-  margin-bottom:15px;  
-  animation:float 3s ease-in-out infinite;  
-}  
-  
-.coming h3{  
-  font-size:25px;  
-  margin-bottom:8px;  
-}  
-  
-.coming p{  
-  color:#888;  
-  font-size:14px;  
-}  
-  
 /* =========================================================  
    CATEGORIES / GENERIC SLIDER  
 ========================================================= */  
@@ -2157,23 +2265,212 @@ section{
   OUR COURSES  
 </div>  
 
-<h2 class="section-title">  
-  Skills Market Courses  
-</h2>  
+ <!-- ==================== COURSE PACKAGES SECTION ==================== -->
+<section class="packages-section" id="packages">
+  <div class="pkg-container">
+    
+    <div class="packages-header">
+      <span class="badge-pill">⚡ Premium Skill Packages</span>
+      <h2>Select Your Package & <span class="highlight-text">Start Earning</span></h2>
+    </div>
 
-<p class="section-subtitle">  
-  Practical learning opportunities designed to help you build valuable skills.  
-</p>  
+    <div class="packages-grid">
 
-<div class="coming">  
-  <div class="coming-icon">🚀</div>  
-  <h3>Coming Soon</h3>  
-  <p>  
-    Our courses are being prepared for launch.  
-  </p>  
-</div>
+      <!-- Package Card 1: Starter -->
+      <div class="pkg-card">
+        <div class="pkg-banner">
+          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=STARTER+PACKAGE" alt="Starter Package">
+        </div>
+        <div class="pkg-action-bar">
+          <div class="price-box">
+            <span class="price-current">₹ 500</span>
+            <span class="price-old">₹ 1,000</span>
+          </div>
+          <a href="checkout.html?pkg=starter" class="buy-now-btn">Enroll Now &rarr;</a>
+        </div>
+        <div class="pkg-content">
+          <h3 class="pkg-title">Starter Wave</h3>
+          <div class="pkg-meta">
+            <span>📄 Courses: 2</span>
+            <span>👤 Active: 800+</span>
+            <span>⭐ 4.6</span>
+          </div>
+          <div class="pkg-instructor">
+            <div class="inst-left">
+              <div class="inst-avatar">S</div>
+              <div class="inst-details">
+                <strong>SkillsMarket</strong>
+                <small>Official Course</small>
+              </div>
+            </div>
+            <div class="inst-stars">⭐⭐⭐⭐☆</div>
+          </div>
+        </div>
+      </div>
 
-  </div>  </section>  <!-- =====================================================  
+      <!-- Package Card 2: Basic -->
+      <div class="pkg-card">
+        <div class="pkg-banner">
+          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=BASIC+PACKAGE" alt="Basic Package">
+        </div>
+        <div class="pkg-action-bar">
+          <div class="price-box">
+            <span class="price-current">₹ 1,000</span>
+            <span class="price-old">₹ 2,000</span>
+          </div>
+          <a href="checkout.html?pkg=basic" class="buy-now-btn">Enroll Now &rarr;</a>
+        </div>
+        <div class="pkg-content">
+          <h3 class="pkg-title">Basic Wave</h3>
+          <div class="pkg-meta">
+            <span>📄 Courses: 4</span>
+            <span>👤 Active: 1,500+</span>
+            <span>⭐ 4.8</span>
+          </div>
+          <div class="pkg-instructor">
+            <div class="inst-left">
+              <div class="inst-avatar">S</div>
+              <div class="inst-details">
+                <strong>SkillsMarket</strong>
+                <small>Official Course</small>
+              </div>
+            </div>
+            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Package Card 3: Standard -->
+      <div class="pkg-card">
+        <div class="pkg-banner">
+          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=STANDARD+PACKAGE" alt="Standard Package">
+        </div>
+        <div class="pkg-action-bar">
+          <div class="price-box">
+            <span class="price-current">₹ 2,500</span>
+            <span class="price-old">₹ 5,000</span>
+          </div>
+          <a href="checkout.html?pkg=standard" class="buy-now-btn">Enroll Now &rarr;</a>
+        </div>
+        <div class="pkg-content">
+          <h3 class="pkg-title">Standard Wave</h3>
+          <div class="pkg-meta">
+            <span>📄 Courses: 7</span>
+            <span>👤 Active: 3,200+</span>
+            <span>⭐ 4.9</span>
+          </div>
+          <div class="pkg-instructor">
+            <div class="inst-left">
+              <div class="inst-avatar">S</div>
+              <div class="inst-details">
+                <strong>SkillsMarket</strong>
+                <small>Official Course</small>
+              </div>
+            </div>
+            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Package Card 4: Pro -->
+      <div class="pkg-card">
+        <div class="pkg-banner">
+          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=PRO+PACKAGE" alt="Pro Package">
+        </div>
+        <div class="pkg-action-bar">
+          <div class="price-box">
+            <span class="price-current">₹ 4,000</span>
+            <span class="price-old">₹ 8,000</span>
+          </div>
+          <a href="checkout.html?pkg=pro" class="buy-now-btn">Enroll Now &rarr;</a>
+        </div>
+        <div class="pkg-content">
+          <h3 class="pkg-title">Pro Wave</h3>
+          <div class="pkg-meta">
+            <span>📄 Courses: 10</span>
+            <span>👤 Active: 5,000+</span>
+            <span>⭐ 4.9</span>
+          </div>
+          <div class="pkg-instructor">
+            <div class="inst-left">
+              <div class="inst-avatar">S</div>
+              <div class="inst-details">
+                <strong>SkillsMarket</strong>
+                <small>Official Course</small>
+              </div>
+            </div>
+            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Package Card 5: Master -->
+      <div class="pkg-card">
+        <div class="pkg-banner">
+          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=MASTER+PACKAGE" alt="Master Package">
+        </div>
+        <div class="pkg-action-bar">
+          <div class="price-box">
+            <span class="price-current">₹ 7,000</span>
+            <span class="price-old">₹ 14,000</span>
+          </div>
+          <a href="checkout.html?pkg=master" class="buy-now-btn">Enroll Now &rarr;</a>
+        </div>
+        <div class="pkg-content">
+          <h3 class="pkg-title">Master Wave</h3>
+          <div class="pkg-meta">
+            <span>📄 Courses: 14</span>
+            <span>👤 Active: 2,100+</span>
+            <span>⭐ 5.0</span>
+          </div>
+          <div class="pkg-instructor">
+            <div class="inst-left">
+              <div class="inst-avatar">S</div>
+              <div class="inst-details">
+                <strong>SkillsMarket</strong>
+                <small>Official Course</small>
+              </div>
+            </div>
+            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Package Card 6: Ultimate -->
+      <div class="pkg-card">
+        <div class="pkg-banner">
+          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=ULTIMATE+PACKAGE" alt="Ultimate Package">
+        </div>
+        <div class="pkg-action-bar">
+          <div class="price-box">
+            <span class="price-current">₹ 10,000</span>
+            <span class="price-old">₹ 20,000</span>
+          </div>
+          <a href="checkout.html?pkg=ultimate" class="buy-now-btn">Enroll Now &rarr;</a>
+        </div>
+        <div class="pkg-content">
+          <h3 class="pkg-title">Ultimate Wave</h3>
+          <div class="pkg-meta">
+            <span>📄 All Access</span>
+            <span>👤 Active: 1,100+</span>
+            <span>⭐ 5.0</span>
+          </div>
+          <div class="pkg-instructor">
+            <div class="inst-left">
+              <div class="inst-avatar">S</div>
+              <div class="inst-details">
+                <strong>SkillsMarket</strong>
+                <small>Official Course</small>
+              </div>
+            </div>
+            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section> <!-- =====================================================  
      CATEGORIES  
 ===================================================== -->  <section class="slider-section reveal" id="categories">    <div class="slider-header">  <div class="section-label">  
   EXPLORE  
