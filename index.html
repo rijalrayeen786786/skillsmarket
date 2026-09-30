@@ -177,7 +177,7 @@ section{
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin: 25px 20px 10px 20px;
+  margin: 10px 15px 0 15px;
   padding: 12px 24px;
   background: linear-gradient(135deg, #e50914, #b20710);
   color: #ffffff !important;
@@ -1942,19 +1942,23 @@ section{
       </div>
 
       <ul class="drawer-menu">
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="courses.html">Course</a></li>
-          <li><a href="packages.html">Course Packages ▼</a></li>
-          <li><a href="contact.html">Contact</a></li>
-      </ul>
-
-      <div class="drawer-footer">
-          <a href="login.html" class="login-menu-btn">
-              👤 Login
-          </a>
-      </div>
-  </div>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="courses.html">Course</a></li>
+    <li><a href="packages.html">Course Packages ▼</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    
+    <!-- Login Button ko direct list ke andar rakhein -->
+    <li style="list-style: none; margin-top: 15px;">
+        <a href="login.html" class="login-menu-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Login</span>
+        </a>
+    </li>
+</ul>
 
   <script>
     function toggleSidebar() {
