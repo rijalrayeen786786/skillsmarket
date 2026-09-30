@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Skills Market | Learn. Grow. Earn.</title>
 <meta name="description" content="Skills Market - Learn practical digital skills, grow your knowledge and explore new opportunities.">
+<!-- FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>  
 /* =========================================================  
    SKILLS MARKET — MASTER CSS  
@@ -863,25 +865,178 @@ section{
 .like-badge{position:absolute;top:10px;right:-10px;background:var(--red);width:35px;height:35px;border-radius:50%;display:grid;place-items:center;font-size:16px;box-shadow:0 5px 15px rgba(229,9,20,.4)}
 .support-girl-img{max-height:220px;object-fit:contain}
 
-.footer-section{background:#000;color:#fff;padding:60px 20px 30px;border-top:1px solid var(--border)}
-.footer-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;margin-bottom:40px}
-.footer-logo h2{font-size:22px;font-weight:800}
-.footer-logo h2 span{color:var(--red)}
-.tagline{color:var(--text);font-size:13px;margin-top:5px}
-.about-text{color:var(--text);font-size:13px;line-height:1.7;margin-top:15px}
-.footer-col h3{font-size:16px;font-weight:700;margin-bottom:20px}
-.contact-card{display:flex;gap:12px;margin-bottom:15px;align-items:flex-start}
-.contact-card .icon{font-size:16px;color:var(--red2)}
-.contact-card h4{font-size:12px;color:var(--text);margin:0}
-.contact-card p{font-size:13px;margin:0;font-weight:600}
-.social-icons{display:flex;gap:10px;margin-bottom:25px}
-.social-btn{width:36px;height:36px;background:var(--card);border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;font-size:12px;font-weight:700;transition:.3s}
-.social-btn:hover{background:var(--red);border-color:var(--red)}
-.footer-links{list-style:none}
-.footer-links li{margin-bottom:10px}
-.footer-links a{color:var(--text);text-decoration:none;font-size:13px;transition:.3s}
-.footer-links a:hover{color:#fff;padding-left:5px}
-.footer-bottom{max-width:1100px;margin:0 auto;text-align:center;border-top:1px solid var(--border);padding-top:25px;color:var(--text);font-size:13px}
+/* =========================================================  
+   NEW ANIMATED SKILLS-MARKET FOOTER STYLING  
+========================================================= */  
+.footer-bg {
+    background: linear-gradient(135deg, #12081c 0%, #050208 100%);
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    padding: 70px 20px 30px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-bg::before {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(225, 29, 72, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.footer-container-custom {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 40px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 40px;
+}
+
+.footer-col-custom h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-col-custom h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 35px;
+    height: 2px;
+    background: #e11d48;
+}
+
+.footer-logo-custom h2 {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.footer-logo-custom h2 span {
+    color: var(--red);
+}
+
+.footer-about-text {
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 15px 0 20px;
+}
+
+/* Social Media Icon Styling & Animation */
+.social-icons-custom {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icon-btn {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.social-icon-btn:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(135deg, #e11d48, #9333ea);
+    box-shadow: 0 0 15px rgba(225, 29, 72, 0.6);
+    border-color: transparent;
+}
+
+/* Footer Links & Hover Effect */
+.footer-links-custom {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links-custom li {
+    margin-bottom: 12px;
+}
+
+.footer-links-custom a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.footer-links-custom a:hover {
+    color: #e11d48;
+    padding-left: 6px;
+}
+
+/* Contact Info Cards */
+.footer-contact-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.footer-contact-icon {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--red2);
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.footer-contact-item p {
+    font-size: 13px;
+    margin: 0;
+    color: var(--text);
+    font-weight: 600;
+}
+
+.footer-bottom-custom {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 25px;
+    color: var(--text);
+    font-size: 12px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+@media(min-width: 768px) {
+    .footer-bottom-custom {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
 
 /* Animations */
 @keyframes heroFloat{  
@@ -1653,69 +1808,72 @@ section{
   </section>  
 
   <!-- =====================================================  
-     FOOTER  
+     ANIMATED FOOTER (SKILLS MARKET)  
   ===================================================== -->  
-  <footer class="footer-section" id="footer">  
-    <div class="footer-container">  
-      <div class="footer-col footer-about">  
-        <div class="footer-logo">  
-          <h2>Skills<span>Market</span></h2>  
-          <p class="tagline">Learn. Grow. Earn.</p>  
+  <footer class="footer-bg" id="footer">  
+    <div class="footer-container-custom">  
+      
+      <!-- Company Info & Socials -->
+      <div class="footer-col-custom">  
+        <div class="footer-logo-custom">  
+          <h2>SKILLS<span>MARKET</span></h2>  
         </div>  
-        <p class="about-text">  
-          Skills Market is a digital learning platform built to help  
-          learners develop practical skills, learn from experts and  
-          explore new opportunities.  
+        <p class="footer-about-text">  
+          Our platform empowers learners to enhance their skills and knowledge through accessible and comprehensive learning resources.  
         </p>  
+        <!-- Social Media Animated Icons -->
+        <div class="social-icons-custom">  
+          <a href="#" class="social-icon-btn"><i class="fab fa-whatsapp"></i></a>  
+          <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>  
+          <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>  
+          <a href="#" class="social-icon-btn"><i class="fab fa-telegram-plane"></i></a>  
+          <a href="#" class="social-icon-btn"><i class="fab fa-youtube"></i></a>  
+        </div>  
       </div>  
 
-      <div class="footer-col">  
+      <!-- Online Platform Links -->
+      <div class="footer-col-custom">  
+        <h3>Online Platform</h3>  
+        <ul class="footer-links-custom mt-4">  
+          <li><a href="#founder">About</a></li>  
+          <li><a href="#support">Contact Us</a></li>  
+          <li><a href="login.html">Login</a></li>  
+          <li><a href="login.html">Register</a></li>  
+        </ul>  
+      </div>  
+
+      <!-- Important Links -->
+      <div class="footer-col-custom">  
+        <h3>Important Links</h3>  
+        <ul class="footer-links-custom mt-4">  
+          <li><a href="#">Disclaimer</a></li>  
+          <li><a href="#">Privacy Policy</a></li>  
+          <li><a href="#">Refund Policy</a></li>  
+          <li><a href="#">Terms & Conditions</a></li>  
+        </ul>  
+      </div>  
+
+      <!-- Contact Details -->
+      <div class="footer-col-custom">  
         <h3>Contact Us</h3>  
-        <div class="contact-card">  
-          <span class="icon">✉</span>  
-          <div><h4>Email Address</h4><p>Coming Soon</p></div>  
-        </div>  
-        <div class="contact-card">  
-          <span class="icon">📍</span>  
-          <div><h4>Location</h4><p>India</p></div>  
-        </div>  
-        <div class="contact-card">  
-          <span class="icon">📞</span>  
-          <div><h4>Phone Number</h4><p>Coming Soon</p></div>  
-        </div>  
-        <div class="contact-card">  
-          <span class="icon">⏰</span>  
-          <div><h4>Working Hours</h4><p>Monday - Saturday</p></div>  
+        <div class="space-y-3 mt-4">  
+          <div class="footer-contact-item">  
+            <div class="footer-contact-icon"><i class="fas fa-phone-alt"></i></div>  
+            <p>+91 8800461629</p>  
+          </div>  
+          <div class="footer-contact-item">  
+            <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>  
+            <p style="word-break: break-all;">support@skillsmarket.com</p>  
+          </div>  
         </div>  
       </div>  
 
-      <div class="footer-col">  
-        <h3>Follow Us</h3>  
-        <div class="social-icons">  
-          <a href="#" class="social-btn">IG</a>  
-          <a href="#" class="social-btn">YT</a>  
-          <a href="#" class="social-btn">TG</a>  
-        </div>  
-
-        <h3>Quick Link</h3>  
-        <ul class="footer-links">  
-          <li><a href="#home">+ Home</a></li>  
-          <li><a href="#founder">+ About Us</a></li>  
-          <li><a href="#packages">+ Packages</a></li>  
-          <li><a href="#support">+ Contact</a></li>  
-        </ul>  
-
-        <h3>Useful Links</h3>  
-        <ul class="footer-links">  
-          <li><a href="#">+ Privacy & Policy</a></li>  
-          <li><a href="#">+ Terms & Condition</a></li>  
-          <li><a href="#">+ Refund Policy</a></li>  
-        </ul>  
-      </div>  
     </div>  
 
-    <div class="footer-bottom">  
-      <p>© 2026 Skills Market. All Rights Reserved.</p>  
+    <!-- Footer Copyright Bottom Bar -->
+    <div class="footer-bottom-custom">  
+      <p>Copyright &copy; 2026 SkillsMarket. All rights reserved.</p>  
+      <p>Designed and developed by <span style="color: #e11d48; font-weight: 500;">Gagan Gupta</span></p>  
     </div>  
   </footer>  
 
