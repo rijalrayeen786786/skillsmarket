@@ -872,22 +872,24 @@ section{
 }
 .packages-grid {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
     gap: 24px !important;
     width: 100% !important;
 }
-.pkg-card { 
-  background: #141414; 
-  border-radius: 16px; 
-  overflow: hidden; 
-  border: 1px solid #262626; 
-  transition: transform 0.3s ease; 
+
+.pkg-card {
+    background: #111827 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    transition: transform 0.3s ease, border-color 0.3s ease !important;
 }
-.pkg-card:hover { 
-  transform: translateY(-5px); 
-  border-color: #e50914; 
+
+.pkg-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(229, 9, 20, 0.4) !important;
 }
-.pkg-banner img { 
+   .pkg-banner img { 
   width: 100%; 
   height: auto; 
   display: block; 
