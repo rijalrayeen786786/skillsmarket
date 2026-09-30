@@ -839,149 +839,210 @@ section{
    COURSES  
 ========================================================= */  
   
-.packages-section { 
-  padding: 60px 20px; 
-  background-color: #0a0a0a; 
-  color: #ffffff; 
+.packages-section {
+    padding: 60px 20px !important;
+    background-color: #f4f6fa !important;
+    color: #111111 !important;
 }
-.pkg-container { 
-  max-width: 1200px; 
-  margin: 0 auto; 
+
+.pkg-container {
+    max-width: 1100px !important;
+    margin: 0 auto !important;
 }
-.packages-header { 
-  text-align: center; 
-  margin-bottom: 40px; 
+
+.packages-header {
+    text-align: center !important;
+    margin-bottom: 40px !important;
 }
-.badge-pill { 
-  background: rgba(229, 9, 20, 0.15); 
-  color: #e50914; 
-  padding: 8px 18px; 
-  border-radius: 30px; 
-  font-size: 14px; 
-  font-weight: 600; 
-  border: 1px solid rgba(229, 9, 20, 0.3); 
-  display: inline-block; 
-  margin-bottom: 12px; 
+
+.packages-header h2 {
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    color: #111 !important;
+    margin-top: 10px !important;
+    line-height: 1.3 !important;
 }
-.packages-header h2 { 
-  font-size: 28px; 
-  font-weight: 700; 
+
+.highlight-text {
+    background: linear-gradient(90deg, #6366f1, #a855f7) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
-.highlight-text { 
-  color: #e50914; 
+
+.badge-pill {
+    background: #ffffff !important;
+    color: #6366f1 !important;
+    padding: 6px 18px !important;
+    border-radius: 30px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+    display: inline-block !important;
+    border: 1px solid #e2e8f0 !important;
 }
+
 .packages-grid {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-    gap: 24px !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 25px !important;
     width: 100% !important;
 }
 
 .pkg-card {
-    background: #111827 !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: #ffffff !important;
     border-radius: 16px !important;
     overflow: hidden !important;
-    transition: transform 0.3s ease, border-color 0.3s ease !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05) !important;
+    border: 1px solid #edf2f7 !important;
+    transition: transform 0.3s ease !important;
 }
 
 .pkg-card:hover {
     transform: translateY(-5px) !important;
-    border-color: rgba(229, 9, 20, 0.4) !important;
 }
-   .pkg-banner img { 
-  width: 100%; 
-  height: auto; 
-  display: block; 
+
+.pkg-banner-box {
+    height: 180px !important;
+    padding: 20px !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    position: relative !important;
 }
-.pkg-action-bar { 
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-  padding: 15px 20px; 
-  background: #1a1a1a; 
-  border-bottom: 1px solid #262626; 
+
+.pkg-banner-content h3 {
+    color: #ffffff !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
 }
-.price-box { 
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
+
+.pkg-top-tag {
+    color: #93c5fd !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    display: block !important;
+    margin-bottom: 5px !important;
 }
-.price-current { 
-  background: #e50914; 
-  color: #ffffff; 
-  padding: 6px 14px; 
-  border-radius: 20px; 
-  font-weight: 700; 
-  font-size: 15px; 
+
+.pkg-action-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 15px 20px !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #f1f5f9 !important;
 }
-.price-old { 
-  color: #888888; 
-  text-decoration: line-through; 
-  font-size: 14px; 
+
+.pkg-prices {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
 }
-.buy-now-btn { 
-  background: linear-gradient(135deg, #e50914, #b20710); 
-  color: #ffffff !important; 
-  padding: 8px 18px; 
-  border-radius: 20px; 
-  text-decoration: none; 
-  font-weight: 600; 
-  font-size: 13px; 
-  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4); 
+
+.pkg-current-price {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #4f46e5 !important;
+    background: #eef2ff !important;
+    padding: 4px 12px !important;
+    border-radius: 20px !important;
 }
-.pkg-content { 
-  padding: 20px; 
+
+.pkg-old-price {
+    font-size: 14px !important;
+    color: #94a3b8 !important;
+    text-decoration: line-through !important;
 }
-.pkg-title { 
-  font-size: 20px; 
-  font-weight: 700; 
-  margin-bottom: 10px; 
-  color: #ffffff; 
+
+.pkg-buy-btn {
+    background: #6366f1 !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 8px 18px !important;
+    border-radius: 20px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
 }
-.pkg-meta { 
-  display: flex; 
-  justify-content: space-between; 
-  font-size: 13px; 
-  color: #aaaaaa; 
-  margin-bottom: 18px; 
+
+.pkg-details {
+    padding: 20px !important;
 }
-.pkg-instructor { 
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-  padding-top: 12px; 
-  border-top: 1px solid #262626; 
+
+.pkg-title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    margin-bottom: 10px !important;
 }
-.inst-left { 
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
+
+.pkg-meta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    font-size: 12px !important;
+    color: #64748b !important;
+    margin-bottom: 18px !important;
 }
-.inst-avatar { 
-  width: 36px; 
-  height: 36px; 
-  background: #e50914; 
-  color: #ffffff; 
-  border-radius: 50%; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  font-weight: 700; 
+
+.pkg-instructor-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-top: 15px !important;
+    border-top: 1px solid #f1f5f9 !important;
 }
-.inst-details strong { 
-  display: block; 
-  font-size: 13px; 
-  color: #ffffff; 
+
+.instructor-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
 }
-.inst-details small { 
-  font-size: 11px; 
-  color: #888888; 
+
+.instructor-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    background: #6366f1 !important;
+    color: #fff !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
 }
-.inst-stars { 
-  font-size: 12px; 
-  color: #f59e0b; 
-}  
+
+.instructor-name {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    margin: 0 !important;
+}
+
+.instructor-role {
+    font-size: 11px !important;
+    color: #94a3b8 !important;
+}
+
+.instructor-rating {
+    text-align: right !important;
+}
+
+.stars {
+    color: #fbbf24 !important;
+    font-size: 12px !important;
+    letter-spacing: 1px !important;
+}
+
+.rating-num {
+    font-size: 11px !important;
+    color: #64748b !important;
+    margin-left: 4px !important;
+}
+   
 /* =========================================================  
    CATEGORIES / GENERIC SLIDER  
 ========================================================= */  
@@ -2268,210 +2329,249 @@ section{
   OUR COURSES  
    
    <!-- Course Packages Section Start -->
+<!-- ========================= PACKAGES SECTION ========================= -->
 <section class="packages-section" id="packages">
-  <div class="pkg-container">
-    
-    <div class="packages-header">
-      <span class="badge-pill">⚡ Premium Skill Packages</span>
-      <h2>Select Your Package & <span class="highlight-text">Start Earning</span></h2>
+    <div class="pkg-container">
+        
+        <!-- Section Header -->
+        <div class="packages-header">
+            <span class="badge-pill">⚡ Courses & Package</span>
+            <h2>Find Your Perfect Learning <br><span class="highlight-text">Package & Get Started</span></h2>
+        </div>
+
+        <!-- Packages Grid -->
+        <div class="packages-grid">
+
+            <!-- 1. Basic Wave -->
+            <div class="pkg-card">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #1b365d 0%, #0d1b2a 70%, #05080c 100%);">
+                    <div class="pkg-banner-content">
+                        <span class="pkg-top-tag">BASIC WAVE</span>
+                        <h3>BASIC WAVE <br>PACKAGE</h3>
+                    </div>
+                </div>
+                <div class="pkg-action-bar">
+                    <div class="pkg-prices">
+                        <span class="pkg-current-price">₹449</span>
+                        <span class="pkg-old-price">₹899</span>
+                    </div>
+                    <button class="pkg-buy-btn">Buy Now ➔</button>
+                </div>
+                <div class="pkg-details">
+                    <h3 class="pkg-title">Basic Wave</h3>
+                    <div class="pkg-meta">
+                        <span>📄 Courses: 3</span>
+                        <span>👤 Students: —</span>
+                        <span>⭐ Rating: 3.5</span>
+                    </div>
+                    <div class="pkg-instructor-row">
+                        <div class="instructor-info">
+                            <div class="instructor-avatar">R</div>
+                            <div>
+                                <h4 class="instructor-name">Richwaveindia</h4>
+                                <span class="instructor-role">Instructor</span>
+                            </div>
+                        </div>
+                        <div class="instructor-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-num">(3.5)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Standard Wave -->
+            <div class="pkg-card">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #183b5c 0%, #0b1a2d 70%, #04070a 100%);">
+                    <div class="pkg-banner-content">
+                        <span class="pkg-top-tag">STANDARD WAVE</span>
+                        <h3>STANDARD WAVE <br>PACKAGE</h3>
+                    </div>
+                </div>
+                <div class="pkg-action-bar">
+                    <div class="pkg-prices">
+                        <span class="pkg-current-price">₹749</span>
+                        <span class="pkg-old-price">₹1499</span>
+                    </div>
+                    <button class="pkg-buy-btn">Buy Now ➔</button>
+                </div>
+                <div class="pkg-details">
+                    <h3 class="pkg-title">Standard Wave</h3>
+                    <div class="pkg-meta">
+                        <span>📄 Courses: 6</span>
+                        <span>👤 Students: —</span>
+                        <span>⭐ Rating: 3.5</span>
+                    </div>
+                    <div class="pkg-instructor-row">
+                        <div class="instructor-info">
+                            <div class="instructor-avatar">R</div>
+                            <div>
+                                <h4 class="instructor-name">Richwaveindia</h4>
+                                <span class="instructor-role">Instructor</span>
+                            </div>
+                        </div>
+                        <div class="instructor-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-num">(3.5)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. E-Lite Wave -->
+            <div class="pkg-card">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #133458 0%, #091728 70%, #03060a 100%);">
+                    <div class="pkg-banner-content">
+                        <span class="pkg-top-tag">E-LITE WAVE</span>
+                        <h3>E-LITE WAVE <br>PACKAGE</h3>
+                    </div>
+                </div>
+                <div class="pkg-action-bar">
+                    <div class="pkg-prices">
+                        <span class="pkg-current-price">₹1449</span>
+                        <span class="pkg-old-price">₹2899</span>
+                    </div>
+                    <button class="pkg-buy-btn">Buy Now ➔</button>
+                </div>
+                <div class="pkg-details">
+                    <h3 class="pkg-title">E-Lite Wave</h3>
+                    <div class="pkg-meta">
+                        <span>📄 Courses: 10</span>
+                        <span>👤 Students: —</span>
+                        <span>⭐ Rating: 4.0</span>
+                    </div>
+                    <div class="pkg-instructor-row">
+                        <div class="instructor-info">
+                            <div class="instructor-avatar">R</div>
+                            <div>
+                                <h4 class="instructor-name">Richwaveindia</h4>
+                                <span class="instructor-role">Instructor</span>
+                            </div>
+                        </div>
+                        <div class="instructor-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-num">(4.0)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Expert Wave -->
+            <div class="pkg-card">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #102e52 0%, #071322 70%, #020508 100%);">
+                    <div class="pkg-banner-content">
+                        <span class="pkg-top-tag">EXPERT WAVE</span>
+                        <h3>EXPERT WAVE <br>PACKAGE</h3>
+                    </div>
+                </div>
+                <div class="pkg-action-bar">
+                    <div class="pkg-prices">
+                        <span class="pkg-current-price">₹2649</span>
+                        <span class="pkg-old-price">₹5298</span>
+                    </div>
+                    <button class="pkg-buy-btn">Buy Now ➔</button>
+                </div>
+                <div class="pkg-details">
+                    <h3 class="pkg-title">Expert Wave</h3>
+                    <div class="pkg-meta">
+                        <span>📄 Courses: 13</span>
+                        <span>👤 Students: —</span>
+                        <span>⭐ Rating: 4.5</span>
+                    </div>
+                    <div class="pkg-instructor-row">
+                        <div class="instructor-info">
+                            <div class="instructor-avatar">R</div>
+                            <div>
+                                <h4 class="instructor-name">Richwaveindia</h4>
+                                <span class="instructor-role">Instructor</span>
+                            </div>
+                        </div>
+                        <div class="instructor-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-num">(4.5)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Prime Wave -->
+            <div class="pkg-card">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #481111 0%, #200707 70%, #080202 100%);">
+                    <div class="pkg-banner-content">
+                        <span class="pkg-top-tag" style="color:#ff6b6b;">PRIME WAVE</span>
+                        <h3 style="color:#fff;">PRIME WAVE <br>PACKAGE</h3>
+                    </div>
+                </div>
+                <div class="pkg-action-bar">
+                    <div class="pkg-prices">
+                        <span class="pkg-current-price">₹5499</span>
+                        <span class="pkg-old-price">₹10999</span>
+                    </div>
+                    <button class="pkg-buy-btn">Buy Now ➔</button>
+                </div>
+                <div class="pkg-details">
+                    <h3 class="pkg-title">Prime Wave</h3>
+                    <div class="pkg-meta">
+                        <span>📄 Courses: 15</span>
+                        <span>👤 Students: —</span>
+                        <span>⭐ Rating: 5.0</span>
+                    </div>
+                    <div class="pkg-instructor-row">
+                        <div class="instructor-info">
+                            <div class="instructor-avatar">R</div>
+                            <div>
+                                <h4 class="instructor-name">Richwaveindia</h4>
+                                <span class="instructor-role">Instructor</span>
+                            </div>
+                        </div>
+                        <div class="instructor-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-num">(5.0)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Premium Wave -->
+            <div class="pkg-card">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #113f1d 0%, #061c0c 70%, #020703 100%);">
+                    <div class="pkg-banner-content">
+                        <span class="pkg-top-tag" style="color:#4ade80;">PREMIUM WAVE</span>
+                        <h3 style="color:#fff;">PREMIUM WAVE <br>PACKAGE</h3>
+                    </div>
+                </div>
+                <div class="pkg-action-bar">
+                    <div class="pkg-prices">
+                        <span class="pkg-current-price">₹10999</span>
+                        <span class="pkg-old-price">₹20999</span>
+                    </div>
+                    <button class="pkg-buy-btn">Buy Now ➔</button>
+                </div>
+                <div class="pkg-details">
+                    <h3 class="pkg-title">Premium Wave</h3>
+                    <div class="pkg-meta">
+                        <span>📄 Courses: 18</span>
+                        <span>👤 Students: —</span>
+                        <span>⭐ Rating: 5.0</span>
+                    </div>
+                    <div class="pkg-instructor-row">
+                        <div class="instructor-info">
+                            <div class="instructor-avatar">R</div>
+                            <div>
+                                <h4 class="instructor-name">Richwaveindia</h4>
+                                <span class="instructor-role">Instructor</span>
+                            </div>
+                        </div>
+                        <div class="instructor-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-num">(5.0)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <div class="packages-grid">
-
-      <!-- Package Card 1: Starter -->
-      <div class="pkg-card">
-        <div class="pkg-banner">
-          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=STARTER+PACKAGE" alt="Starter Package">
-        </div>
-        <div class="pkg-action-bar">
-          <div class="price-box">
-            <span class="price-current">₹ 500</span>
-            <span class="price-old">₹ 1,000</span>
-          </div>
-          <a href="checkout.html?pkg=starter" class="buy-now-btn">Enroll Now &rarr;</a>
-        </div>
-        <div class="pkg-content">
-          <h3 class="pkg-title">Starter Wave</h3>
-          <div class="pkg-meta">
-            <span>📄 Courses: 2</span>
-            <span>👤 Active: 800+</span>
-            <span>⭐ 4.6</span>
-          </div>
-          <div class="pkg-instructor">
-            <div class="inst-left">
-              <div class="inst-avatar">S</div>
-              <div class="inst-details">
-                <strong>SkillsMarket</strong>
-                <small>Official Course</small>
-              </div>
-            </div>
-            <div class="inst-stars">⭐⭐⭐⭐☆</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Package Card 2: Basic -->
-      <div class="pkg-card">
-        <div class="pkg-banner">
-          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=BASIC+PACKAGE" alt="Basic Package">
-        </div>
-        <div class="pkg-action-bar">
-          <div class="price-box">
-            <span class="price-current">₹ 1,000</span>
-            <span class="price-old">₹ 2,000</span>
-          </div>
-          <a href="checkout.html?pkg=basic" class="buy-now-btn">Enroll Now &rarr;</a>
-        </div>
-        <div class="pkg-content">
-          <h3 class="pkg-title">Basic Wave</h3>
-          <div class="pkg-meta">
-            <span>📄 Courses: 4</span>
-            <span>👤 Active: 1,500+</span>
-            <span>⭐ 4.8</span>
-          </div>
-          <div class="pkg-instructor">
-            <div class="inst-left">
-              <div class="inst-avatar">S</div>
-              <div class="inst-details">
-                <strong>SkillsMarket</strong>
-                <small>Official Course</small>
-              </div>
-            </div>
-            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Package Card 3: Standard -->
-      <div class="pkg-card">
-        <div class="pkg-banner">
-          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=STANDARD+PACKAGE" alt="Standard Package">
-        </div>
-        <div class="pkg-action-bar">
-          <div class="price-box">
-            <span class="price-current">₹ 2,500</span>
-            <span class="price-old">₹ 5,000</span>
-          </div>
-          <a href="checkout.html?pkg=standard" class="buy-now-btn">Enroll Now &rarr;</a>
-        </div>
-        <div class="pkg-content">
-          <h3 class="pkg-title">Standard Wave</h3>
-          <div class="pkg-meta">
-            <span>📄 Courses: 7</span>
-            <span>👤 Active: 3,200+</span>
-            <span>⭐ 4.9</span>
-          </div>
-          <div class="pkg-instructor">
-            <div class="inst-left">
-              <div class="inst-avatar">S</div>
-              <div class="inst-details">
-                <strong>SkillsMarket</strong>
-                <small>Official Course</small>
-              </div>
-            </div>
-            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Package Card 4: Pro -->
-      <div class="pkg-card">
-        <div class="pkg-banner">
-          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=PRO+PACKAGE" alt="Pro Package">
-        </div>
-        <div class="pkg-action-bar">
-          <div class="price-box">
-            <span class="price-current">₹ 4,000</span>
-            <span class="price-old">₹ 8,000</span>
-          </div>
-          <a href="checkout.html?pkg=pro" class="buy-now-btn">Enroll Now &rarr;</a>
-        </div>
-        <div class="pkg-content">
-          <h3 class="pkg-title">Pro Wave</h3>
-          <div class="pkg-meta">
-            <span>📄 Courses: 10</span>
-            <span>👤 Active: 5,000+</span>
-            <span>⭐ 4.9</span>
-          </div>
-          <div class="pkg-instructor">
-            <div class="inst-left">
-              <div class="inst-avatar">S</div>
-              <div class="inst-details">
-                <strong>SkillsMarket</strong>
-                <small>Official Course</small>
-              </div>
-            </div>
-            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Package Card 5: Master -->
-      <div class="pkg-card">
-        <div class="pkg-banner">
-          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=MASTER+PACKAGE" alt="Master Package">
-        </div>
-        <div class="pkg-action-bar">
-          <div class="price-box">
-            <span class="price-current">₹ 7,000</span>
-            <span class="price-old">₹ 14,000</span>
-          </div>
-          <a href="checkout.html?pkg=master" class="buy-now-btn">Enroll Now &rarr;</a>
-        </div>
-        <div class="pkg-content">
-          <h3 class="pkg-title">Master Wave</h3>
-          <div class="pkg-meta">
-            <span>📄 Courses: 14</span>
-            <span>👤 Active: 2,100+</span>
-            <span>⭐ 5.0</span>
-          </div>
-          <div class="pkg-instructor">
-            <div class="inst-left">
-              <div class="inst-avatar">S</div>
-              <div class="inst-details">
-                <strong>SkillsMarket</strong>
-                <small>Official Course</small>
-              </div>
-            </div>
-            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Package Card 6: Ultimate -->
-      <div class="pkg-card">
-        <div class="pkg-banner">
-          <img src="https://via.placeholder.com/600x350/111827/ef4444?text=ULTIMATE+PACKAGE" alt="Ultimate Package">
-        </div>
-        <div class="pkg-action-bar">
-          <div class="price-box">
-            <span class="price-current">₹ 10,000</span>
-            <span class="price-old">₹ 20,000</span>
-          </div>
-          <a href="checkout.html?pkg=ultimate" class="buy-now-btn">Enroll Now &rarr;</a>
-        </div>
-        <div class="pkg-content">
-          <h3 class="pkg-title">Ultimate Wave</h3>
-          <div class="pkg-meta">
-            <span>📄 All Access</span>
-            <span>👤 Active: 1,100+</span>
-            <span>⭐ 5.0</span>
-          </div>
-          <div class="pkg-instructor">
-            <div class="inst-left">
-              <div class="inst-avatar">S</div>
-              <div class="inst-details">
-                <strong>SkillsMarket</strong>
-                <small>Official Course</small>
-              </div>
-            </div>
-            <div class="inst-stars">⭐⭐⭐⭐⭐</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
 </section>  <!-- =====================================================  
      CATEGORIES  
 ===================================================== -->  <section class="slider-section reveal" id="categories">    <div class="slider-header">  <div class="section-label">  
