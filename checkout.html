@@ -3,329 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | SkillsMarket</title>
-    <!-- FontAwesome for Social Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Checkout - Aab</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
             background-color: #0b0b0b;
-            color: #fff;
-            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Circles */
+        .bg-animations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 30, 56, 0.15);
+            animation: floatCircle 12s infinite linear;
+        }
+
+        .circle:nth-child(1) {
+            width: 280px;
+            height: 280px;
+            top: -60px;
+            left: -60px;
+            animation-duration: 10s;
+        }
+
+        .circle:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            bottom: -100px;
+            right: -100px;
+            animation-duration: 14s;
+            background: rgba(255, 30, 56, 0.1);
+        }
+
+        .circle:nth-child(3) {
+            width: 180px;
+            height: 180px;
+            top: 45%;
+            left: 75%;
+            animation-duration: 9s;
+        }
+
+        @keyframes floatCircle {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-35px) scale(1.06);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Navbar */
+        nav {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Header */
-        .checkout-header {
-            padding: 20px 5%;
-            background-color: #0b0b0b;
-            border-bottom: 1px solid #1f1f1f;
-        }
-
-        .checkout-header .logo {
-            color: #ff3b3b;
+        .logo {
             font-size: 26px;
-            font-weight: bold;
-            text-decoration: none;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
         }
 
-        /* Main Container */
-        .checkout-container {
-            flex: 1;
-            max-width: 600px;
-            width: 90%;
-            margin: 40px auto;
+        .logo span {
+            color: #ff1e38;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Header Banner Section */
+        .header-section {
+            padding: 40px 5%;
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(11, 11, 11, 0.9));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-section h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .breadcrumb span {
+            color: #ff1e38;
+        }
+
+        /* Main Form Container */
+        .container {
+            max-width: 550px;
+            margin: 30px auto;
+            padding: 0 20px 50px 20px;
+        }
+
+        .card {
             background: #141414;
-            border: 1px solid #222;
-            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .banner h1 {
-            font-size: 24px;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        .banner p {
-            color: #aaa;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        /* Selected Package Box */
-        .selected-package-box {
-            background: linear-gradient(145deg, #1a1a1a, #111);
-            border: 1px solid #ff3b3b;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .selected-package-box span.label {
-            font-size: 12px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .selected-package-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
-            margin: 5px 0 10px 0;
-        }
-
-        .selected-package-price {
+        .card h2 {
             font-size: 22px;
-            font-weight: bold;
-            color: #ff3b3b;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
         }
 
-        /* Form Styling */
+        .card p {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* Form Controls */
         .form-group {
             margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
-            font-size: 14px;
-            color: #ccc;
+            font-size: 13px;
+            font-weight: 500;
             margin-bottom: 8px;
+            color: #ddd;
         }
 
-        .form-group input {
+        .form-control {
             width: 100%;
-            padding: 14px;
-            background: #1f1f1f;
-            border: 1px solid #333;
+            padding: 12px 15px;
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             outline: none;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .form-group input:focus {
-            border-color: #ff3b3b;
+        .form-control:focus {
+            border-color: #ff1e38;
+            box-shadow: 0 0 8px rgba(255, 30, 56, 0.3);
         }
 
-        /* Pay Button */
-        .pay-btn {
+        .package-box {
+            background: #1a1a1a;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 25px 0;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .checkbox-group input {
+            accent-color: #ff1e38;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .checkbox-group a {
+            color: #ff1e38;
+            text-decoration: none;
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+
+        /* Payment Option */
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #1a1a1a;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .payment-option input {
+            accent-color: #ff1e38;
+        }
+
+        /* Submit Button */
+        .btn-register {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #ff3b3b, #d92525);
-            color: white;
+            padding: 14px;
+            background: #ff1e38;
+            color: #fff;
             border: none;
             border-radius: 8px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.3s;
-            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 30, 56, 0.4);
         }
 
-        .pay-btn:hover {
-            opacity: 0.9;
+        .btn-register:hover {
+            background: #e0162f;
+            box-shadow: 0 6px 20px rgba(255, 30, 56, 0.6);
+            transform: translateY(-2px);
         }
 
-        /* Footer Styles (Match with Main Website) */
-        .footer-bg {
-            background-color: #0b0b0b;
-            color: #aaa;
-            padding: 50px 20px 20px 20px;
-            border-top: 1px solid #1f1f1f;
-            margin-top: auto;
-        }
-
-        .footer-container-custom {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-        }
-
-        .footer-col-custom h2 {
-            color: #ff3b3b;
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-
-        .footer-col-custom h3 {
-            color: #ffffff;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .footer-col-custom p {
-            font-size: 14px;
-            color: #aaa;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .footer-col-custom ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-col-custom ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-col-custom ul li a {
-            color: #aaa;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-col-custom ul li a:hover {
-            color: #ff3b3b;
-        }
-
-        .social-icons-custom {
-            display: flex;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .social-icon-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            background-color: #1a1a1a;
-            color: #fff;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .social-icon-btn:hover {
-            background-color: #ff3b3b;
-        }
-
-        .footer-bottom {
+        /* Footer Links inside card */
+        .footer-text {
             text-align: center;
-            border-top: 1px solid #1f1f1f;
-            padding-top: 20px;
-            margin-top: 40px;
+            margin-top: 20px;
             font-size: 13px;
-            color: #777;
+            color: #888;
+        }
+
+        .footer-text a {
+            color: #ff1e38;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="checkout-header">
-        <a href="index.html" class="logo">SkillsMarket</a>
-    </header>
-
-    <!-- Main Checkout Card -->
-    <div class="checkout-container">
-        <div class="banner">
-            <h1>Complete Your Registration</h1>
-            <p>Enter your details and complete the secure payment.</p>
-        </div>
-
-        <!-- Selected Package Section -->
-        <div class="selected-package-box">
-            <span class="label">Selected Package</span>
-            <div class="selected-package-title" id="pkg-title">Skill Growth Package</div>
-            <div class="selected-package-price" id="pkg-price">₹520</div>
-        </div>
-
-        <!-- Registration Form -->
-        <form id="checkout-form">
-            <div class="form-group">
-                <label>Full Name *</label>
-                <input type="text" placeholder="Enter your full name" required>
-            </div>
-            <div class="form-group">
-                <label>Email Address *</label>
-                <input type="email" placeholder="your@email.com" required>
-            </div>
-            <div class="form-group">
-                <label>Mobile Number *</label>
-                <input type="tel" placeholder="+91 xxxxx xxxxx" required>
-            </div>
-            <button type="submit" class="pay-btn" id="pay-btn">Pay Now</button>
-        </form>
+    <!-- Animated Background Circles -->
+    <div class="bg-animations">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer-bg" id="footer">
-        <div class="footer-container-custom">
-            <div class="footer-col-custom">
-                <h2>SKILLS<span>MARKET</span></h2>
-                <p>Our platform empowers learners to enhance their skills and knowledge through accessible and comprehensive learning resources.</p>
-                <div class="social-icons-custom">
-                    <a href="#" class="social-icon-btn"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon-btn"><i class="fab fa-telegram-plane"></i></a>
-                    <a href="#" class="social-icon-btn"><i class="fab fa-youtube"></i></a>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Aab<span>.</span></div>
+        <div class="nav-icons">
+            <button class="icon-btn">👤</button>
+            <button class="icon-btn">📦</button>
+        </div>
+    </nav>
+
+    <!-- Header Banner -->
+    <div class="header-section">
+        <h1>Checkout</h1>
+        <div class="breadcrumb">Home &gt; <span>Checkout</span></div>
+    </div>
+
+    <!-- Checkout Form Container -->
+    <div class="container">
+        <div class="card">
+            <h2>Register Account</h2>
+            <p>Welcome to Aab! Ready to start? Enter your details below to get started instantly.</p>
+
+            <form>
+                <div class="form-group">
+                    <label>Referral Code</label>
+                    <input type="text" class="form-control" placeholder="Referral Code">
                 </div>
-            </div>
 
-            <div class="footer-col-custom">
-                <h3>Online Platform</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
-                </ul>
-            </div>
+                <div class="form-group">
+                    <label>Package</label>
+                    <div class="package-box">Aab Premium Package - ₹2399</div>
+                </div>
 
-            <div class="footer-col-custom">
-                <h3>Important Links</h3>
-                <ul>
-                    <li><a href="#">Disclaimer</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Refund Policy</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                </ul>
-            </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" placeholder="Full Name">
+                </div>
 
-            <div class="footer-col-custom">
-                <h3>Contact Us</h3>
-                <p><i class="fas fa-phone-alt"></i> +91 8800461629</p>
-                <p><i class="fas fa-envelope"></i> support@skillsmarket.com</p>
-            </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" class="form-control" placeholder="Phone Number">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="Email Address">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms">
+                    <label for="terms" style="margin-bottom:0; color:#aaa;">I agree to the <a href="#">Privacy Policy</a> and <a href="#">Terms & Conditions</a></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Payment Method</label>
+                    <div class="payment-option">
+                        <input type="radio" checked id="pay">
+                        <label for="pay" style="margin-bottom:0; cursor:pointer;">Pay via UPI, Card, Netbanking...</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-register">Register &rarr;</button>
+
+                <div class="footer-text">
+                    Already have an account? <a href="#">Sign In</a>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <div class="footer-bottom">
-            Copyright © 2026 SkillsMarket. All rights reserved.
-        </div>
-    </footer>
-
-    <!-- JavaScript to handle dynamic package loading and prevent Package Not Found error -->
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const pkgName = urlParams.get('package');
-        const pkgPrice = urlParams.get('price');
-
-        if (pkgName) {
-            document.getElementById('pkg-title').innerText = decodeURIComponent(pkgName);
-        }
-        if (pkgPrice) {
-            document.getElementById('pkg-price').innerText = '₹' + pkgPrice;
-            document.getElementById('pay-btn').innerText = 'Pay ₹' + pkgPrice + ' →';
-        }
-    </script>
 </body>
 </html>
