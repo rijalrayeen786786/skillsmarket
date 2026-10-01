@@ -1,773 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | SkillsMarket</title>
+    <!-- FontAwesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<title>Checkout | SkillsMarket</title>
+        body {
+            background-color: #0b0b0b;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-<style>
-* {
-    box-sizing: border-box;
-}
+        /* Header */
+        .checkout-header {
+            padding: 20px 5%;
+            background-color: #0b0b0b;
+            border-bottom: 1px solid #1f1f1f;
+        }
 
-body {
-    background: #0d0d0d;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    margin: 0;
-}
+        .checkout-header .logo {
+            color: #ff3b3b;
+            font-size: 26px;
+            font-weight: bold;
+            text-decoration: none;
+        }
 
-.checkout-header {
-    background: #141414;
-    padding: 20px;
-    border-bottom: 1px solid #222;
-}
+        /* Main Container */
+        .checkout-container {
+            flex: 1;
+            max-width: 600px;
+            width: 90%;
+            margin: 40px auto;
+            background: #141414;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
 
-.logo {
-    color: #ff3b3b;
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: none;
-}
+        .banner h1 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
 
-.banner {
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #1a0505, #0d0d0d);
-    border-bottom: 1px solid #222;
-}
+        .banner p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
 
-.banner h1 {
-    margin: 0 0 10px;
-    font-size: 28px;
-}
+        /* Selected Package Box */
+        .selected-package-box {
+            background: linear-gradient(145deg, #1a1a1a, #111);
+            border: 1px solid #ff3b3b;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
 
-.banner p {
-    color: #aaa;
-    margin: 0;
-}
+        .selected-package-box span.label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-.checkout-container {
-    max-width: 650px;
-    margin: -20px auto 40px;
-    background: #141414;
-    border: 1px solid rgba(255,59,59,.3);
-    border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.6);
-    position: relative;
-}
+        .selected-package-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            margin: 5px 0 10px 0;
+        }
 
-.section-title {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #222;
-    padding-bottom: 15px;
-}
+        .selected-package-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff3b3b;
+        }
 
-.section-title h2 {
-    font-size: 18px;
-    margin: 0;
-}
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-.section-title p {
-    margin: 5px 0 0;
-    color: #888;
-    font-size: 13px;
-}
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 8px;
+        }
 
-.form-group {
-    margin-bottom: 18px;
-}
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            background: #1f1f1f;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
 
-label {
-    display: block;
-    margin-bottom: 6px;
-    color: #ccc;
-    font-size: 14px;
-}
+        .form-group input:focus {
+            border-color: #ff3b3b;
+        }
 
-input,
-select {
-    width: 100%;
-    padding: 12px;
-    background: #1f1f1f;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 15px;
-}
+        /* Pay Button */
+        .pay-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff3b3b, #d92525);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            margin-top: 10px;
+        }
 
-input:focus,
-select:focus {
-    border-color: #ff3b3b;
-    outline: none;
-}
+        .pay-btn:hover {
+            opacity: 0.9;
+        }
 
-.sponsor-box {
-    display: flex;
-    gap: 10px;
-}
+        /* Footer Styles (Match with Main Website) */
+        .footer-bg {
+            background-color: #0b0b0b;
+            color: #aaa;
+            padding: 50px 20px 20px 20px;
+            border-top: 1px solid #1f1f1f;
+            margin-top: auto;
+        }
 
-.btn-apply {
-    background: linear-gradient(135deg,#ff3b3b,#b30000);
-    color: #fff;
-    border: none;
-    padding: 0 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        .footer-container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
 
-/* Selected Package */
-.selected-package {
-    background: linear-gradient(135deg,#220606,#160303);
-    border: 1px solid rgba(255,59,59,.5);
-    border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 25px;
-}
+        .footer-col-custom h2 {
+            color: #ff3b3b;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
 
-.selected-package .small {
-    color: #999;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+        .footer-col-custom h3 {
+            color: #ffffff;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
 
-.selected-package h3 {
-    margin: 7px 0;
-    font-size: 21px;
-}
+        .footer-col-custom p {
+            font-size: 14px;
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
 
-.selected-package .price {
-    color: #ff4a4a;
-    font-size: 25px;
-    font-weight: bold;
-}
+        .footer-col-custom ul {
+            list-style: none;
+            padding: 0;
+        }
 
-/* Order */
-.order-box {
-    background: #1a0505;
-    border: 1px solid #ff3b3b;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 25px;
-}
+        .footer-col-custom ul li {
+            margin-bottom: 10px;
+        }
 
-.order-box h3 {
-    margin-top: 0;
-}
+        .footer-col-custom ul li a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
 
-.order-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 12px;
-    font-size: 15px;
-    color: #ccc;
-}
+        .footer-col-custom ul li a:hover {
+            color: #ff3b3b;
+        }
 
-.order-row span:last-child {
-    text-align: right;
-}
+        .social-icons-custom {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
 
-.grand-total {
-    font-weight: bold;
-    color: #fff;
-    font-size: 20px;
-    border-top: 1px solid #333;
-    padding-top: 12px;
-    margin-top: 12px;
-}
+        .social-icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            background-color: #1a1a1a;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
 
-.payment-method {
-    margin-top: 25px;
-    border: 1px solid #ff3b3b;
-    border-radius: 10px;
-    padding: 15px;
-    background: #1a0505;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-}
+        .social-icon-btn:hover {
+            background-color: #ff3b3b;
+        }
 
-.payment-method input {
-    width: auto;
-    margin-top: 4px;
-}
-
-.terms {
-    margin: 20px 0;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 14px;
-    color: #aaa;
-}
-
-.terms input {
-    width: auto;
-    margin-top: 3px;
-}
-
-.terms label {
-    margin: 0;
-}
-
-.terms a {
-    color: #ff3b3b;
-    text-decoration: none;
-}
-
-.btn-pay {
-    width: 100%;
-    background: linear-gradient(135deg,#ff3b3b,#b30000);
-    color: #fff;
-    padding: 16px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.btn-pay:hover {
-    opacity: .9;
-}
-
-/* Footer Background & Text Styles */
-.footer-bg {
-    background-color: #0b0b0b;
-    color: #aaa;
-    padding: 40px 20px 20px 20px;
-    font-family: inherit;
-}
-
-.footer-container-custom {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-col-custom {
-    margin-bottom: 30px;
-}
-
-/* Headings */
-.footer-col-custom h2 {
-    color: #ff3b3b;
-    font-size: 22px;
-    margin-bottom: 15px;
-}
-
-.footer-col-custom h3, 
-.footer-col-custom h4 {
-    color: #ffffff;
-    font-size: 18px;
-    margin-bottom: 15px;
-    position: relative;
-}
-
-/* Links Styling (Removes blue color and underlines) */
-.footer-col-custom ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-col-custom ul li {
-    margin-bottom: 10px;
-}
-
-.footer-col-custom ul li a {
-    color: #aaa;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-col-custom ul li a:hover {
-    color: #ff3b3b;
-}
-
-/* Social Icons Styling */
-.social-icons-custom {
-    display: flex;
-    gap: 12px;
-    margin-top: 15px;
-    margin-bottom: 25px;
-}
-
-.social-icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    background-color: #1a1a1a;
-    color: #fff;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.social-icon-btn:hover {
-    background-color: #ff3b3b;
-    color: #fff;
-}
-
-/* Copyright Text */
-.footer-bottom {
-    text-align: center;
-    border-top: 1px solid #1f1f1f;
-    padding-top: 20px;
-    margin-top: 20px;
-    font-size: 13px;
-    color: #777;
-}
-
-
-    .order-row {
-        font-size: 14px;
-    }
-}
-</style>
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #1f1f1f;
+            padding-top: 20px;
+            margin-top: 40px;
+            font-size: 13px;
+            color: #777;
+        }
+    </style>
 </head>
-
 <body>
 
-<header class="checkout-header">
-    <a href="index.html" class="logo">SkillsMarket</a>
-</header>
+    <!-- Header -->
+    <header class="checkout-header">
+        <a href="index.html" class="logo">SkillsMarket</a>
+    </header>
 
-<section class="banner">
-    <h1>Complete Your Registration</h1>
-    <p>Create your SkillsMarket account and continue securely.</p>
-</section>
-
-<main class="checkout-container">
-
-    <div id="errorBox" class="error-box">
-        <h2>Package Not Found</h2>
-        <p>Please go back and select a valid package.</p>
-        <br>
-        <a href="index.html" style="color:#ff3b3b;">← Back to Home</a>
-    </div>
-
-    <div id="checkoutContent">
-
-        <!-- Selected Package -->
-        <div class="selected-package">
-            <div class="small">Selected Package</div>
-            <h3 id="selectedPackageName">Skill Starter Package</h3>
-            <div class="price" id="selectedPackagePrice">₹265</div>
+    <!-- Main Checkout Card -->
+    <div class="checkout-container">
+        <div class="banner">
+            <h1>Complete Your Registration</h1>
+            <p>Enter your details and complete the secure payment.</p>
         </div>
 
-        <div class="section-title">
-            <h2>Create Your Account</h2>
-            <p>Enter your details to continue.</p>
+        <!-- Selected Package Section -->
+        <div class="selected-package-box">
+            <span class="label">Selected Package</span>
+            <div class="selected-package-title" id="pkg-title">Skill Growth Package</div>
+            <div class="selected-package-price" id="pkg-price">₹520</div>
         </div>
 
-        <form id="checkoutForm">
-
+        <!-- Registration Form -->
+        <form id="checkout-form">
             <div class="form-group">
-                <label for="fullName">Full Name *</label>
-                <input
-                    type="text"
-                    id="fullName"
-                    placeholder="Enter your full name"
-                    required
-                >
+                <label>Full Name *</label>
+                <input type="text" placeholder="Enter your full name" required>
             </div>
-
             <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="your@email.com"
-                    required
-                >
+                <label>Email Address *</label>
+                <input type="email" placeholder="your@email.com" required>
             </div>
-
             <div class="form-group">
-                <label for="mobile">Mobile Number *</label>
-                <input
-                    type="tel"
-                    id="mobile"
-                    placeholder="+91 xxxxx xxxxx"
-                    required
-                >
+                <label>Mobile Number *</label>
+                <input type="tel" placeholder="+91 xxxxx xxxxx" required>
             </div>
-
-            <div class="form-group">
-                <label for="state">State *</label>
-
-                <select id="state" required>
-                    <option value="">Select State</option>
-                    <option>Madhya Pradesh</option>
-                    <option>Chhattisgarh</option>
-                    <option>Delhi</option>
-                    <option>Maharashtra</option>
-                    <option>Uttar Pradesh</option>
-                    <option>Rajasthan</option>
-                    <option>Gujarat</option>
-                    <option>Bihar</option>
-                    <option>Jharkhand</option>
-                    <option>West Bengal</option>
-                    <option>Other</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password *</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Create password"
-                    minlength="8"
-                    required
-                >
-            </div>
-
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password *</label>
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="Confirm password"
-                    minlength="8"
-                    required
-                >
-            </div>
-
-            <div class="form-group">
-                <label for="sponsor">Sponsor Code (Optional)</label>
-
-                <div class="sponsor-box">
-                    <input
-                        type="text"
-                        id="sponsor"
-                        placeholder="Enter sponsor code"
-                    >
-
-                    <button
-                        type="button"
-                        class="btn-apply"
-                        id="applySponsor"
-                    >
-                        Apply
-                    </button>
-                </div>
-            </div>
-
-            <!-- Order Summary -->
-            <div class="order-box">
-
-                <h3>Your Order</h3>
-
-                <p style="color:#888;font-size:13px;">
-                    Review your selected package.
-                </p>
-
-                <div class="order-row">
-                    <span>Package</span>
-                    <span id="orderPackage">
-                        Skill Starter Package
-                    </span>
-                </div>
-
-                <div class="order-row">
-                    <span>Package Price</span>
-                    <span id="orderPrice">
-                        ₹265
-                    </span>
-                </div>
-
-                <div class="order-row grand-total">
-                    <span>Grand Total</span>
-                    <span id="grandTotal">
-                        ₹265
-                    </span>
-                </div>
-
-            </div>
-
-            <!-- Payment -->
-            <div class="payment-method">
-
-                <input
-                    type="radio"
-                    checked
-                    name="payment"
-                    id="onlinePayment"
-                >
-
-                <div>
-                    <label
-                        for="onlinePayment"
-                        style="color:#fff;font-weight:bold;margin-bottom:4px;"
-                    >
-                        Secure Online Payment
-                    </label>
-
-                    <span style="color:#aaa;font-size:13px;">
-                        Pay securely via UPI, Credit/Debit Card, or Netbanking.
-                    </span>
-                </div>
-
-            </div>
-
-            <!-- Terms -->
-            <div class="terms">
-
-                <input
-                    type="checkbox"
-                    id="terms"
-                    required
-                >
-
-                <label for="terms">
-                    I agree to the
-                    <a href="#">Terms of Service</a>
-                    and
-                    <a href="#">Privacy Policy</a>.
-                </label>
-
-            </div>
-
-            <button type="submit" class="btn-pay" id="payButton">
-                Pay ₹265 →
-            </button>
-
+            <button type="submit" class="pay-btn" id="pay-btn">Pay Now</button>
         </form>
-
     </div>
 
-</main>
-
-<!-- =====================================================    
-     ANIMATED FOOTER    
-  ===================================================== -->      
-  <footer class="footer-bg" id="footer">    
-    <div class="footer-container-custom">    
-      <div class="footer-col-custom">    
-        <div class="footer-logo-custom">    
-          <h2>SKILLS<span>MARKET</span></h2>    
-        </div>    
-        <p class="footer-about-text">    
-          Our platform empowers learners to enhance their skills and knowledge through accessible and comprehensive learning resources.    
-        </p>    
-        <div class="social-icons-custom">    
-          <a href="#" class="social-icon-btn"><i class="fab fa-whatsapp"></i></a>    
-          <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>    
-          <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>    
-          <a href="#" class="social-icon-btn"><i class="fab fa-telegram-plane"></i></a>    
-          <a href="#" class="social-icon-btn"><i class="fab fa-youtube"></i></a>    
-        </div>    
-      </div>    
-      <div class="footer-col-custom">    
-        <h3>Online Platform</h3>    
-        <ul class="footer-links-custom mt-4">    
-          <li><a href="#founder">About</a></li>    
-          <li><a href="#support">Contact Us</a></li>    
-          <li><a href="login.html">Login</a></li>    
-          <li><a href="login.html">Register</a></li>    
-        </ul>    
-      </div>    
-
-      <div class="footer-col-custom">    
-        <h3>Important Links</h3>    
-        <ul class="footer-links-custom mt-4">    
-          <li><a href="#">Disclaimer</a></li>    
-          <li><a href="#">Privacy Policy</a></li>    
-          <li><a href="#">Refund Policy</a></li>    
-          <li><a href="#">Terms & Conditions</a></li>    
-        </ul>    
-      </div>    
-
-      <div class="footer-col-custom">    
-        <h3>Contact Us</h3>    
-        <div class="space-y-3 mt-4">    
-          <div class="footer-contact-item">    
-            <div class="footer-contact-icon"><i class="fas fa-phone-alt"></i></div>    
-            <p>+91 8800461629</p>    
-          </div>    
-          <div class="footer-contact-item">    
-            <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>    
-            <p style="word-break: break-all;">support@skillsmarket.com</p>    
-          </div>    
-        </div>    
-      </div>    
-    </div>    
-
-    <div class="footer-bottom-custom">    
-      <p>Copyright &copy; 2026 SkillsMarket. All rights reserved.</p>    
-    </div>
-  </footer>
-<script>
-
-/* =========================================
-   SKILLS MARKET PACKAGE DATABASE
-========================================= */
-
-const packages = {
-
-    starter: {
-        name: "Skill Starter Package",
-        price: 265
-    },
-
-    growth: {
-        name: "Skill Growth Package",
-        price: 520
-    },
-
-    elite: {
-        name: "Skill Elite Package",
-        price: 1299
-    },
-
-    prime: {
-        name: "Skill Prime Package",
-        price: 2399
-    },
-
-    premium: {
-        name: "Skill Premium Package",
-        price: 4999
-    },
-
-    legacy: {
-        name: "Skill Legacy Package",
-        price: 9999
-    }
-
-};
-
-
-/* =========================================
-   GET PACKAGE FROM URL
-========================================= */
-
-const params = new URLSearchParams(window.location.search);
-
-const packageKey = params.get("package") || "starter";
-
-const selectedPackage = packages[packageKey];
-
-
-/* =========================================
-   CHECK PACKAGE
-========================================= */
-
-if (!selectedPackage) {
-
-    document.getElementById("checkoutContent").style.display = "none";
-
-    document.getElementById("errorBox").style.display = "block";
-
-}
-
-
-/* =========================================
-   SHOW PACKAGE
-========================================= */
-
-if (selectedPackage) {
-
-    const formattedPrice =
-        "₹" + selectedPackage.price.toLocaleString("en-IN");
-
-    document.getElementById("selectedPackageName").textContent =
-        selectedPackage.name;
-
-    document.getElementById("selectedPackagePrice").textContent =
-        formattedPrice;
-
-    document.getElementById("orderPackage").textContent =
-        selectedPackage.name;
-
-    document.getElementById("orderPrice").textContent =
-        formattedPrice;
-
-    document.getElementById("grandTotal").textContent =
-        formattedPrice;
-
-    document.getElementById("payButton").textContent =
-        "Pay " + formattedPrice + " →";
-
-}
-
-
-/* =========================================
-   SPONSOR CODE
-========================================= */
-
-document.getElementById("applySponsor").addEventListener("click", function() {
-
-    const sponsor = document.getElementById("sponsor").value.trim();
-
-    if (!sponsor) {
-
-        alert("Please enter a sponsor code.");
-
-        return;
-    }
-
-    alert("Sponsor code entered: " + sponsor);
-
-});
-
-
-/* =========================================
-   FORM VALIDATION
-========================================= */
-
-document.getElementById("checkoutForm").addEventListener("submit", function(event) {
-
-    event.preventDefault();
-
-    const password =
-        document.getElementById("password").value;
-
-    const confirmPassword =
-        document.getElementById("confirmPassword").value;
-
-
-    if (password !== confirmPassword) {
-
-        alert("Password and Confirm Password do not match.");
-
-        return;
-    }
-
-
-    if (password.length < 8) {
-
-        alert("Password must be at least 8 characters.");
-
-        return;
-    }
-
-
-    /*
-      IMPORTANT:
-      Payment gateway/backend will be connected here later.
-      Do NOT mark the user as paid from frontend JavaScript.
-    */
-
-    alert(
-        "Registration details validated successfully.\n\n" +
-        "Selected Package: " +
-        selectedPackage.name +
-        "\nPrice: ₹" +
-        selectedPackage.price.toLocaleString("en-IN") +
-        "\n\nPayment gateway will be connected in the next step."
-    );
-
-});
-
-</script>
-
+    <!-- Footer -->
+    <footer class="footer-bg" id="footer">
+        <div class="footer-container-custom">
+            <div class="footer-col-custom">
+                <h2>SKILLS<span>MARKET</span></h2>
+                <p>Our platform empowers learners to enhance their skills and knowledge through accessible and comprehensive learning resources.</p>
+                <div class="social-icons-custom">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col-custom">
+                <h3>Online Platform</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Register</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col-custom">
+                <h3>Important Links</h3>
+                <ul>
+                    <li><a href="#">Disclaimer</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col-custom">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone-alt"></i> +91 8800461629</p>
+                <p><i class="fas fa-envelope"></i> support@skillsmarket.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            Copyright © 2026 SkillsMarket. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript to handle dynamic package loading and prevent Package Not Found error -->
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const pkgName = urlParams.get('package');
+        const pkgPrice = urlParams.get('price');
+
+        if (pkgName) {
+            document.getElementById('pkg-title').innerText = decodeURIComponent(pkgName);
+        }
+        if (pkgPrice) {
+            document.getElementById('pkg-price').innerText = '₹' + pkgPrice;
+            document.getElementById('pay-btn').innerText = 'Pay ₹' + pkgPrice + ' →';
+        }
+    </script>
 </body>
 </html>
