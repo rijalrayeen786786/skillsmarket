@@ -1,394 +1,741 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Complete Your Purchase | SkillsMarket</title>
-    <style>
-        body {
-            background-color: #0d0d0d;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        /* Header / Navbar */
-        .checkout-header {
-            background: #141414;
-            padding: 20px;
-            border-bottom: 1px solid #222;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            color: #ff3b3b;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        
-        /* Hero Banner */
-        .banner {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #1a0505, #0d0d0d);
-            border-bottom: 1px solid #222;
-        }
-        .banner h1 {
-            color: #fff;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        .banner p {
-            color: #aaa;
-            font-size: 15px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* Container */
-        .checkout-container {
-            max-width: 650px;
-            margin: -20px auto 40px auto;
-            background: #141414;
-            border: 1px solid rgba(255, 59, 59, 0.3);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            position: relative;
-        }
-        
-        .section-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 15px;
-        }
-        .section-title h2 {
-            font-size: 18px;
-            margin: 0;
-            color: #fff;
-        }
-        .section-title p {
-            margin: 3px 0 0 0;
-            color: #888;
-            font-size: 13px;
-        }
+<title>Checkout | SkillsMarket</title>
 
-        .form-group {
-            margin-bottom: 18px;
-        }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            color: #ccc;
-            font-size: 14px;
-        }
-        input, select {
-            width: 100%;
-            padding: 12px;
-            background: #1f1f1f;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 15px;
-            box-sizing: border-box;
-        }
-        input:focus, select:focus {
-            border-color: #ff3b3b;
-            outline: none;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        /* Sponsor Code Flex */
-        .sponsor-box {
-            display: flex;
-            gap: 10px;
-        }
-        .btn-apply {
-            background: linear-gradient(135deg, #ff3b3b, #b30000);
-            color: #fff;
-            border: none;
-            padding: 0 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            white-space: nowrap;
-        }
+body {
+    background: #0d0d0d;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
 
-        /* Order Summary Box */
-        .order-box {
-            background: #1a0505;
-            border: 1px solid #ff3b3b;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 25px;
-        }
-        .order-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 15px;
-            color: #ccc;
-        }
-        .order-row.grand-total {
-            font-weight: bold;
-            color: #fff;
-            font-size: 20px;
-            border-top: 1px solid #333;
-            padding-top: 12px;
-            margin-top: 12px;
-        }
+.checkout-header {
+    background: #141414;
+    padding: 20px;
+    border-bottom: 1px solid #222;
+}
 
-        /* Payment Gateway Option */
-        .payment-method {
-            margin-top: 25px;
-            border: 1px solid #ff3b3b;
-            border-radius: 10px;
-            padding: 15px;
-            background: #1a0505;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        .payment-method input {
-            width: auto;
-            margin-top: 4px;
-        }
+.logo {
+    color: #ff3b3b;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
 
-        /* Terms & Conditions */
-        .terms {
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: #aaa;
-        }
-        .terms input {
-            width: auto;
-            margin-right: 10px;
-        }
-        .terms a {
-            color: #ff3b3b;
-            text-decoration: none;
-        }
+.banner {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #1a0505, #0d0d0d);
+    border-bottom: 1px solid #222;
+}
 
-        /* Pay Button */
-        .btn-pay {
-            width: 100%;
-            background: linear-gradient(135deg, #ff3b3b, #b30000);
-            color: #fff;
-            padding: 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: opacity 0.3s;
-            text-align: center;
-        }
-        .btn-pay:hover {
-            opacity: 0.9;
-        }
+.banner h1 {
+    margin: 0 0 10px;
+    font-size: 28px;
+}
 
-        /* Footer Style */
-        footer {
-            background: #111;
-            color: #888;
-            padding: 50px 20px 20px 20px;
-            margin-top: 60px;
-            border-top: 1px solid #222;
-        }
-        .footer-content {
-            max-width: 900px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-        }
-        .footer-col h3 {
-            color: #fff;
-            font-size: 16px;
-            margin-bottom: 15px;
-            border-left: 3px solid #ff3b3b;
-            padding-left: 8px;
-        }
-        .footer-col ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-        .footer-col ul li a {
-            color: #888;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-        .footer-col ul li a:hover {
-            color: #ff3b3b;
-        }
-        .footer-bottom {
-            max-width: 900px;
-            margin: 40px auto 0 auto;
-            border-top: 1px solid #222;
-            padding-top: 20px;
-            text-align: center;
-            font-size: 13px;
-        }
+.banner p {
+    color: #aaa;
+    margin: 0;
+}
 
-        @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            .checkout-container {
-                margin: 15px;
-                padding: 20px;
-            }
-        }
-    </style>
+.checkout-container {
+    max-width: 650px;
+    margin: -20px auto 40px;
+    background: #141414;
+    border: 1px solid rgba(255,59,59,.3);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.6);
+    position: relative;
+}
+
+.section-title {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 15px;
+}
+
+.section-title h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.section-title p {
+    margin: 5px 0 0;
+    color: #888;
+    font-size: 13px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    background: #1f1f1f;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+}
+
+input:focus,
+select:focus {
+    border-color: #ff3b3b;
+    outline: none;
+}
+
+.sponsor-box {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-apply {
+    background: linear-gradient(135deg,#ff3b3b,#b30000);
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Selected Package */
+.selected-package {
+    background: linear-gradient(135deg,#220606,#160303);
+    border: 1px solid rgba(255,59,59,.5);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 25px;
+}
+
+.selected-package .small {
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.selected-package h3 {
+    margin: 7px 0;
+    font-size: 21px;
+}
+
+.selected-package .price {
+    color: #ff4a4a;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* Order */
+.order-box {
+    background: #1a0505;
+    border: 1px solid #ff3b3b;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.order-box h3 {
+    margin-top: 0;
+}
+
+.order-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #ccc;
+}
+
+.order-row span:last-child {
+    text-align: right;
+}
+
+.grand-total {
+    font-weight: bold;
+    color: #fff;
+    font-size: 20px;
+    border-top: 1px solid #333;
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+.payment-method {
+    margin-top: 25px;
+    border: 1px solid #ff3b3b;
+    border-radius: 10px;
+    padding: 15px;
+    background: #1a0505;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.payment-method input {
+    width: auto;
+    margin-top: 4px;
+}
+
+.terms {
+    margin: 20px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.terms input {
+    width: auto;
+    margin-top: 3px;
+}
+
+.terms label {
+    margin: 0;
+}
+
+.terms a {
+    color: #ff3b3b;
+    text-decoration: none;
+}
+
+.btn-pay {
+    width: 100%;
+    background: linear-gradient(135deg,#ff3b3b,#b30000);
+    color: #fff;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-pay:hover {
+    opacity: .9;
+}
+
+footer {
+    background: #111;
+    color: #888;
+    padding: 50px 20px 20px;
+    border-top: 1px solid #222;
+}
+
+.footer-content {
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+}
+
+.footer-col h3 {
+    color: #fff;
+    font-size: 16px;
+    border-left: 3px solid #ff3b3b;
+    padding-left: 8px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col li {
+    margin-bottom: 10px;
+}
+
+.footer-col a {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-bottom {
+    max-width: 900px;
+    margin: 40px auto 0;
+    border-top: 1px solid #222;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.error-box {
+    display: none;
+    text-align: center;
+    padding: 30px;
+    color: #ff7777;
+}
+
+@media(max-width:768px) {
+
+    .checkout-container {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .order-row {
+        font-size: 14px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Header -->
-    <div class="checkout-header">
-        <a href="index.html" class="logo">SkillsMarket</a>
+<header class="checkout-header">
+    <a href="index.html" class="logo">SkillsMarket</a>
+</header>
+
+<section class="banner">
+    <h1>Complete Your Registration</h1>
+    <p>Create your SkillsMarket account and continue securely.</p>
+</section>
+
+<main class="checkout-container">
+
+    <div id="errorBox" class="error-box">
+        <h2>Package Not Found</h2>
+        <p>Please go back and select a valid package.</p>
+        <br>
+        <a href="index.html" style="color:#ff3b3b;">← Back to Home</a>
     </div>
 
-    <!-- Banner -->
-    <div class="banner">
-        <h1>Complete your purchase</h1>
-        <p>Enter your details and continue to secure payment.</p>
-    </div>
+    <div id="checkoutContent">
 
-    <!-- Main Container -->
-    <div class="checkout-container">
-        
-        <div class="section-title">
-            <div>
-                <h2>Billing Details</h2>
-                <p>Enter your account and contact information.</p>
-            </div>
+        <!-- Selected Package -->
+        <div class="selected-package">
+            <div class="small">Selected Package</div>
+            <h3 id="selectedPackageName">Skill Starter Package</h3>
+            <div class="price" id="selectedPackagePrice">₹265</div>
         </div>
 
-        <form action="#" method="POST">
-            
+        <div class="section-title">
+            <h2>Create Your Account</h2>
+            <p>Enter your details to continue.</p>
+        </div>
+
+        <form id="checkoutForm">
+
             <div class="form-group">
-                <label>Full Name *</label>
-                <input type="text" placeholder="Enter your full name" required>
+                <label for="fullName">Full Name *</label>
+                <input
+                    type="text"
+                    id="fullName"
+                    placeholder="Enter your full name"
+                    required
+                >
             </div>
 
             <div class="form-group">
-                <label>Email Address *</label>
-                <input type="email" placeholder="your@email.com" required>
+                <label for="email">Email Address *</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="your@email.com"
+                    required
+                >
             </div>
 
             <div class="form-group">
-                <label>Mobile Number *</label>
-                <input type="tel" placeholder="+91 xxxxx xxxxx" required>
+                <label for="mobile">Mobile Number *</label>
+                <input
+                    type="tel"
+                    id="mobile"
+                    placeholder="+91 xxxxx xxxxx"
+                    required
+                >
             </div>
 
             <div class="form-group">
-                <label>State *</label>
-                <select required>
+                <label for="state">State *</label>
+
+                <select id="state" required>
                     <option value="">Select State</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    <option value="Delhi">Delhi</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Other">Other</option>
+                    <option>Madhya Pradesh</option>
+                    <option>Chhattisgarh</option>
+                    <option>Delhi</option>
+                    <option>Maharashtra</option>
+                    <option>Uttar Pradesh</option>
+                    <option>Rajasthan</option>
+                    <option>Gujarat</option>
+                    <option>Bihar</option>
+                    <option>Jharkhand</option>
+                    <option>West Bengal</option>
+                    <option>Other</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>Password *</label>
-                <input type="password" placeholder="Create password" required>
+                <label for="password">Password *</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create password"
+                    minlength="8"
+                    required
+                >
             </div>
 
             <div class="form-group">
-                <label>Confirm Password *</label>
-                <input type="password" placeholder="Confirm password" required>
+                <label for="confirmPassword">Confirm Password *</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm password"
+                    minlength="8"
+                    required
+                >
             </div>
 
             <div class="form-group">
-                <label>Sponsor Code (optional)</label>
+                <label for="sponsor">Sponsor Code (Optional)</label>
+
                 <div class="sponsor-box">
-                    <input type="text" placeholder="Enter sponsor code">
-                    <button type="button" class="btn-apply">Apply</button>
+                    <input
+                        type="text"
+                        id="sponsor"
+                        placeholder="Enter sponsor code"
+                    >
+
+                    <button
+                        type="button"
+                        class="btn-apply"
+                        id="applySponsor"
+                    >
+                        Apply
+                    </button>
                 </div>
             </div>
 
-            <!-- Order Summary Section -->
+            <!-- Order Summary -->
             <div class="order-box">
-                <h3 style="color:#fff; margin-top:0; font-size:16px;">Your Order</h3>
-                <p style="color:#888; font-size:13px; margin-bottom:15px;">Review your selected package.</p>
+
+                <h3>Your Order</h3>
+
+                <p style="color:#888;font-size:13px;">
+                    Review your selected package.
+                </p>
+
                 <div class="order-row">
-                    <span>Product</span>
-                    <span>Skill Starter Package</span>
+                    <span>Package</span>
+                    <span id="orderPackage">
+                        Skill Starter Package
+                    </span>
                 </div>
+
                 <div class="order-row">
-                    <span>Total</span>
-                    <span>₹449</span>
+                    <span>Package Price</span>
+                    <span id="orderPrice">
+                        ₹265
+                    </span>
                 </div>
+
                 <div class="order-row grand-total">
                     <span>Grand Total</span>
-                    <span>₹449</span>
+                    <span id="grandTotal">
+                        ₹265
+                    </span>
                 </div>
+
             </div>
 
-            <!-- Payment Method -->
+            <!-- Payment -->
             <div class="payment-method">
-                <input type="radio" checked id="paytm-gateway">
+
+                <input
+                    type="radio"
+                    checked
+                    name="payment"
+                    id="onlinePayment"
+                >
+
                 <div>
-                    <label for="paytm-gateway" style="color:#fff; font-weight:bold; margin-bottom:4px; cursor:pointer;">Secure Online Payment</label>
-                    <span style="color:#aaa; font-size:13px;">Pay securely via UPI, Credit/Debit Card, or Netbanking.</span>
+                    <label
+                        for="onlinePayment"
+                        style="color:#fff;font-weight:bold;margin-bottom:4px;"
+                    >
+                        Secure Online Payment
+                    </label>
+
+                    <span style="color:#aaa;font-size:13px;">
+                        Pay securely via UPI, Credit/Debit Card, or Netbanking.
+                    </span>
                 </div>
+
             </div>
 
-            <!-- Terms & Conditions -->
+            <!-- Terms -->
             <div class="terms">
-                <input type="checkbox" id="terms" required>
-                <label for="terms" style="margin:0; color:#aaa;">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                >
+
+                <label for="terms">
+                    I agree to the
+                    <a href="#">Terms of Service</a>
+                    and
+                    <a href="#">Privacy Policy</a>.
+                </label>
+
             </div>
 
-            <!-- Pay Button -->
-            <button type="submit" class="btn-pay">Pay ₹449 &rarr;</button>
+            <button type="submit" class="btn-pay" id="payButton">
+                Pay ₹265 →
+            </button>
 
         </form>
+
     </div>
 
-    <!-- Professional Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-col">
-                <h2 style="color: #ff3b3b; margin-top:0; font-size:22px;">SkillsMarket</h2>
-                <p style="font-size:14px; color:#aaa; line-height: 1.6;">Unlock your potential with industry-relevant skills, practical knowledge, and expert guidance that open doors to endless opportunities and long-term career success.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Navigation</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html">Packages</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Refund Policy</a></li>
-                    <li><a href="#">Shipping Policy</a></li>
-                </ul>
-            </div>
+</main>
+
+<footer>
+
+    <div class="footer-content">
+
+        <div class="footer-col">
+
+            <h2 style="color:#ff3b3b;">
+                SkillsMarket
+            </h2>
+
+            <p style="font-size:14px;color:#aaa;line-height:1.6;">
+                Unlock your potential with industry-relevant skills,
+                practical knowledge, and expert guidance that open
+                doors to new opportunities.
+            </p>
+
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 SkillsMarket. All Rights Reserved.</p>
+
+        <div class="footer-col">
+
+            <h3>Navigation</h3>
+
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#packages">Packages</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+
         </div>
-    </footer>
+
+        <div class="footer-col">
+
+            <h3>Quick Links</h3>
+
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Refund Policy</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 SkillsMarket. All Rights Reserved.
+    </div>
+
+</footer>
+
+<script>
+
+/* =========================================
+   SKILLS MARKET PACKAGE DATABASE
+========================================= */
+
+const packages = {
+
+    starter: {
+        name: "Skill Starter Package",
+        price: 265
+    },
+
+    growth: {
+        name: "Skill Growth Package",
+        price: 520
+    },
+
+    elite: {
+        name: "Skill Elite Package",
+        price: 1299
+    },
+
+    prime: {
+        name: "Skill Prime Package",
+        price: 2399
+    },
+
+    premium: {
+        name: "Skill Premium Package",
+        price: 4999
+    },
+
+    legacy: {
+        name: "Skill Legacy Package",
+        price: 9999
+    }
+
+};
+
+
+/* =========================================
+   GET PACKAGE FROM URL
+========================================= */
+
+const params = new URLSearchParams(window.location.search);
+
+const packageKey = params.get("package") || "starter";
+
+const selectedPackage = packages[packageKey];
+
+
+/* =========================================
+   CHECK PACKAGE
+========================================= */
+
+if (!selectedPackage) {
+
+    document.getElementById("checkoutContent").style.display = "none";
+
+    document.getElementById("errorBox").style.display = "block";
+
+}
+
+
+/* =========================================
+   SHOW PACKAGE
+========================================= */
+
+if (selectedPackage) {
+
+    const formattedPrice =
+        "₹" + selectedPackage.price.toLocaleString("en-IN");
+
+    document.getElementById("selectedPackageName").textContent =
+        selectedPackage.name;
+
+    document.getElementById("selectedPackagePrice").textContent =
+        formattedPrice;
+
+    document.getElementById("orderPackage").textContent =
+        selectedPackage.name;
+
+    document.getElementById("orderPrice").textContent =
+        formattedPrice;
+
+    document.getElementById("grandTotal").textContent =
+        formattedPrice;
+
+    document.getElementById("payButton").textContent =
+        "Pay " + formattedPrice + " →";
+
+}
+
+
+/* =========================================
+   SPONSOR CODE
+========================================= */
+
+document.getElementById("applySponsor").addEventListener("click", function() {
+
+    const sponsor = document.getElementById("sponsor").value.trim();
+
+    if (!sponsor) {
+
+        alert("Please enter a sponsor code.");
+
+        return;
+    }
+
+    alert("Sponsor code entered: " + sponsor);
+
+});
+
+
+/* =========================================
+   FORM VALIDATION
+========================================= */
+
+document.getElementById("checkoutForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+
+    if (password !== confirmPassword) {
+
+        alert("Password and Confirm Password do not match.");
+
+        return;
+    }
+
+
+    if (password.length < 8) {
+
+        alert("Password must be at least 8 characters.");
+
+        return;
+    }
+
+
+    /*
+      IMPORTANT:
+      Payment gateway/backend will be connected here later.
+      Do NOT mark the user as paid from frontend JavaScript.
+    */
+
+    alert(
+        "Registration details validated successfully.\n\n" +
+        "Selected Package: " +
+        selectedPackage.name +
+        "\nPrice: ₹" +
+        selectedPackage.price.toLocaleString("en-IN") +
+        "\n\nPayment gateway will be connected in the next step."
+    );
+
+});
+
+</script>
 
 </body>
 </html>
