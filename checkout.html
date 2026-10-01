@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Checkout | Skills Market</title>
-<meta name="description" content="Complete your Skills Market registration and checkout.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -17,23 +16,19 @@
     font-family:'Poppins',sans-serif;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
 body{
     background:#090909;
     color:#fff;
     overflow-x:hidden;
 }
 
-/* ================= BACKGROUND ================= */
+/* BACKGROUND */
 
 .bg-animations{
     position:fixed;
     inset:0;
     overflow:hidden;
-    z-index:-2;
+    z-index:-1;
     pointer-events:none;
 }
 
@@ -41,35 +36,33 @@ body{
     position:absolute;
     border-radius:50%;
     background:rgba(255,30,56,.12);
-    filter:blur(2px);
-    animation:floatCircle 12s infinite ease-in-out;
+    animation:float 12s ease-in-out infinite;
 }
 
 .circle:nth-child(1){
-    width:300px;
-    height:300px;
-    top:-100px;
-    left:-80px;
+    width:280px;
+    height:280px;
+    top:-70px;
+    left:-70px;
 }
 
 .circle:nth-child(2){
-    width:380px;
-    height:380px;
-    bottom:-150px;
-    right:-120px;
+    width:350px;
+    height:350px;
+    right:-100px;
+    bottom:-120px;
     animation-duration:15s;
-    background:rgba(255,30,56,.08);
 }
 
 .circle:nth-child(3){
-    width:180px;
-    height:180px;
+    width:170px;
+    height:170px;
+    right:10%;
     top:45%;
-    right:8%;
     animation-duration:10s;
 }
 
-@keyframes floatCircle{
+@keyframes float{
     0%,100%{
         transform:translateY(0) scale(1);
     }
@@ -84,65 +77,80 @@ body{
     position:sticky;
     top:0;
     z-index:1000;
+
     height:72px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 5%;
-    background:rgba(255,255,255,.96);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid rgba(0,0,0,.08);
+
+    background:#0b0b0b;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .logo{
+    color:#fff;
     text-decoration:none;
+
     font-size:25px;
     font-weight:800;
     letter-spacing:-.5px;
-    color:#111;
 }
 
 .logo span{
     color:#ff1e38;
 }
 
-.nav-right{
+.nav-links{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:8px;
 }
 
-.nav-btn{
+.nav-link{
+    color:#ddd;
     text-decoration:none;
-    color:#222;
-    font-size:14px;
-    font-weight:600;
-    padding:9px 15px;
+
+    font-size:13px;
+    font-weight:500;
+
+    padding:9px 14px;
     border-radius:8px;
+
     transition:.25s;
 }
 
-.nav-btn:hover{
-    background:#f3f3f3;
+.nav-link:hover{
+    color:#fff;
+    background:#191919;
 }
 
-.account-btn{
+.login-btn{
     background:#ff1e38;
     color:#fff;
+    font-weight:600;
 }
 
-.account-btn:hover{
+.login-btn:hover{
     background:#df1630;
-    color:#fff;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 .header-section{
     padding:42px 5%;
+
     background:
-        linear-gradient(135deg,rgba(25,25,25,.97),rgba(10,10,10,.96));
-    border-bottom:1px solid rgba(255,255,255,.07);
+    linear-gradient(
+        135deg,
+        rgba(20,20,20,.96),
+        rgba(8,8,8,.96)
+    );
+
+    border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 .header-section h1{
@@ -152,7 +160,7 @@ body{
 }
 
 .breadcrumb{
-    color:#999;
+    color:#888;
     font-size:13px;
 }
 
@@ -160,23 +168,30 @@ body{
     color:#ff1e38;
 }
 
-/* ================= CONTAINER ================= */
+/* CONTAINER */
 
 .container{
     width:100%;
     max-width:650px;
+
     margin:32px auto;
+
     padding:0 18px 60px;
 }
 
-/* ================= CARD ================= */
+/* CARD */
 
 .card{
     background:#141414;
-    border:1px solid rgba(255,255,255,.09);
+
+    border:1px solid rgba(255,255,255,.08);
+
     border-radius:18px;
+
     padding:30px;
-    box-shadow:0 20px 55px rgba(0,0,0,.45);
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.45);
 }
 
 .card h2{
@@ -184,35 +199,40 @@ body{
     margin-bottom:7px;
 }
 
-.card-intro{
+.intro{
     color:#999;
     font-size:13px;
     line-height:1.6;
     margin-bottom:25px;
 }
 
-/* ================= PACKAGE ================= */
+/* PACKAGE */
 
-.package-heading{
-    font-size:14px;
-    font-weight:600;
-    margin-bottom:10px;
+.section-title{
     color:#ddd;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:9px;
 }
 
 .package-box{
-    padding:18px;
-    border-radius:13px;
-    border:1px solid rgba(255,30,56,.4);
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         rgba(255,30,56,.12),
         rgba(255,255,255,.025)
     );
-    margin-bottom:24px;
+
+    border:1px solid rgba(255,30,56,.38);
+
+    border-radius:13px;
+
+    padding:18px;
+
+    margin-bottom:25px;
 }
 
-.package-top{
+.package-content{
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -220,9 +240,15 @@ body{
 }
 
 .package-name{
-    font-size:16px;
+    font-size:17px;
     font-weight:700;
     color:#fff;
+}
+
+.package-description{
+    color:#888;
+    font-size:11px;
+    margin-top:4px;
 }
 
 .package-price{
@@ -232,18 +258,16 @@ body{
     white-space:nowrap;
 }
 
-.package-description{
-    color:#999;
-    font-size:12px;
-    margin-top:6px;
-}
-
 .change-package{
     display:inline-block;
+
     margin-top:12px;
+
     color:#ff1e38;
-    font-size:12px;
+
     text-decoration:none;
+
+    font-size:12px;
     font-weight:600;
 }
 
@@ -251,7 +275,7 @@ body{
     text-decoration:underline;
 }
 
-/* ================= FORM ================= */
+/* FORM */
 
 .form-group{
     margin-bottom:19px;
@@ -259,22 +283,33 @@ body{
 
 .form-group label{
     display:block;
+
+    color:#ddd;
+
     font-size:13px;
     font-weight:500;
-    color:#ddd;
+
     margin-bottom:8px;
 }
 
 .form-control{
     width:100%;
     height:48px;
-    padding:0 14px;
-    border-radius:9px;
+
+    background:#1a1a1a;
+
     border:1px solid rgba(255,255,255,.1);
-    background:#1b1b1b;
+
+    border-radius:9px;
+
     color:#fff;
+
+    padding:0 14px;
+
     outline:none;
+
     font-size:14px;
+
     transition:.25s;
 }
 
@@ -284,20 +319,24 @@ body{
 
 .form-control:focus{
     border-color:#ff1e38;
-    box-shadow:0 0 0 3px rgba(255,30,56,.08);
+
+    box-shadow:
+    0 0 0 3px rgba(255,30,56,.08);
 }
 
-/* ================= REFERRAL ================= */
+/* REFERRAL */
 
 .referral-status{
     display:none;
-    margin-top:8px;
+
+    margin-top:7px;
+
     font-size:12px;
 }
 
 .referral-status.success{
     display:block;
-    color:#42d98b;
+    color:#35d982;
 }
 
 .referral-status.error{
@@ -305,28 +344,37 @@ body{
     color:#ff596b;
 }
 
-/* ================= PASSWORD ================= */
+/* PASSWORD */
 
 .password-wrapper{
     position:relative;
 }
 
 .password-wrapper .form-control{
-    padding-right:50px;
+    padding-right:52px;
 }
 
 .password-toggle{
     position:absolute;
-    right:8px;
+
+    right:7px;
     top:50%;
+
     transform:translateY(-50%);
+
     width:38px;
     height:38px;
-    border:0;
+
+    border:none;
+
     background:transparent;
+
     color:#aaa;
+
     cursor:pointer;
+
     border-radius:7px;
+
     font-size:17px;
 }
 
@@ -335,27 +383,38 @@ body{
     color:#fff;
 }
 
-/* ================= PAYMENT ================= */
+/* PAYMENT */
 
 .payment-title{
-    font-size:14px;
-    font-weight:600;
     color:#ddd;
+
+    font-size:13px;
+    font-weight:600;
+
     margin-bottom:10px;
 }
 
 .payment-option{
     display:flex;
     align-items:center;
+
     gap:12px;
+
     width:100%;
+
     padding:15px;
-    background:#1b1b1b;
+
+    background:#1a1a1a;
+
     border:1px solid rgba(255,255,255,.1);
+
     border-radius:11px;
+
     cursor:pointer;
+
     transition:.25s;
-    margin-bottom:20px;
+
+    margin-bottom:22px;
 }
 
 .payment-option:hover{
@@ -363,56 +422,63 @@ body{
 }
 
 .payment-option.selected{
-    border-color:#ff1e38;
     background:rgba(255,30,56,.08);
+    border-color:#ff1e38;
 }
 
 .payment-option input{
     width:17px;
     height:17px;
+
     accent-color:#ff1e38;
+
     cursor:pointer;
 }
 
-.payment-info{
-    display:flex;
-    flex-direction:column;
-}
-
 .payment-main{
-    font-size:14px;
     color:#fff;
+
+    font-size:14px;
     font-weight:600;
 }
 
 .payment-sub{
-    font-size:11px;
     color:#888;
+
+    font-size:11px;
+
     margin-top:2px;
 }
 
-/* ================= ORDER SUMMARY ================= */
+/* SUMMARY */
 
 .order-summary{
     border-top:1px solid rgba(255,255,255,.08);
+
     padding-top:20px;
+
     margin-top:5px;
-    margin-bottom:20px;
 }
 
 .summary-title{
     font-size:15px;
     font-weight:700;
+
     margin-bottom:14px;
 }
 
 .summary-row{
     display:flex;
+
     justify-content:space-between;
-    align-items:center;
-    font-size:13px;
-    color:#999;
+
+    gap:20px;
+
     margin-bottom:9px;
+
+    color:#999;
+
+    font-size:13px;
 }
 
 .summary-row strong{
@@ -421,102 +487,134 @@ body{
 
 .total-row{
     border-top:1px solid rgba(255,255,255,.08);
+
     margin-top:13px;
+
     padding-top:14px;
-    color:#fff;
-    font-size:15px;
 }
 
 .total-price{
     color:#ff1e38 !important;
+
     font-size:18px;
+
     font-weight:800;
 }
 
-/* ================= TERMS ================= */
+/* TERMS */
 
 .checkbox-group{
     display:flex;
+
     align-items:flex-start;
+
     gap:9px;
+
     margin:22px 0;
 }
 
 .checkbox-group input{
     width:16px;
     height:16px;
+
     margin-top:2px;
+
     accent-color:#ff1e38;
+
     flex-shrink:0;
-    cursor:pointer;
 }
 
 .checkbox-group label{
-    margin:0;
-    font-size:12px;
-    line-height:1.6;
     color:#999;
+
+    font-size:12px;
+
+    line-height:1.6;
 }
 
 .checkbox-group a{
     color:#ff1e38;
+
     text-decoration:none;
 }
 
-/* ================= BUTTON ================= */
+/* BUTTON */
 
 .btn-register{
     width:100%;
     height:52px;
-    border:0;
+
+    border:none;
+
     border-radius:10px;
+
     background:#ff1e38;
+
     color:#fff;
+
     font-size:15px;
     font-weight:700;
+
     cursor:pointer;
-    box-shadow:0 8px 25px rgba(255,30,56,.25);
+
     transition:.25s;
+
+    box-shadow:
+    0 8px 25px rgba(255,30,56,.25);
 }
 
 .btn-register:hover{
     background:#df1630;
+
     transform:translateY(-2px);
-    box-shadow:0 10px 30px rgba(255,30,56,.35);
 }
 
 .btn-register:disabled{
     opacity:.55;
+
     cursor:not-allowed;
+
     transform:none;
 }
 
-/* ================= FOOTER TEXT ================= */
+/* FOOTER */
 
 .footer-text{
     text-align:center;
-    margin-top:20px;
+
     color:#777;
+
     font-size:12px;
+
+    margin-top:20px;
 }
 
 .footer-text a{
     color:#ff1e38;
+
     text-decoration:none;
+
     font-weight:600;
 }
 
-/* ================= SUCCESS MODAL ================= */
+/* SUCCESS */
 
 .success-overlay{
     position:fixed;
+
     inset:0;
-    background:rgba(0,0,0,.78);
+
+    background:rgba(0,0,0,.8);
+
     backdrop-filter:blur(7px);
+
     display:none;
+
     align-items:center;
     justify-content:center;
-    z-index:2000;
+
+    z-index:3000;
+
     padding:20px;
 }
 
@@ -527,24 +625,34 @@ body{
 .success-modal{
     width:100%;
     max-width:420px;
-    background:#161616;
+
+    background:#151515;
+
     border:1px solid rgba(255,255,255,.1);
+
     border-radius:18px;
+
     padding:30px;
+
     text-align:center;
-    box-shadow:0 25px 80px rgba(0,0,0,.6);
 }
 
 .success-icon{
     width:60px;
     height:60px;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    margin:0 auto 16px;
+
+    margin:0 auto 15px;
+
     border-radius:50%;
-    background:rgba(48,210,125,.12);
+
+    background:rgba(50,220,130,.12);
+
     color:#35dc88;
+
     font-size:28px;
 }
 
@@ -560,44 +668,53 @@ body{
 }
 
 .member-id{
-    margin:18px 0;
-    padding:14px;
-    background:#1e1e1e;
-    border-radius:10px;
+    background:#1d1d1d;
+
     border:1px dashed rgba(255,30,56,.45);
+
+    border-radius:10px;
+
+    padding:14px;
+
+    margin:18px 0;
 }
 
 .member-id small{
     display:block;
-    color:#888;
+
+    color:#777;
+
     font-size:11px;
+
     margin-bottom:4px;
 }
 
 .member-id strong{
     color:#ff1e38;
+
     font-size:21px;
+
     letter-spacing:1px;
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 
 @media(max-width:600px){
 
     .navbar{
         height:64px;
-        padding:0 18px;
+        padding:0 17px;
     }
 
     .logo{
-        font-size:22px;
+        font-size:21px;
     }
 
-    .nav-btn:not(.account-btn){
+    .nav-link:not(.login-btn){
         display:none;
     }
 
-    .account-btn{
+    .login-btn{
         padding:8px 12px;
         font-size:12px;
     }
@@ -618,13 +735,12 @@ body{
 
     .card{
         padding:21px 17px;
-        border-radius:15px;
     }
 
-    .package-top{
+    .package-content{
         align-items:flex-start;
         flex-direction:column;
-        gap:5px;
+        gap:6px;
     }
 
     .package-price{
@@ -636,12 +752,14 @@ body{
 
 <body>
 
-<!-- Background -->
+<!-- BACKGROUND -->
+
 <div class="bg-animations">
     <div class="circle"></div>
     <div class="circle"></div>
     <div class="circle"></div>
 </div>
+
 
 <!-- ================= NAVBAR ================= -->
 
@@ -651,13 +769,24 @@ body{
         Skills<span>Market</span>
     </a>
 
-    <div class="nav-right">
-        <a href="index.html" class="nav-btn">Home</a>
-        <a href="courses.html" class="nav-btn">Courses</a>
-        <a href="login.html" class="nav-btn account-btn">Login</a>
+    <div class="nav-links">
+
+        <a href="index.html" class="nav-link">
+            Home
+        </a>
+
+        <a href="courses.html" class="nav-link">
+            Courses
+        </a>
+
+        <a href="login.html" class="nav-link login-btn">
+            Login
+        </a>
+
     </div>
 
 </nav>
+
 
 <!-- ================= HEADER ================= -->
 
@@ -671,6 +800,7 @@ body{
 
 </section>
 
+
 <!-- ================= CHECKOUT ================= -->
 
 <main class="container">
@@ -679,44 +809,60 @@ body{
 
     <h2>Create Your Account</h2>
 
-    <p class="card-intro">
-        Complete your details below to create your Skills Market account
-        and continue with your selected package.
+    <p class="intro">
+        Complete your details below to create your Skills Market
+        account and continue with your selected package.
     </p>
+
 
     <!-- SELECTED PACKAGE -->
 
-    <div class="package-heading">
+    <div class="section-title">
         Selected Package
     </div>
 
     <div class="package-box">
 
-        <div class="package-top">
+        <div class="package-content">
 
             <div>
-                <div class="package-name" id="packageName">
-                    Skills Market Premium Package
+
+                <!-- EXACT PACKAGE NAME -->
+                <div
+                    class="package-name"
+                    id="packageName"
+                >
+                    Skill Starter Package
                 </div>
 
                 <div class="package-description">
-                    Your selected package will appear here.
+                    Your selected package
                 </div>
+
             </div>
 
-            <div class="package-price" id="packagePrice">
+            <!-- ONLY SELECTED PRICE -->
+            <div
+                class="package-price"
+                id="packagePrice"
+            >
                 ₹2,399
             </div>
 
         </div>
 
-        <a href="packages.html" class="change-package">
+        <a
+            href="packages.html"
+            class="change-package"
+        >
             Change Package
         </a>
 
     </div>
 
+
     <form id="checkoutForm">
+
 
         <!-- REFERRAL -->
 
@@ -734,9 +880,13 @@ body{
                 autocomplete="off"
             >
 
-            <div id="referralStatus" class="referral-status"></div>
+            <div
+                id="referralStatus"
+                class="referral-status"
+            ></div>
 
         </div>
+
 
         <!-- NAME -->
 
@@ -755,6 +905,7 @@ body{
             >
 
         </div>
+
 
         <!-- PHONE -->
 
@@ -775,6 +926,7 @@ body{
 
         </div>
 
+
         <!-- EMAIL -->
 
         <div class="form-group">
@@ -792,6 +944,7 @@ body{
             >
 
         </div>
+
 
         <!-- PASSWORD -->
 
@@ -817,7 +970,6 @@ body{
                     type="button"
                     class="password-toggle"
                     id="passwordToggle"
-                    aria-label="Show password"
                 >
                     👁
                 </button>
@@ -826,22 +978,26 @@ body{
 
         </div>
 
+
         <!-- PAYMENT -->
 
         <div class="payment-title">
             Select Payment Method
         </div>
 
-        <label class="payment-option" id="paymentOption">
+        <label
+            class="payment-option"
+            id="paymentOption"
+        >
 
             <input
                 type="radio"
                 name="payment"
-                value="online"
                 id="onlinePayment"
+                value="online"
             >
 
-            <div class="payment-info">
+            <div>
 
                 <div class="payment-main">
                     UPI / Card / Net Banking
@@ -855,6 +1011,7 @@ body{
 
         </label>
 
+
         <!-- ORDER SUMMARY -->
 
         <div class="order-summary">
@@ -864,22 +1021,34 @@ body{
             </div>
 
             <div class="summary-row">
-                <span>Package</span>
+
+                <span>
+                    Package
+                </span>
+
                 <strong id="summaryPackage">
-                    Premium Package
+                    Skill Starter Package
                 </strong>
+
             </div>
 
             <div class="summary-row">
-                <span>Price</span>
+
+                <span>
+                    Price
+                </span>
+
                 <strong id="summaryPrice">
                     ₹2,399
                 </strong>
+
             </div>
 
             <div class="summary-row total-row">
 
-                <strong>Total</strong>
+                <strong>
+                    Total
+                </strong>
 
                 <strong
                     class="total-price"
@@ -891,6 +1060,7 @@ body{
             </div>
 
         </div>
+
 
         <!-- TERMS -->
 
@@ -905,15 +1075,20 @@ body{
             <label for="terms">
 
                 I agree to the
-                <a href="#">Privacy Policy</a>
+                <a href="#">
+                    Privacy Policy
+                </a>
                 and
-                <a href="#">Terms & Conditions</a>.
+                <a href="#">
+                    Terms & Conditions
+                </a>.
 
             </label>
 
         </div>
 
-        <!-- BUTTON -->
+
+        <!-- REGISTER -->
 
         <button
             type="submit"
@@ -923,10 +1098,14 @@ body{
             Register & Pay →
         </button>
 
+
         <div class="footer-text">
 
             Already have an account?
-            <a href="login.html">Sign In</a>
+
+            <a href="login.html">
+                Sign In
+            </a>
 
         </div>
 
@@ -936,9 +1115,13 @@ body{
 
 </main>
 
+
 <!-- ================= SUCCESS MODAL ================= -->
 
-<div class="success-overlay" id="successOverlay">
+<div
+    class="success-overlay"
+    id="successOverlay"
+>
 
     <div class="success-modal">
 
@@ -946,7 +1129,9 @@ body{
             ✓
         </div>
 
-        <h2>Registration Created</h2>
+        <h2>
+            Registration Created
+        </h2>
 
         <p>
             Your Skills Market account has been created successfully.
@@ -975,63 +1160,95 @@ body{
 
 </div>
 
+
 <script>
 
-/* =========================================================
-   PACKAGE SYSTEM
-   ========================================================= */
+/* ==========================================================
+   PACKAGE DATA
+   ========================================================== */
 
 /*
-   Package can come from URL:
+   URL EXAMPLES:
 
-   checkout.html?package=Premium&price=2399
+   checkout.html?package=Skill%20Starter%20Package&price=2399
 
-   Example:
+   checkout.html?package=Pro%20Package&price=4999
 
-   checkout.html?package=Basic&price=999
+   checkout.html?package=Premium%20Package&price=7999
+
+
+   IMPORTANT:
+   Package name is displayed EXACTLY as received.
+   "Skills Market" is NOT added to package name.
 */
 
-const params = new URLSearchParams(window.location.search);
 
-const packageFromURL = params.get("package");
-const priceFromURL = params.get("price");
+const params =
+    new URLSearchParams(window.location.search);
 
-const packageName = document.getElementById("packageName");
-const packagePrice = document.getElementById("packagePrice");
-const summaryPackage = document.getElementById("summaryPackage");
-const summaryPrice = document.getElementById("summaryPrice");
-const summaryTotal = document.getElementById("summaryTotal");
+const packageFromURL =
+    params.get("package");
+
+const priceFromURL =
+    params.get("price");
+
+
+const packageNameElement =
+    document.getElementById("packageName");
+
+const packagePriceElement =
+    document.getElementById("packagePrice");
+
+const summaryPackageElement =
+    document.getElementById("summaryPackage");
+
+const summaryPriceElement =
+    document.getElementById("summaryPrice");
+
+const summaryTotalElement =
+    document.getElementById("summaryTotal");
+
+
+/* PACKAGE NAME */
 
 if(packageFromURL){
 
-    const cleanPackage =
+    const exactPackageName =
         decodeURIComponent(packageFromURL);
 
-    packageName.textContent =
-        "Skills Market " + cleanPackage + " Package";
+    /*
+       EXACT NAME ONLY
+    */
 
-    summaryPackage.textContent =
-        cleanPackage + " Package";
+    packageNameElement.textContent =
+        exactPackageName;
+
+    summaryPackageElement.textContent =
+        exactPackageName;
 
 }
 
+
+/* PACKAGE PRICE */
+
 if(priceFromURL){
 
-    const numericPrice =
+    const price =
         Number(priceFromURL);
 
-    if(!isNaN(numericPrice)){
+    if(!isNaN(price)){
 
         const formattedPrice =
-            "₹" + numericPrice.toLocaleString("en-IN");
+            "₹" +
+            price.toLocaleString("en-IN");
 
-        packagePrice.textContent =
+        packagePriceElement.textContent =
             formattedPrice;
 
-        summaryPrice.textContent =
+        summaryPriceElement.textContent =
             formattedPrice;
 
-        summaryTotal.textContent =
+        summaryTotalElement.textContent =
             formattedPrice;
 
     }
@@ -1039,71 +1256,78 @@ if(priceFromURL){
 }
 
 
-/* =========================================================
-   REFERRAL SYSTEM
-   ========================================================= */
-
-/*
-   DEMO DATABASE
-
-   Real website mein ye data backend/database
-   se fetch hoga.
-*/
+/* ==========================================================
+   REFERRAL
+   ========================================================== */
 
 const referralUsers = {
 
     "RIJAL123": "Rijal Choudhary",
+
     "SM10001": "Rijal Choudhary",
-    "SKILLS10": "Skills Market",
+
+    "SKILLS10": "Skills Market"
 
 };
 
-const referralInput =
+const referral =
     document.getElementById("referral");
 
 const referralStatus =
     document.getElementById("referralStatus");
 
-referralInput.addEventListener("input", function(){
 
-    const code =
-        this.value.trim().toUpperCase();
+referral.addEventListener(
+    "input",
+    function(){
 
-    if(code === ""){
+        const code =
+            this.value
+            .trim()
+            .toUpperCase();
 
-        referralStatus.className =
-            "referral-status";
 
-        referralStatus.textContent = "";
+        if(code === ""){
 
-        return;
+            referralStatus.className =
+                "referral-status";
+
+            referralStatus.textContent =
+                "";
+
+            return;
+
+        }
+
+
+        if(referralUsers[code]){
+
+            referralStatus.className =
+                "referral-status success";
+
+            referralStatus.textContent =
+                "✓ Referral: " +
+                referralUsers[code];
+
+        }
+
+        else{
+
+            referralStatus.className =
+                "referral-status error";
+
+            referralStatus.textContent =
+                "✕ Invalid Referral Code";
+
+        }
 
     }
-
-    if(referralUsers[code]){
-
-        referralStatus.className =
-            "referral-status success";
-
-        referralStatus.textContent =
-            "✓ Referral: " + referralUsers[code];
-
-    }else{
-
-        referralStatus.className =
-            "referral-status error";
-
-        referralStatus.textContent =
-            "✕ Invalid Referral Code";
-
-    }
-
-});
+);
 
 
-/* =========================================================
+/* ==========================================================
    PASSWORD SHOW / HIDE
-   ========================================================= */
+   ========================================================== */
 
 const password =
     document.getElementById("password");
@@ -1111,38 +1335,36 @@ const password =
 const passwordToggle =
     document.getElementById("passwordToggle");
 
-passwordToggle.addEventListener("click", function(){
 
-    if(password.type === "password"){
+passwordToggle.addEventListener(
+    "click",
+    function(){
 
-        password.type = "text";
+        if(password.type === "password"){
 
-        passwordToggle.textContent = "🙈";
+            password.type = "text";
 
-        passwordToggle.setAttribute(
-            "aria-label",
-            "Hide password"
-        );
+            passwordToggle.textContent =
+                "🙈";
 
-    }else{
+        }
 
-        password.type = "password";
+        else{
 
-        passwordToggle.textContent = "👁";
+            password.type = "password";
 
-        passwordToggle.setAttribute(
-            "aria-label",
-            "Show password"
-        );
+            passwordToggle.textContent =
+                "👁";
+
+        }
 
     }
+);
 
-});
 
-
-/* =========================================================
-   PAYMENT OPTION
-   ========================================================= */
+/* ==========================================================
+   PAYMENT
+   ========================================================== */
 
 const paymentOption =
     document.getElementById("paymentOption");
@@ -1150,56 +1372,76 @@ const paymentOption =
 const paymentRadio =
     document.getElementById("onlinePayment");
 
-paymentOption.addEventListener("click", function(){
 
-    paymentRadio.checked = true;
+paymentOption.addEventListener(
+    "click",
+    function(){
 
-    paymentOption.classList.add("selected");
+        paymentRadio.checked = true;
 
-});
-
-paymentRadio.addEventListener("change", function(){
-
-    if(this.checked){
-
-        paymentOption.classList.add("selected");
+        paymentOption.classList.add(
+            "selected"
+        );
 
     }
+);
 
-});
+
+paymentRadio.addEventListener(
+    "change",
+    function(){
+
+        if(this.checked){
+
+            paymentOption.classList.add(
+                "selected"
+            );
+
+        }
+
+    }
+);
 
 
-/* =========================================================
-   PHONE NUMBER
-   ========================================================= */
+/* ==========================================================
+   PHONE
+   ========================================================== */
 
 document
 .getElementById("phone")
-.addEventListener("input", function(){
+.addEventListener(
+    "input",
+    function(){
 
-    this.value =
-        this.value.replace(/\D/g, "").slice(0,10);
+        this.value =
+            this.value
+            .replace(/\D/g,"")
+            .slice(0,10);
 
-});
+    }
+);
 
 
-/* =========================================================
-   GENERATE MEMBER ID
-   ========================================================= */
+/* ==========================================================
+   MEMBER ID
+   ========================================================== */
 
 function generateMemberId(){
 
-    const randomNumber =
-        Math.floor(10000 + Math.random() * 90000);
+    const number =
+        Math.floor(
+            10000 +
+            Math.random() * 90000
+        );
 
-    return "SM" + randomNumber;
+    return "SM" + number;
 
 }
 
 
-/* =========================================================
-   FORM SUBMIT
-   ========================================================= */
+/* ==========================================================
+   FORM
+   ========================================================== */
 
 const form =
     document.getElementById("checkoutForm");
@@ -1213,91 +1455,113 @@ const successOverlay =
 const generatedId =
     document.getElementById("generatedId");
 
-form.addEventListener("submit", function(event){
 
-    event.preventDefault();
+form.addEventListener(
+    "submit",
+    function(event){
 
-    /* Check payment */
+        event.preventDefault();
 
-    if(!paymentRadio.checked){
 
-        alert(
-            "Please select a payment method."
-        );
+        /* PAYMENT CHECK */
 
-        return;
+        if(!paymentRadio.checked){
 
-    }
+            alert(
+                "Please select a payment method."
+            );
 
-    /* Check referral */
+            return;
 
-    const referral =
-        referralInput.value.trim().toUpperCase();
+        }
 
-    if(referral !== "" &&
-       !referralUsers[referral]){
 
-        alert(
-            "Please enter a valid Referral Code."
-        );
+        /* REFERRAL CHECK */
 
-        referralInput.focus();
+        const referralCode =
+            referral.value
+            .trim()
+            .toUpperCase();
 
-        return;
 
-    }
+        if(
+            referralCode !== "" &&
+            !referralUsers[referralCode]
+        ){
 
-    /* Check phone */
+            alert(
+                "Please enter a valid Referral Code."
+            );
 
-    const phone =
-        document.getElementById("phone").value;
+            referral.focus();
 
-    if(phone.length !== 10){
+            return;
 
-        alert(
-            "Please enter a valid 10-digit phone number."
-        );
+        }
 
-        return;
 
-    }
+        /* PHONE CHECK */
 
-    /* Loading */
+        const phone =
+            document.getElementById("phone")
+            .value;
 
-    registerButton.disabled = true;
 
-    registerButton.textContent =
-        "Processing...";
+        if(phone.length !== 10){
 
-    /*
-       DEMO REGISTRATION
+            alert(
+                "Please enter a valid 10-digit phone number."
+            );
 
-       Real backend/payment API yahan connect hoga.
-    */
+            return;
 
-    setTimeout(function(){
+        }
 
-        const memberId =
-            generateMemberId();
 
-        generatedId.textContent =
-            memberId;
+        /* PROCESSING */
 
-        successOverlay.classList.add("show");
-
-        registerButton.disabled = false;
+        registerButton.disabled =
+            true;
 
         registerButton.textContent =
-            "Register & Pay →";
-
-    },1200);
-
-});
+            "Processing...";
 
 
-/* =========================================================
-   LOGIN REDIRECT
-   ========================================================= */
+        /*
+           DEMO ONLY
+
+           Real payment gateway + backend
+           will be connected here.
+        */
+
+        setTimeout(
+            function(){
+
+                const memberId =
+                    generateMemberId();
+
+                generatedId.textContent =
+                    memberId;
+
+                successOverlay.classList.add(
+                    "show"
+                );
+
+                registerButton.disabled =
+                    false;
+
+                registerButton.textContent =
+                    "Register & Pay →";
+
+            },
+            1200
+        );
+
+    }
+);
+
+
+/* LOGIN */
 
 function goToLogin(){
 
