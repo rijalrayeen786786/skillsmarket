@@ -22,7 +22,7 @@ body{
     overflow-x:hidden;
 }
 
-/* BACKGROUND */
+/* ================= BACKGROUND ================= */
 
 .bg-animations{
     position:fixed;
@@ -36,6 +36,7 @@ body{
     position:absolute;
     border-radius:50%;
     background:rgba(255,30,56,.12);
+    filter:blur(2px);
     animation:float 12s ease-in-out infinite;
 }
 
@@ -138,7 +139,7 @@ body{
     background:#df1630;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 
 .header-section{
     padding:42px 5%;
@@ -168,7 +169,7 @@ body{
     color:#ff1e38;
 }
 
-/* CONTAINER */
+/* ================= CONTAINER ================= */
 
 .container{
     width:100%;
@@ -179,7 +180,7 @@ body{
     padding:0 18px 60px;
 }
 
-/* CARD */
+/* ================= CARD ================= */
 
 .card{
     background:#141414;
@@ -206,7 +207,7 @@ body{
     margin-bottom:25px;
 }
 
-/* PACKAGE */
+/* ================= PACKAGE ================= */
 
 .section-title{
     color:#ddd;
@@ -275,7 +276,7 @@ body{
     text-decoration:underline;
 }
 
-/* FORM */
+/* ================= FORM ================= */
 
 .form-group{
     margin-bottom:19px;
@@ -324,7 +325,7 @@ body{
     0 0 0 3px rgba(255,30,56,.08);
 }
 
-/* REFERRAL */
+/* ================= REFERRAL ================= */
 
 .referral-status{
     display:none;
@@ -344,7 +345,7 @@ body{
     color:#ff596b;
 }
 
-/* PASSWORD */
+/* ================= PASSWORD ================= */
 
 .password-wrapper{
     position:relative;
@@ -383,7 +384,7 @@ body{
     color:#fff;
 }
 
-/* PAYMENT */
+/* ================= PAYMENT ================= */
 
 .payment-title{
     color:#ddd;
@@ -424,6 +425,9 @@ body{
 .payment-option.selected{
     background:rgba(255,30,56,.08);
     border-color:#ff1e38;
+
+    box-shadow:
+    0 0 0 2px rgba(255,30,56,.06);
 }
 
 .payment-option input{
@@ -450,7 +454,7 @@ body{
     margin-top:2px;
 }
 
-/* SUMMARY */
+/* ================= SUMMARY ================= */
 
 .order-summary{
     border-top:1px solid rgba(255,255,255,.08);
@@ -483,6 +487,8 @@ body{
 
 .summary-row strong{
     color:#fff;
+
+    text-align:right;
 }
 
 .total-row{
@@ -501,7 +507,7 @@ body{
     font-weight:800;
 }
 
-/* TERMS */
+/* ================= TERMS ================= */
 
 .checkbox-group{
     display:flex;
@@ -522,6 +528,8 @@ body{
     accent-color:#ff1e38;
 
     flex-shrink:0;
+
+    cursor:pointer;
 }
 
 .checkbox-group label{
@@ -538,7 +546,7 @@ body{
     text-decoration:none;
 }
 
-/* BUTTON */
+/* ================= BUTTON ================= */
 
 .btn-register{
     width:100%;
@@ -577,7 +585,7 @@ body{
     transform:none;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 .footer-text{
     text-align:center;
@@ -597,7 +605,7 @@ body{
     font-weight:600;
 }
 
-/* SUCCESS */
+/* ================= SUCCESS ================= */
 
 .success-overlay{
     position:fixed;
@@ -697,7 +705,7 @@ body{
     letter-spacing:1px;
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 @media(max-width:600px){
 
@@ -746,13 +754,17 @@ body{
     .package-price{
         font-size:17px;
     }
+
+    .summary-row{
+        font-size:12px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND -->
+<!-- ================= BACKGROUND ================= -->
 
 <div class="bg-animations">
     <div class="circle"></div>
@@ -827,12 +839,11 @@ body{
 
             <div>
 
-                <!-- EXACT PACKAGE NAME -->
                 <div
                     class="package-name"
                     id="packageName"
                 >
-                    Skill Starter Package
+                    Package Not Selected
                 </div>
 
                 <div class="package-description">
@@ -841,12 +852,11 @@ body{
 
             </div>
 
-            <!-- ONLY SELECTED PRICE -->
             <div
                 class="package-price"
                 id="packagePrice"
             >
-                
+                —
             </div>
 
         </div>
@@ -862,7 +872,6 @@ body{
 
 
     <form id="checkoutForm">
-
 
         <!-- REFERRAL -->
 
@@ -901,6 +910,7 @@ body{
                 id="name"
                 class="form-control"
                 placeholder="Enter your full name"
+                autocomplete="name"
                 required
             >
 
@@ -921,6 +931,8 @@ body{
                 class="form-control"
                 placeholder="Enter phone number"
                 maxlength="10"
+                inputmode="numeric"
+                autocomplete="tel"
                 required
             >
 
@@ -940,6 +952,7 @@ body{
                 id="email"
                 class="form-control"
                 placeholder="Enter email address"
+                autocomplete="email"
                 required
             >
 
@@ -970,6 +983,7 @@ body{
                     type="button"
                     class="password-toggle"
                     id="passwordToggle"
+                    aria-label="Show password"
                 >
                     👁
                 </button>
@@ -1027,7 +1041,7 @@ body{
                 </span>
 
                 <strong id="summaryPackage">
-                      
+                    —
                 </strong>
 
             </div>
@@ -1039,7 +1053,7 @@ body{
                 </span>
 
                 <strong id="summaryPrice">
-                    
+                    —
                 </strong>
 
             </div>
@@ -1054,7 +1068,7 @@ body{
                     class="total-price"
                     id="summaryTotal"
                 >
-                    
+                    —
                 </strong>
 
             </div>
@@ -1150,6 +1164,7 @@ body{
         </div>
 
         <button
+            type="button"
             class="btn-register"
             onclick="goToLogin()"
         >
@@ -1164,34 +1179,49 @@ body{
 <script>
 
 /* ==========================================================
-   PACKAGE DATA
+   SKILLS MARKET PACKAGE DATA
    ========================================================== */
 
-/*
-   URL EXAMPLES:
+const packages = {
 
-   checkout.html?package=Skill%20Starter%20Package&price=2399
+    "Skill Starter Package": 265,
 
-   checkout.html?package=Pro%20Package&price=4999
+    "Skill Growth Package": 520,
 
-   checkout.html?package=Premium%20Package&price=7999
+    "Skill Elite Package": 1299,
+
+    "Skill Prime Package": 2399,
+
+    "Skill Premimum Package": 4999,
+
+    "Skill Legacy package": 9999
+
+};
 
 
-   IMPORTANT:
-   Package name is displayed EXACTLY as received.
-   "Skills Market" is NOT added to package name.
-*/
-
+/* ==========================================================
+   GET PACKAGE FROM URL
+   ========================================================== */
 
 const params =
     new URLSearchParams(window.location.search);
 
-const packageFromURL =
+let selectedPackage =
     params.get("package");
 
-const priceFromURL =
-    params.get("price");
 
+if(selectedPackage){
+
+    selectedPackage =
+        decodeURIComponent(selectedPackage)
+        .trim();
+
+}
+
+
+/* ==========================================================
+   ELEMENTS
+   ========================================================== */
 
 const packageNameElement =
     document.getElementById("packageName");
@@ -1209,66 +1239,82 @@ const summaryTotalElement =
     document.getElementById("summaryTotal");
 
 
-/* PACKAGE NAME */
+/* ==========================================================
+   PACKAGE DISPLAY
+   ========================================================== */
 
-if(packageFromURL){
-
-    const exactPackageName =
-        decodeURIComponent(packageFromURL);
-
-    /*
-       EXACT NAME ONLY
-    */
-
-    packageNameElement.textContent =
-        exactPackageName;
-
-    summaryPackageElement.textContent =
-        exactPackageName;
-
-}
-
-
-/* PACKAGE PRICE */
-
-if(priceFromURL){
+if(
+    selectedPackage &&
+    packages[selectedPackage] !== undefined
+){
 
     const price =
-        Number(priceFromURL);
+        packages[selectedPackage];
 
-    if(!isNaN(price)){
+    const formattedPrice =
+        "₹" +
+        price.toLocaleString("en-IN");
 
-        const formattedPrice =
-            "₹" +
-            price.toLocaleString("en-IN");
 
-        packagePriceElement.textContent =
-            formattedPrice;
+    packageNameElement.textContent =
+        selectedPackage;
 
-        summaryPriceElement.textContent =
-            formattedPrice;
+    packagePriceElement.textContent =
+        formattedPrice;
 
-        summaryTotalElement.textContent =
-            formattedPrice;
+    summaryPackageElement.textContent =
+        selectedPackage;
 
-    }
+    summaryPriceElement.textContent =
+        formattedPrice;
+
+    summaryTotalElement.textContent =
+        formattedPrice;
 
 }
 
 
 /* ==========================================================
-   REFERRAL
+   PACKAGE NOT FOUND
+   ========================================================== */
+
+else{
+
+    packageNameElement.textContent =
+        "Package Not Selected";
+
+    packagePriceElement.textContent =
+        "—";
+
+    summaryPackageElement.textContent =
+        "Please select a package";
+
+    summaryPriceElement.textContent =
+        "—";
+
+    summaryTotalElement.textContent =
+        "—";
+
+}
+
+
+/* ==========================================================
+   REFERRAL SYSTEM
    ========================================================== */
 
 const referralUsers = {
 
-    "RIJAL123": "Rijal Choudhary",
+    "RIJAL123":
+        "Rijal Choudhary",
 
-    "SM10001": "Rijal Choudhary",
+    "SM10001":
+        "Rijal Choudhary",
 
-    "SKILLS10": "Skills Market"
+    "SKILLS10":
+        "Skills Market"
 
 };
+
 
 const referral =
     document.getElementById("referral");
@@ -1347,6 +1393,11 @@ passwordToggle.addEventListener(
             passwordToggle.textContent =
                 "🙈";
 
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
         }
 
         else{
@@ -1356,6 +1407,11 @@ passwordToggle.addEventListener(
             passwordToggle.textContent =
                 "👁";
 
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
         }
 
     }
@@ -1363,7 +1419,7 @@ passwordToggle.addEventListener(
 
 
 /* ==========================================================
-   PAYMENT
+   PAYMENT METHOD
    ========================================================== */
 
 const paymentOption =
@@ -1377,7 +1433,8 @@ paymentOption.addEventListener(
     "click",
     function(){
 
-        paymentRadio.checked = true;
+        paymentRadio.checked =
+            true;
 
         paymentOption.classList.add(
             "selected"
@@ -1404,7 +1461,7 @@ paymentRadio.addEventListener(
 
 
 /* ==========================================================
-   PHONE
+   PHONE NUMBER
    ========================================================== */
 
 document
@@ -1440,7 +1497,7 @@ function generateMemberId(){
 
 
 /* ==========================================================
-   FORM
+   FORM SUBMIT
    ========================================================== */
 
 const form =
@@ -1461,6 +1518,22 @@ form.addEventListener(
     function(event){
 
         event.preventDefault();
+
+
+        /* PACKAGE CHECK */
+
+        if(
+            !selectedPackage ||
+            packages[selectedPackage] === undefined
+        ){
+
+            alert(
+                "Please select a package first."
+            );
+
+            return;
+
+        }
 
 
         /* PAYMENT CHECK */
@@ -1503,7 +1576,8 @@ form.addEventListener(
         /* PHONE CHECK */
 
         const phone =
-            document.getElementById("phone")
+            document
+            .getElementById("phone")
             .value;
 
 
@@ -1528,10 +1602,10 @@ form.addEventListener(
 
 
         /*
-           DEMO ONLY
+           DEMO REGISTRATION
 
-           Real payment gateway + backend
-           will be connected here.
+           Real backend + payment gateway
+           will be connected later.
         */
 
         setTimeout(
@@ -1540,12 +1614,15 @@ form.addEventListener(
                 const memberId =
                     generateMemberId();
 
+
                 generatedId.textContent =
                     memberId;
+
 
                 successOverlay.classList.add(
                     "show"
                 );
+
 
                 registerButton.disabled =
                     false;
@@ -1561,7 +1638,9 @@ form.addEventListener(
 );
 
 
-/* LOGIN */
+/* ==========================================================
+   LOGIN
+   ========================================================== */
 
 function goToLogin(){
 
