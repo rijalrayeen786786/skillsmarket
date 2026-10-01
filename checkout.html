@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -65,12 +66,13 @@ body{
     0%,100%{
         transform:translateY(0) scale(1);
     }
+
     50%{
         transform:translateY(-30px) scale(1.06);
     }
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 
 .navbar{
     position:sticky;
@@ -128,7 +130,7 @@ body{
     background:#df1630;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 .header-section{
     padding:42px 5%;
@@ -155,7 +157,7 @@ body{
     color:#ff1e38;
 }
 
-/* ================= CONTAINER ================= */
+/* MAIN */
 
 .container{
     width:100%;
@@ -163,8 +165,6 @@ body{
     margin:32px auto;
     padding:0 18px 60px;
 }
-
-/* ================= CARD ================= */
 
 .card{
     background:#141414;
@@ -186,14 +186,14 @@ body{
     margin-bottom:25px;
 }
 
-/* ================= PACKAGE ================= */
-
 .section-title{
     color:#ddd;
     font-size:13px;
     font-weight:600;
     margin-bottom:9px;
 }
+
+/* PACKAGE */
 
 .package-box{
     background:linear-gradient(
@@ -246,7 +246,7 @@ body{
     text-decoration:underline;
 }
 
-/* ================= FORM ================= */
+/* FORM */
 
 .form-group{
     margin-bottom:19px;
@@ -282,7 +282,7 @@ body{
     box-shadow:0 0 0 3px rgba(255,30,56,.08);
 }
 
-/* ================= REFERRAL ================= */
+/* REFERRAL */
 
 .referral-status{
     display:none;
@@ -300,7 +300,7 @@ body{
     color:#ff596b;
 }
 
-/* ================= PASSWORD ================= */
+/* PASSWORD */
 
 .password-wrapper{
     position:relative;
@@ -330,7 +330,7 @@ body{
     color:#fff;
 }
 
-/* ================= PAYMENT ================= */
+/* PAYMENT OPTION */
 
 .payment-title{
     color:#ddd;
@@ -382,7 +382,100 @@ body{
     margin-top:2px;
 }
 
-/* ================= SUMMARY ================= */
+/* QR PAYMENT */
+
+.qr-payment-box{
+    display:none;
+    margin-top:5px;
+    margin-bottom:25px;
+    padding:22px;
+    background:#101010;
+    border:1px solid rgba(255,30,56,.35);
+    border-radius:14px;
+    text-align:center;
+}
+
+.qr-payment-box.show{
+    display:block;
+}
+
+.qr-title{
+    font-size:19px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.qr-subtitle{
+    color:#888;
+    font-size:12px;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.qr-image-wrapper{
+    width:230px;
+    height:230px;
+    margin:0 auto 18px;
+    padding:10px;
+    background:#fff;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.qr-image{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:5px;
+}
+
+.pay-amount{
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.pay-amount strong{
+    color:#ff1e38;
+    font-size:20px;
+}
+
+.upi-id{
+    color:#aaa;
+    font-size:12px;
+    margin-bottom:16px;
+}
+
+.upi-id strong{
+    color:#fff;
+}
+
+.qr-note{
+    color:#777;
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.payment-status{
+    display:none;
+    margin-top:16px;
+    padding:14px;
+    border-radius:10px;
+    background:rgba(255,180,0,.08);
+    border:1px solid rgba(255,180,0,.25);
+    color:#ffc44d;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.payment-status.show{
+    display:block;
+}
+
+/* SUMMARY */
 
 .order-summary{
     border-top:1px solid rgba(255,255,255,.08);
@@ -422,7 +515,7 @@ body{
     font-weight:800;
 }
 
-/* ================= TERMS ================= */
+/* TERMS */
 
 .checkbox-group{
     display:flex;
@@ -451,7 +544,7 @@ body{
     text-decoration:none;
 }
 
-/* ================= BUTTON ================= */
+/* BUTTON */
 
 .btn-register{
     width:100%;
@@ -478,7 +571,7 @@ body{
     transform:none;
 }
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 
 .footer-text{
     text-align:center;
@@ -493,12 +586,12 @@ body{
     font-weight:600;
 }
 
-/* ================= SUCCESS ================= */
+/* VERIFICATION MODAL */
 
 .success-overlay{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.8);
+    background:rgba(0,0,0,.82);
     backdrop-filter:blur(7px);
     display:none;
     align-items:center;
@@ -513,12 +606,13 @@ body{
 
 .success-modal{
     width:100%;
-    max-width:420px;
+    max-width:430px;
     background:#151515;
     border:1px solid rgba(255,255,255,.1);
     border-radius:18px;
     padding:30px;
     text-align:center;
+    box-shadow:0 25px 80px rgba(0,0,0,.55);
 }
 
 .success-icon{
@@ -529,20 +623,20 @@ body{
     justify-content:center;
     margin:0 auto 15px;
     border-radius:50%;
-    background:rgba(50,220,130,.12);
-    color:#35dc88;
-    font-size:28px;
+    background:rgba(255,190,0,.12);
+    color:#ffc44d;
+    font-size:27px;
 }
 
 .success-modal h2{
     font-size:22px;
-    margin-bottom:7px;
+    margin-bottom:8px;
 }
 
 .success-modal p{
     color:#999;
     font-size:13px;
-    line-height:1.6;
+    line-height:1.7;
 }
 
 .member-id{
@@ -562,11 +656,22 @@ body{
 
 .member-id strong{
     color:#ff1e38;
-    font-size:21px;
+    font-size:19px;
     letter-spacing:1px;
 }
 
-/* ================= MOBILE ================= */
+.pending-label{
+    display:inline-block;
+    padding:6px 11px;
+    border-radius:20px;
+    background:rgba(255,190,0,.1);
+    color:#ffc44d;
+    font-size:11px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+/* MOBILE */
 
 @media(max-width:600px){
 
@@ -619,13 +724,21 @@ body{
     .summary-row{
         font-size:12px;
     }
+
+    .qr-image-wrapper{
+        width:200px;
+        height:200px;
+    }
+
+    .qr-payment-box{
+        padding:18px 14px;
+    }
 }
+
 </style>
 </head>
 
 <body>
-
-<!-- ================= BACKGROUND ================= -->
 
 <div class="bg-animations">
     <div class="circle"></div>
@@ -633,8 +746,7 @@ body{
     <div class="circle"></div>
 </div>
 
-
-<!-- ================= NAVBAR ================= -->
+<!-- NAVBAR -->
 
 <nav class="navbar">
 
@@ -660,8 +772,7 @@ body{
 
 </nav>
 
-
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 
 <section class="header-section">
 
@@ -673,8 +784,7 @@ body{
 
 </section>
 
-
-<!-- ================= CHECKOUT ================= -->
+<!-- MAIN -->
 
 <main class="container">
 
@@ -687,8 +797,7 @@ body{
         account and continue with your selected package.
     </p>
 
-
-    <!-- SELECTED PACKAGE -->
+    <!-- PACKAGE -->
 
     <div class="section-title">
         Selected Package
@@ -731,6 +840,7 @@ body{
 
     </div>
 
+    <!-- FORM -->
 
     <form id="checkoutForm">
 
@@ -757,7 +867,6 @@ body{
 
         </div>
 
-
         <!-- NAME -->
 
         <div class="form-group">
@@ -776,7 +885,6 @@ body{
             >
 
         </div>
-
 
         <!-- PHONE -->
 
@@ -799,7 +907,6 @@ body{
 
         </div>
 
-
         <!-- EMAIL -->
 
         <div class="form-group">
@@ -818,7 +925,6 @@ body{
             >
 
         </div>
-
 
         <!-- PASSWORD -->
 
@@ -853,7 +959,6 @@ body{
 
         </div>
 
-
         <!-- PAYMENT -->
 
         <div class="payment-title">
@@ -869,25 +974,109 @@ body{
                 type="radio"
                 name="payment"
                 id="onlinePayment"
-                value="online"
+                value="upi"
             >
 
             <div>
 
                 <div class="payment-main">
-                    UPI / Card / Net Banking
+                    UPI Payment
                 </div>
 
                 <div class="payment-sub">
-                    Secure online payment
+                    Scan QR and pay securely
                 </div>
 
             </div>
 
         </label>
 
+        <!-- QR PAYMENT -->
 
-        <!-- ORDER SUMMARY -->
+        <div
+            class="qr-payment-box"
+            id="qrPaymentBox"
+        >
+
+            <div class="qr-title">
+                Scan & Pay
+            </div>
+
+            <div class="qr-subtitle">
+                Scan the QR code below using your UPI app
+                and complete the payment.
+            </div>
+
+            <div class="qr-image-wrapper">
+
+                <img
+                    src="IMG-20261002-WA0000.jpg"
+                    alt="Skills Market Payment QR"
+                    class="qr-image"
+                >
+
+            </div>
+
+            <div class="pay-amount">
+
+                Pay Amount:
+
+                <strong id="qrAmount">
+                    —
+                </strong>
+
+            </div>
+
+            <div class="upi-id">
+
+                UPI ID:
+
+                <strong>
+                    6265556234@fam
+                </strong>
+
+            </div>
+
+            <div class="qr-note">
+                After completing the payment,
+                enter your UTR / Transaction ID below.
+            </div>
+
+            <div class="form-group">
+
+                <label for="transactionId">
+                    UTR / Transaction ID
+                </label>
+
+                <input
+                    type="text"
+                    id="transactionId"
+                    class="form-control"
+                    placeholder="Enter UTR / Transaction ID"
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <button
+                type="button"
+                class="btn-register"
+                id="paidButton"
+            >
+                I Have Paid →
+            </button>
+
+            <div
+                class="payment-status"
+                id="paymentStatus"
+            >
+                Payment submitted successfully.
+                Your payment is pending verification.
+            </div>
+
+        </div>
+
+        <!-- SUMMARY -->
 
         <div class="order-summary">
 
@@ -936,7 +1125,6 @@ body{
 
         </div>
 
-
         <!-- TERMS -->
 
         <div class="checkbox-group">
@@ -950,10 +1138,13 @@ body{
             <label for="terms">
 
                 I agree to the
+
                 <a href="#">
                     Privacy Policy
                 </a>
+
                 and
+
                 <a href="#">
                     Terms & Conditions
                 </a>.
@@ -961,7 +1152,6 @@ body{
             </label>
 
         </div>
-
 
         <!-- REGISTER -->
 
@@ -972,7 +1162,6 @@ body{
         >
             Register & Pay →
         </button>
-
 
         <div class="footer-text">
 
@@ -990,8 +1179,7 @@ body{
 
 </main>
 
-
-<!-- ================= SUCCESS MODAL ================= -->
+<!-- VERIFICATION MODAL -->
 
 <div
     class="success-overlay"
@@ -1004,12 +1192,19 @@ body{
             ✓
         </div>
 
+        <div class="pending-label">
+            PAYMENT VERIFICATION PENDING
+        </div>
+
         <h2>
-            Registration Created
+            Payment Submitted
         </h2>
 
         <p>
-            Your Skills Market account has been created successfully.
+            Your registration details and payment
+            information have been submitted successfully.
+            Your payment will be verified before your
+            account is activated.
         </p>
 
         <div class="member-id">
@@ -1036,81 +1231,81 @@ body{
 
 </div>
 
-
 <script>
 
-/* ==========================================================
+/* =========================
    PACKAGE DATA
-   ========================================================== */
+========================= */
 
 const packages = {
 
-    starter: {
-        name: "Skill Starter Package",
-        price: 265
+    starter:{
+        name:"Skill Starter Package",
+        price:265
     },
 
-    growth: {
-        name: "Skill Growth Package",
-        price: 520
+    growth:{
+        name:"Skill Growth Package",
+        price:520
     },
 
-    elite: {
-        name: "Skill Elite Package",
-        price: 1299
+    elite:{
+        name:"Skill Elite Package",
+        price:1299
     },
 
-    prime: {
-        name: "Skill Prime Package",
-        price: 2399
+    prime:{
+        name:"Skill Prime Package",
+        price:2399
     },
 
-    premimum: {
-        name: "Skill Premimum Package",
-        price: 4999
+    premimum:{
+        name:"Skill Premimum Package",
+        price:4999
     },
 
-    legacy: {
-        name: "Skill Legacy package",
-        price: 9999
+    legacy:{
+        name:"Skill Legacy package",
+        price:9999
     }
 
 };
 
-
-/* ==========================================================
-   URL PACKAGE
-   ========================================================== */
+/* =========================
+   GET PACKAGE
+========================= */
 
 const params =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+        window.location.search
+    );
 
 let packageCode =
     (params.get("package") || "")
     .trim()
     .toLowerCase();
 
-
-/* ==========================================================
-   ALSO SUPPORT FULL PACKAGE NAMES
-   ========================================================== */
-
 const fullNameMap = {
 
-    "skill starter package": "starter",
+    "skill starter package":
+        "starter",
 
-    "skill growth package": "growth",
+    "skill growth package":
+        "growth",
 
-    "skill elite package": "elite",
+    "skill elite package":
+        "elite",
 
-    "skill prime package": "prime",
+    "skill prime package":
+        "prime",
 
-    "skill premimum package": "premimum",
+    "skill premimum package":
+        "premimum",
 
-    "skill legacy package": "legacy"
+    "skill legacy package":
+        "legacy"
 
 };
-
 
 if(fullNameMap[packageCode]){
 
@@ -1119,52 +1314,66 @@ if(fullNameMap[packageCode]){
 
 }
 
-
-/* ==========================================================
+/* =========================
    ELEMENTS
-   ========================================================== */
+========================= */
 
 const packageNameElement =
-    document.getElementById("packageName");
+    document.getElementById(
+        "packageName"
+    );
 
 const packagePriceElement =
-    document.getElementById("packagePrice");
+    document.getElementById(
+        "packagePrice"
+    );
 
 const summaryPackageElement =
-    document.getElementById("summaryPackage");
+    document.getElementById(
+        "summaryPackage"
+    );
 
 const summaryPriceElement =
-    document.getElementById("summaryPrice");
+    document.getElementById(
+        "summaryPrice"
+    );
 
 const summaryTotalElement =
-    document.getElementById("summaryTotal");
+    document.getElementById(
+        "summaryTotal"
+    );
 
+const qrPaymentBox =
+    document.getElementById(
+        "qrPaymentBox"
+    );
 
-/* ==========================================================
-   SELECTED PACKAGE
-   ========================================================== */
+const qrAmount =
+    document.getElementById(
+        "qrAmount"
+    );
 
 let selectedPackage = null;
 
+/* =========================
+   DISPLAY PACKAGE
+========================= */
 
 if(packages[packageCode]){
 
     selectedPackage =
         packages[packageCode];
 
-
     const formattedPrice =
         "₹" +
         selectedPackage.price
         .toLocaleString("en-IN");
-
 
     packageNameElement.textContent =
         selectedPackage.name;
 
     packagePriceElement.textContent =
         formattedPrice;
-
 
     summaryPackageElement.textContent =
         selectedPackage.name;
@@ -1175,14 +1384,10 @@ if(packages[packageCode]){
     summaryTotalElement.textContent =
         formattedPrice;
 
-}
+    qrAmount.textContent =
+        formattedPrice;
 
-
-/* ==========================================================
-   PACKAGE NOT SELECTED
-   ========================================================== */
-
-else{
+}else{
 
     packageNameElement.textContent =
         "Package Not Selected";
@@ -1201,10 +1406,9 @@ else{
 
 }
 
-
-/* ==========================================================
-   REFERRAL SYSTEM
-   ========================================================== */
+/* =========================
+   REFERRAL
+========================= */
 
 const referralUsers = {
 
@@ -1219,13 +1423,15 @@ const referralUsers = {
 
 };
 
-
 const referral =
-    document.getElementById("referral");
+    document.getElementById(
+        "referral"
+    );
 
 const referralStatus =
-    document.getElementById("referralStatus");
-
+    document.getElementById(
+        "referralStatus"
+    );
 
 referral.addEventListener(
     "input",
@@ -1236,7 +1442,6 @@ referral.addEventListener(
             .trim()
             .toUpperCase();
 
-
         if(code === ""){
 
             referralStatus.className =
@@ -1246,9 +1451,7 @@ referral.addEventListener(
                 "";
 
             return;
-
         }
-
 
         if(referralUsers[code]){
 
@@ -1259,9 +1462,7 @@ referral.addEventListener(
                 "✓ Referral: " +
                 referralUsers[code];
 
-        }
-
-        else{
+        }else{
 
             referralStatus.className =
                 "referral-status error";
@@ -1274,25 +1475,31 @@ referral.addEventListener(
     }
 );
 
-
-/* ==========================================================
-   PASSWORD SHOW / HIDE
-   ========================================================== */
+/* =========================
+   PASSWORD
+========================= */
 
 const password =
-    document.getElementById("password");
+    document.getElementById(
+        "password"
+    );
 
 const passwordToggle =
-    document.getElementById("passwordToggle");
-
+    document.getElementById(
+        "passwordToggle"
+    );
 
 passwordToggle.addEventListener(
     "click",
     function(){
 
-        if(password.type === "password"){
+        if(
+            password.type ===
+            "password"
+        ){
 
-            password.type = "text";
+            password.type =
+                "text";
 
             passwordToggle.textContent =
                 "🙈";
@@ -1302,11 +1509,10 @@ passwordToggle.addEventListener(
                 "Hide password"
             );
 
-        }
+        }else{
 
-        else{
-
-            password.type = "password";
+            password.type =
+                "password";
 
             passwordToggle.textContent =
                 "👁";
@@ -1321,17 +1527,19 @@ passwordToggle.addEventListener(
     }
 );
 
-
-/* ==========================================================
-   PAYMENT METHOD
-   ========================================================== */
+/* =========================
+   PAYMENT OPTION
+========================= */
 
 const paymentOption =
-    document.getElementById("paymentOption");
+    document.getElementById(
+        "paymentOption"
+    );
 
 const paymentRadio =
-    document.getElementById("onlinePayment");
-
+    document.getElementById(
+        "onlinePayment"
+    );
 
 paymentOption.addEventListener(
     "click",
@@ -1344,9 +1552,21 @@ paymentOption.addEventListener(
             "selected"
         );
 
+        if(selectedPackage){
+
+            qrAmount.textContent =
+                "₹" +
+                selectedPackage.price
+                .toLocaleString("en-IN");
+
+        }
+
+        qrPaymentBox.classList.add(
+            "show"
+        );
+
     }
 );
-
 
 paymentRadio.addEventListener(
     "change",
@@ -1358,15 +1578,18 @@ paymentRadio.addEventListener(
                 "selected"
             );
 
+            qrPaymentBox.classList.add(
+                "show"
+            );
+
         }
 
     }
 );
 
-
-/* ==========================================================
+/* =========================
    PHONE
-   ========================================================== */
+========================= */
 
 document
 .getElementById("phone")
@@ -1382,10 +1605,9 @@ document
     }
 );
 
-
-/* ==========================================================
+/* =========================
    MEMBER ID
-   ========================================================== */
+========================= */
 
 function generateMemberId(){
 
@@ -1399,32 +1621,56 @@ function generateMemberId(){
 
 }
 
-
-/* ==========================================================
-   FORM
-   ========================================================== */
+/* =========================
+   FORM ELEMENTS
+========================= */
 
 const form =
-    document.getElementById("checkoutForm");
+    document.getElementById(
+        "checkoutForm"
+    );
 
 const registerButton =
-    document.getElementById("registerButton");
+    document.getElementById(
+        "registerButton"
+    );
 
 const successOverlay =
-    document.getElementById("successOverlay");
+    document.getElementById(
+        "successOverlay"
+    );
 
 const generatedId =
-    document.getElementById("generatedId");
+    document.getElementById(
+        "generatedId"
+    );
 
+const transactionId =
+    document.getElementById(
+        "transactionId"
+    );
 
-form.addEventListener(
-    "submit",
-    function(event){
+const paidButton =
+    document.getElementById(
+        "paidButton"
+    );
 
-        event.preventDefault();
+const paymentStatus =
+    document.getElementById(
+        "paymentStatus"
+    );
 
+/* =========================
+   I HAVE PAID
+========================= */
 
-        /* PACKAGE */
+paidButton.addEventListener(
+    "click",
+    function(){
+
+        const utr =
+            transactionId.value
+            .trim();
 
         if(!selectedPackage){
 
@@ -1436,8 +1682,101 @@ form.addEventListener(
 
         }
 
+        if(!paymentRadio.checked){
 
-        /* PAYMENT */
+            alert(
+                "Please select the payment method."
+            );
+
+            return;
+
+        }
+
+        if(utr === ""){
+
+            alert(
+                "Please enter your UTR / Transaction ID."
+            );
+
+            transactionId.focus();
+
+            return;
+
+        }
+
+        if(utr.length < 6){
+
+            alert(
+                "Please enter a valid UTR / Transaction ID."
+            );
+
+            transactionId.focus();
+
+            return;
+
+        }
+
+        paidButton.disabled =
+            true;
+
+        paidButton.textContent =
+            "Submitting...";
+
+        /*
+           TEMPORARY FRONTEND DEMO
+
+           Later this section will connect
+           to Supabase so the order,
+           transaction ID and user account
+           are stored in the database.
+        */
+
+        setTimeout(
+            function(){
+
+                paymentStatus.classList.add(
+                    "show"
+                );
+
+                paidButton.textContent =
+                    "Payment Submitted ✓";
+
+                const memberId =
+                    generateMemberId();
+
+                generatedId.textContent =
+                    memberId;
+
+                successOverlay.classList.add(
+                    "show"
+                );
+
+            },
+            1000
+        );
+
+    }
+);
+
+/* =========================
+   REGISTER & PAY
+========================= */
+
+form.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+        if(!selectedPackage){
+
+            alert(
+                "Please select a package first."
+            );
+
+            return;
+
+        }
 
         if(!paymentRadio.checked){
 
@@ -1449,14 +1788,10 @@ form.addEventListener(
 
         }
 
-
-        /* REFERRAL */
-
         const referralCode =
             referral.value
             .trim()
             .toUpperCase();
-
 
         if(
             referralCode !== "" &&
@@ -1473,14 +1808,10 @@ form.addEventListener(
 
         }
 
-
-        /* PHONE */
-
         const phone =
             document
             .getElementById("phone")
             .value;
-
 
         if(phone.length !== 10){
 
@@ -1492,57 +1823,29 @@ form.addEventListener(
 
         }
 
-
-        /* PROCESSING */
-
-        registerButton.disabled =
-            true;
-
-        registerButton.textContent =
-            "Processing...";
-
-
         /*
-           FRONTEND DEMO ONLY
+           Registration button does not
+           mark payment as successful.
 
-           Real account creation,
-           database and payment gateway
-           will be connected with backend.
+           User must complete payment
+           and submit UTR below.
         */
 
-        setTimeout(
-            function(){
+        qrPaymentBox.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
 
-                const memberId =
-                    generateMemberId();
-
-
-                generatedId.textContent =
-                    memberId;
-
-
-                successOverlay.classList.add(
-                    "show"
-                );
-
-
-                registerButton.disabled =
-                    false;
-
-                registerButton.textContent =
-                    "Register & Pay →";
-
-            },
-            1200
+        alert(
+            "Please complete the payment using the QR code and then enter your UTR / Transaction ID."
         );
 
     }
 );
 
-
-/* ==========================================================
+/* =========================
    LOGIN
-   ========================================================== */
+========================= */
 
 function goToLogin(){
 
