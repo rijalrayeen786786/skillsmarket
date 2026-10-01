@@ -1,4 +1,5 @@
-<!DOCTYPE html>  <html lang="en">  
+<!DOCTYPE html>  
+<html lang="en">  
 <head>  
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
@@ -8,7 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
 <style>    
 /* =========================================================    
-   SKILLS MARKET — RED & BLACK MASTER CSS    
+   SKILLS MARKET — RED & BLACK MASTER CSS + PARTICLE THEME
 ========================================================= */    
 :root{    
   --bg:#050505;    
@@ -21,7 +22,9 @@
   --border:rgba(255,255,255,.10);    
   --card:rgba(255,255,255,.04);    
   --max:1200px;    
-}    *{
+}    
+
+*{
 margin:0;
 padding:0;
 box-sizing:border-box;
@@ -36,6 +39,24 @@ font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
 background:var(--bg);
 color:var(--white);
 overflow-x:hidden;
+position: relative;
+}
+
+/* Particle Background Canvas Style */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure all content sits above the particle canvas */
+header, .poster-slider, section, footer, .sidebar-overlay, .sidebar-drawer {
+  position: relative;
+  z-index: 1;
 }
 
 img{
@@ -360,9 +381,7 @@ background:var(--red);
 
 /* Hero Section */
 .hero-section{
-background-color:#050505;
-background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(135deg,rgba(229,9,20,.16),transparent 70%);
-background-size:20px 20px,100% 100%;
+background: transparent;
 padding:70px 20px 85px;
 text-align:center;
 color:#fff;
@@ -491,7 +510,8 @@ font-weight:bold;
 
 /* About Section */
 .about-section{
-background:radial-gradient(circle at 50% 0,rgba(229,9,20,.08),transparent 35%),#080808;
+background: rgba(8, 8, 8, 0.85);
+backdrop-filter: blur(4px);
 padding:80px 20px;
 text-align:center;
 }
@@ -574,7 +594,7 @@ background:rgba(255,255,255,.09);
 /* Packages Section */
 .packages-section {
 padding: 60px 20px;
-background-color: #090909;
+background-color: rgba(9, 9, 9, 0.9);
 color: #ffffff;
 }
 
@@ -766,7 +786,7 @@ margin-left: 4px;
 }
 
 /* Additional Sections CSS Extensions */
-.slider-section{padding:70px 0;background:var(--bg2);overflow:hidden}
+.slider-section{padding:70px 0;background:rgba(11, 11, 11, 0.9);overflow:hidden}
 .slider-header{width:min(1200px,calc(100% - 40px));margin:0 auto 35px}
 .card-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 20px 20px;scrollbar-width:none}
 .card-track::-webkit-scrollbar{display:none}
@@ -778,7 +798,7 @@ margin-left: 4px;
 /* Stats Section */
 .stats-section{
 padding:70px 20px;
-background: radial-gradient(circle at 50% 50%, rgba(229, 9, 20, 0.1) 0%, #050505 80%);
+background: rgba(5, 5, 5, 0.9);
 text-align:center;
 }
 .stats-heading{
@@ -857,14 +877,14 @@ background: rgba(255, 255, 255, 0.06);
 border-color: rgba(255, 255, 255, 0.15);
 }
 
-.trust-section{padding:60px 20px;background:var(--bg2);text-align:center}
+.trust-section{padding:60px 20px;background:rgba(11, 11, 11, 0.9);text-align:center}
 .trust-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:20px;margin-top:30px}
 .trust-item{background:var(--card);border:1px solid var(--border);padding:20px 30px;border-radius:16px;display:flex;align-items:center;gap:15px}
 .trust-item span{font-size:24px}
 .trust-item h3{font-size:15px;font-weight:600}
 
 /* How It Works Section Updated Style */
-.how-it-works-section{padding:80px 20px;background:var(--bg);text-align:center}
+.how-it-works-section{padding:80px 20px;background:rgba(5, 5, 5, 0.9);text-align:center}
 .section-heading{font-size:clamp(28px,5vw,42px);font-weight:850;margin:15px 0 50px}
 .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;max-width:1100px;margin:0 auto}
 .step-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px 20px;text-align:center;position:relative;transition:0.3s ease;}
@@ -878,7 +898,7 @@ EXACT MATCH FOUNDER SECTION DESIGN (RED & BLACK THEME)
 ========================================================= */
 .founder-section{
 padding:80px 20px;
-background:var(--bg2);
+background:rgba(11, 11, 11, 0.9);
 text-align:center;
 }
 
@@ -1007,14 +1027,14 @@ color: var(--red);
 .instructor-card h3{font-size:16px;font-weight:700;margin-bottom:5px}
 .instructor-card p{color:var(--text);font-size:13px}
 
-.guidance-section{padding:80px 20px;background:var(--bg);text-align:center}
+.guidance-section{padding:80px 20px;background:rgba(5, 5, 5, 0.9);text-align:center}
 .guidance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;max-width:1100px;margin:40px auto 0}
 .guidance-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;text-align:left}
 .guidance-card span{font-size:30px;display:block;margin-bottom:15px}
 .guidance-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
 .guidance-card p{color:var(--text);font-size:13px;line-height:1.6}
 
-.reviews-section{padding:80px 20px;background:var(--bg2);text-align:center}
+.reviews-section{padding:80px 20px;background:rgba(11, 11, 11, 0.9);text-align:center}
 .review-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 20px 20px;scrollbar-width:none;max-width:1100px;margin:0 auto}
 .review-track::-webkit-scrollbar{display:none}
 .review-card{flex:0 0 350px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:25px;text-align:left;scroll-snap-align:start}
@@ -1027,7 +1047,7 @@ color: var(--red);
 .quote-icon{font-size:32px;color:var(--muted);line-height:1}
 .review-text{color:var(--text);font-size:13px;line-height:1.7}
 
-.faq-section{padding:80px 20px;background:var(--bg);text-align:center}
+.faq-section{padding:80px 20px;background:rgba(5, 5, 5, 0.9);text-align:center}
 .faq-accordion{max-width:800px;margin:40px auto 0;text-align:left}
 .faq-item{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:15px;overflow:hidden}
 .faq-question{display:flex;align-items:center;padding:20px;cursor:pointer;gap:15px}
@@ -1038,7 +1058,7 @@ color: var(--red);
 .faq-answer p{color:var(--text);font-size:13px;line-height:1.7}
 .faq-item.active .faq-answer{display:block}
 
-.certificates-section{padding:80px 20px;background:var(--bg2);text-align:center}
+.certificates-section{padding:80px 20px;background:rgba(11, 11, 11, 0.9);text-align:center}
 .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1000px;margin:40px auto 0}
 .cert-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px 20px;text-align:center}
 .cert-icon{font-size:36px;margin-bottom:15px}
@@ -1046,7 +1066,7 @@ color: var(--red);
 .cert-card p{color:var(--text);font-size:13px}
 
 /* Richind Style Custom Support Card */
-.support-section{padding:80px 20px;background:var(--bg);text-align:center}
+.support-section{padding:80px 20px;background:rgba(5, 5, 5, 0.9);text-align:center}
 .support-card{
 max-width:480px;
 margin:0 auto;
@@ -1287,61 +1307,76 @@ justify-content: space-between;
 </style>
 
 </head>  
-<body>    <!-- =====================================================    
+<body>  
+
+  <!-- Interactive Particle Background Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- =====================================================    
      NAVBAR    
-  ===================================================== -->      <header style="display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#000000; border-bottom:1px solid rgba(255,255,255,0.1); position:sticky; top:0; z-index:1000;">  
+  ===================================================== -->      
+  <header style="display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,0.1); position:sticky; top:0; z-index:1000;">  
     <!-- Logo -->  
     <div style="color:white; font-weight:bold; font-size:1.4rem; cursor:pointer;" onclick="location.href='index.html'">  
         Skills<span style="color:#dc2626;">Market</span>  
-    </div>  <!-- Desktop Menu -->  
-<ul class="nav-desktop-links">  
-    <li><a href="index.html" class="active">HOME</a></li>  
-    <li><a href="about.html">ABOUT US</a></li>  
-    <li><a href="courses.html">COURSE</a></li>  
-    <li><a href="packages.html">PACKAGES ▼</a></li>  
-    <li><a href="contact.html">CONTACT</a></li>  
-</ul>  
+    </div>  
+    <!-- Desktop Menu -->  
+    <ul class="nav-desktop-links">  
+        <li><a href="index.html" class="active">HOME</a></li>  
+        <li><a href="about.html">ABOUT US</a></li>  
+        <li><a href="courses.html">COURSE</a></li>  
+        <li><a href="packages.html">PACKAGES ▼</a></li>  
+        <li><a href="contact.html">CONTACT</a></li>  
+    </ul>  
 
-<!-- Right Side: Desktop Login & Mobile Button -->  
-<div style="display:flex; align-items:center; gap:15px;">  
-    <a href="login.html" class="nav-desktop-login">  
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>  
-            <circle cx="12" cy="7" r="4"></circle>  
-        </svg>  
-        <span>Login</span>  
-    </a>  
+    <!-- Right Side: Desktop Login & Mobile Button -->  
+    <div style="display:flex; align-items:center; gap:15px;">  
+        <a href="login.html" class="nav-desktop-login">  
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>  
+                <circle cx="12" cy="7" r="4"></circle>  
+            </svg>  
+            <span>Login</span>  
+        </a>  
 
-    <button class="nav-mobile-btn" onclick="toggleSidebar()" style="background:#dc2626; border:none; color:white; padding:8px 12px; border-radius:6px; cursor:pointer;">  
-        ☰  
-    </button>  
-</div>
+        <button class="nav-mobile-btn" onclick="toggleSidebar()" style="background:#dc2626; border:none; color:white; padding:8px 12px; border-radius:6px; cursor:pointer;">  
+            ☰  
+        </button>  
+    </div>
+  </header>    
 
-  </header>    <!-- Overlay Background -->    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>    <!-- Red & Black Side Drawer Menu -->    <div class="sidebar-drawer" id="sidebarDrawer">  
+  <!-- Overlay Background -->    
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>    
+  
+  <!-- Red & Black Side Drawer Menu -->    
+  <div class="sidebar-drawer" id="sidebarDrawer">  
       <div class="drawer-header">  
           <div class="drawer-logo">Skills<span style="color:#dc2626;">Market</span></div>  
           <button class="close-btn" onclick="toggleSidebar()">&times;</button>  
-      </div>  <ul class="drawer-menu">  
-      <li><a href="index.html" class="active">Home</a></li>  
-      <li><a href="about.html">About Us</a></li>  
-      <li><a href="courses.html">Course</a></li>  
-      <li><a href="packages.html">Course Packages ▼</a></li>  
-      <li><a href="contact.html">Contact</a></li>  
-        
-      <li style="list-style: none;">  
-          <a href="login.html" class="login-menu-btn">  
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  
-                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>  
-                  <circle cx="12" cy="7" r="4"></circle>  
-              </svg>  
-              <span>Login</span>  
-          </a>  
-      </li>  
-  </ul>
+      </div>  
+      <ul class="drawer-menu">  
+        <li><a href="index.html" class="active">Home</a></li>  
+        <li><a href="about.html">About Us</a></li>  
+        <li><a href="courses.html">Course</a></li>  
+        <li><a href="packages.html">Course Packages ▼</a></li>  
+        <li><a href="contact.html">Contact</a></li>  
+          
+        <li style="list-style: none;">  
+            <a href="login.html" class="login-menu-btn">  
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>  
+                    <circle cx="12" cy="7" r="4"></circle>  
+                </svg>  
+                <span>Login</span>  
+            </a>  
+        </li>  
+      </ul>
+  </div>    
 
-  </div>    <!-- =====================================================    
+  <!-- =====================================================    
      POSTER SLIDER    
-  ===================================================== -->      <div class="poster-slider" id="posterSlider">      
+  ===================================================== -->      
+  <div class="poster-slider" id="posterSlider">      
     <div class="poster active">    
       <img src="IMG-20260930-WA0003.jpg" alt="Coming Soon">    
     </div>      
@@ -1352,15 +1387,18 @@ justify-content: space-between;
       <img src="IMG-20260930-WA0003.jpg" alt="Team collaboration">    
     </div>    
     <button class="poster-btn poster-prev" onclick="changePoster(-1)">‹</button>  
-    <button class="poster-btn poster-next" onclick="changePoster(1)">›</button>  <div class="poster-dots">    
-  <button class="poster-dot active" onclick="showPoster(0)"></button>    
-  <button class="poster-dot" onclick="showPoster(1)"></button>    
-  <button class="poster-dot" onclick="showPoster(2)"></button>    
-</div>
+    <button class="poster-btn poster-next" onclick="changePoster(1)">›</button>  
+    <div class="poster-dots">    
+      <button class="poster-dot active" onclick="showPoster(0)"></button>    
+      <button class="poster-dot" onclick="showPoster(1)"></button>    
+      <button class="poster-dot" onclick="showPoster(2)"></button>    
+    </div>
+  </div>      
 
-  </div>      <!-- =====================================================    
+  <!-- =====================================================    
      HERO    
-  ===================================================== -->      <section class="hero-section" id="home">      
+  ===================================================== -->      
+  <section class="hero-section" id="home">      
     <div class="hero-card-container">    
       <div class="circle-outline"></div>    
       <div class="pink-card">    
@@ -1385,9 +1423,12 @@ justify-content: space-between;
         <div class="arrow-icon">→</div>    
       </a>  
     </div>    
-  </section>      <!-- =====================================================    
+  </section>      
+
+  <!-- =====================================================    
      ABOUT    
-  ===================================================== -->      <section class="about-section reveal">      
+  ===================================================== -->      
+  <section class="about-section reveal">      
     <div class="pill-badge">    
       <span class="badge-icon">⚡</span>    
       <span>LEARN.GROW.EARN</span>    
@@ -1429,296 +1470,307 @@ justify-content: space-between;
         <p>Complete eligible courses and receive certificates where applicable.</p>    
       </div>  
     </div>    
-  </section>      <!-- =====================================================    
+  </section>      
+
+  <!-- =====================================================    
      PACKAGES SECTION    
-  ===================================================== -->    <section class="packages-section" id="packages">  
+  ===================================================== -->    
+  <section class="packages-section" id="packages">  
     <div class="pkg-container">  
         <div class="packages-header">  
             <span class="badge-pill">⚡ Courses & Package</span>  
             <h2>Find Your Perfect Learning <br><span class="highlight-text">Package & Get Started</span></h2>  
-        </div>  <div class="packages-grid">  
-        <!-- 1. Basic Wave -->  
-        <div class="pkg-card">  
-            <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #36070a 0%, #1a0305 70%, #080101 100%);">  
-                <div class="pkg-banner-content">  
-                    <span class="pkg-top-tag" style="color:#ff6b6b;">BASIC WAVE</span>  
-                    <h3>BASIC WAVE <br>PACKAGE</h3>  
-                </div>  
-            </div>  
-            <div class="pkg-action-bar">  
-                <div class="pkg-prices">  
-                    <span class="pkg-current-price">₹449</span>  
-                    <span class="pkg-old-price">₹899</span>  
-                </div>  
-                <button class="pkg-buy-btn">Buy Now ➔</button>  
-            </div>  
-            <div class="pkg-details">  
-                <h3 class="pkg-title">Basic Wave</h3>  
-                <div class="pkg-meta">  
-                    <span>📄 Courses: 3</span>  
-                    <span>⭐ Rating: 3.5</span>  
-                </div>  
-                <div class="pkg-instructor-row">  
-                    <div class="instructor-info">  
-                        <div class="instructor-avatar">R</div>  
-                        <div>  
-                            <h4 class="instructor-name">Richwaveindia</h4>  
-                            <span class="instructor-role">Instructor</span>  
-                        </div>  
-                    </div>  
-                    <div class="instructor-rating">  
-                        <span class="stars">★★★★☆</span>  
-                        <span class="rating-num">(3.5)</span>  
-                    </div>  
-                </div>  
-            </div>  
         </div>  
+        <div class="packages-grid">  
+          <!-- 1. Basic Wave -->  
+          <div class="pkg-card">  
+              <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #36070a 0%, #1a0305 70%, #080101 100%);">  
+                  <div class="pkg-banner-content">  
+                      <span class="pkg-top-tag" style="color:#ff6b6b;">BASIC WAVE</span>  
+                      <h3>BASIC WAVE <br>PACKAGE</h3>  
+                  </div>  
+              </div>  
+              <div class="pkg-action-bar">  
+                  <div class="pkg-prices">  
+                      <span class="pkg-current-price">₹449</span>  
+                      <span class="pkg-old-price">₹899</span>  
+                  </div>  
+                  <button class="pkg-buy-btn">Buy Now ➔</button>  
+              </div>  
+              <div class="pkg-details">  
+                  <h3 class="pkg-title">Basic Wave</h3>  
+                  <div class="pkg-meta">  
+                      <span>📄 Courses: 3</span>  
+                      <span>⭐ Rating: 3.5</span>  
+                  </div>  
+                  <div class="pkg-instructor-row">  
+                      <div class="instructor-info">  
+                          <div class="instructor-avatar">R</div>  
+                          <div>  
+                              <h4 class="instructor-name">Richwaveindia</h4>  
+                              <span class="instructor-role">Instructor</span>  
+                          </div>  
+                      </div>  
+                      <div class="instructor-rating">  
+                          <span class="stars">★★★★☆</span>  
+                          <span class="rating-num">(3.5)</span>  
+                      </div>  
+                  </div>  
+              </div>  
+          </div>  
 
-        <!-- 2. Standard Wave -->  
-        <div class="pkg-card">  
-            <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #42080c 0%, #1c0305 70%, #080101 100%);">  
-                <div class="pkg-banner-content">  
-                    <span class="pkg-top-tag" style="color:#ff6b6b;">STANDARD WAVE</span>  
-                    <h3>STANDARD WAVE <br>PACKAGE</h3>  
-                </div>  
-            </div>  
-            <div class="pkg-action-bar">  
-                <div class="pkg-prices">  
-                    <span class="pkg-current-price">₹749</span>  
-                    <span class="pkg-old-price">₹1499</span>  
-                </div>  
-                <button class="pkg-buy-btn">Buy Now ➔</button>  
-            </div>  
-            <div class="pkg-details">  
-                <h3 class="pkg-title">Standard Wave</h3>  
-                <div class="pkg-meta">  
-                    <span>📄 Courses: 6</span>  
-                    <span>⭐ Rating: 3.5</span>  
-                </div>  
-                <div class="pkg-instructor-row">  
-                    <div class="instructor-info">  
-                        <div class="instructor-avatar">R</div>  
-                        <div>  
-                            <h4 class="instructor-name">Richwaveindia</h4>  
-                            <span class="instructor-role">Instructor</span>  
-                        </div>  
-                    </div>  
-                    <div class="instructor-rating">  
-                        <span class="stars">★★★★☆</span>  
-                        <span class="rating-num">(3.5)</span>  
-                    </div>  
-                </div>  
-            </div>  
+          <!-- 2. Standard Wave -->  
+          <div class="pkg-card">  
+              <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #42080c 0%, #1c0305 70%, #080101 100%);">  
+                  <div class="pkg-banner-content">  
+                      <span class="pkg-top-tag" style="color:#ff6b6b;">STANDARD WAVE</span>  
+                      <h3>STANDARD WAVE <br>PACKAGE</h3>  
+                  </div>  
+              </div>  
+              <div class="pkg-action-bar">  
+                  <div class="pkg-prices">  
+                      <span class="pkg-current-price">₹749</span>  
+                      <span class="pkg-old-price">₹1499</span>  
+                  </div>  
+                  <button class="pkg-buy-btn">Buy Now ➔</button>  
+              </div>  
+              <div class="pkg-details">  
+                  <h3 class="pkg-title">Standard Wave</h3>  
+                  <div class="pkg-meta">  
+                      <span>📄 Courses: 6</span>  
+                      <span>⭐ Rating: 3.5</span>  
+                  </div>  
+                  <div class="pkg-instructor-row">  
+                      <div class="instructor-info">  
+                          <div class="instructor-avatar">R</div>  
+                          <div>  
+                              <h4 class="instructor-name">Richwaveindia</h4>  
+                              <span class="instructor-role">Instructor</span>  
+                          </div>  
+                      </div>  
+                      <div class="instructor-rating">  
+                          <span class="stars">★★★★☆</span>  
+                          <span class="rating-num">(3.5)</span>  
+                      </div>  
+                  </div>  
+              </div>  
+          </div>  
+
+          <!-- 3. E-Lite Wave -->  
+          <div class="pkg-card">  
+              <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #520a0f 0%, #200406 70%, #080101 100%);">  
+                  <div class="pkg-banner-content">  
+                      <span class="pkg-top-tag" style="color:#ff6b6b;">E-LITE WAVE</span>  
+                      <h3>E-LITE WAVE <br>PACKAGE</h3>  
+                  </div>  
+              </div>  
+              <div class="pkg-action-bar">  
+                  <div class="pkg-prices">  
+                      <span class="pkg-current-price">₹1449</span>  
+                      <span class="pkg-old-price">₹2899</span>  
+                  </div>  
+                  <button class="pkg-buy-btn">Buy Now ➔</button>  
+              </div>  
+              <div class="pkg-details">  
+                  <h3 class="pkg-title">E-Lite Wave</h3>  
+                  <div class="pkg-meta">  
+                      <span>📄 Courses: 10</span>  
+                      <span>⭐ Rating: 4.0</span>  
+                  </div>  
+                  <div class="pkg-instructor-row">  
+                      <div class="instructor-info">  
+                          <div class="instructor-avatar">R</div>  
+                          <div>  
+                              <h4 class="instructor-name">Richwaveindia</h4>  
+                              <span class="instructor-role">Instructor</span>  
+                          </div>  
+                      </div>  
+                      <div class="instructor-rating">  
+                          <span class="stars">★★★★☆</span>  
+                          <span class="rating-num">(4.0)</span>  
+                      </div>  
+                  </div>  
+              </div>  
+          </div>  
+
+          <!-- 4. Expert Wave -->  
+          <div class="pkg-card">  
+              <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #630c12 0%, #240407 70%, #080101 100%);">  
+                  <div class="pkg-banner-content">  
+                      <span class="pkg-top-tag" style="color:#ff6b6b;">EXPERT WAVE</span>  
+                      <h3>EXPERT WAVE <br>PACKAGE</h3>  
+                  </div>  
+              </div>  
+              <div class="pkg-action-bar">  
+                  <div class="pkg-prices">  
+                      <span class="pkg-current-price">₹2649</span>  
+                      <span class="pkg-old-price">₹5298</span>  
+                  </div>  
+                  <button class="pkg-buy-btn">Buy Now ➔</button>  
+              </div>  
+              <div class="pkg-details">  
+                  <h3 class="pkg-title">Expert Wave</h3>  
+                  <div class="pkg-meta">  
+                      <span>📄 Courses: 13</span>  
+                      <span>⭐ Rating: 4.5</span>  
+                  </div>  
+                  <div class="pkg-instructor-row">  
+                      <div class="instructor-info">  
+                          <div class="instructor-avatar">R</div>  
+                          <div>  
+                              <h4 class="instructor-name">Richwaveindia</h4>  
+                              <span class="instructor-role">Instructor</span>  
+                          </div>  
+                      </div>  
+                      <div class="instructor-rating">  
+                          <span class="stars">★★★★★</span>  
+                          <span class="rating-num">(4.5)</span>  
+                      </div>  
+                  </div>  
+              </div>  
+          </div>  
+
+          <!-- 5. Prime Wave -->  
+          <div class="pkg-card">  
+              <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #750e16 0%, #2b0509 70%, #080101 100%);">  
+                  <div class="pkg-banner-content">  
+                      <span class="pkg-top-tag" style="color:#ff6b6b;">PRIME WAVE</span>  
+                      <h3 style="color:#fff;">PRIME WAVE <br>PACKAGE</h3>  
+                  </div>  
+              </div>  
+              <div class="pkg-action-bar">  
+                  <div class="pkg-prices">  
+                      <span class="pkg-current-price">₹5499</span>  
+                      <span class="pkg-old-price">₹10999</span>  
+                  </div>  
+                  <button class="pkg-buy-btn">Buy Now ➔</button>  
+              </div>  
+              <div class="pkg-details">  
+                  <h3 class="pkg-title">Prime Wave</h3>  
+                  <div class="pkg-meta">  
+                      <span>📄 Courses: 15</span>  
+                      <span>⭐ Rating: 5.0</span>  
+                  </div>  
+                  <div class="pkg-instructor-row">  
+                      <div class="instructor-info">  
+                          <div class="instructor-avatar">R</div>  
+                          <div>  
+                              <h4 class="instructor-name">Richwaveindia</h4>  
+                              <span class="instructor-role">Instructor</span>  
+                          </div>  
+                      </div>  
+                      <div class="instructor-rating">  
+                          <span class="stars">★★★★★</span>  
+                          <span class="rating-num">(5.0)</span>  
+                      </div>  
+                  </div>  
+              </div>  
+          </div>  
+
+          <!-- 6. Premium Wave -->  
+          <div class="pkg-card">  
+              <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #8a101a 0%, #33060b 70%, #080101 100%);">  
+                  <div class="pkg-banner-content">  
+                      <span class="pkg-top-tag" style="color:#ff6b6b;">PREMIUM WAVE</span>  
+                      <h3 style="color:#fff;">PREMIUM WAVE <br>PACKAGE</h3>  
+                  </div>  
+              </div>  
+              <div class="pkg-action-bar">  
+                  <div class="pkg-prices">  
+                      <span class="pkg-current-price">₹10999</span>  
+                      <span class="pkg-old-price">₹20999</span>  
+                  </div>  
+                  <button class="pkg-buy-btn">Buy Now ➔</button>  
+              </div>  
+              <div class="pkg-details">  
+                  <h3 class="pkg-title">Premium Wave</h3>  
+                  <div class="pkg-meta">  
+                      <span>📄 Courses: 18</span>  
+                      <span>⭐ Rating: 5.0</span>  
+                  </div>  
+                  <div class="pkg-instructor-row">  
+                      <div class="instructor-info">  
+                          <div class="instructor-avatar">R</div>  
+                          <div>  
+                              <h4 class="instructor-name">Richwaveindia</h4>  
+                              <span class="instructor-role">Instructor</span>  
+                          </div>  
+                      </div>  
+                      <div class="instructor-rating">  
+                          <span class="stars">★★★★★</span>  
+                          <span class="rating-num">(5.0)</span>  
+                      </div>  
+                  </div>  
+              </div>  
+          </div>  
         </div>  
+    </div>
+  </section>    
 
-        <!-- 3. E-Lite Wave -->  
-        <div class="pkg-card">  
-            <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #520a0f 0%, #200406 70%, #080101 100%);">  
-                <div class="pkg-banner-content">  
-                    <span class="pkg-top-tag" style="color:#ff6b6b;">E-LITE WAVE</span>  
-                    <h3>E-LITE WAVE <br>PACKAGE</h3>  
-                </div>  
-            </div>  
-            <div class="pkg-action-bar">  
-                <div class="pkg-prices">  
-                    <span class="pkg-current-price">₹1449</span>  
-                    <span class="pkg-old-price">₹2899</span>  
-                </div>  
-                <button class="pkg-buy-btn">Buy Now ➔</button>  
-            </div>  
-            <div class="pkg-details">  
-                <h3 class="pkg-title">E-Lite Wave</h3>  
-                <div class="pkg-meta">  
-                    <span>📄 Courses: 10</span>  
-                    <span>⭐ Rating: 4.0</span>  
-                </div>  
-                <div class="pkg-instructor-row">  
-                    <div class="instructor-info">  
-                        <div class="instructor-avatar">R</div>  
-                        <div>  
-                            <h4 class="instructor-name">Richwaveindia</h4>  
-                            <span class="instructor-role">Instructor</span>  
-                        </div>  
-                    </div>  
-                    <div class="instructor-rating">  
-                        <span class="stars">★★★★☆</span>  
-                        <span class="rating-num">(4.0)</span>  
-                    </div>  
-                </div>  
-            </div>  
-        </div>  
-
-        <!-- 4. Expert Wave -->  
-        <div class="pkg-card">  
-            <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #630c12 0%, #240407 70%, #080101 100%);">  
-                <div class="pkg-banner-content">  
-                    <span class="pkg-top-tag" style="color:#ff6b6b;">EXPERT WAVE</span>  
-                    <h3>EXPERT WAVE <br>PACKAGE</h3>  
-                </div>  
-            </div>  
-            <div class="pkg-action-bar">  
-                <div class="pkg-prices">  
-                    <span class="pkg-current-price">₹2649</span>  
-                    <span class="pkg-old-price">₹5298</span>  
-                </div>  
-                <button class="pkg-buy-btn">Buy Now ➔</button>  
-            </div>  
-            <div class="pkg-details">  
-                <h3 class="pkg-title">Expert Wave</h3>  
-                <div class="pkg-meta">  
-                    <span>📄 Courses: 13</span>  
-                    <span>⭐ Rating: 4.5</span>  
-                </div>  
-                <div class="pkg-instructor-row">  
-                    <div class="instructor-info">  
-                        <div class="instructor-avatar">R</div>  
-                        <div>  
-                            <h4 class="instructor-name">Richwaveindia</h4>  
-                            <span class="instructor-role">Instructor</span>  
-                        </div>  
-                    </div>  
-                    <div class="instructor-rating">  
-                        <span class="stars">★★★★★</span>  
-                        <span class="rating-num">(4.5)</span>  
-                    </div>  
-                </div>  
-            </div>  
-        </div>  
-
-        <!-- 5. Prime Wave -->  
-        <div class="pkg-card">  
-            <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #750e16 0%, #2b0509 70%, #080101 100%);">  
-                <div class="pkg-banner-content">  
-                    <span class="pkg-top-tag" style="color:#ff6b6b;">PRIME WAVE</span>  
-                    <h3 style="color:#fff;">PRIME WAVE <br>PACKAGE</h3>  
-                </div>  
-            </div>  
-            <div class="pkg-action-bar">  
-                <div class="pkg-prices">  
-                    <span class="pkg-current-price">₹5499</span>  
-                    <span class="pkg-old-price">₹10999</span>  
-                </div>  
-                <button class="pkg-buy-btn">Buy Now ➔</button>  
-            </div>  
-            <div class="pkg-details">  
-                <h3 class="pkg-title">Prime Wave</h3>  
-                <div class="pkg-meta">  
-                    <span>📄 Courses: 15</span>  
-                    <span>⭐ Rating: 5.0</span>  
-                </div>  
-                <div class="pkg-instructor-row">  
-                    <div class="instructor-info">  
-                        <div class="instructor-avatar">R</div>  
-                        <div>  
-                            <h4 class="instructor-name">Richwaveindia</h4>  
-                            <span class="instructor-role">Instructor</span>  
-                        </div>  
-                    </div>  
-                    <div class="instructor-rating">  
-                        <span class="stars">★★★★★</span>  
-                        <span class="rating-num">(5.0)</span>  
-                    </div>  
-                </div>  
-            </div>  
-        </div>  
-
-        <!-- 6. Premium Wave -->  
-        <div class="pkg-card">  
-            <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #8a101a 0%, #33060b 70%, #080101 100%);">  
-                <div class="pkg-banner-content">  
-                    <span class="pkg-top-tag" style="color:#ff6b6b;">PREMIUM WAVE</span>  
-                    <h3 style="color:#fff;">PREMIUM WAVE <br>PACKAGE</h3>  
-                </div>  
-            </div>  
-            <div class="pkg-action-bar">  
-                <div class="pkg-prices">  
-                    <span class="pkg-current-price">₹10999</span>  
-                    <span class="pkg-old-price">₹20999</span>  
-                </div>  
-                <button class="pkg-buy-btn">Buy Now ➔</button>  
-            </div>  
-            <div class="pkg-details">  
-                <h3 class="pkg-title">Premium Wave</h3>  
-                <div class="pkg-meta">  
-                    <span>📄 Courses: 18</span>  
-                    <span>⭐ Rating: 5.0</span>  
-                </div>  
-                <div class="pkg-instructor-row">  
-                    <div class="instructor-info">  
-                        <div class="instructor-avatar">R</div>  
-                        <div>  
-                            <h4 class="instructor-name">Richwaveindia</h4>  
-                            <span class="instructor-role">Instructor</span>  
-                        </div>  
-                    </div>  
-                    <div class="instructor-rating">  
-                        <span class="stars">★★★★★</span>  
-                        <span class="rating-num">(5.0)</span>  
-                    </div>  
-                </div>  
-            </div>  
-        </div>  
-
-    </div>  
-</div>
-
-  </section>    <!-- =====================================================    
+  <!-- =====================================================    
      CATEGORIES    
-  ===================================================== -->      <section class="slider-section reveal" id="categories">    
+  ===================================================== -->      
+  <section class="slider-section reveal" id="categories">    
     <div class="slider-header">    
       <div class="section-label">EXPLORE</div>    
       <h2 class="section-title">Popular Categories</h2>    
       <p class="section-subtitle" style="margin-left:0;">Explore different areas and discover the skills you want to build.</p>    
-    </div>    <div class="card-track" id="categoryTrack">    
-  <div class="category-card">    
-    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=85" alt="Web Development">    
-    <div class="category-content"><h3>Web Development</h3></div>    
-  </div>    
-  <div class="category-card">    
-    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=85" alt="Digital Marketing">    
-    <div class="category-content"><h3>Digital Marketing</h3></div>    
-  </div>    
-  <div class="category-card">    
-    <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=85" alt="Business">    
-    <div class="category-content"><h3>Business</h3></div>    
-  </div>    
-  <div class="category-card">    
-    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=85" alt="Personal Growth">    
-    <div class="category-content"><h3>Personal Growth</h3></div>    
-  </div>    
-</div>
+    </div>    
+    <div class="card-track" id="categoryTrack">    
+      <div class="category-card">    
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=85" alt="Web Development">    
+        <div class="category-content"><h3>Web Development</h3></div>    
+      </div>    
+      <div class="category-card">    
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=85" alt="Digital Marketing">    
+        <div class="category-content"><h3>Digital Marketing</h3></div>    
+      </div>    
+      <div class="category-card">    
+        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=85" alt="Business">    
+        <div class="category-content"><h3>Business</h3></div>    
+      </div>    
+      <div class="category-card">    
+        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=85" alt="Personal Growth">    
+        <div class="category-content"><h3>Personal Growth</h3></div>    
+      </div>    
+    </div>
+  </section>      
 
-  </section>      <!-- =====================================================    
+  <!-- =====================================================    
      IMPACT SECTION    
-  ===================================================== -->      <section class="stats-section reveal">    
-    <h2 class="stats-heading">Our Impact In <span class="gradient-text">Numbers</span></h2>    <div class="stats-grid">    
-  <div class="stat-card">    
-    <div><h3 class="counter" data-target="20">0</h3><span class="plus">+</span></div>    
-    <p>Expert Trainers</p>    
-  </div>    
-  <div class="stat-card">    
-    <div><h3 class="counter" data-target="300">0</h3><span class="plus">K+</span></div>    
-    <p>Active Students</p>    
-  </div>    
-  <div class="stat-card">    
-    <div><h3 class="counter" data-target="500">0</h3><span class="plus">+</span></div>    
-    <p>Live Sessions</p>    
-  </div>    
-  <div class="stat-card">    
-    <div><span style="font-size: clamp(24px, 5vw, 34px); font-weight: 850; color: #fff;">$</span><h3 class="counter" data-target="200">0</h3><span class="plus">M+</span></div>    
-    <p>Community Earning</p>    
-  </div>    
-</div>    
+  ===================================================== -->      
+  <section class="stats-section reveal">    
+    <h2 class="stats-heading">Our Impact In <span class="gradient-text">Numbers</span></h2>    
+    <div class="stats-grid">    
+      <div class="stat-card">    
+        <div><h3 class="counter" data-target="20">0</h3><span class="plus">+</span></div>    
+        <p>Expert Trainers</p>    
+      </div>    
+      <div class="stat-card">    
+        <div><h3 class="counter" data-target="300">0</h3><span class="plus">K+</span></div>    
+        <p>Active Students</p>    
+      </div>    
+      <div class="stat-card">    
+        <div><h3 class="counter" data-target="500">0</h3><span class="plus">+</span></div>    
+        <p>Live Sessions</p>    
+      </div>    
+      <div class="stat-card">    
+        <div><span style="font-size: clamp(24px, 5vw, 34px); font-weight: 850; color: #fff;">$</span><h3 class="counter" data-target="200">0</h3><span class="plus">M+</span></div>    
+        <p>Community Earning</p>    
+      </div>    
+    </div>    
 
-<div class="badges-container">    
-  <div class="stat-badge">🏆 #1 Trading Platform</div>    
-  <div class="stat-badge">⭐ 4.9/5 Rating</div>    
-  <div class="stat-badge">🚀 98% Success Rate</div>    
-</div>
+    <div class="badges-container">    
+      <div class="stat-badge">🏆 #1 Trading Platform</div>    
+      <div class="stat-badge">⭐ 4.9/5 Rating</div>    
+      <div class="stat-badge">🚀 98% Success Rate</div>    
+    </div>
+  </section>      
 
-  </section>      <!-- =====================================================    
+  <!-- =====================================================    
      TRUST    
-  ===================================================== -->      <section class="trust-section reveal">    
+  ===================================================== -->      
+  <section class="trust-section reveal">    
     <div class="section-label">WHY US</div>    
     <h2 class="section-title">Built Around Your Growth</h2>    
     <div class="trust-grid">    
@@ -1726,44 +1778,50 @@ justify-content: space-between;
       <div class="trust-item"><span>⭐</span><h3>Student Focused</h3></div>    
       <div class="trust-item"><span>🚀</span><h3>Growing Community</h3></div>    
     </div>    
-  </section>      <!-- =====================================================    
+  </section>      
+
+  <!-- =====================================================    
      HOW IT WORKS (Updated 5 Steps)    
-  ===================================================== -->      <section class="how-it-works-section reveal">    
+  ===================================================== -->      
+  <section class="how-it-works-section reveal">    
     <div class="pill-badge">    
       <span class="badge-icon">⚡</span>    
       <span>HOW IT WORKS</span>    
     </div>    
-    <h2 class="section-heading">Your <span class="gradient-text">Gateway</span> to<br>Success</h2>    <div class="steps-grid">    
-  <div class="step-card">    
-    <div class="step-icon">👤</div>    
-    <span class="step-number">STEP 01</span>    
-    <h3 class="step-title">Create Your Account</h3>    
-  </div>    
-  <div class="step-card">    
-    <div class="step-icon">📦</div>    
-    <span class="step-number">STEP 02</span>    
-    <h3 class="step-title">Choose Your Package</h3>    
-  </div>    
-  <div class="step-card">    
-    <div class="step-icon">💳</div>    
-    <span class="step-number">STEP 03</span>    
-    <h3 class="step-title">Confirm Your Payment</h3>    
-  </div>    
-  <div class="step-card">    
-    <div class="step-icon">💻</div>    
-    <span class="step-number">STEP 04</span>    
-    <h3 class="step-title">Start Learning</h3>    
-  </div>    
-  <div class="step-card">    
-    <div class="step-icon">💰</div>    
-    <span class="step-number">STEP 05</span>    
-    <h3 class="step-title">Start Earning</h3>    
-  </div>    
-</div>
+    <h2 class="section-heading">Your <span class="gradient-text">Gateway</span> to<br>Success</h2>    
+    <div class="steps-grid">    
+      <div class="step-card">    
+        <div class="step-icon">👤</div>    
+        <span class="step-number">STEP 01</span>    
+        <h3 class="step-title">Create Your Account</h3>    
+      </div>    
+      <div class="step-card">    
+        <div class="step-icon">📦</div>    
+        <span class="step-number">STEP 02</span>    
+        <h3 class="step-title">Choose Your Package</h3>    
+      </div>    
+      <div class="step-card">    
+        <div class="step-icon">💳</div>    
+        <span class="step-number">STEP 03</span>    
+        <h3 class="step-title">Confirm Your Payment</h3>    
+      </div>    
+      <div class="step-card">    
+        <div class="step-icon">💻</div>    
+        <span class="step-number">STEP 04</span>    
+        <h3 class="step-title">Start Learning</h3>    
+      </div>    
+      <div class="step-card">    
+        <div class="step-icon">💰</div>    
+        <span class="step-number">STEP 05</span>    
+        <h3 class="step-title">Start Earning</h3>    
+      </div>    
+    </div>
+  </section>      
 
-  </section>      <!-- =====================================================    
+  <!-- =====================================================    
      FOUNDER SECTION    
-  ===================================================== -->      <section class="founder-section reveal" id="founder">    
+  ===================================================== -->      
+  <section class="founder-section reveal" id="founder">    
     <div class="founder-info-header">  
       <span class="founder-designation-top">Mr. Yash Kulshrestha</span>  
       <h2 class="founder-main-title">CEO & Founder of Skills Market</h2>  
@@ -1773,82 +1831,88 @@ justify-content: space-between;
       <p class="founder-bio-text">  
         He has helped more than 20K+ students in learning new skill. He is guiding now 10k people about social media marketing in this company.  
       </p>  
-    </div>    <div class="founder-card-box">  
-  <div class="founder-avatar-wrap">  
-    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85" alt="Founder Yash Kulshrestha">    
-  </div>  
-  <h3 class="founder-name-card">Yash Kulshrestha</h3>  
-  <p class="founder-role-card">Founder & CEO</p>  
+    </div>    
+    <div class="founder-card-box">  
+      <div class="founder-avatar-wrap">  
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85" alt="Founder Yash Kulshrestha">    
+      </div>  
+      <h3 class="founder-name-card">Yash Kulshrestha</h3>  
+      <p class="founder-role-card">Founder & CEO</p>  
 
-  <div class="founder-social-row">  
-    <a href="#" class="founder-soc-btn"><i class="fab fa-facebook-f"></i></a>  
-    <a href="#" class="founder-soc-btn"><i class="fab fa-twitter"></i></a>  
-    <a href="#" class="founder-soc-btn"><i class="fab fa-whatsapp"></i></a>  
-    <a href="#" class="founder-soc-btn"><i class="fab fa-instagram"></i></a>  
-  </div>  
+      <div class="founder-social-row">  
+        <a href="#" class="founder-soc-btn"><i class="fab fa-facebook-f"></i></a>  
+        <a href="#" class="founder-soc-btn"><i class="fab fa-twitter"></i></a>  
+        <a href="#" class="founder-soc-btn"><i class="fab fa-whatsapp"></i></a>  
+        <a href="#" class="founder-soc-btn"><i class="fab fa-instagram"></i></a>  
+      </div>  
 
-  <a href="#home" class="vertical-top-text">GO BACK TOP</a>  
-</div>
+      <a href="#home" class="vertical-top-text">GO BACK TOP</a>  
+    </div>
+  </section>      
 
-  </section>      <!-- =====================================================    
+  <!-- =====================================================    
      OUR INDUSTRY EXPERTS / INSTRUCTOR SECTION    
-  ===================================================== -->      <section class="slider-section reveal" id="instructors">    
+  ===================================================== -->      
+  <section class="slider-section reveal" id="instructors">    
     <div class="container center">    
       <div class="pill-badge" style="margin-bottom: 12px;">    
         <span class="badge-icon">⚡</span>    
         <span>OUR INDUSTRY EXPERTS</span>    
       </div>    
       <h2 class="section-title" style="margin-bottom: 40px;">OUR <span class="gradient-text">INSTRUCTORS</span></h2>    
-    </div>    <div class="card-track" id="expertInstructorTrack">    
-  <div class="instructor-card">    
-    <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
-      <img src="IMG-20260930-WA0003.jpg" alt="Fardeen Khan">    
-    </div>  
-    <h3>Fardeen Khan</h3>    
-    <p>Personality Development Trainer</p>    
-  </div>    
+    </div>    
+    <div class="card-track" id="expertInstructorTrack">    
+      <div class="instructor-card">    
+        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
+          <img src="IMG-20260930-WA0003.jpg" alt="Fardeen Khan">    
+        </div>  
+        <h3>Fardeen Khan</h3>    
+        <p>Personality Development Trainer</p>    
+      </div>    
 
-  <div class="instructor-card">    
-    <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
-      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=85" alt="Ayesha Sharma">    
-    </div>  
-    <h3>Ayesha Sharma</h3>    
-    <p>Digital Marketing Expert</p>    
-  </div>    
+      <div class="instructor-card">    
+        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=85" alt="Ayesha Sharma">    
+        </div>  
+        <h3>Ayesha Sharma</h3>    
+        <p>Digital Marketing Expert</p>    
+      </div>    
 
-  <div class="instructor-card">    
-    <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=85" alt="Rahul Verma">    
-    </div>  
-    <h3>Rahul Verma</h3>    
-    <p>Full Stack Web Developer</p>    
-  </div>    
+      <div class="instructor-card">    
+        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=85" alt="Rahul Verma">    
+        </div>  
+        <h3>Rahul Verma</h3>    
+        <p>Full Stack Web Developer</p>    
+      </div>    
 
-  <div class="instructor-card">    
-    <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
-      <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=500&q=85" alt="Neha Singh">    
-    </div>  
-    <h3>Neha Singh</h3>    
-    <p>UI/UX & Graphic Designer</p>    
-  </div>    
+      <div class="instructor-card">    
+        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=500&q=85" alt="Neha Singh">    
+        </div>  
+        <h3>Neha Singh</h3>    
+        <p>UI/UX & Graphic Designer</p>    
+      </div>    
 
-  <div class="instructor-card">    
-    <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
-      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=85" alt="Amit Patel">    
-    </div>  
-    <h3>Amit Patel</h3>    
-    <p>Business & Growth Mentor</p>    
-  </div>    
-</div>    
+      <div class="instructor-card">    
+        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">  
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=85" alt="Amit Patel">    
+        </div>  
+        <h3>Amit Patel</h3>    
+        <p>Business & Growth Mentor</p>    
+      </div>    
+    </div>    
 
-<div style="display: flex; justify-content: center; gap: 15px; margin-top: 25px;">  
-  <button onclick="scrollExpertTrack(-1)" style="width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; font-size: 20px; cursor: pointer; display: grid; place-items: center; transition: 0.3s;">←</button>  
-  <button onclick="scrollExpertTrack(1)" style="width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; font-size: 20px; cursor: pointer; display: grid; place-items: center; transition: 0.3s;">→</button>  
-</div>
+    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 25px;">  
+      <button onclick="scrollExpertTrack(-1)" style="width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; font-size: 20px; cursor: pointer; display: grid; place-items: center; transition: 0.3s;">←</button>  
+      <button onclick="scrollExpertTrack(1)" style="width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; font-size: 20px; cursor: pointer; display: grid; place-items: center; transition: 0.3s;">→</button>  
+    </div>
+  </section>      
 
-  </section>      <!-- =====================================================    
+  <!-- =====================================================    
      GUIDANCE    
-  ===================================================== -->      <section class="guidance-section reveal">    
+  ===================================================== -->      
+  <section class="guidance-section reveal">    
     <div class="section-label">WHY SKILLS MARKET</div>    
     <h2 class="section-title">Unlock Your Potential With <span class="gradient-text">Expert Guidance</span></h2>    
     <div class="guidance-grid">    
@@ -1868,153 +1932,168 @@ justify-content: space-between;
         <p>Learn at your pace and focus on practical skills you can develop over time.</p>    
       </div>    
     </div>    
-  </section>      <!-- =====================================================    
+  </section>      
+
+  <!-- =====================================================    
      REVIEWS    
-  ===================================================== -->      <section class="reviews-section reveal">    
+  ===================================================== -->      
+  <section class="reviews-section reveal">    
     <div class="pill-badge">    
       <span class="badge-icon">⚡</span>    
       <span>STUDENT REVIEWS</span>    
     </div>    
-    <h2 class="section-heading">What Our <span class="gradient-text">Students</span> Think</h2>    <div class="review-track" id="reviewTrack">    
-  <div class="review-card">    
-    <div class="card-header">    
-      <div class="user-info">    
-        <img src="https://i.pravatar.cc/100?img=47" alt="Student" class="user-avatar">    
-        <div>    
-          <h3 class="user-name">Student Review <span class="verified-tick">✔</span></h3>    
-          <div class="star-rating">⭐⭐⭐⭐⭐</div>    
+    <h2 class="section-heading">What Our <span class="gradient-text">Students</span> Think</h2>    
+    <div class="review-track" id="reviewTrack">    
+      <div class="review-card">    
+        <div class="card-header">    
+          <div class="user-info">    
+            <img src="https://i.pravatar.cc/100?img=47" alt="Student" class="user-avatar">    
+            <div>    
+              <h3 class="user-name">Student Review <span class="verified-tick">✔</span></h3>    
+              <div class="star-rating">⭐⭐⭐⭐⭐</div>    
+            </div>    
+          </div>    
+          <span class="quote-icon">”</span>    
         </div>    
+        <p class="review-text">    
+          “Skills Market ka learning experience simple aur useful laga.    
+          Practical skills explore karne ke liye platform kaafi relevant hai.”    
+        </p>    
       </div>    
-      <span class="quote-icon">”</span>    
-    </div>    
-    <p class="review-text">    
-      “Skills Market ka learning experience simple aur useful laga.    
-      Practical skills explore karne ke liye platform kaafi relevant hai.”    
-    </p>    
-  </div>    
 
-  <div class="review-card">    
-    <div class="card-header">    
-      <div class="user-info">    
-        <img src="https://i.pravatar.cc/100?img=32" alt="Student" class="user-avatar">    
-        <div>    
-          <h3 class="user-name">Student Review <span class="verified-tick">✔</span></h3>    
-          <div class="star-rating">⭐⭐⭐⭐⭐</div>    
+      <div class="review-card">    
+        <div class="card-header">    
+          <div class="user-info">    
+            <img src="https://i.pravatar.cc/100?img=32" alt="Student" class="user-avatar">    
+            <div>    
+              <h3 class="user-name">Student Review <span class="verified-tick">✔</span></h3>    
+              <div class="star-rating">⭐⭐⭐⭐⭐</div>    
+            </div>    
+          </div>    
+          <span class="quote-icon">”</span>    
         </div>    
+        <p class="review-text">    
+          “Platform ka structure easy to understand hai aur different    
+          digital skills ko explore karne ka clear direction milta hai.”    
+        </p>    
       </div>    
-      <span class="quote-icon">”</span>    
-    </div>    
-    <p class="review-text">    
-      “Platform ka structure easy to understand hai aur different    
-      digital skills ko explore karne ka clear direction milta hai.”    
-    </p>    
-  </div>    
-</div>
+    </div>
+  </section>      
 
-  </section>      <!-- =====================================================    
+  <!-- =====================================================    
      FAQ    
-  ===================================================== -->      <section class="faq-section reveal" id="faq">    
+  ===================================================== -->      
+  <section class="faq-section reveal" id="faq">    
     <div class="pill-badge">    
       <span class="badge-icon">⚡</span>    
       <span>FAQS</span>    
     </div>    
-    <h2 class="section-heading"><span class="gradient-text">Quick Answers</span> to Common Questions.</h2>    <div class="faq-accordion">    
-  <div class="faq-item active">    
-    <div class="faq-question">    
-      <span class="faq-number">01</span>    
-      <h3>Skills Market kya hai?</h3>    
-      <span class="faq-toggle">−</span>    
-    </div>    
-    <div class="faq-answer">    
-      <p>Skills Market ek digital learning platform hai jo practical skills, courses aur learning resources ko simple experience mein connect karne ke liye build kiya ja raha hai.</p>    
-    </div>    
-  </div>    
+    <h2 class="section-heading"><span class="gradient-text">Quick Answers</span> to Common Questions.</h2>    
+    <div class="faq-accordion">    
+      <div class="faq-item active">    
+        <div class="faq-question">    
+          <span class="faq-number">01</span>    
+          <h3>Skills Market kya hai?</h3>    
+          <span class="faq-toggle">−</span>    
+        </div>    
+        <div class="faq-answer">    
+          <p>Skills Market ek digital learning platform hai jo practical skills, courses aur learning resources ko simple experience mein connect karne ke liye build kiya ja raha hai.</p>    
+        </div>    
+      </div>    
 
-  <div class="faq-item">    
-    <div class="faq-question">    
-      <span class="faq-number">02</span>    
-      <h3>Skills Market kis ke liye hai?</h3>    
-      <span class="faq-toggle">+</span>    
-    </div>    
-    <div class="faq-answer">    
-      <p>Platform beginners aur learners ke liye designed hai jo digital skills seekhna aur apni knowledge develop karna chahte hain.</p>    
-    </div>    
-  </div>    
+      <div class="faq-item">    
+        <div class="faq-question">    
+          <span class="faq-number">02</span>    
+          <h3>Skills Market kis ke liye hai?</h3>    
+          <span class="faq-toggle">+</span>    
+        </div>    
+        <div class="faq-answer">    
+          <p>Platform beginners aur learners ke liye designed hai jo digital skills seekhna aur apni knowledge develop karna chahte hain.</p>    
+        </div>    
+      </div>    
 
-  <div class="faq-item">    
-    <div class="faq-question">    
-      <span class="faq-number">03</span>    
-      <h3>Skills Market par shuruaat kaise karein?</h3>    
-      <span class="faq-toggle">+</span>    
-    </div>    
-    <div class="faq-answer">    
-      <p>Account create karke available learning programs explore karein aur apni requirement ke according course choose karein.</p>    
-    </div>    
-  </div>    
+      <div class="faq-item">    
+        <div class="faq-question">    
+          <span class="faq-number">03</span>    
+          <h3>Skills Market par shuruaat kaise karein?</h3>    
+          <span class="faq-toggle">+</span>    
+        </div>    
+        <div class="faq-answer">    
+          <p>Account create karke available learning programs explore karein aur apni requirement ke according course choose karein.</p>    
+        </div>    
+      </div>    
 
-  <div class="faq-item">    
-    <div class="faq-question">    
-      <span class="faq-number">04</span>    
-      <h3>Kya beginners ke liye bhi easy hai?</h3>    
-      <span class="faq-toggle">+</span>    
-    </div>    
-    <div class="faq-answer">    
-      <p>Haan, learning content ko simple aur structured way mein present karne ka focus rakha gaya hai.</p>    
-    </div>    
-  </div>    
+      <div class="faq-item">    
+        <div class="faq-question">    
+          <span class="faq-number">04</span>    
+          <h3>Kya beginners ke liye bhi easy hai?</h3>    
+          <span class="faq-toggle">+</span>    
+        </div>    
+        <div class="faq-answer">    
+          <p>Haan, learning content ko simple aur structured way mein present karne ka focus rakha gaya hai.</p>    
+        </div>    
+      </div>    
 
-  <div class="faq-item">    
-    <div class="faq-question">    
-      <span class="faq-number">05</span>    
-      <h3>Skills Market ko alag kya banata hai?</h3>    
-      <span class="faq-toggle">+</span>    
-    </div>    
-    <div class="faq-answer">    
-      <p>Skills Market ka focus practical learning, flexible access, structured programs aur learner-focused experience par hai.</p>    
-    </div>    
-  </div>    
-</div>
+      <div class="faq-item">    
+        <div class="faq-question">    
+          <span class="faq-number">05</span>    
+          <h3>Skills Market ko alag kya banata hai?</h3>    
+          <span class="faq-toggle">+</span>    
+        </div>    
+        <div class="faq-answer">    
+          <p>Skills Market ka focus practical learning, flexible access, structured programs aur learner-focused experience par hai.</p>    
+        </div>    
+      </div>    
+    </div>
+  </section>      
 
-  </section>      <!-- =====================================================    
+  <!-- =====================================================    
      CERTIFICATES    
-  ===================================================== -->      <section class="certificates-section reveal">    
+  ===================================================== -->      
+  <section class="certificates-section reveal">    
     <div class="section-label">OUR CERTIFICATES</div>    
     <h2 class="section-title">Trusted & Certified</h2>    
-    <p class="section-subtitle">Registration and certification details will be updated as they become available.</p>    <div class="cert-grid">    
-  <div class="cert-card">    
-    <div class="cert-icon">🏛</div>    
-    <h3>MSME</h3>    
-    <p>Registration details coming soon.</p>    
-  </div>    
-  <div class="cert-card">    
-    <div class="cert-icon">📄</div>    
-    <h3>GST</h3>    
-    <p>Registration details coming soon.</p>    
-  </div>    
-  <div class="cert-card">    
-    <div class="cert-icon">🏅</div>    
-    <h3>ISO 9001:2015</h3>    
-    <p>Certification details coming soon.</p>    
-  </div>    
-</div>
+    <p class="section-subtitle">Registration and certification details will be updated as they become available.</p>    
+    <div class="cert-grid">    
+      <div class="cert-card">    
+        <div class="cert-icon">🏛</div>    
+        <h3>MSME</h3>    
+        <p>Registration details coming soon.</p>    
+      </div>    
+      <div class="cert-card">    
+        <div class="cert-icon">📄</div>    
+        <h3>GST</h3>    
+        <p>Registration details coming soon.</p>    
+      </div>    
+      <div class="cert-card">    
+        <div class="cert-icon">🏅</div>    
+        <h3>ISO 9001:2015</h3>    
+        <p>Certification details coming soon.</p>    
+      </div>    
+    </div>
+  </section>      
 
-  </section>      <!-- =====================================================    
+  <!-- =====================================================    
      SUPPORT    
-  ===================================================== -->      <section class="support-section reveal" id="support">    
+  ===================================================== -->      
+  <section class="support-section reveal" id="support">    
     <div class="support-card">    
       <h2 class="support-title">Skillsmarket Customer Support</h2>    
-      <p class="support-hours">(We are available on Monday to Saturday 9:15am to 5pm)</p>    <div class="email-box">    
-    <div class="email-icon">✉</div>    
-    <div class="email-details">    
-      <span class="email-label">Email Address:</span>    
-      <p class="email-text">Coming soon</p>    
-    </div>    
-  </div>    
-</div>
+      <p class="support-hours">(We are available on Monday to Saturday 9:15am to 5pm)</p>    
+      <div class="email-box">    
+        <div class="email-icon">✉</div>    
+        <div class="email-details">    
+          <span class="email-label">Email Address:</span>    
+          <p class="email-text">Coming soon</p>    
+        </div>    
+      </div>    
+    </div>
+  </section>      
 
-  </section>      <!-- =====================================================    
+  <!-- =====================================================    
      ANIMATED FOOTER    
-  ===================================================== -->      <footer class="footer-bg" id="footer">    
+  ===================================================== -->      
+  <footer class="footer-bg" id="footer">    
     <div class="footer-container-custom">    
       <div class="footer-col-custom">    
         <div class="footer-logo-custom">    
@@ -2030,48 +2109,164 @@ justify-content: space-between;
           <a href="#" class="social-icon-btn"><i class="fab fa-telegram-plane"></i></a>    
           <a href="#" class="social-icon-btn"><i class="fab fa-youtube"></i></a>    
         </div>    
-      </div>    <div class="footer-col-custom">    
-    <h3>Online Platform</h3>    
-    <ul class="footer-links-custom mt-4">    
-      <li><a href="#founder">About</a></li>    
-      <li><a href="#support">Contact Us</a></li>    
-      <li><a href="login.html">Login</a></li>    
-      <li><a href="login.html">Register</a></li>    
-    </ul>    
-  </div>    
-
-  <div class="footer-col-custom">    
-    <h3>Important Links</h3>    
-    <ul class="footer-links-custom mt-4">    
-      <li><a href="#">Disclaimer</a></li>    
-      <li><a href="#">Privacy Policy</a></li>    
-      <li><a href="#">Refund Policy</a></li>    
-      <li><a href="#">Terms & Conditions</a></li>    
-    </ul>    
-  </div>    
-
-  <div class="footer-col-custom">    
-    <h3>Contact Us</h3>    
-    <div class="space-y-3 mt-4">    
-      <div class="footer-contact-item">    
-        <div class="footer-contact-icon"><i class="fas fa-phone-alt"></i></div>    
-        <p>+91 8800461629</p>    
       </div>    
-      <div class="footer-contact-item">    
-        <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>    
-        <p style="word-break: break-all;">support@skillsmarket.com</p>    
+      <div class="footer-col-custom">    
+        <h3>Online Platform</h3>    
+        <ul class="footer-links-custom mt-4">    
+          <li><a href="#founder">About</a></li>    
+          <li><a href="#support">Contact Us</a></li>    
+          <li><a href="login.html">Login</a></li>    
+          <li><a href="login.html">Register</a></li>    
+        </ul>    
+      </div>    
+
+      <div class="footer-col-custom">    
+        <h3>Important Links</h3>    
+        <ul class="footer-links-custom mt-4">    
+          <li><a href="#">Disclaimer</a></li>    
+          <li><a href="#">Privacy Policy</a></li>    
+          <li><a href="#">Refund Policy</a></li>    
+          <li><a href="#">Terms & Conditions</a></li>    
+        </ul>    
+      </div>    
+
+      <div class="footer-col-custom">    
+        <h3>Contact Us</h3>    
+        <div class="space-y-3 mt-4">    
+          <div class="footer-contact-item">    
+            <div class="footer-contact-icon"><i class="fas fa-phone-alt"></i></div>    
+            <p>+91 8800461629</p>    
+          </div>    
+          <div class="footer-contact-item">    
+            <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>    
+            <p style="word-break: break-all;">support@skillsmarket.com</p>    
+          </div>    
+        </div>    
       </div>    
     </div>    
-  </div>    
-</div>    
 
-<div class="footer-bottom-custom">    
-  <p>Copyright &copy; 2026 SkillsMarket. All rights reserved.</p>    
-</div>
+    <div class="footer-bottom-custom">    
+      <p>Copyright &copy; 2026 SkillsMarket. All rights reserved.</p>    
+    </div>
+  </footer>      
 
-  </footer>      <!-- =====================================================    
+  <!-- =====================================================    
      JAVASCRIPT    
-  ===================================================== -->      <script>    
+  ===================================================== -->      
+  <script>    
+    /* Interactive Particle Network Script */
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particlesArray = [];
+    const numberOfParticles = 55;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const mouse = {
+      x: null,
+      y: null,
+      radius: 130
+    }
+
+    window.addEventListener('mousemove', function(event) {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+    });
+
+    window.addEventListener('mouseout', function() {
+      mouse.x = undefined;
+      mouse.y = undefined;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.density = (Math.random() * 20) + 1;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.8;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+        if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+
+        // Mouse interactive repel effect
+        if (mouse.x !== undefined && mouse.y !== undefined) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < mouse.radius) {
+            let forceDirectionX = dx / distance;
+            let forceDirectionY = dy / distance;
+            let maxDistance = mouse.radius;
+            let force = (maxDistance - distance) / maxDistance;
+            let directionX = forceDirectionX * force * this.density;
+            let directionY = forceDirectionY * force * this.density;
+            this.x -= directionX;
+            this.y -= directionY;
+          }
+        }
+      }
+      draw() {
+        ctx.fillStyle = '#E50914';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+    initParticles();
+
+    function connectParticles() {
+      let opacityValue = 1;
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+          let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
+                         ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+          if (distance < (canvas.width / 8) * (canvas.height / 8)) {
+            opacityValue = 1 - (distance / 15000);
+            ctx.strokeStyle = 'rgba(229, 9, 20,' + (opacityValue * 0.2) + ')';
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      connectParticles();
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+
     function toggleSidebar() {  
       const drawer = document.getElementById('sidebarDrawer');  
       const overlay = document.getElementById('sidebarOverlay');  
@@ -2214,5 +2409,6 @@ justify-content: space-between;
     });    
   
     showPoster(0);    
-  </script>    </body>  
-</html>  
+  </script>  
+</body>  
+</html>
