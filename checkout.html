@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - SkillsMarket</title>
+    <title>Checkout - Complete Your Purchase | SkillsMarket</title>
     <style>
         body {
             background-color: #0d0d0d;
@@ -12,42 +12,71 @@
             margin: 0;
             padding: 0;
         }
+        /* Header / Navbar */
         .checkout-header {
             background: #141414;
-            padding: 15px 20px;
+            padding: 20px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #ff3b3b;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        /* Hero Banner */
+        .banner {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a0505, #0d0d0d);
             border-bottom: 1px solid #222;
         }
-        .checkout-header h1 {
-            color: #ff3b3b;
-            margin: 0;
-            font-size: 22px;
+        .banner h1 {
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 10px;
         }
-        .breadcrumb {
-            color: #888;
-            font-size: 14px;
-            margin-top: 5px;
+        .banner p {
+            color: #aaa;
+            font-size: 15px;
         }
-        .breadcrumb span {
-            color: #ff3b3b;
-        }
+
+        /* Container */
         .checkout-container {
-            max-width: 600px;
-            margin: 30px auto;
+            max-width: 650px;
+            margin: -20px auto 40px auto;
             background: #141414;
             border: 1px solid rgba(255, 59, 59, 0.3);
             border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            position: relative;
         }
-        h2 {
-            color: #fff;
-            font-size: 20px;
+        
+        .section-title {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
             border-bottom: 1px solid #222;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
+        .section-title h2 {
+            font-size: 18px;
+            margin: 0;
+            color: #fff;
+        }
+        .section-title p {
+            margin: 3px 0 0 0;
+            color: #888;
+            font-size: 13px;
+        }
+
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
         label {
             display: block;
@@ -69,27 +98,64 @@
             border-color: #ff3b3b;
             outline: none;
         }
+
+        /* Sponsor Code Flex */
+        .sponsor-box {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-apply {
+            background: linear-gradient(135deg, #ff3b3b, #b30000);
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* Order Summary Box */
         .order-box {
             background: #1a0505;
             border: 1px solid #ff3b3b;
             border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
             margin-top: 25px;
         }
         .order-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 15px;
+            color: #ccc;
         }
-        .order-row.total {
+        .order-row.grand-total {
             font-weight: bold;
-            color: #ff3b3b;
-            font-size: 18px;
+            color: #fff;
+            font-size: 20px;
             border-top: 1px solid #333;
-            padding-top: 10px;
-            margin-top: 10px;
+            padding-top: 12px;
+            margin-top: 12px;
         }
+
+        /* Payment Gateway Option */
+        .payment-method {
+            margin-top: 25px;
+            border: 1px solid #ff3b3b;
+            border-radius: 10px;
+            padding: 15px;
+            background: #1a0505;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .payment-method input {
+            width: auto;
+            margin-top: 4px;
+        }
+
+        /* Terms & Conditions */
         .terms {
             margin: 20px 0;
             display: flex;
@@ -105,56 +171,127 @@
             color: #ff3b3b;
             text-decoration: none;
         }
-        .btn-next {
+
+        /* Pay Button */
+        .btn-pay {
             width: 100%;
             background: linear-gradient(135deg, #ff3b3b, #b30000);
             color: #fff;
-            padding: 14px;
+            padding: 16px;
             border: none;
             border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             transition: opacity 0.3s;
+            text-align: center;
         }
-        .btn-next:hover {
+        .btn-pay:hover {
             opacity: 0.9;
         }
+
+        /* Footer Style */
         footer {
             background: #111;
-            color: #777;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            font-size: 14px;
+            color: #888;
+            padding: 50px 20px 20px 20px;
+            margin-top: 60px;
             border-top: 1px solid #222;
+        }
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer-col h3 {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border-left: 3px solid #ff3b3b;
+            padding-left: 8px;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        .footer-col ul li a {
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .footer-col ul li a:hover {
+            color: #ff3b3b;
+        }
+        .footer-bottom {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .checkout-container {
+                margin: 15px;
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <div class="checkout-header">
-        <h1>Checkout</h1>
-        <div class="breadcrumb">Home // <span>Checkout</span></div>
+        <a href="index.html" class="logo">SkillsMarket</a>
     </div>
 
+    <!-- Banner -->
+    <div class="banner">
+        <h1>Complete your purchase</h1>
+        <p>Enter your details and continue to secure payment.</p>
+    </div>
+
+    <!-- Main Container -->
     <div class="checkout-container">
+        
+        <div class="section-title">
+            <div>
+                <h2>Billing Details</h2>
+                <p>Enter your account and contact information.</p>
+            </div>
+        </div>
+
         <form action="#" method="POST">
             
-            <h2>Billing Details</h2>
-
             <div class="form-group">
-                <label>Your Affiliate Code *</label>
-                <input type="text" placeholder="Referral Code (Optional)">
+                <label>Full Name *</label>
+                <input type="text" placeholder="Enter your full name" required>
             </div>
 
             <div class="form-group">
-                <label>Name *</label>
-                <input type="text" placeholder="Enter Your Name..." required>
+                <label>Email Address *</label>
+                <input type="email" placeholder="your@email.com" required>
             </div>
 
             <div class="form-group">
-                <label>Enter State *</label>
+                <label>Mobile Number *</label>
+                <input type="tel" placeholder="+91 xxxxx xxxxx" required>
+            </div>
+
+            <div class="form-group">
+                <label>State *</label>
                 <select required>
                     <option value="">Select State</option>
                     <option value="Madhya Pradesh">Madhya Pradesh</option>
@@ -166,53 +303,91 @@
             </div>
 
             <div class="form-group">
-                <label>Enter Mobile Number *</label>
-                <input type="tel" placeholder="+91 | Enter mobile number" required>
-            </div>
-
-            <div class="form-group">
-                <label>Email Id *</label>
-                <input type="email" placeholder="Enter your email" required>
-            </div>
-
-            <div class="form-group">
                 <label>Password *</label>
-                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Create password" required>
             </div>
 
             <div class="form-group">
                 <label>Confirm Password *</label>
-                <input type="password" placeholder="Confirm Password" required>
+                <input type="password" placeholder="Confirm password" required>
             </div>
 
+            <div class="form-group">
+                <label>Sponsor Code (optional)</label>
+                <div class="sponsor-box">
+                    <input type="text" placeholder="Enter sponsor code">
+                    <button type="button" class="btn-apply">Apply</button>
+                </div>
+            </div>
+
+            <!-- Order Summary Section -->
             <div class="order-box">
                 <h3 style="color:#fff; margin-top:0; font-size:16px;">Your Order</h3>
+                <p style="color:#888; font-size:13px; margin-bottom:15px;">Review your selected package.</p>
                 <div class="order-row">
                     <span>Product</span>
-                    <span>Total</span>
+                    <span>Skill Starter Package</span>
                 </div>
                 <div class="order-row">
-                    <span>Skill Growth Package:</span>
-                    <span>₹749</span>
+                    <span>Total</span>
+                    <span>₹449</span>
                 </div>
-                <div class="order-row total">
-                    <span>Grand Total:</span>
-                    <span>₹749</span>
+                <div class="order-row grand-total">
+                    <span>Grand Total</span>
+                    <span>₹449</span>
                 </div>
             </div>
 
+            <!-- Payment Method -->
+            <div class="payment-method">
+                <input type="radio" checked id="paytm-gateway">
+                <div>
+                    <label for="paytm-gateway" style="color:#fff; font-weight:bold; margin-bottom:4px; cursor:pointer;">Secure Online Payment</label>
+                    <span style="color:#aaa; font-size:13px;">Pay securely via UPI, Credit/Debit Card, or Netbanking.</span>
+                </div>
+            </div>
+
+            <!-- Terms & Conditions -->
             <div class="terms">
                 <input type="checkbox" id="terms" required>
                 <label for="terms" style="margin:0; color:#aaa;">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
             </div>
 
-            <button type="submit" class="btn-next">Next &gt;&gt;</button>
+            <!-- Pay Button -->
+            <button type="submit" class="btn-pay">Pay ₹449 &rarr;</button>
 
         </form>
     </div>
 
+    <!-- Professional Footer -->
     <footer>
-        <p>&copy; 2026 SkillsMarket. All Rights Reserved.</p>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h2 style="color: #ff3b3b; margin-top:0; font-size:22px;">SkillsMarket</h2>
+                <p style="font-size:14px; color:#aaa; line-height: 1.6;">Unlock your potential with industry-relevant skills, practical knowledge, and expert guidance that open doors to endless opportunities and long-term career success.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Packages</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SkillsMarket. All Rights Reserved.</p>
+        </div>
     </footer>
 
 </body>
