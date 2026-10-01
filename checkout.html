@@ -1,375 +1,1312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Aab</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            background-color: #0b0b0b;
-            color: #ffffff;
-            overflow-x: hidden;
-            position: relative;
-        }
+<title>Checkout | Skills Market</title>
+<meta name="description" content="Complete your Skills Market registration and checkout.">
 
-        /* Animated Background Circles */
-        .bg-animations {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 30, 56, 0.15);
-            animation: floatCircle 12s infinite linear;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
 
-        .circle:nth-child(1) {
-            width: 280px;
-            height: 280px;
-            top: -60px;
-            left: -60px;
-            animation-duration: 10s;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        .circle:nth-child(2) {
-            width: 350px;
-            height: 350px;
-            bottom: -100px;
-            right: -100px;
-            animation-duration: 14s;
-            background: rgba(255, 30, 56, 0.1);
-        }
+body{
+    background:#090909;
+    color:#fff;
+    overflow-x:hidden;
+}
 
-        .circle:nth-child(3) {
-            width: 180px;
-            height: 180px;
-            top: 45%;
-            left: 75%;
-            animation-duration: 9s;
-        }
+/* ================= BACKGROUND ================= */
 
-        @keyframes floatCircle {
-            0% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-35px) scale(1.06);
-            }
-            100% {
-                transform: translateY(0) scale(1);
-            }
-        }
+.bg-animations{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:-2;
+    pointer-events:none;
+}
 
-        /* Navbar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            background: rgba(18, 18, 18, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,30,56,.12);
+    filter:blur(2px);
+    animation:floatCircle 12s infinite ease-in-out;
+}
 
-        .logo {
-            font-size: 26px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 1px;
-        }
+.circle:nth-child(1){
+    width:300px;
+    height:300px;
+    top:-100px;
+    left:-80px;
+}
 
-        .logo span {
-            color: #ff1e38;
-        }
+.circle:nth-child(2){
+    width:380px;
+    height:380px;
+    bottom:-150px;
+    right:-120px;
+    animation-duration:15s;
+    background:rgba(255,30,56,.08);
+}
 
-        .nav-icons {
-            display: flex;
-            gap: 15px;
-        }
+.circle:nth-child(3){
+    width:180px;
+    height:180px;
+    top:45%;
+    right:8%;
+    animation-duration:10s;
+}
 
-        .icon-btn {
-            background: #1a1a1a;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 16px;
-        }
+@keyframes floatCircle{
+    0%,100%{
+        transform:translateY(0) scale(1);
+    }
+    50%{
+        transform:translateY(-30px) scale(1.06);
+    }
+}
 
-        /* Header Banner Section */
-        .header-section {
-            padding: 40px 5%;
-            background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(11, 11, 11, 0.9));
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+/* ================= NAVBAR ================= */
 
-        .header-section h1 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: #fff;
-        }
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(0,0,0,.08);
+}
 
-        .breadcrumb {
-            font-size: 14px;
-            color: #aaa;
-        }
+.logo{
+    text-decoration:none;
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:-.5px;
+    color:#111;
+}
 
-        .breadcrumb span {
-            color: #ff1e38;
-        }
+.logo span{
+    color:#ff1e38;
+}
 
-        /* Main Form Container */
-        .container {
-            max-width: 550px;
-            margin: 30px auto;
-            padding: 0 20px 50px 20px;
-        }
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
 
-        .card {
-            background: #141414;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
+.nav-btn{
+    text-decoration:none;
+    color:#222;
+    font-size:14px;
+    font-weight:600;
+    padding:9px 15px;
+    border-radius:8px;
+    transition:.25s;
+}
 
-        .card h2 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #fff;
-        }
+.nav-btn:hover{
+    background:#f3f3f3;
+}
 
-        .card p {
-            font-size: 13px;
-            color: #aaa;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
+.account-btn{
+    background:#ff1e38;
+    color:#fff;
+}
 
-        /* Form Controls */
-        .form-group {
-            margin-bottom: 20px;
-        }
+.account-btn:hover{
+    background:#df1630;
+    color:#fff;
+}
 
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: #ddd;
-        }
+/* ================= HEADER ================= */
 
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            background: #1a1a1a;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+.header-section{
+    padding:42px 5%;
+    background:
+        linear-gradient(135deg,rgba(25,25,25,.97),rgba(10,10,10,.96));
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
 
-        .form-control:focus {
-            border-color: #ff1e38;
-            box-shadow: 0 0 8px rgba(255, 30, 56, 0.3);
-        }
+.header-section h1{
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:5px;
+}
 
-        .package-box {
-            background: #1a1a1a;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: #aaa;
-            font-size: 14px;
-        }
+.breadcrumb{
+    color:#999;
+    font-size:13px;
+}
 
-        /* Checkbox */
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 25px 0;
-            font-size: 13px;
-            color: #aaa;
-        }
+.breadcrumb span{
+    color:#ff1e38;
+}
 
-        .checkbox-group input {
-            accent-color: #ff1e38;
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
+/* ================= CONTAINER ================= */
 
-        .checkbox-group a {
-            color: #ff1e38;
-            text-decoration: none;
-        }
+.container{
+    width:100%;
+    max-width:650px;
+    margin:32px auto;
+    padding:0 18px 60px;
+}
 
-        .checkbox-group a:hover {
-            text-decoration: underline;
-        }
+/* ================= CARD ================= */
 
-        /* Payment Option */
-        .payment-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #1a1a1a;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 25px;
-            font-size: 14px;
-            cursor: pointer;
-        }
+.card{
+    background:#141414;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 20px 55px rgba(0,0,0,.45);
+}
 
-        .payment-option input {
-            accent-color: #ff1e38;
-        }
+.card h2{
+    font-size:23px;
+    margin-bottom:7px;
+}
 
-        /* Submit Button */
-        .btn-register {
-            width: 100%;
-            padding: 14px;
-            background: #ff1e38;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 30, 56, 0.4);
-        }
+.card-intro{
+    color:#999;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:25px;
+}
 
-        .btn-register:hover {
-            background: #e0162f;
-            box-shadow: 0 6px 20px rgba(255, 30, 56, 0.6);
-            transform: translateY(-2px);
-        }
+/* ================= PACKAGE ================= */
 
-        /* Footer Links inside card */
-        .footer-text {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 13px;
-            color: #888;
-        }
+.package-heading{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:10px;
+    color:#ddd;
+}
 
-        .footer-text a {
-            color: #ff1e38;
-            text-decoration: none;
-            font-weight: 500;
-        }
+.package-box{
+    padding:18px;
+    border-radius:13px;
+    border:1px solid rgba(255,30,56,.4);
+    background:linear-gradient(
+        135deg,
+        rgba(255,30,56,.12),
+        rgba(255,255,255,.025)
+    );
+    margin-bottom:24px;
+}
 
-        .footer-text a:hover {
-            text-decoration: underline;
-        }
-    </style>
+.package-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.package-name{
+    font-size:16px;
+    font-weight:700;
+    color:#fff;
+}
+
+.package-price{
+    color:#ff1e38;
+    font-size:18px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.package-description{
+    color:#999;
+    font-size:12px;
+    margin-top:6px;
+}
+
+.change-package{
+    display:inline-block;
+    margin-top:12px;
+    color:#ff1e38;
+    font-size:12px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.change-package:hover{
+    text-decoration:underline;
+}
+
+/* ================= FORM ================= */
+
+.form-group{
+    margin-bottom:19px;
+}
+
+.form-group label{
+    display:block;
+    font-size:13px;
+    font-weight:500;
+    color:#ddd;
+    margin-bottom:8px;
+}
+
+.form-control{
+    width:100%;
+    height:48px;
+    padding:0 14px;
+    border-radius:9px;
+    border:1px solid rgba(255,255,255,.1);
+    background:#1b1b1b;
+    color:#fff;
+    outline:none;
+    font-size:14px;
+    transition:.25s;
+}
+
+.form-control::placeholder{
+    color:#666;
+}
+
+.form-control:focus{
+    border-color:#ff1e38;
+    box-shadow:0 0 0 3px rgba(255,30,56,.08);
+}
+
+/* ================= REFERRAL ================= */
+
+.referral-status{
+    display:none;
+    margin-top:8px;
+    font-size:12px;
+}
+
+.referral-status.success{
+    display:block;
+    color:#42d98b;
+}
+
+.referral-status.error{
+    display:block;
+    color:#ff596b;
+}
+
+/* ================= PASSWORD ================= */
+
+.password-wrapper{
+    position:relative;
+}
+
+.password-wrapper .form-control{
+    padding-right:50px;
+}
+
+.password-toggle{
+    position:absolute;
+    right:8px;
+    top:50%;
+    transform:translateY(-50%);
+    width:38px;
+    height:38px;
+    border:0;
+    background:transparent;
+    color:#aaa;
+    cursor:pointer;
+    border-radius:7px;
+    font-size:17px;
+}
+
+.password-toggle:hover{
+    background:#292929;
+    color:#fff;
+}
+
+/* ================= PAYMENT ================= */
+
+.payment-title{
+    font-size:14px;
+    font-weight:600;
+    color:#ddd;
+    margin-bottom:10px;
+}
+
+.payment-option{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    padding:15px;
+    background:#1b1b1b;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:11px;
+    cursor:pointer;
+    transition:.25s;
+    margin-bottom:20px;
+}
+
+.payment-option:hover{
+    border-color:rgba(255,30,56,.5);
+}
+
+.payment-option.selected{
+    border-color:#ff1e38;
+    background:rgba(255,30,56,.08);
+}
+
+.payment-option input{
+    width:17px;
+    height:17px;
+    accent-color:#ff1e38;
+    cursor:pointer;
+}
+
+.payment-info{
+    display:flex;
+    flex-direction:column;
+}
+
+.payment-main{
+    font-size:14px;
+    color:#fff;
+    font-weight:600;
+}
+
+.payment-sub{
+    font-size:11px;
+    color:#888;
+    margin-top:2px;
+}
+
+/* ================= ORDER SUMMARY ================= */
+
+.order-summary{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding-top:20px;
+    margin-top:5px;
+    margin-bottom:20px;
+}
+
+.summary-title{
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:14px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:13px;
+    color:#999;
+    margin-bottom:9px;
+}
+
+.summary-row strong{
+    color:#fff;
+}
+
+.total-row{
+    border-top:1px solid rgba(255,255,255,.08);
+    margin-top:13px;
+    padding-top:14px;
+    color:#fff;
+    font-size:15px;
+}
+
+.total-price{
+    color:#ff1e38 !important;
+    font-size:18px;
+    font-weight:800;
+}
+
+/* ================= TERMS ================= */
+
+.checkbox-group{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    margin:22px 0;
+}
+
+.checkbox-group input{
+    width:16px;
+    height:16px;
+    margin-top:2px;
+    accent-color:#ff1e38;
+    flex-shrink:0;
+    cursor:pointer;
+}
+
+.checkbox-group label{
+    margin:0;
+    font-size:12px;
+    line-height:1.6;
+    color:#999;
+}
+
+.checkbox-group a{
+    color:#ff1e38;
+    text-decoration:none;
+}
+
+/* ================= BUTTON ================= */
+
+.btn-register{
+    width:100%;
+    height:52px;
+    border:0;
+    border-radius:10px;
+    background:#ff1e38;
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 8px 25px rgba(255,30,56,.25);
+    transition:.25s;
+}
+
+.btn-register:hover{
+    background:#df1630;
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(255,30,56,.35);
+}
+
+.btn-register:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* ================= FOOTER TEXT ================= */
+
+.footer-text{
+    text-align:center;
+    margin-top:20px;
+    color:#777;
+    font-size:12px;
+}
+
+.footer-text a{
+    color:#ff1e38;
+    text-decoration:none;
+    font-weight:600;
+}
+
+/* ================= SUCCESS MODAL ================= */
+
+.success-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(7px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:2000;
+    padding:20px;
+}
+
+.success-overlay.show{
+    display:flex;
+}
+
+.success-modal{
+    width:100%;
+    max-width:420px;
+    background:#161616;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 25px 80px rgba(0,0,0,.6);
+}
+
+.success-icon{
+    width:60px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 16px;
+    border-radius:50%;
+    background:rgba(48,210,125,.12);
+    color:#35dc88;
+    font-size:28px;
+}
+
+.success-modal h2{
+    font-size:22px;
+    margin-bottom:7px;
+}
+
+.success-modal p{
+    color:#999;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.member-id{
+    margin:18px 0;
+    padding:14px;
+    background:#1e1e1e;
+    border-radius:10px;
+    border:1px dashed rgba(255,30,56,.45);
+}
+
+.member-id small{
+    display:block;
+    color:#888;
+    font-size:11px;
+    margin-bottom:4px;
+}
+
+.member-id strong{
+    color:#ff1e38;
+    font-size:21px;
+    letter-spacing:1px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+    .navbar{
+        height:64px;
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:22px;
+    }
+
+    .nav-btn:not(.account-btn){
+        display:none;
+    }
+
+    .account-btn{
+        padding:8px 12px;
+        font-size:12px;
+    }
+
+    .header-section{
+        padding:30px 18px;
+    }
+
+    .header-section h1{
+        font-size:27px;
+    }
+
+    .container{
+        margin-top:22px;
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .card{
+        padding:21px 17px;
+        border-radius:15px;
+    }
+
+    .package-top{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:5px;
+    }
+
+    .package-price{
+        font-size:17px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Animated Background Circles -->
-    <div class="bg-animations">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
+<!-- Background -->
+<div class="bg-animations">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+</div>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a href="index.html" class="logo">
+        Skills<span>Market</span>
+    </a>
+
+    <div class="nav-right">
+        <a href="index.html" class="nav-btn">Home</a>
+        <a href="courses.html" class="nav-btn">Courses</a>
+        <a href="login.html" class="nav-btn account-btn">Login</a>
     </div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">Aab<span>.</span></div>
-        <div class="nav-icons">
-            <button class="icon-btn">👤</button>
-            <button class="icon-btn">📦</button>
+</nav>
+
+<!-- ================= HEADER ================= -->
+
+<section class="header-section">
+
+    <h1>Checkout</h1>
+
+    <div class="breadcrumb">
+        Home &gt; <span>Checkout</span>
+    </div>
+
+</section>
+
+<!-- ================= CHECKOUT ================= -->
+
+<main class="container">
+
+<div class="card">
+
+    <h2>Create Your Account</h2>
+
+    <p class="card-intro">
+        Complete your details below to create your Skills Market account
+        and continue with your selected package.
+    </p>
+
+    <!-- SELECTED PACKAGE -->
+
+    <div class="package-heading">
+        Selected Package
+    </div>
+
+    <div class="package-box">
+
+        <div class="package-top">
+
+            <div>
+                <div class="package-name" id="packageName">
+                    Skills Market Premium Package
+                </div>
+
+                <div class="package-description">
+                    Your selected package will appear here.
+                </div>
+            </div>
+
+            <div class="package-price" id="packagePrice">
+                ₹2,399
+            </div>
+
         </div>
-    </nav>
 
-    <!-- Header Banner -->
-    <div class="header-section">
-        <h1>Checkout</h1>
-        <div class="breadcrumb">Home &gt; <span>Checkout</span></div>
+        <a href="packages.html" class="change-package">
+            Change Package
+        </a>
+
     </div>
 
-    <!-- Checkout Form Container -->
-    <div class="container">
-        <div class="card">
-            <h2>Register Account</h2>
-            <p>Welcome to Aab! Ready to start? Enter your details below to get started instantly.</p>
+    <form id="checkoutForm">
 
-            <form>
-                <div class="form-group">
-                    <label>Referral Code</label>
-                    <input type="text" class="form-control" placeholder="Referral Code">
-                </div>
+        <!-- REFERRAL -->
 
-                <div class="form-group">
-                    <label>Package</label>
-                    <div class="package-box">Aab Premium Package - ₹2399</div>
-                </div>
+        <div class="form-group">
 
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" placeholder="Full Name">
-                </div>
+            <label for="referral">
+                Referral Code
+            </label>
 
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" class="form-control" placeholder="Phone Number">
-                </div>
+            <input
+                type="text"
+                id="referral"
+                class="form-control"
+                placeholder="Enter referral code"
+                autocomplete="off"
+            >
 
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" placeholder="Email Address">
-                </div>
+            <div id="referralStatus" class="referral-status"></div>
 
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password">
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="terms">
-                    <label for="terms" style="margin-bottom:0; color:#aaa;">I agree to the <a href="#">Privacy Policy</a> and <a href="#">Terms & Conditions</a></label>
-                </div>
-
-                <div class="form-group">
-                    <label>Select Payment Method</label>
-                    <div class="payment-option">
-                        <input type="radio" checked id="pay">
-                        <label for="pay" style="margin-bottom:0; cursor:pointer;">Pay via UPI, Card, Netbanking...</label>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn-register">Register &rarr;</button>
-
-                <div class="footer-text">
-                    Already have an account? <a href="#">Sign In</a>
-                </div>
-            </form>
         </div>
+
+        <!-- NAME -->
+
+        <div class="form-group">
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                class="form-control"
+                placeholder="Enter your full name"
+                required
+            >
+
+        </div>
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+            <label for="phone">
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                class="form-control"
+                placeholder="Enter phone number"
+                maxlength="10"
+                required
+            >
+
+        </div>
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="Enter email address"
+                required
+            >
+
+        </div>
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="password">
+                Create Password
+            </label>
+
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Create your password"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="password-toggle"
+                    id="passwordToggle"
+                    aria-label="Show password"
+                >
+                    👁
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- PAYMENT -->
+
+        <div class="payment-title">
+            Select Payment Method
+        </div>
+
+        <label class="payment-option" id="paymentOption">
+
+            <input
+                type="radio"
+                name="payment"
+                value="online"
+                id="onlinePayment"
+            >
+
+            <div class="payment-info">
+
+                <div class="payment-main">
+                    UPI / Card / Net Banking
+                </div>
+
+                <div class="payment-sub">
+                    Secure online payment
+                </div>
+
+            </div>
+
+        </label>
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="order-summary">
+
+            <div class="summary-title">
+                Order Summary
+            </div>
+
+            <div class="summary-row">
+                <span>Package</span>
+                <strong id="summaryPackage">
+                    Premium Package
+                </strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Price</span>
+                <strong id="summaryPrice">
+                    ₹2,399
+                </strong>
+            </div>
+
+            <div class="summary-row total-row">
+
+                <strong>Total</strong>
+
+                <strong
+                    class="total-price"
+                    id="summaryTotal"
+                >
+                    ₹2,399
+                </strong>
+
+            </div>
+
+        </div>
+
+        <!-- TERMS -->
+
+        <div class="checkbox-group">
+
+            <input
+                type="checkbox"
+                id="terms"
+                required
+            >
+
+            <label for="terms">
+
+                I agree to the
+                <a href="#">Privacy Policy</a>
+                and
+                <a href="#">Terms & Conditions</a>.
+
+            </label>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <button
+            type="submit"
+            class="btn-register"
+            id="registerButton"
+        >
+            Register & Pay →
+        </button>
+
+        <div class="footer-text">
+
+            Already have an account?
+            <a href="login.html">Sign In</a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</main>
+
+<!-- ================= SUCCESS MODAL ================= -->
+
+<div class="success-overlay" id="successOverlay">
+
+    <div class="success-modal">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2>Registration Created</h2>
+
+        <p>
+            Your Skills Market account has been created successfully.
+        </p>
+
+        <div class="member-id">
+
+            <small>
+                Your Member ID
+            </small>
+
+            <strong id="generatedId">
+                SM10001
+            </strong>
+
+        </div>
+
+        <button
+            class="btn-register"
+            onclick="goToLogin()"
+        >
+            Continue to Login →
+        </button>
+
     </div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   PACKAGE SYSTEM
+   ========================================================= */
+
+/*
+   Package can come from URL:
+
+   checkout.html?package=Premium&price=2399
+
+   Example:
+
+   checkout.html?package=Basic&price=999
+*/
+
+const params = new URLSearchParams(window.location.search);
+
+const packageFromURL = params.get("package");
+const priceFromURL = params.get("price");
+
+const packageName = document.getElementById("packageName");
+const packagePrice = document.getElementById("packagePrice");
+const summaryPackage = document.getElementById("summaryPackage");
+const summaryPrice = document.getElementById("summaryPrice");
+const summaryTotal = document.getElementById("summaryTotal");
+
+if(packageFromURL){
+
+    const cleanPackage =
+        decodeURIComponent(packageFromURL);
+
+    packageName.textContent =
+        "Skills Market " + cleanPackage + " Package";
+
+    summaryPackage.textContent =
+        cleanPackage + " Package";
+
+}
+
+if(priceFromURL){
+
+    const numericPrice =
+        Number(priceFromURL);
+
+    if(!isNaN(numericPrice)){
+
+        const formattedPrice =
+            "₹" + numericPrice.toLocaleString("en-IN");
+
+        packagePrice.textContent =
+            formattedPrice;
+
+        summaryPrice.textContent =
+            formattedPrice;
+
+        summaryTotal.textContent =
+            formattedPrice;
+
+    }
+
+}
+
+
+/* =========================================================
+   REFERRAL SYSTEM
+   ========================================================= */
+
+/*
+   DEMO DATABASE
+
+   Real website mein ye data backend/database
+   se fetch hoga.
+*/
+
+const referralUsers = {
+
+    "RIJAL123": "Rijal Choudhary",
+    "SM10001": "Rijal Choudhary",
+    "SKILLS10": "Skills Market",
+
+};
+
+const referralInput =
+    document.getElementById("referral");
+
+const referralStatus =
+    document.getElementById("referralStatus");
+
+referralInput.addEventListener("input", function(){
+
+    const code =
+        this.value.trim().toUpperCase();
+
+    if(code === ""){
+
+        referralStatus.className =
+            "referral-status";
+
+        referralStatus.textContent = "";
+
+        return;
+
+    }
+
+    if(referralUsers[code]){
+
+        referralStatus.className =
+            "referral-status success";
+
+        referralStatus.textContent =
+            "✓ Referral: " + referralUsers[code];
+
+    }else{
+
+        referralStatus.className =
+            "referral-status error";
+
+        referralStatus.textContent =
+            "✕ Invalid Referral Code";
+
+    }
+
+});
+
+
+/* =========================================================
+   PASSWORD SHOW / HIDE
+   ========================================================= */
+
+const password =
+    document.getElementById("password");
+
+const passwordToggle =
+    document.getElementById("passwordToggle");
+
+passwordToggle.addEventListener("click", function(){
+
+    if(password.type === "password"){
+
+        password.type = "text";
+
+        passwordToggle.textContent = "🙈";
+
+        passwordToggle.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    }else{
+
+        password.type = "password";
+
+        passwordToggle.textContent = "👁";
+
+        passwordToggle.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+});
+
+
+/* =========================================================
+   PAYMENT OPTION
+   ========================================================= */
+
+const paymentOption =
+    document.getElementById("paymentOption");
+
+const paymentRadio =
+    document.getElementById("onlinePayment");
+
+paymentOption.addEventListener("click", function(){
+
+    paymentRadio.checked = true;
+
+    paymentOption.classList.add("selected");
+
+});
+
+paymentRadio.addEventListener("change", function(){
+
+    if(this.checked){
+
+        paymentOption.classList.add("selected");
+
+    }
+
+});
+
+
+/* =========================================================
+   PHONE NUMBER
+   ========================================================= */
+
+document
+.getElementById("phone")
+.addEventListener("input", function(){
+
+    this.value =
+        this.value.replace(/\D/g, "").slice(0,10);
+
+});
+
+
+/* =========================================================
+   GENERATE MEMBER ID
+   ========================================================= */
+
+function generateMemberId(){
+
+    const randomNumber =
+        Math.floor(10000 + Math.random() * 90000);
+
+    return "SM" + randomNumber;
+
+}
+
+
+/* =========================================================
+   FORM SUBMIT
+   ========================================================= */
+
+const form =
+    document.getElementById("checkoutForm");
+
+const registerButton =
+    document.getElementById("registerButton");
+
+const successOverlay =
+    document.getElementById("successOverlay");
+
+const generatedId =
+    document.getElementById("generatedId");
+
+form.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    /* Check payment */
+
+    if(!paymentRadio.checked){
+
+        alert(
+            "Please select a payment method."
+        );
+
+        return;
+
+    }
+
+    /* Check referral */
+
+    const referral =
+        referralInput.value.trim().toUpperCase();
+
+    if(referral !== "" &&
+       !referralUsers[referral]){
+
+        alert(
+            "Please enter a valid Referral Code."
+        );
+
+        referralInput.focus();
+
+        return;
+
+    }
+
+    /* Check phone */
+
+    const phone =
+        document.getElementById("phone").value;
+
+    if(phone.length !== 10){
+
+        alert(
+            "Please enter a valid 10-digit phone number."
+        );
+
+        return;
+
+    }
+
+    /* Loading */
+
+    registerButton.disabled = true;
+
+    registerButton.textContent =
+        "Processing...";
+
+    /*
+       DEMO REGISTRATION
+
+       Real backend/payment API yahan connect hoga.
+    */
+
+    setTimeout(function(){
+
+        const memberId =
+            generateMemberId();
+
+        generatedId.textContent =
+            memberId;
+
+        successOverlay.classList.add("show");
+
+        registerButton.disabled = false;
+
+        registerButton.textContent =
+            "Register & Pay →";
+
+    },1200);
+
+});
+
+
+/* =========================================================
+   LOGIN REDIRECT
+   ========================================================= */
+
+function goToLogin(){
+
+    window.location.href =
+        "login.html";
+
+}
+
+</script>
 
 </body>
 </html>
