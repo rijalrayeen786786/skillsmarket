@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>  
 /* =========================================================  
-   SKILLS MARKET — MASTER CSS  
+   SKILLS MARKET — RED & BLACK MASTER CSS  
 ========================================================= */  
 :root{  
   --bg:#050505;  
@@ -778,12 +778,10 @@ section{
 .category-content{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.85));display:flex;align-items:flex-end;padding:20px}
 .category-content h3{font-size:18px;font-weight:700}
 
-/* =========================================================  
-   EXACT MATCH SCREENSHOT DESIGN & COUNTING ANIMATION FOR STATS  
-========================================================= */
+/* Stats Section */
 .stats-section{
   padding:70px 20px;
-  background: radial-gradient(circle at 50% 50%, rgba(30, 20, 60, 0.4) 0%, #050505 80%);
+  background: radial-gradient(circle at 50% 50%, rgba(229, 9, 20, 0.1) 0%, #050505 80%);
   text-align:center;
 }
 .stats-heading{
@@ -876,13 +874,133 @@ section{
 .step-number{display:block;font-size:11px;font-weight:800;color:var(--red2);letter-spacing:1px;margin-bottom:8px}
 .step-title{font-size:16px;font-weight:700}
 
-.founder-section{padding:80px 20px;background:var(--bg2)}
-.founder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:center;max-width:1000px;margin:40px auto 0}
-.founder-image{width:100%;height:380px;object-fit:cover;border-radius:20px;border:1px solid var(--border)}
-.founder-content{text-align:left}
-.founder-content h3{color:var(--red2);font-size:13px;font-weight:800;letter-spacing:1px;margin-bottom:10px}
-.founder-content h2{font-size:32px;font-weight:850;margin-bottom:5px}
-.founder-content p{color:var(--text);font-size:14px;line-height:1.7;margin-bottom:20px}
+/* =========================================================  
+   EXACT MATCH FOUNDER SECTION DESIGN (RED & BLACK THEME)  
+========================================================= */
+.founder-section{
+  padding:80px 20px;
+  background:var(--bg2);
+  text-align:center;
+}
+
+.founder-info-header {
+  max-width: 750px;
+  margin: 0 auto 40px;
+}
+
+.founder-designation-top {
+  color: #ff6b6b;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.founder-main-title {
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 850;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.founder-bio-text {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+/* Red & Black Founder Card Matching Screenshot */
+.founder-card-box {
+  max-width: 440px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, #180507, #0d0203);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  border-radius: 35px;
+  padding: 35px 25px;
+  box-shadow: 0 20px 50px rgba(229, 9, 20, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.founder-avatar-wrap {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--red), #ff3b30);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+}
+
+.founder-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.founder-name-card {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.founder-role-card {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff6b6b;
+  letter-spacing: 0.5px;
+  margin-bottom: 25px;
+}
+
+.founder-social-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.founder-soc-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(229, 9, 20, 0.1);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.founder-soc-btn:hover {
+  background: var(--red);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(229, 9, 20, 0.5);
+}
+
+/* Vertical Back To Top Text on Right */
+.vertical-top-text {
+  position: absolute;
+  right: 15px;
+  bottom: 25px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.vertical-top-text:hover {
+  color: var(--red);
+}
 
 /* Instructor Card Styles */
 .instructor-card{flex:0 0 280px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:25px;text-align:center;scroll-snap-align:start}
@@ -928,15 +1046,14 @@ section{
 .cert-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
 .cert-card p{color:var(--text);font-size:13px}
 
-/* =========================================================  
-   RICHIND CUSTOM SUPPORT CARD (UPDATED STYLE)  
-========================================================= */
+/* Richind Style Custom Support Card */
 .support-section{padding:80px 20px;background:var(--bg);text-align:center}
 .support-card{
   max-width:480px;
   margin:0 auto;
-  background: linear-gradient(135deg, #2b1055, #7597de);
+  background: linear-gradient(135deg, #180305, #4d070b);
   color: #ffffff;
+  border: 1px solid rgba(229, 9, 20, 0.3);
   border-radius: 20px;
   padding: 30px 24px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -963,7 +1080,7 @@ section{
   gap: 12px;
 }
 .email-icon{
-  background: #ff3399;
+  background: var(--red);
   color: #ffffff;
   width: 32px;
   height: 32px;
@@ -990,11 +1107,9 @@ section{
   margin: 0;
 }
 
-/* =========================================================  
-   NEW ANIMATED SKILLS-MARKET FOOTER STYLING  
-========================================================= */  
+/* Animated Footer Styling */  
 .footer-bg {
-    background: linear-gradient(135deg, #12081c 0%, #050208 100%);
+    background: linear-gradient(135deg, #120305 0%, #050102 100%);
     position: relative;
     overflow: hidden;
     color: #fff;
@@ -1009,7 +1124,7 @@ section{
     right: -50px;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(225, 29, 72, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(229, 9, 20, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 1;
 }
@@ -1040,7 +1155,7 @@ section{
     bottom: -4px;
     width: 35px;
     height: 2px;
-    background: #e11d48;
+    background: var(--red);
 }
 
 .footer-logo-custom h2 {
@@ -1060,7 +1175,6 @@ section{
     margin: 15px 0 20px;
 }
 
-/* Social Media Icon Styling & Animation */
 .social-icons-custom {
     display: flex;
     gap: 10px;
@@ -1083,12 +1197,11 @@ section{
 
 .social-icon-btn:hover {
     transform: translateY(-5px);
-    background: linear-gradient(135deg, #e11d48, #9333ea);
-    box-shadow: 0 0 15px rgba(225, 29, 72, 0.6);
+    background: linear-gradient(135deg, var(--red), #760008);
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.6);
     border-color: transparent;
 }
 
-/* Footer Links & Hover Effect */
 .footer-links-custom {
     list-style: none;
     padding: 0;
@@ -1108,11 +1221,10 @@ section{
 }
 
 .footer-links-custom a:hover {
-    color: #e11d48;
+    color: var(--red);
     padding-left: 6px;
 }
 
-/* Contact Info Cards */
 .footer-contact-item {
     display: flex;
     gap: 12px;
@@ -1353,9 +1465,9 @@ section{
         <div class="packages-grid">
             <!-- 1. Basic Wave -->
             <div class="pkg-card">
-                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #1b365d 0%, #0d1b2a 70%, #05080c 100%);">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #36070a 0%, #1a0305 70%, #080101 100%);">
                     <div class="pkg-banner-content">
-                        <span class="pkg-top-tag">BASIC WAVE</span>
+                        <span class="pkg-top-tag" style="color:#ff6b6b;">BASIC WAVE</span>
                         <h3>BASIC WAVE <br>PACKAGE</h3>
                     </div>
                 </div>
@@ -1390,9 +1502,9 @@ section{
 
             <!-- 2. Standard Wave -->
             <div class="pkg-card">
-                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #183b5c 0%, #0b1a2d 70%, #04070a 100%);">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #42080c 0%, #1c0305 70%, #080101 100%);">
                     <div class="pkg-banner-content">
-                        <span class="pkg-top-tag">STANDARD WAVE</span>
+                        <span class="pkg-top-tag" style="color:#ff6b6b;">STANDARD WAVE</span>
                         <h3>STANDARD WAVE <br>PACKAGE</h3>
                     </div>
                 </div>
@@ -1427,9 +1539,9 @@ section{
 
             <!-- 3. E-Lite Wave -->
             <div class="pkg-card">
-                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #133458 0%, #091728 70%, #03060a 100%);">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #520a0f 0%, #200406 70%, #080101 100%);">
                     <div class="pkg-banner-content">
-                        <span class="pkg-top-tag">E-LITE WAVE</span>
+                        <span class="pkg-top-tag" style="color:#ff6b6b;">E-LITE WAVE</span>
                         <h3>E-LITE WAVE <br>PACKAGE</h3>
                     </div>
                 </div>
@@ -1464,9 +1576,9 @@ section{
 
             <!-- 4. Expert Wave -->
             <div class="pkg-card">
-                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #102e52 0%, #071322 70%, #020508 100%);">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #630c12 0%, #240407 70%, #080101 100%);">
                     <div class="pkg-banner-content">
-                        <span class="pkg-top-tag">EXPERT WAVE</span>
+                        <span class="pkg-top-tag" style="color:#ff6b6b;">EXPERT WAVE</span>
                         <h3>EXPERT WAVE <br>PACKAGE</h3>
                     </div>
                 </div>
@@ -1501,7 +1613,7 @@ section{
 
             <!-- 5. Prime Wave -->
             <div class="pkg-card">
-                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #481111 0%, #200707 70%, #080202 100%);">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #750e16 0%, #2b0509 70%, #080101 100%);">
                     <div class="pkg-banner-content">
                         <span class="pkg-top-tag" style="color:#ff6b6b;">PRIME WAVE</span>
                         <h3 style="color:#fff;">PRIME WAVE <br>PACKAGE</h3>
@@ -1538,9 +1650,9 @@ section{
 
             <!-- 6. Premium Wave -->
             <div class="pkg-card">
-                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #113f1d 0%, #061c0c 70%, #020703 100%);">
+                <div class="pkg-banner-box" style="background: radial-gradient(circle at center, #8a101a 0%, #33060b 70%, #080101 100%);">
                     <div class="pkg-banner-content">
-                        <span class="pkg-top-tag" style="color:#4ade80;">PREMIUM WAVE</span>
+                        <span class="pkg-top-tag" style="color:#ff6b6b;">PREMIUM WAVE</span>
                         <h3 style="color:#fff;">PREMIUM WAVE <br>PACKAGE</h3>
                     </div>
                 </div>
@@ -1608,10 +1720,10 @@ section{
   </section>  
 
   <!-- =====================================================  
-     IMPACT SECTION (UPDATED EXACT MATCH DESIGN & COUNTING)  
+     IMPACT SECTION  
   ===================================================== -->  
   <section class="stats-section reveal">  
-    <h2 class="stats-heading">Our Impact In <span style="background: linear-gradient(90deg, #ff8a00, #e52e71); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Numbers</span></h2>  
+    <h2 class="stats-heading">Our Impact In <span class="gradient-text">Numbers</span></h2>  
     
     <div class="stats-grid">  
       <div class="stat-card">  
@@ -1692,26 +1804,37 @@ section{
   </section>  
 
   <!-- =====================================================  
-     FOUNDER  
+     FOUNDER SECTION (SCREENSHOT EXACT MATCH DESIGN)  
   ===================================================== -->  
   <section class="founder-section reveal" id="founder">  
-    <div class="container center">  
-      <div class="section-label">LEADERSHIP</div>  
-      <h2 class="section-title">Meet The Founder</h2>  
+    <div class="founder-info-header">
+      <span class="founder-designation-top">Mr. Yash Kulshrestha</span>
+      <h2 class="founder-main-title">CEO & Founder of Skills Market</h2>
+      <p class="founder-bio-text">
+        Yash Kulshrestha is one of the Youngest Entrepreneur and YouTuber from India. He started his journey since 2018. He has 5 years Experience about Sales And Law of attraction. He love to share his knowledge with youth.
+      </p>
+      <p class="founder-bio-text">
+        He has helped more than 20K+ students in learning new skill. He is guiding now 10k people about social media marketing in this company.
+      </p>
     </div>  
 
-    <div class="founder-grid">  
-      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85" alt="Founder" class="founder-image">  
-      <div class="founder-content">  
-        <h3>Founder & CEO</h3>  
-        <h2>Founder Name</h2>  
-        <p>Founder & CEO, Skills Market</p>  
-        <p>  
-          Skills Market is being built with a focus on practical learning,  
-          digital skills and accessible opportunities for learners everywhere.  
-        </p>  
-        <a href="#support" class="btn">Connect With Us →</a>  
-      </div>  
+    <!-- Red & Black Match Card with Vertical Go Back Top Text -->
+    <div class="founder-card-box">
+      <div class="founder-avatar-wrap">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85" alt="Founder Yash Kulshrestha">  
+      </div>
+      <h3 class="founder-name-card">Yash Kulshrestha</h3>
+      <p class="founder-role-card">Founder & CEO</p>
+
+      <div class="founder-social-row">
+        <a href="#" class="founder-soc-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="founder-soc-btn"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="founder-soc-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="founder-soc-btn"><i class="fab fa-instagram"></i></a>
+      </div>
+
+      <!-- Vertical Go Back Top Link -->
+      <a href="#home" class="vertical-top-text">GO BACK TOP</a>
     </div>  
   </section>  
 
@@ -1783,7 +1906,7 @@ section{
     <h2 class="section-title">Unlock Your Potential With <span class="gradient-text">Expert Guidance</span></h2>  
     <div class="guidance-grid">  
       <div class="guidance-card">  
-        <span>👨‍‍‍💼</span>  
+        <span>👨💼</span>  
         <h3>Learn From Industry Leaders</h3>  
         <p>Build practical knowledge through structured learning and expert guidance.</p>  
       </div>  
@@ -1943,11 +2066,11 @@ section{
   </section>  
 
   <!-- =====================================================  
-     SUPPORT (RICHIND STYLE CUSTOM SUPPORT CARD)  
+     SUPPORT  
   ===================================================== -->  
   <section class="support-section reveal" id="support">  
     <div class="support-card">  
-      <h2 class="support-title">Skillsmarket Coustomer Support</h2>  
+      <h2 class="support-title">Skillsmarket Customer Support</h2>  
       <p class="support-hours">(We are available on Monday to Saturday 9:15am to 5pm)</p>  
 
       <div class="email-box">  
@@ -1961,7 +2084,7 @@ section{
   </section>  
 
   <!-- =====================================================  
-     ANIMATED FOOTER (SKILLS MARKET)  
+     ANIMATED FOOTER  
   ===================================================== -->  
   <footer class="footer-bg" id="footer">  
     <div class="footer-container-custom">  
