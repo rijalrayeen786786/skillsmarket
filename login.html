@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Skills Market</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            background: #050505;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* =========================
+           ANIMATED BACKGROUND
+        ========================== */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -2;
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(130, 0, 0, 0.25),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    135deg,
+                    #050505,
+                    #0b0b0b 55%,
+                    #120000
+                );
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.45;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .circle.one {
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(
+                circle,
+                rgba(255, 0, 0, 0.28),
+                transparent 70%
+            );
+            top: -80px;
+            left: -70px;
+        }
+
+        .circle.two {
+            width: 330px;
+            height: 330px;
+            background: radial-gradient(
+                circle,
+                rgba(190, 0, 0, 0.22),
+                transparent 70%
+            );
+            right: -100px;
+            bottom: 70px;
+            animation-delay: -4s;
+        }
+
+        .circle.three {
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(
+                circle,
+                rgba(255, 30, 30, 0.18),
+                transparent 70%
+            );
+            left: 35%;
+            bottom: -70px;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate3d(0, -25px, 0) scale(1.08);
+            }
+        }
+
+        /* =========================
+           MAIN WRAPPER
+        ========================== */
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 45px 20px;
+        }
+
+        /* =========================
+           LOGIN CARD
+        ========================== */
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+            padding: 40px;
+            background: rgba(12, 12, 12, 0.88);
+            border: 1px solid rgba(255, 0, 0, 0.18);
+            border-radius: 20px;
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.75),
+                0 0 45px rgba(180, 0, 0, 0.08);
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 12%;
+            right: 12%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 0, 0, 0.8),
+                transparent
+            );
+        }
+
+        /* =========================
+           LOGO / TITLE
+        ========================== */
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .brand span {
+            color: #ff2020;
+        }
+
+        .logo-section p {
+            font-size: 14px;
+            color: #8e8e8e;
+            margin-top: 9px;
+        }
+
+        /* =========================
+           MESSAGE
+        ========================== */
+
+        .message {
+            display: none;
+            padding: 11px 13px;
+            margin-bottom: 18px;
+            border-radius: 9px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .message.error {
+            display: block;
+            color: #ffb4b4;
+            background: rgba(255, 0, 0, 0.08);
+            border: 1px solid rgba(255, 0, 0, 0.22);
+        }
+
+        .message.success {
+            display: block;
+            color: #a7f3b0;
+            background: rgba(0, 200, 70, 0.08);
+            border: 1px solid rgba(0, 200, 70, 0.2);
+        }
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #dedede;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 15px;
+            background: rgba(25, 25, 25, 0.8);
+            border: 1px solid #292929;
+            border-radius: 9px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition:
+                border-color 0.3s,
+                box-shadow 0.3s,
+                background 0.3s;
+        }
+
+        .form-group input::placeholder {
+            color: #666;
+        }
+
+        .form-group input:focus {
+            border-color: rgba(255, 30, 30, 0.8);
+            background: #161616;
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.07);
+        }
+
+        /* =========================
+           PASSWORD
+        ========================== */
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 70px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            color: #888;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .show-password:hover {
+            color: #ff3030;
+        }
+
+        /* =========================
+           OPTIONS
+        ========================== */
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 12px;
+            color: #858585;
+        }
+
+        .remember-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+        }
+
+        .remember-label input {
+            accent-color: #ef2020;
+            cursor: pointer;
+        }
+
+        .form-options a {
+            color: #8b8b8b;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .form-options a:hover {
+            color: #ff3030;
+        }
+
+        /* =========================
+           LOGIN BUTTON
+        ========================== */
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: 0;
+            border-radius: 9px;
+            background: linear-gradient(
+                135deg,
+                #ff2424,
+                #b90000
+            );
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(190, 0, 0, 0.25);
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s,
+                opacity 0.25s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(220, 0, 0, 0.32);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* =========================
+           REGISTER
+        ========================== */
+
+        .register-text {
+            text-align: center;
+            margin-top: 23px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .register-text a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .register-text a:hover {
+            color: #ff3030;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 18px 20px 22px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .footer-links a {
+            color: #777;
+            font-size: 11px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #ff3030;
+        }
+
+        .footer-links span {
+            color: #3d3d3d;
+            font-size: 11px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 480px) {
+
+            .main {
+                padding: 30px 16px;
+            }
+
+            .login-container {
+                padding: 30px 22px;
+                border-radius: 17px;
+            }
+
+            .brand {
+                font-size: 23px;
+            }
+
+            .form-options {
+                font-size: 11px;
+            }
+
+            .footer {
+                padding-bottom: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="circle one"></div>
+        <div class="circle two"></div>
+        <div class="circle three"></div>
+    </div>
+
+
+    <div class="page">
+
+        <!-- Main -->
+        <main class="main">
+
+            <div class="login-container">
+
+                <div class="logo-section">
+
+                    <div class="brand">
+                        SKILLS <span>MARKET</span>
+                    </div>
+
+                    <p>
+                        Login to continue your journey 👋
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="message"
+                    class="message">
+                </div>
+
+
+                <form id="loginForm">
+
+                    <!-- Email -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Registered Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="password-box">
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="••••••••"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="togglePassword">
+                                SHOW
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Options -->
+                    <div class="form-options">
+
+                        <label class="remember-label">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe">
+
+                            Remember me
+
+                        </label>
+
+
+                        <a
+                            href="#"
+                            id="forgotPassword">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- Login -->
+                    <button
+                        type="submit"
+                        class="login-btn"
+                        id="loginBtn">
+
+                        Log In
+
+                    </button>
+
+                </form>
+
+
+                <!-- Register -->
+                <div class="register-text">
+
+                    Don't have an account?
+
+                    <a href="checkout.html">
+                        Register Now
+                    </a>
+
+                </div>
+
+            </div>
+
+        </main>
+
+
+        <!-- Footer -->
+        <footer class="footer">
+
+            <p>
+                © 2026 Skills Market. All Rights Reserved.
+            </p>
+
+            <div class="footer-links">
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+                <span>•</span>
+
+                <a href="#">
+                    Terms & Conditions
+                </a>
+
+                <span>•</span>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <script>
+
+        /* =========================================
+           SUPABASE
+        ========================================== */
+
+        const SUPABASE_URL =
+            "https://hmlonjwqeqedakzhucix.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+
+
+        const { createClient } = supabase;
+
+        const supabaseClient =
+            createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        /* =========================================
+           ELEMENTS
+        ========================================== */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const emailInput =
+            document.getElementById("email");
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const loginBtn =
+            document.getElementById("loginBtn");
+
+        const message =
+            document.getElementById("message");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+        const forgotPassword =
+            document.getElementById("forgotPassword");
+
+
+        /* =========================================
+           MESSAGE
+        ========================================== */
+
+        function showMessage(text, type) {
+
+            message.textContent = text;
+
+            message.className =
+                "message " + type;
+        }
+
+
+        function clearMessage() {
+
+            message.textContent = "";
+
+            message.className =
+                "message";
+        }
+
+
+        /* =========================================
+           SHOW / HIDE PASSWORD
+        ========================================== */
+
+        togglePassword.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    passwordInput.type ===
+                    "password"
+                ) {
+
+                    passwordInput.type =
+                        "text";
+
+                    togglePassword.textContent =
+                        "HIDE";
+
+                } else {
+
+                    passwordInput.type =
+                        "password";
+
+                    togglePassword.textContent =
+                        "SHOW";
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           LOGIN
+        ========================================== */
+
+        loginForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+                clearMessage();
+
+                const email =
+                    emailInput.value.trim();
+
+                const password =
+                    passwordInput.value;
+
+
+                if (!email || !password) {
+
+                    showMessage(
+                        "Please enter your email and password.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                loginBtn.disabled = true;
+
+                loginBtn.textContent =
+                    "Logging in...";
+
+
+                try {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient
+                        .auth
+                        .signInWithPassword({
+
+                            email: email,
+
+                            password: password
+
+                        });
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    if (!data.session) {
+
+                        throw new Error(
+                            "Login session could not be created."
+                        );
+                    }
+
+
+                    showMessage(
+                        "Login successful! Redirecting...",
+                        "success"
+                    );
+
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "dashboard.html";
+
+                        },
+                        800
+                    );
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    let errorMessage =
+                        "Unable to login. Please try again.";
+
+
+                    if (
+                        error.message &&
+                        error.message
+                            .toLowerCase()
+                            .includes(
+                                "invalid login"
+                            )
+                    ) {
+
+                        errorMessage =
+                            "Invalid email or password.";
+
+                    } else if (
+                        error.message &&
+                        error.message
+                            .toLowerCase()
+                            .includes(
+                                "email not confirmed"
+                            )
+                    ) {
+
+                        errorMessage =
+                            "Please confirm your email before logging in.";
+                    }
+
+
+                    showMessage(
+                        errorMessage,
+                        "error"
+                    );
+
+
+                    loginBtn.disabled =
+                        false;
+
+                    loginBtn.textContent =
+                        "Log In";
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           FORGOT PASSWORD
+        ========================================== */
+
+        forgotPassword.addEventListener(
+            "click",
+            async function (event) {
+
+                event.preventDefault();
+
+                clearMessage();
+
+                const email =
+                    emailInput.value.trim();
+
+
+                if (!email) {
+
+                    showMessage(
+                        "Enter your registered email first.",
+                        "error"
+                    );
+
+                    emailInput.focus();
+
+                    return;
+                }
+
+
+                try {
+
+                    const { error } =
+                        await supabaseClient
+                        .auth
+                        .resetPasswordForEmail(
+                            email,
+                            {
+                                redirectTo:
+                                    "https://rijalrayeen786786.github.io/skillsmarket/reset-password.html"
+                            }
+                        );
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    showMessage(
+                        "Password reset link has been sent to your email.",
+                        "success"
+                    );
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    showMessage(
+                        error.message ||
+                        "Unable to send password reset email.",
+                        "error"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
