@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Skills Market | Dashboard</title>
+<meta name="description" content="Skills Market Member Dashboard">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f5f6f8;
+    color:#171717;
+    min-height:100vh;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    height:70px;
+    background:#fff;
+    border-bottom:1px solid #e8e8e8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    font-weight:800;
+    color:#111;
+}
+
+.logo-mark{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#ff1f1f,#b40000);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-weight:900;
+}
+
+.menu-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:10px;
+    background:#111;
+    color:#fff;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.profile-mini .avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#ff1f1f,#8b0000);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+}
+
+.profile-mini span{
+    font-weight:700;
+}
+
+/* ================= SIDEBAR ================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:1090;
+}
+
+.overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-300px;
+    width:290px;
+    height:100vh;
+    background:#111;
+    color:#fff;
+    z-index:1100;
+    transition:.35s ease;
+    overflow-y:auto;
+    box-shadow:5px 0 25px rgba(0,0,0,.25);
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.sidebar-header{
+    height:70px;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.sidebar-logo{
+    font-size:21px;
+    font-weight:800;
+}
+
+.close-btn{
+    border:none;
+    background:transparent;
+    color:#fff;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.sidebar-menu{
+    padding:15px 10px 30px;
+}
+
+.sidebar-menu a{
+    text-decoration:none;
+    color:#ddd;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:13px 14px;
+    margin:4px 0;
+    border-radius:9px;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active{
+    background:#d90000;
+    color:#fff;
+}
+
+.menu-icon{
+    width:25px;
+    text-align:center;
+    font-size:17px;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    padding:95px 25px 40px;
+    max-width:1400px;
+    margin:auto;
+}
+
+.welcome-section{
+    background:linear-gradient(135deg,#111,#2b0000);
+    color:#fff;
+    border-radius:18px;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+    margin-bottom:25px;
+}
+
+.welcome-section:after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    right:-80px;
+    top:-80px;
+    border-radius:50%;
+    background:rgba(255,0,0,.18);
+}
+
+.welcome-section h1{
+    font-size:30px;
+    margin-bottom:8px;
+    position:relative;
+    z-index:1;
+}
+
+.welcome-section p{
+    color:#d8d8d8;
+    position:relative;
+    z-index:1;
+}
+
+/* ================= STATS ================= */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.stat-card{
+    background:#fff;
+    border:1px solid #e8e8e8;
+    border-radius:15px;
+    padding:22px;
+    box-shadow:0 5px 20px rgba(0,0,0,.04);
+}
+
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:17px;
+}
+
+.stat-icon{
+    width:42px;
+    height:42px;
+    border-radius:11px;
+    background:#fff0f0;
+    color:#d50000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+}
+
+.stat-card h3{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.stat-card p{
+    color:#777;
+    font-size:13px;
+}
+
+/* ================= CONTENT ================= */
+
+.content-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:#fff;
+    border:1px solid #e8e8e8;
+    border-radius:15px;
+    padding:24px;
+    box-shadow:0 5px 20px rgba(0,0,0,.04);
+}
+
+.panel-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.panel-title h2{
+    font-size:19px;
+}
+
+.panel-title span{
+    color:#d50000;
+    font-size:13px;
+    font-weight:700;
+}
+
+/* QUICK ACCESS */
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.quick-item{
+    border:1px solid #eee;
+    padding:16px;
+    border-radius:11px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.quick-item:hover{
+    border-color:#d50000;
+    transform:translateY(-2px);
+}
+
+.quick-item strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.quick-item small{
+    color:#777;
+}
+
+/* PROFILE */
+
+.profile-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding-bottom:20px;
+    border-bottom:1px solid #eee;
+    margin-bottom:18px;
+}
+
+.big-avatar{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#ff2020,#8b0000);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    font-weight:800;
+}
+
+.profile-box h3{
+    margin-bottom:5px;
+}
+
+.profile-box p{
+    color:#777;
+    font-size:13px;
+}
+
+.profile-details div{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #f0f0f0;
+    font-size:14px;
+}
+
+.profile-details div:last-child{
+    border-bottom:none;
+}
+
+.profile-details span:first-child{
+    color:#777;
+}
+
+.profile-details span:last-child{
+    font-weight:600;
+}
+
+/* ================= POPUP ================= */
+
+.welcome-popup{
+    position:fixed;
+    right:20px;
+    top:85px;
+    width:330px;
+    background:#fff;
+    border-left:5px solid #d50000;
+    border-radius:12px;
+    padding:17px;
+    box-shadow:0 10px 35px rgba(0,0,0,.18);
+    z-index:2000;
+    transform:translateX(120%);
+    opacity:0;
+    transition:.4s ease;
+}
+
+.welcome-popup.show{
+    transform:translateX(0);
+    opacity:1;
+}
+
+.popup-title{
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.popup-text{
+    color:#666;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:1000px){
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .content-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+    .navbar{
+        padding:0 15px;
+    }
+
+    .profile-mini span{
+        display:none;
+    }
+
+    .main{
+        padding:90px 14px 30px;
+    }
+
+    .welcome-section{
+        padding:23px;
+    }
+
+    .welcome-section h1{
+        font-size:24px;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:16px;
+    }
+
+    .stat-card h3{
+        font-size:20px;
+    }
+
+    .quick-grid{
+        grid-template-columns:1fr;
+    }
+
+    .welcome-popup{
+        left:15px;
+        right:15px;
+        width:auto;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+    <div class="logo">
+        <div class="logo-mark">SM</div>
+        <span>Skills Market</span>
+    </div>
+
+    <div class="profile-mini">
+        <div class="avatar" id="miniAvatar">S</div>
+        <span id="miniName">Member</span>
+    </div>
+
+</header>
+
+
+<!-- ================= OVERLAY ================= -->
+
+<div class="overlay" id="overlay"></div>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-logo">Skills Market</div>
+        <button class="close-btn" id="closeBtn">×</button>
+    </div>
+
+    <nav class="sidebar-menu">
+
+        <a href="#" class="active">
+            <span class="menu-icon">📊</span>
+            Affiliate Dashboard
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">👤</span>
+            My Profile
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">🔗</span>
+            Affiliate Link
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">📚</span>
+            My Courses
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">⬆️</span>
+            Upgrade
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">🏆</span>
+            Leaderboard
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">👥</span>
+            My Team
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">📈</span>
+            Reports
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">🎓</span>
+            Training
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">🎥</span>
+            Webinars
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">🎁</span>
+            Offers
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">$</span>
+            Earning Target
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">💳</span>
+            Wallet Request
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">➕</span>
+            Create Account
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">🌐</span>
+            Skills Market Community
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- ================= WELCOME POPUP ================= -->
+
+<div class="welcome-popup" id="welcomePopup">
+
+    <div class="popup-title" id="popupTitle">
+        Welcome to Skills Market!
+    </div>
+
+    <div class="popup-text" id="popupText">
+        Your dashboard is ready. Start exploring Skills Market.
+    </div>
+
+</div>
+
+
+<!-- ================= MAIN DASHBOARD ================= -->
+
+<main class="main">
+
+    <!-- WELCOME -->
+
+    <section class="welcome-section">
+
+        <h1 id="welcomeTitle">
+            Welcome back, Skills Market Member!
+        </h1>
+
+        <p>
+            Manage your learning, affiliate activities and account from your dashboard.
+        </p>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+                <div class="stat-icon">₹</div>
+            </div>
+
+            <h3>₹0</h3>
+            <p>Today's Earning</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+                <div class="stat-icon">👥</div>
+            </div>
+
+            <h3>0</h3>
+            <p>Total Referrals</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+                <div class="stat-icon">📚</div>
+            </div>
+
+            <h3>0</h3>
+            <p>My Courses</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+                <div class="stat-icon">💰</div>
+            </div>
+
+            <h3>₹0</h3>
+            <p>Wallet Balance</p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+
+    <section class="content-grid">
+
+        <!-- QUICK ACCESS -->
+
+        <div class="panel">
+
+            <div class="panel-title">
+                <h2>Quick Access</h2>
+                <span>Skills Market</span>
+            </div>
+
+            <div class="quick-grid">
+
+                <div class="quick-item">
+                    <strong>📚 My Courses</strong>
+                    <small>View your enrolled courses</small>
+                </div>
+
+                <div class="quick-item">
+                    <strong>🔗 Affiliate Link</strong>
+                    <small>Manage your referral link</small>
+                </div>
+
+                <div class="quick-item">
+                    <strong>👥 My Team</strong>
+                    <small>View your team</small>
+                </div>
+
+                <div class="quick-item">
+                    <strong>💰 Wallet</strong>
+                    <small>Check wallet information</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="panel">
+
+            <div class="panel-title">
+                <h2>My Profile</h2>
+                <span>Account</span>
+            </div>
+
+            <div class="profile-box">
+
+                <div class="big-avatar" id="bigAvatar">S</div>
+
+                <div>
+                    <h3 id="profileName">Skills Market Member</h3>
+                    <p id="profileEmail">Member Account</p>
+                </div>
+
+            </div>
+
+            <div class="profile-details">
+
+                <div>
+                    <span>Status</span>
+                    <span>Active</span>
+                </div>
+
+                <div>
+                    <span>Member Type</span>
+                    <span>Member</span>
+                </div>
+
+                <div>
+                    <span>Courses</span>
+                    <span>0</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+/* ================= USER DATA ================= */
+
+const userName =
+    localStorage.getItem("username") ||
+    localStorage.getItem("userName") ||
+    "Skills Market Member";
+
+const userEmail =
+    localStorage.getItem("userEmail") ||
+    "Member Account";
+
+
+/* ================= NAME ================= */
+
+document.getElementById("welcomeTitle").textContent =
+    `Welcome back, ${userName}!`;
+
+document.getElementById("profileName").textContent =
+    userName;
+
+document.getElementById("miniName").textContent =
+    userName;
+
+document.getElementById("profileEmail").textContent =
+    userEmail;
+
+
+/* ================= AVATAR ================= */
+
+const firstLetter =
+    userName.trim().charAt(0).toUpperCase() || "S";
+
+document.getElementById("miniAvatar").textContent =
+    firstLetter;
+
+document.getElementById("bigAvatar").textContent =
+    firstLetter;
+
+
+/* ================= SIDEBAR ================= */
+
+const menuBtn = document.getElementById("menuBtn");
+const closeBtn = document.getElementById("closeBtn");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+function openSidebar(){
+
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+
+}
+
+function closeSidebar(){
+
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+
+}
+
+menuBtn.addEventListener("click", openSidebar);
+closeBtn.addEventListener("click", closeSidebar);
+overlay.addEventListener("click", closeSidebar);
+
+
+/* ================= WELCOME POPUP ================= */
+
+const welcomePopup =
+    document.getElementById("welcomePopup");
+
+const popupTitle =
+    document.getElementById("popupTitle");
+
+const popupText =
+    document.getElementById("popupText");
+
+
+if(sessionStorage.getItem("loginSuccess") === "true"){
+
+    popupTitle.textContent =
+        `Welcome, ${userName}! 👋`;
+
+    popupText.textContent =
+        "Login successful. Welcome to your Skills Market Dashboard.";
+
+    welcomePopup.classList.add("show");
+
+    sessionStorage.removeItem("loginSuccess");
+
+    setTimeout(() => {
+
+        welcomePopup.classList.remove("show");
+
+    }, 3500);
+
+}
+
+</script>
+
+</body>
+</html>
