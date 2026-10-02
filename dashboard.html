@@ -5,13 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dashboard | Skills Market</title>
+<meta name="description" content="Skills Market Member Dashboard">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
 }
 
 html{
@@ -19,695 +22,750 @@ html{
 }
 
 body{
-    min-height:100vh;
-    background:#f7f9fc;
-    color:#1e293b;
+    background:#f5f6fb;
+    color:#252525;
     overflow-x:hidden;
-}
-
-/* ================= PARTICLES ================= */
-
-#particles{
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-    z-index:0;
-    opacity:.55;
-}
-
-/* ================= APP ================= */
-
-.app{
-    position:relative;
-    z-index:1;
-    min-height:100vh;
 }
 
 /* ================= NAVBAR ================= */
 
 .navbar{
+    height:72px;
+    background:rgba(255,255,255,.96);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 32px;
+    box-shadow:0 2px 15px rgba(30,30,60,.07);
     position:sticky;
     top:0;
-    z-index:100;
-    width:100%;
-    background:rgba(255,255,255,.88);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-    border-bottom:1px solid rgba(148,163,184,.14);
-    box-shadow:0 4px 20px rgba(15,23,42,.04);
+    z-index:1000;
+    backdrop-filter:blur(12px);
 }
 
-.navbar-inner{
-    width:min(1180px,calc(100% - 28px));
-    height:68px;
-    margin:auto;
+.logo-container{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
+    flex-direction:column;
 }
 
-/* Logo */
-
-.logo{
-    text-decoration:none;
+.logo-text{
     font-size:23px;
     font-weight:900;
-    font-style:italic;
-    letter-spacing:-.8px;
-    color:#1e1b4b;
-    transition:.25s ease;
+    letter-spacing:.3px;
+    line-height:1;
 }
 
-.logo span{
-    color:#2563eb;
+.logo-text .skills{
+    color:#202020;
 }
 
-.logo:hover{
-    transform:translateY(-1px);
+.logo-text .market{
+    background:linear-gradient(90deg,#7138e8,#d53fca,#ff7a18);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
-/* Profile button */
-
-.profile-menu-wrap{
-    position:relative;
+.logo-tagline{
+    margin-top:5px;
+    font-size:8px;
+    color:#777;
+    letter-spacing:1.1px;
+    font-weight:700;
+    text-transform:uppercase;
 }
 
-.profile-menu-btn{
-    width:45px;
-    height:45px;
-    padding:2px;
-    border:0;
+.nav-right-icons{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-avatar-ring{
+    width:42px;
+    height:42px;
     border-radius:50%;
-    cursor:pointer;
-    background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
-    box-shadow:0 5px 16px rgba(79,70,229,.22);
-    transition:.25s ease;
-}
-
-.profile-menu-btn:hover{
-    transform:scale(1.06);
-    box-shadow:0 8px 22px rgba(79,70,229,.3);
-}
-
-.nav-profile-img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border:2px solid white;
-    border-radius:50%;
-    display:block;
-}
-
-.nav-fallback{
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    background:#fff;
+    background:linear-gradient(135deg,#7138e8,#d53fca);
+    color:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
     font-weight:800;
-    color:#4f46e5;
-    font-size:17px;
+    font-size:16px;
+    box-shadow:0 5px 16px rgba(113,56,232,.25);
+    cursor:pointer;
+    transition:.3s;
 }
 
-/* Profile dropdown */
+.nav-avatar-ring:hover{
+    transform:scale(1.07);
+}
 
-.profile-dropdown{
-    position:absolute;
-    right:0;
-    top:57px;
-    width:235px;
+.menu-icon{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    cursor:pointer;
+    color:#333;
     background:#fff;
-    border:1px solid #e2e8f0;
-    border-radius:16px;
+    border:1px solid #e9e9ef;
+    border-radius:12px;
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
+    transition:.3s;
+}
+
+.menu-icon:hover{
+    transform:translateY(-2px);
+    background:#f6f2ff;
+    color:#7138e8;
+}
+
+/* ================= PROFILE DROPDOWN ================= */
+
+.profile-menu{
+    position:fixed;
+    top:62px;
+    right:25px;
+    width:210px;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:15px;
+    box-shadow:0 15px 40px rgba(0,0,0,.13);
     padding:8px;
-    box-shadow:0 18px 45px rgba(15,23,42,.14);
+    z-index:4000;
     opacity:0;
     visibility:hidden;
-    transform:translateY(-8px) scale(.97);
-    transform-origin:top right;
-    transition:.22s ease;
+    transform:translateY(-8px);
+    transition:.25s;
 }
 
-.profile-dropdown.show{
+.profile-menu.active{
     opacity:1;
     visibility:visible;
-    transform:translateY(0) scale(1);
+    transform:translateY(0);
 }
 
-.dropdown-user{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:10px;
-    border-bottom:1px solid #eef2f7;
-    margin-bottom:5px;
-}
-
-.dropdown-avatar{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid #eef2ff;
-}
-
-.dropdown-name{
+.profile-menu-item{
+    padding:11px 13px;
+    border-radius:9px;
     font-size:13px;
-    font-weight:800;
-    color:#0f172a;
+    color:#333;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.dropdown-id{
-    font-size:10px;
-    color:#64748b;
-    margin-top:2px;
+.profile-menu-item:hover{
+    background:#f5f1ff;
+    color:#7138e8;
 }
 
-.dropdown-item{
+/* ================= MAIN CONTAINER ================= */
+
+.container{
     width:100%;
+    max-width:1380px;
+    margin:0 auto;
+    padding:30px 32px 0;
+}
+
+/* ================= WELCOME BANNER ================= */
+
+.welcome-top-banner{
+    background:
+        radial-gradient(circle at 90% 20%,rgba(213,63,202,.13),transparent 28%),
+        linear-gradient(135deg,#f3efff,#fff5fb);
+    border:1px solid #e8defc;
+    border-radius:18px;
+    padding:16px 20px;
     display:flex;
     align-items:center;
-    gap:10px;
-    border:0;
-    background:transparent;
-    text-decoration:none;
-    color:#334155;
-    padding:11px 10px;
-    border-radius:10px;
-    font-size:12px;
+    gap:13px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(80,50,130,.05);
+    animation:fadeInDown .6s ease;
+}
+
+.welcome-icon-box{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#7138e8,#a855f7);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    box-shadow:0 6px 15px rgba(113,56,232,.22);
+}
+
+.welcome-top-banner span{
+    font-size:15px;
+    font-weight:750;
+    color:#302452;
+}
+
+/* ================= WELCOME POPUP ================= */
+
+#welcomeNotification{
+    position:fixed;
+    top:85px;
+    right:25px;
+    max-width:340px;
+    background:linear-gradient(135deg,#7138e8,#d53fca);
+    color:white;
+    padding:13px 20px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(113,56,232,.28);
+    z-index:5000;
+    font-size:14px;
     font-weight:600;
-    cursor:pointer;
-    transition:.2s ease;
-}
-
-.dropdown-item:hover{
-    background:#f5f7ff;
-    color:#4f46e5;
-}
-
-.dropdown-item.logout:hover{
-    background:#fff1f2;
-    color:#e11d48;
-}
-
-/* ================= MAIN ================= */
-
-.dashboard{
-    width:min(1180px,calc(100% - 28px));
-    margin:0 auto;
-    padding:22px 0 35px;
+    display:none;
+    animation:slideInRight .5s ease;
 }
 
 /* ================= PROFILE CARD ================= */
 
 .profile-card{
+    min-height:155px;
+    background:
+        radial-gradient(circle at 90% 20%,rgba(213,63,202,.14),transparent 25%),
+        radial-gradient(circle at 70% 100%,rgba(113,56,232,.09),transparent 25%),
+        linear-gradient(135deg,#fff,#faf8ff);
+    border-radius:22px;
+    padding:28px;
     position:relative;
-    background:linear-gradient(135deg,#fff 0%,#f8f7ff 48%,#f1f5ff 100%);
-    border:1px solid rgba(99,102,241,.12);
-    border-radius:20px;
-    padding:24px 20px 19px;
-    margin-bottom:18px;
+    box-shadow:0 10px 35px rgba(45,35,80,.07);
+    margin-bottom:24px;
+    border:1px solid #ece7f7;
     overflow:hidden;
-    box-shadow:0 8px 25px rgba(30,41,59,.07);
-    isolation:isolate;
-    animation:fadeUp .55s ease both;
-}
-
-.profile-card::before{
-    content:"";
-    position:absolute;
-    width:210px;
-    height:210px;
-    right:-90px;
-    top:-115px;
-    border-radius:50%;
-    background:rgba(124,58,237,.09);
-    z-index:-1;
+    animation:fadeUp .7s ease both;
 }
 
 .profile-card::after{
     content:"";
     position:absolute;
-    width:160px;
-    height:160px;
-    left:-85px;
-    bottom:-95px;
+    width:180px;
+    height:180px;
+    border:1px solid rgba(113,56,232,.08);
     border-radius:50%;
-    background:rgba(37,99,235,.07);
-    z-index:-1;
+    right:-70px;
+    bottom:-100px;
 }
-
-.profile-circle{
-    position:absolute;
-    border-radius:50%;
-    pointer-events:none;
-    z-index:-1;
-}
-
-.circle-one{
-    width:95px;
-    height:95px;
-    right:35px;
-    bottom:-55px;
-    border:1px solid rgba(124,58,237,.13);
-    animation:floatCircle 5s ease-in-out infinite;
-}
-
-.circle-two{
-    width:58px;
-    height:58px;
-    right:90px;
-    top:20px;
-    border:1px solid rgba(37,99,235,.12);
-    animation:floatCircle 4s ease-in-out infinite reverse;
-}
-
-.circle-three{
-    width:25px;
-    height:25px;
-    left:115px;
-    top:18px;
-    background:rgba(124,58,237,.06);
-    animation:pulseCircle 3s ease-in-out infinite;
-}
-
-/* Package */
 
 .package-badge{
     position:absolute;
-    top:0;
-    right:18px;
-    background:linear-gradient(135deg,#7c3aed,#6d28d9);
-    color:#fff;
-    font-size:9px;
+    top:25px;
+    right:25px;
+    background:linear-gradient(135deg,#ff9f1c,#ff6b35);
+    color:white;
+    font-size:10px;
+    padding:7px 14px;
+    border-radius:30px;
     font-weight:800;
-    letter-spacing:.55px;
-    padding:7px 13px;
-    border-radius:0 0 10px 10px;
-    box-shadow:0 4px 10px rgba(109,40,217,.22);
+    box-shadow:0 5px 15px rgba(255,125,30,.22);
+    text-transform:uppercase;
+    letter-spacing:.5px;
 }
-
-/* Profile content */
 
 .profile-content{
+    display:flex;
+    align-items:center;
+    gap:20px;
     position:relative;
     z-index:2;
-    display:flex;
-    align-items:center;
-    gap:16px;
 }
 
-/* Avatar */
-
-.profile-avatar-wrap{
-    position:relative;
-    flex-shrink:0;
-}
-
-.profile-avatar-lg{
-    width:76px;
-    height:76px;
-    border-radius:50%;
-    padding:3px;
-    background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
-    box-shadow:0 7px 20px rgba(79,70,229,.22);
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    animation:avatarFloat 3.5s ease-in-out infinite;
-}
-
-.profile-avatar-lg img{
-    width:100%;
-    height:100%;
+.profile-avatar{
+    width:82px;
+    height:82px;
     border-radius:50%;
     object-fit:cover;
-    background:#fff;
-    border:2px solid #fff;
-    display:block;
-}
-
-.avatar-fallback{
-    display:none;
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    background:#fff;
-    align-items:center;
-    justify-content:center;
-    font-size:27px;
-    font-weight:800;
-    color:#4f46e5;
-    border:2px solid #fff;
-}
-
-/* Profile details */
-
-.profile-details{
-    min-width:0;
-}
-
-.profile-details h3{
-    font-size:18px;
-    font-weight:800;
-    color:#111827;
-    letter-spacing:.2px;
-    margin-bottom:7px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.id-row{
+    background:linear-gradient(135deg,#7138e8,#d53fca);
+    color:white;
     display:flex;
     align-items:center;
-    gap:8px;
-    font-size:11px;
+    justify-content:center;
+    font-size:30px;
+    font-weight:800;
+    border:4px solid #fff;
+    box-shadow:
+        0 0 0 4px rgba(113,56,232,.13),
+        0 8px 25px rgba(80,50,130,.15);
+    flex-shrink:0;
+    animation:avatarPulse 3s ease-in-out infinite;
+}
+
+.profile-info h3{
+    font-size:20px;
+    color:#202020;
+    margin-bottom:9px;
+    font-weight:800;
+}
+
+.profile-info .id-box{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:12px;
+    color:#666;
+    background:#f6f3fc;
+    padding:6px 10px;
+    border-radius:9px;
+    width:fit-content;
+    border:1px solid #ebe5f7;
+}
+
+.profile-info .id-box span{
     font-weight:700;
-    color:#475569;
+    color:#333;
 }
 
 .copy-btn{
-    width:25px;
-    height:25px;
-    border:0;
-    border-radius:7px;
-    background:#f1eaff;
-    color:#6d28d9;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    background:#fff;
+    color:#7138e8;
+    border:1px solid #ddd2f6;
+    border-radius:6px;
+    padding:3px 7px;
     font-size:11px;
     cursor:pointer;
-    transition:.2s ease;
+    transition:.2s;
 }
 
 .copy-btn:hover{
-    transform:translateY(-1px) scale(1.05);
-    background:#e9d5ff;
+    transform:scale(1.08);
+    background:#7138e8;
+    color:white;
 }
 
 /* ================= REVENUE GRID ================= */
 
 .revenue-grid{
     display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:14px;
-    margin-bottom:18px;
-}
-
-.revenue-card{
-    min-height:150px;
-    border-radius:16px;
-    padding:17px;
-    color:#fff;
-    position:relative;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-    overflow:hidden;
-    transition:.25s ease;
-    animation:fadeUp .55s ease both;
-}
-
-.revenue-card:nth-child(2){animation-delay:.06s}
-.revenue-card:nth-child(3){animation-delay:.12s}
-.revenue-card:nth-child(4){animation-delay:.18s}
-.revenue-card:nth-child(5){animation-delay:.24s}
-
-.revenue-card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 12px 25px rgba(15,23,42,.13);
-}
-
-.revenue-card::after{
-    content:"";
-    position:absolute;
-    width:100px;
-    height:100px;
-    right:-42px;
-    bottom:-50px;
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:50%;
-}
-
-.card-purple-1{
-    background:linear-gradient(135deg,#6b21a8,#581c87);
-}
-
-.card-purple-2{
-    background:linear-gradient(135deg,#4f46e5,#3730a3);
-}
-
-.card-magenta{
-    background:linear-gradient(135deg,#db2777,#9d174d);
-}
-
-.card-blue{
-    background:linear-gradient(135deg,#0284c7,#0369a1);
-}
-
-.card-gold{
-    background:linear-gradient(135deg,#ca8a04,#854d0e);
-}
-
-.revenue-amount{
-    font-size:23px;
-    font-weight:800;
-    margin-bottom:5px;
-}
-
-.revenue-title{
-    font-size:11px;
-    font-weight:500;
-    opacity:.95;
-    min-height:30px;
-}
-
-.revenue-footer{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-top:1px solid rgba(255,255,255,.28);
-    padding-top:9px;
-    margin-top:12px;
-    font-size:10px;
-}
-
-.view-details{
-    color:#fff;
-    text-decoration:none;
-}
-
-.arrow{
-    font-size:19px;
-    transition:.2s;
-}
-
-.revenue-card:hover .arrow{
-    transform:translateX(4px);
-}
-
-/* ================= LOWER GRID ================= */
-
-.lower-grid{
-    display:grid;
-    grid-template-columns:1.35fr .85fr;
+    grid-template-columns:repeat(3,1fr);
     gap:18px;
 }
 
-.section-container{
-    background:rgba(255,255,255,.94);
-    border-radius:18px;
-    padding:18px;
-    box-shadow:0 3px 12px rgba(15,23,42,.045);
-    border:1px solid #e2e8f0;
-    animation:fadeUp .65s ease both;
+/* ================= REVENUE CARDS ================= */
+
+.rev-card{
+    min-height:185px;
+    border-radius:20px;
+    padding:21px;
+    color:#fff;
+    box-shadow:0 9px 25px rgba(35,35,70,.13);
+    position:relative;
+    overflow:hidden;
+    animation:slideUp .6s cubic-bezier(.16,1,.3,1) both;
+    transition:transform .3s ease,box-shadow .3s ease;
 }
 
-.section-title{
-    font-size:14px;
+.rev-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 35px rgba(35,35,70,.18);
+}
+
+.rev-card::before{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    right:-55px;
+    bottom:-65px;
+    border:2px dashed rgba(255,255,255,.17);
+    border-radius:50%;
+}
+
+.rev-card::after{
+    content:"";
+    position:absolute;
+    width:90px;
+    height:90px;
+    right:30px;
+    top:-45px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+}
+
+.rev-row{
+    display:flex;
+    align-items:center;
+    position:relative;
+    z-index:2;
+}
+
+.rev-left-group{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.rev-icon-box{
+    width:50px;
+    height:50px;
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(7px);
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    border:1px solid rgba(255,255,255,.25);
+    box-shadow:inset 0 2px 5px rgba(255,255,255,.15);
+    flex-shrink:0;
+}
+
+.rev-info p{
+    font-size:12px;
+    opacity:.9;
+    margin-bottom:5px;
+    font-weight:550;
+}
+
+.rev-info h2{
+    font-size:25px;
     font-weight:800;
-    color:#0f172a;
-    margin-bottom:17px;
+    letter-spacing:.3px;
+}
+
+.divider{
+    height:1px;
+    background:rgba(255,255,255,.23);
+    width:100%;
+    margin:25px 0 12px;
+    position:relative;
+    z-index:2;
+}
+
+.view-details{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    position:relative;
+    z-index:2;
+}
+
+.arrow{
+    transition:.25s;
+    font-size:16px;
+}
+
+.rev-card:hover .arrow{
+    transform:translateX(5px);
+}
+
+/* ================= CARD GRADIENTS ================= */
+
+.g-1{
+    background:linear-gradient(135deg,#7138e8,#9655e8);
+}
+
+.g-2{
+    background:linear-gradient(135deg,#db2777,#a855f7);
+}
+
+.g-3{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+}
+
+.g-4{
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+}
+
+.g-5{
+    background:linear-gradient(135deg,#ff7a18,#ffb347);
+}
+
+.g-6{
+    background:linear-gradient(135deg,#0f9b8e,#13b8a6);
 }
 
 /* ================= GRAPH ================= */
 
-.chart-area{
-    position:relative;
-    margin-left:32px;
+.graph-card{
+    background:#fff;
+    border-radius:21px;
+    padding:25px;
+    box-shadow:0 9px 30px rgba(35,35,70,.07);
+    margin-top:24px;
+    border:1px solid #eeeef4;
+    animation:fadeUp .8s .5s ease both;
 }
 
-.chart-y-axis{
-    position:absolute;
-    left:-32px;
-    top:0;
-    bottom:0;
+.graph-header-row{
     display:flex;
-    flex-direction:column;
     justify-content:space-between;
-    font-size:9px;
-    color:#64748b;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.graph-header-row h3{
+    font-size:16px;
+    color:#222;
+    font-weight:800;
+}
+
+.graph-subtitle{
+    font-size:11px;
+    color:#999;
+    margin-top:4px;
 }
 
 .chart-container{
-    height:180px;
     position:relative;
-    border-left:1px solid #cbd5e1;
-    border-bottom:1px solid #cbd5e1;
-    overflow:hidden;
+    height:285px;
+    width:100%;
+    padding-left:35px;
 }
 
 .chart-grid{
     position:absolute;
-    inset:0;
+    inset:0 0 30px 35px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
+    pointer-events:none;
 }
 
 .grid-line{
-    border-top:1px solid #edf2f7;
+    border-bottom:1px solid #edf0f5;
     width:100%;
+    display:flex;
+    align-items:center;
+    position:relative;
 }
 
-.chart-zero-line{
+.grid-line span{
     position:absolute;
-    left:0;
+    left:-31px;
+    font-size:9px;
+    color:#a0a7b4;
+}
+
+.chart-svg{
+    position:absolute;
+    left:35px;
     right:0;
-    bottom:0;
-    height:2px;
-    background:#db2777;
+    top:0;
+    bottom:30px;
+    width:calc(100% - 35px);
+    height:calc(100% - 30px);
+    overflow:visible;
 }
 
-.chart-dot{
+.chart-axis-labels{
     position:absolute;
-    width:8px;
-    height:8px;
-    background:#db2777;
-    border:2px solid #fff;
-    border-radius:50%;
-    bottom:-3px;
-    box-shadow:0 1px 5px rgba(219,39,119,.4);
-    animation:dotPulse 2s infinite;
-}
-
-.dot1{left:5%}
-.dot2{left:20%}
-.dot3{left:35%}
-.dot4{left:50%}
-.dot5{left:65%}
-.dot6{left:80%}
-.dot7{left:95%}
-
-.chart-dates{
+    bottom:0;
+    left:35px;
+    right:0;
     display:flex;
     justify-content:space-between;
-    font-size:8px;
-    color:#64748b;
-    margin:9px 0 0 32px;
+    font-size:9px;
+    color:#7c8492;
+    padding-top:8px;
 }
 
 /* ================= WALLET ================= */
 
-.wallet-card{
-    min-height:180px;
-    background:linear-gradient(135deg,#0f2d59,#1e3a8a);
-    border-radius:16px;
-    padding:18px;
-    color:#fff;
+.wallet-section-title{
+    font-size:16px;
+    font-weight:800;
+    color:#202020;
+    margin:27px 0 12px;
+}
+
+.wallet-atm-card{
+    background:
+        radial-gradient(circle at 90% 20%,rgba(255,255,255,.14),transparent 22%),
+        linear-gradient(135deg,#4338ca,#7138e8,#a855f7);
+    border-radius:21px;
+    padding:25px;
+    color:white;
+    box-shadow:0 12px 30px rgba(76,55,180,.22);
     position:relative;
     overflow:hidden;
-    box-shadow:0 8px 22px rgba(15,45,89,.2);
 }
 
-.wallet-card::after{
+.wallet-atm-card::after{
     content:"";
     position:absolute;
-    width:180px;
-    height:180px;
-    border:1px solid rgba(255,255,255,.13);
+    width:220px;
+    height:220px;
+    right:-100px;
+    bottom:-130px;
+    border:2px solid rgba(255,255,255,.13);
     border-radius:50%;
-    right:-80px;
-    bottom:-95px;
 }
 
-.wallet-card::before{
-    content:"";
-    position:absolute;
-    width:105px;
-    height:105px;
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:50%;
-    right:8px;
-    bottom:8px;
-}
-
-.wallet-header{
-    display:flex;
-    justify-content:space-between;
-    font-size:11px;
-    opacity:.9;
-    margin-bottom:28px;
-    position:relative;
-    z-index:2;
-}
-
-.wallet-earned{
-    text-align:center;
-    font-size:11px;
-    opacity:.9;
-    margin-bottom:5px;
-    position:relative;
-    z-index:2;
-}
-
-.wallet-balance{
-    text-align:center;
-    font-size:28px;
-    font-weight:800;
-    margin-bottom:25px;
-    position:relative;
-    z-index:2;
-}
-
-.wallet-bottom{
+.wallet-top-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    position:relative;
-    z-index:2;
+    margin-bottom:20px;
+    font-size:13px;
+    opacity:.9;
 }
 
-.wallet-user{
+.wallet-amount-val{
+    font-size:30px;
+    font-weight:850;
+    margin-bottom:8px;
+}
+
+.wallet-date-row{
     font-size:11px;
-    font-weight:600;
+    opacity:.75;
 }
 
-.wallet-date{
-    font-size:9px;
-    opacity:.75;
+.wallet-card-name{
+    font-size:14px;
+    font-weight:700;
+    margin-top:18px;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    height:100%;
+    width:295px;
+    position:fixed;
+    z-index:3000;
+    top:0;
+    left:-315px;
+    background:#fff;
+    overflow-y:auto;
+    transition:left .35s cubic-bezier(.4,0,.2,1);
+    box-shadow:8px 0 30px rgba(20,20,50,.15);
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.sidebar-header{
+    height:76px;
+    padding:0 20px;
+    background:#fff;
+    border-bottom:1px solid #eee;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.sidebar-brand{
+    font-size:19px;
+    font-weight:900;
+    background:linear-gradient(90deg,#7138e8,#d53fca,#ff7a18);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.sidebar-close{
+    cursor:pointer;
+    font-size:26px;
+    color:#555;
+    transition:.2s;
+}
+
+.sidebar-close:hover{
+    transform:rotate(90deg);
+    color:#7138e8;
+}
+
+.sidebar-section{
+    padding:15px 18px 7px;
+    font-size:10px;
+    font-weight:800;
+    color:#aaa;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.sidebar a{
+    margin:3px 10px;
+    padding:12px 13px;
+    text-decoration:none;
+    font-size:13px;
+    color:#444;
+    display:block;
+    border-radius:10px;
+    transition:.25s;
+}
+
+.sidebar a:hover{
+    background:#f6f2ff;
+    color:#7138e8;
+    padding-left:18px;
+}
+
+.sidebar a.active-link{
+    background:linear-gradient(90deg,#f0eaff,#faf7ff);
+    color:#7138e8;
+    font-weight:750;
+    border-left:3px solid #7138e8;
+}
+
+/* ================= OVERLAY ================= */
+
+#sidebarOverlay{
+    position:fixed;
+    inset:0;
+    background:rgba(20,20,35,.38);
+    backdrop-filter:blur(2px);
+    z-index:2500;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+}
+
+#sidebarOverlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+/* ================= TOAST ================= */
+
+#toast{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translate(-50%,20px);
+    background:#222;
+    color:#fff;
+    padding:11px 17px;
+    border-radius:9px;
+    font-size:13px;
+    opacity:0;
+    visibility:hidden;
+    z-index:6000;
+    transition:.3s;
+}
+
+#toast.show{
+    opacity:1;
+    visibility:visible;
+    transform:translate(-50%,0);
 }
 
 /* ================= FOOTER ================= */
 
 .footer{
     text-align:center;
-    font-size:10px;
-    color:#64748b;
-    padding:20px 0 5px;
+    font-size:11px;
+    color:#858585;
+    padding:28px 10px;
 }
 
 /* ================= ANIMATIONS ================= */
 
-@keyframes fadeUp{
+@keyframes fadeInDown{
     from{
         opacity:0;
-        transform:translateY(14px);
+        transform:translateY(-15px);
     }
     to{
         opacity:1;
@@ -715,149 +773,179 @@ body{
     }
 }
 
-@keyframes avatarFloat{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-3px)}
-}
-
-@keyframes floatCircle{
-    0%,100%{transform:translate(0,0)}
-    50%{transform:translate(-5px,-5px)}
-}
-
-@keyframes pulseCircle{
-    0%,100%{
-        transform:scale(1);
-        opacity:.5;
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
     }
-    50%{
-        transform:scale(1.25);
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes slideUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes slideInRight{
+    from{
+        transform:translateX(110px);
+        opacity:0;
+    }
+    to{
+        transform:translateX(0);
         opacity:1;
     }
 }
 
-@keyframes dotPulse{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.45)}
+@keyframes avatarPulse{
+    0%,100%{
+        box-shadow:
+        0 0 0 4px rgba(113,56,232,.13),
+        0 8px 25px rgba(80,50,130,.15);
+    }
+    50%{
+        box-shadow:
+        0 0 0 10px rgba(113,56,232,.04),
+        0 8px 25px rgba(80,50,130,.15);
+    }
 }
 
 /* ================= TABLET ================= */
 
-@media(max-width:900px){
+@media(max-width:1000px){
+
+    .container{
+        padding:25px 20px 0;
+    }
 
     .revenue-grid{
         grid-template-columns:repeat(2,1fr);
-    }
-
-    .revenue-card:last-child{
-        grid-column:1/-1;
-    }
-
-    .lower-grid{
-        grid-template-columns:1fr;
     }
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:600px){
+@media(max-width:650px){
 
-    .navbar-inner{
-        height:62px;
-        width:calc(100% - 20px);
+    .navbar{
+        height:65px;
+        padding:0 15px;
     }
 
-    .logo{
-        font-size:21px;
+    .logo-text{
+        font-size:19px;
     }
 
-    .profile-menu-btn{
-        width:42px;
-        height:42px;
+    .logo-tagline{
+        font-size:7px;
     }
 
-    .dashboard{
-        width:calc(100% - 20px);
-        padding-top:15px;
+    .nav-avatar-ring,
+    .menu-icon{
+        width:38px;
+        height:38px;
+    }
+
+    .container{
+        padding:15px 12px 0;
+    }
+
+    .welcome-top-banner{
+        padding:13px;
+        margin-bottom:15px;
+    }
+
+    .welcome-icon-box{
+        width:38px;
+        height:38px;
+    }
+
+    .welcome-top-banner span{
+        font-size:13px;
     }
 
     .profile-card{
-        padding:23px 14px 17px;
-        border-radius:17px;
+        padding:20px;
+        min-height:145px;
+    }
+
+    .package-badge{
+        top:15px;
+        right:15px;
+        font-size:8px;
+        padding:6px 9px;
     }
 
     .profile-content{
         gap:13px;
     }
 
-    .profile-avatar-lg{
-        width:68px;
-        height:68px;
+    .profile-avatar{
+        width:65px;
+        height:65px;
+        font-size:24px;
     }
 
-    .profile-details h3{
-        font-size:16px;
-    }
-
-    .package-badge{
-        right:13px;
-        font-size:8px;
-        padding:6px 9px;
+    .profile-info h3{
+        font-size:15px;
+        padding-right:80px;
     }
 
     .revenue-grid{
         grid-template-columns:1fr;
-        gap:11px;
-    }
-
-    .revenue-card{
-        min-height:130px;
-    }
-
-    .revenue-card:last-child{
-        grid-column:auto;
-    }
-
-    .lower-grid{
-        grid-template-columns:1fr;
         gap:14px;
     }
 
-    .section-container{
-        padding:15px;
+    .rev-card{
+        min-height:165px;
+        margin-bottom:0;
+    }
+
+    .graph-card{
+        padding:18px 12px;
     }
 
     .chart-container{
-        height:155px;
+        height:220px;
+        padding-left:28px;
     }
 
-    .wallet-card{
-        min-height:170px;
+    .chart-grid{
+        left:28px;
     }
 
-    .profile-dropdown{
-        right:-2px;
-        width:220px;
-    }
-}
-
-@media(max-width:360px){
-
-    .dashboard{
-        width:calc(100% - 16px);
+    .chart-svg{
+        left:28px;
+        width:calc(100% - 28px);
     }
 
-    .profile-avatar-lg{
-        width:62px;
-        height:62px;
+    .chart-axis-labels{
+        left:28px;
     }
 
-    .profile-details h3{
-        font-size:15px;
+    .grid-line span{
+        left:-25px;
     }
 
-    .id-row{
-        font-size:10px;
+    .wallet-atm-card{
+        padding:21px;
+    }
+
+    .wallet-amount-val{
+        font-size:26px;
+    }
+
+    .sidebar{
+        width:285px;
     }
 }
 </style>
@@ -865,815 +953,956 @@ body{
 
 <body>
 
-<canvas id="particles"></canvas>
+<!-- WELCOME POPUP -->
+<div id="welcomeNotification">Welcome back to Skills Market!</div>
 
-<div class="app">
+<!-- OVERLAY -->
+<div id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
 <!-- ================= NAVBAR ================= -->
 
-<nav class="navbar">
+<div class="navbar">
 
-    <div class="navbar-inner">
+    <div class="logo-container">
+        <div class="logo-text">
+            <span class="skills">SKILLS </span>
+            <span class="market">MARKET</span>
+        </div>
+        <div class="logo-tagline">
+            Learn • Grow • Earn
+        </div>
+    </div>
 
-        <a href="#" class="logo">
-            Skills<span>Market</span>
-        </a>
+    <div class="nav-right-icons">
 
-        <div class="profile-menu-wrap">
+        <div
+            class="nav-avatar-ring"
+            id="navThumbAvatar"
+            onclick="toggleProfileMenu()">
+            P
+        </div>
 
-            <button
-                class="profile-menu-btn"
-                id="profileMenuBtn"
-                aria-label="Open profile menu">
-
-                <img
-                    id="navProfileImage"
-                    class="nav-profile-img"
-                    src=""
-                    alt="Profile"
-                    style="display:none;"
-                >
-
-                <div
-                    id="navFallback"
-                    class="nav-fallback">
-                    U
-                </div>
-
-            </button>
-
-            <div
-                class="profile-dropdown"
-                id="profileDropdown">
-
-                <div class="dropdown-user">
-
-                    <img
-                        id="dropdownProfileImage"
-                        class="dropdown-avatar"
-                        src=""
-                        alt="Profile"
-                        style="display:none;"
-                    >
-
-                    <div
-                        id="dropdownFallback"
-                        class="dropdown-avatar nav-fallback">
-                        U
-                    </div>
-
-                    <div>
-                        <div
-                            class="dropdown-name"
-                            id="dropdownName">
-                            User
-                        </div>
-
-                        <div
-                            class="dropdown-id"
-                            id="dropdownID">
-                            ID: —
-                        </div>
-                    </div>
-
-                </div>
-
-                <a href="#" class="dropdown-item">
-                    👤 My Profile
-                </a>
-
-                <a href="#" class="dropdown-item">
-                    ⚙️ Settings
-                </a>
-
-                <button
-                    class="dropdown-item logout"
-                    onclick="logoutUser()">
-                    🚪 Logout
-                </button>
-
-            </div>
-
+        <div
+            class="menu-icon"
+            onclick="toggleSidebar()">
+            &#9776;
         </div>
 
     </div>
 
-</nav>
+</div>
 
+<!-- ================= PROFILE DROPDOWN ================= -->
 
-<!-- ================= DASHBOARD ================= -->
+<div id="profileMenu" class="profile-menu">
 
-<main class="dashboard">
+    <div class="profile-menu-item">
+        👤 My Profile
+    </div>
 
-<!-- ================= PROFILE ================= -->
-
-<div class="profile-card">
-
-    <div class="profile-circle circle-one"></div>
-    <div class="profile-circle circle-two"></div>
-    <div class="profile-circle circle-three"></div>
+    <div class="profile-menu-item">
+        ⚙️ Account Settings
+    </div>
 
     <div
-        class="package-badge"
-        id="packageBadge">
-        PACKAGE
+        class="profile-menu-item"
+        onclick="logoutUser()">
+        🚪 Logout
     </div>
 
-    <div class="profile-content">
+</div>
 
-        <div class="profile-avatar-wrap">
+<!-- ================= SIDEBAR ================= -->
 
-            <div class="profile-avatar-lg">
+<div id="sidebar" class="sidebar">
 
-                <img
-                    id="profileImage"
-                    src=""
-                    alt="Profile Photo"
-                    style="display:none;"
-                >
+    <div class="sidebar-header">
 
-                <div
-                    id="profileFallback"
-                    class="avatar-fallback">
-                    U
+        <span class="sidebar-brand">
+            Skills Market
+        </span>
+
+        <span
+            class="sidebar-close"
+            onclick="toggleSidebar()">
+            &times;
+        </span>
+
+    </div>
+
+    <div class="sidebar-section">
+        Dashboard
+    </div>
+
+    <a href="dashboard.html" class="active-link">
+        📊 Affiliate Dashboard
+    </a>
+
+    <a href="#">
+        👤 My Profile
+    </a>
+
+    <a href="#">
+        🔗 Affiliate Link
+    </a>
+
+    <a href="#">
+        📚 My Courses
+    </a>
+
+    <a href="#">
+        📈 Upgrade
+    </a>
+
+    <a href="#">
+        🏆 Leaderboard
+    </a>
+
+    <a href="#">
+        👥 My Team
+    </a>
+
+    <a href="#">
+        📄 Reports
+    </a>
+
+    <a href="#">
+        💼 Wallet Request
+    </a>
+
+    <a href="#">
+        🌐 Community
+    </a>
+
+    <div class="sidebar-section">
+        More
+    </div>
+
+    <a href="#">
+        🎓 Training
+    </a>
+
+    <a href="#">
+        🎥 Webinars
+    </a>
+
+    <a href="#">
+        🔥 Offers
+    </a>
+
+    <a href="#">
+        🎯 Earning Target
+    </a>
+
+    <a href="#">
+        ➕ Create Account
+    </a>
+
+</div>
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+    <!-- WELCOME -->
+
+    <div class="welcome-top-banner">
+
+        <div class="welcome-icon-box">
+            🎓
+        </div>
+
+        <span id="welcomeBannerText">
+            Welcome, Member
+        </span>
+
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div class="profile-card">
+
+        <div class="package-badge">
+            Premium Package
+        </div>
+
+        <div class="profile-content">
+
+            <div
+                class="profile-avatar"
+                id="profileAvatar">
+                P
+            </div>
+
+            <div class="profile-info">
+
+                <h3 id="profileName">
+                    Member
+                </h3>
+
+                <div class="id-box">
+
+                    <span>ID:</span>
+
+                    <span id="profileId">
+                        SM-MEMBER
+                    </span>
+
+                    <button
+                        class="copy-btn"
+                        onclick="copyUserId()">
+                        📋
+                    </button>
+
                 </div>
 
             </div>
 
         </div>
 
-        <div class="profile-details">
+    </div>
 
-            <h3 id="profileName">
-                User
-            </h3>
 
-            <div class="id-row">
+    <!-- ================= REVENUE ================= -->
 
-                <span id="profileID">
-                    ID: —
-                </span>
+    <div class="revenue-grid">
 
-                <button
-                    class="copy-btn"
-                    onclick="copyProfileID()"
-                    title="Copy ID">
-                    📋
-                </button>
+        <!-- TODAY -->
 
+        <div class="rev-card g-1">
+
+            <div class="rev-row">
+
+                <div class="rev-left-group">
+
+                    <div class="rev-icon-box">
+                        💳
+                    </div>
+
+                    <div class="rev-info">
+
+                        <p>
+                            Today's Revenue
+                        </p>
+
+                        <h2>
+                            ₹ 0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="view-details">
+                <span>View Details</span>
+                <span class="arrow">›</span>
+            </div>
+
+        </div>
+
+
+        <!-- 7 DAYS -->
+
+        <div class="rev-card g-2">
+
+            <div class="rev-row">
+
+                <div class="rev-left-group">
+
+                    <div class="rev-icon-box">
+                        📅
+                    </div>
+
+                    <div class="rev-info">
+
+                        <p>
+                            7 Days Revenue
+                        </p>
+
+                        <h2>
+                            ₹ 0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="view-details">
+                <span>View Details</span>
+                <span class="arrow">›</span>
+            </div>
+
+        </div>
+
+
+        <!-- 30 DAYS -->
+
+        <div class="rev-card g-3">
+
+            <div class="rev-row">
+
+                <div class="rev-left-group">
+
+                    <div class="rev-icon-box">
+                        📈
+                    </div>
+
+                    <div class="rev-info">
+
+                        <p>
+                            30 Days Revenue
+                        </p>
+
+                        <h2>
+                            ₹ 0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="view-details">
+                <span>View Details</span>
+                <span class="arrow">›</span>
+            </div>
+
+        </div>
+
+
+        <!-- ALL TIME -->
+
+        <div class="rev-card g-4">
+
+            <div class="rev-row">
+
+                <div class="rev-left-group">
+
+                    <div class="rev-icon-box">
+                        🏆
+                    </div>
+
+                    <div class="rev-info">
+
+                        <p>
+                            All Time Revenue
+                        </p>
+
+                        <h2>
+                            ₹ 0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="view-details">
+                <span>View Details</span>
+                <span class="arrow">›</span>
+            </div>
+
+        </div>
+
+
+        <!-- INDUSTRY -->
+
+        <div class="rev-card g-5">
+
+            <div class="rev-row">
+
+                <div class="rev-left-group">
+
+                    <div class="rev-icon-box">
+                        🏅
+                    </div>
+
+                    <div class="rev-info">
+
+                        <p>
+                            Industry Income
+                        </p>
+
+                        <h2>
+                            ₹ 0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="view-details">
+                <span>View Details</span>
+                <span class="arrow">›</span>
+            </div>
+
+        </div>
+
+
+        <!-- PASSIVE -->
+
+        <div class="rev-card g-6">
+
+            <div class="rev-row">
+
+                <div class="rev-left-group">
+
+                    <div class="rev-icon-box">
+                        💎
+                    </div>
+
+                    <div class="rev-info">
+
+                        <p>
+                            Passive Income
+                        </p>
+
+                        <h2>
+                            ₹ 0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="view-details">
+                <span>View Details</span>
+                <span class="arrow">›</span>
             </div>
 
         </div>
 
     </div>
 
-</div>
 
+    <!-- ================= GRAPH ================= -->
 
-<!-- ================= REVENUE ================= -->
+    <div class="graph-card">
 
-<div class="revenue-grid">
+        <div class="graph-header-row">
 
-    <div class="revenue-card card-purple-1">
+            <div>
 
-        <div class="revenue-amount" id="todayRevenue">
-            ₹ 0
-        </div>
+                <h3>
+                    7 Days Sales Graph
+                </h3>
 
-        <div class="revenue-title">
-            Today's Revenue
-        </div>
+                <div class="graph-subtitle">
+                    Sales & commission performance
+                </div>
 
-        <div class="revenue-footer">
-            <a href="#" class="view-details">
-                View details
-            </a>
-            <span class="arrow">›</span>
-        </div>
+            </div>
 
-    </div>
-
-
-    <div class="revenue-card card-purple-2">
-
-        <div class="revenue-amount" id="sevenRevenue">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            7 Days Revenue
-        </div>
-
-        <div class="revenue-footer">
-            <a href="#" class="view-details">
-                View details
-            </a>
-            <span class="arrow">›</span>
-        </div>
-
-    </div>
-
-
-    <div class="revenue-card card-magenta">
-
-        <div class="revenue-amount" id="thirtyRevenue">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            30 Days Revenue
-        </div>
-
-        <div class="revenue-footer">
-            <a href="#" class="view-details">
-                View details
-            </a>
-            <span class="arrow">›</span>
-        </div>
-
-    </div>
-
-
-    <div class="revenue-card card-blue">
-
-        <div class="revenue-amount" id="allRevenue">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            All Time Revenue
-        </div>
-
-        <div class="revenue-footer">
-            <a href="#" class="view-details">
-                View details
-            </a>
-            <span class="arrow">›</span>
-        </div>
-
-    </div>
-
-
-    <div class="revenue-card card-gold">
-
-        <div class="revenue-amount" id="passiveRevenue">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Passive Income
-        </div>
-
-        <div class="revenue-footer">
-            <a href="#" class="view-details">
-                View details
-            </a>
-            <span class="arrow">›</span>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ================= LOWER SECTIONS ================= -->
-
-<div class="lower-grid">
-
-<!-- ================= GRAPH ================= -->
-
-<div class="section-container">
-
-    <div class="section-title">
-        Sales Last 7 Days
-    </div>
-
-    <div class="chart-area">
-
-        <div class="chart-y-axis">
-            <span>2</span>
-            <span>1.5</span>
-            <span>1</span>
-            <span>0.5</span>
-            <span>0</span>
         </div>
 
         <div class="chart-container">
 
             <div class="chart-grid">
-                <div class="grid-line"></div>
-                <div class="grid-line"></div>
-                <div class="grid-line"></div>
-                <div class="grid-line"></div>
-                <div class="grid-line"></div>
+
+                <div class="grid-line">
+                    <span>100</span>
+                </div>
+
+                <div class="grid-line">
+                    <span>80</span>
+                </div>
+
+                <div class="grid-line">
+                    <span>60</span>
+                </div>
+
+                <div class="grid-line">
+                    <span>40</span>
+                </div>
+
+                <div class="grid-line">
+                    <span>20</span>
+                </div>
+
+                <div class="grid-line">
+                    <span>0</span>
+                </div>
+
             </div>
 
-            <div class="chart-zero-line"></div>
 
-            <div class="chart-dot dot1"></div>
-            <div class="chart-dot dot2"></div>
-            <div class="chart-dot dot3"></div>
-            <div class="chart-dot dot4"></div>
-            <div class="chart-dot dot5"></div>
-            <div class="chart-dot dot6"></div>
-            <div class="chart-dot dot7"></div>
+            <svg
+                class="chart-svg"
+                viewBox="0 0 700 250"
+                preserveAspectRatio="none">
+
+                <defs>
+
+                    <linearGradient
+                        id="chartGradient"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1">
+
+                        <stop
+                            offset="0%"
+                            stop-color="#7138e8"
+                            stop-opacity=".22"/>
+
+                        <stop
+                            offset="100%"
+                            stop-color="#7138e8"
+                            stop-opacity="0"/>
+
+                    </linearGradient>
+
+                </defs>
+
+                <path
+                    d="M0 205
+                       C55 205,55 205,100 205
+                       C145 205,145 205,200 205
+                       C245 205,245 205,300 205
+                       C345 205,345 205,400 205
+                       C450 205,450 205,500 205
+                       C550 205,550 205,600 205
+                       C650 205,650 205,700 205
+                       L700 250
+                       L0 250 Z"
+                    fill="url(#chartGradient)"/>
+
+                <path
+                    d="M0 205
+                       C55 205,55 205,100 205
+                       C145 205,145 205,200 205
+                       C245 205,245 205,300 205
+                       C345 205,345 205,400 205
+                       C450 205,450 205,500 205
+                       C550 205,550 205,600 205
+                       C650 205,650 205,700 205"
+                    fill="none"
+                    stroke="#7138e8"
+                    stroke-width="4"
+                    stroke-linecap="round"/>
+
+            </svg>
+
+
+            <div class="chart-axis-labels">
+
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+                <span>Sun</span>
+
+            </div>
 
         </div>
 
     </div>
 
-    <div class="chart-dates">
 
-        <span>Day 1</span>
-        <span>Day 2</span>
-        <span>Day 3</span>
-        <span>Day 4</span>
-        <span>Day 5</span>
-        <span>Day 6</span>
-        <span>Today</span>
+    <!-- ================= WALLET ================= -->
 
-    </div>
-
-</div>
-
-
-<!-- ================= WALLET ================= -->
-
-<div class="section-container">
-
-    <div class="section-title">
+    <div class="wallet-section-title">
         Wallet Amount
     </div>
 
-    <div class="wallet-card">
+    <div class="wallet-atm-card">
 
-        <div class="wallet-header">
+        <div class="wallet-top-row">
 
             <span>
-                Wallet Amount
+                Wallet Amount &nbsp; • &nbsp; Skills Market
             </span>
 
             <span>
-                SkillsMarket
+                👁️
             </span>
 
         </div>
 
-        <div class="wallet-earned">
-            🟩 &nbsp; Earned Amount &nbsp; 👁️
-        </div>
-
-        <div
-            class="wallet-balance"
-            id="walletBalance">
+        <div class="wallet-amount-val">
             ₹ 0
         </div>
 
-        <div class="wallet-bottom">
+        <div class="wallet-date-row">
+            02-10-2026 &nbsp; ℹ️
+        </div>
 
-            <div
-                class="wallet-user"
-                id="walletUser">
-                User
-            </div>
-
-            <div class="wallet-date">
-                <span id="currentDate"></span>
-            </div>
-
+        <div
+            class="wallet-card-name"
+            id="walletUserName">
+            Member
         </div>
 
     </div>
 
-</div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        © 2026 Skills Market. All Rights Reserved.
+    </div>
 
 </div>
 
 
-<div class="footer">
-    © 2026 SkillsMarket || All Rights Reserved.
-</div>
+<!-- TOAST -->
 
-</main>
-
+<div id="toast">
+    ID copied successfully!
 </div>
 
 
 <script>
 
-/* =========================================================
-   USER DATA CONNECTION
-   =========================================================
+/* ================= SUPABASE ================= */
 
-   YAHAN APNE EXISTING LOGIN/BACKEND SYSTEM KA DATA MAP KARO.
+const SUPABASE_URL =
+"https://hmlonjwqeqedakzhucix.supabase.co";
 
-   Agar tumhare backend se variables already mil rahe hain,
-   isi object ko un variables se replace kar dena.
+const SUPABASE_KEY =
+"sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
 
-   ========================================================= */
-
-const USER_DATA = {
-
-    name: "User",
-
-    id: "SM100001",
-
-    package: "INTERMEDIATE PACKAGE",
-
-    photo: "",
-
-    todayRevenue: 0,
-
-    sevenRevenue: 0,
-
-    thirtyRevenue: 0,
-
-    allRevenue: 0,
-
-    passiveIncome: 0,
-
-    wallet: 0
-
-};
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
 
-/* ================= LOAD USER ================= */
+/* ================= SIDEBAR ================= */
 
-function loadUserData(){
+function toggleSidebar(){
 
-    const name = USER_DATA.name || "User";
-    const id = USER_DATA.id || "—";
-    const packageName = USER_DATA.package || "PACKAGE";
-    const photo = USER_DATA.photo || "";
+    document
+        .getElementById("sidebar")
+        .classList.toggle("active");
 
-    document.getElementById("profileName").textContent = name;
-
-    document.getElementById("profileID").textContent =
-        "ID: " + id;
-
-    document.getElementById("packageBadge").textContent =
-        packageName;
-
-    document.getElementById("walletUser").textContent =
-        name;
-
-    document.getElementById("dropdownName").textContent =
-        name;
-
-    document.getElementById("dropdownID").textContent =
-        "ID: " + id;
+    document
+        .getElementById("sidebarOverlay")
+        .classList.toggle("active");
+}
 
 
-    /* Revenue */
+/* ================= PROFILE MENU ================= */
 
-    document.getElementById("todayRevenue").textContent =
-        formatMoney(USER_DATA.todayRevenue);
+function toggleProfileMenu(){
 
-    document.getElementById("sevenRevenue").textContent =
-        formatMoney(USER_DATA.sevenRevenue);
-
-    document.getElementById("thirtyRevenue").textContent =
-        formatMoney(USER_DATA.thirtyRevenue);
-
-    document.getElementById("allRevenue").textContent =
-        formatMoney(USER_DATA.allRevenue);
-
-    document.getElementById("passiveRevenue").textContent =
-        formatMoney(USER_DATA.passiveIncome);
-
-    document.getElementById("walletBalance").textContent =
-        formatMoney(USER_DATA.wallet);
+    document
+        .getElementById("profileMenu")
+        .classList.toggle("active");
+}
 
 
-    /* Profile image */
+/* ================= CLOSE PROFILE MENU ================= */
 
-    if(photo){
+document.addEventListener("click",function(event){
 
-        setImage(
-            "profileImage",
-            "profileFallback",
-            photo
-        );
+    const menu =
+        document.getElementById("profileMenu");
 
-        setImage(
-            "navProfileImage",
-            "navFallback",
-            photo
-        );
+    const avatar =
+        document.getElementById("navThumbAvatar");
 
-        setImage(
-            "dropdownProfileImage",
-            "dropdownFallback",
-            photo
-        );
+    if(
+        !menu.contains(event.target) &&
+        !avatar.contains(event.target)
+    ){
 
-    }else{
-
-        showFallback("profileFallback");
-        showFallback("navFallback");
-        showFallback("dropdownFallback");
-
-        setFallbackLetter(
-            "profileFallback",
-            name
-        );
-
-        setFallbackLetter(
-            "navFallback",
-            name
-        );
-
-        setFallbackLetter(
-            "dropdownFallback",
-            name
-        );
+        menu.classList.remove("active");
 
     }
 
-}
+});
 
 
-/* ================= IMAGE HELPER ================= */
+/* ================= LOAD LOGGED USER ================= */
 
-function setImage(imageID,fallbackID,url){
+async function loadUser(){
 
-    const img = document.getElementById(imageID);
-    const fallback = document.getElementById(fallbackID);
+    try{
 
-    img.src = url;
-
-    img.onload = function(){
-
-        img.style.display = "block";
-        fallback.style.display = "none";
-
-    };
-
-    img.onerror = function(){
-
-        img.style.display = "none";
-        fallback.style.display = "flex";
-
-    };
-
-}
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.getSession();
 
 
-/* ================= FALLBACK ================= */
+        if(error){
 
-function showFallback(id){
+            console.log(error);
 
-    document.getElementById(id).style.display = "flex";
+            window.location.href =
+            "login.html";
 
-}
-
-
-function setFallbackLetter(id,name){
-
-    const letter =
-        String(name || "U").trim().charAt(0).toUpperCase() || "U";
-
-    document.getElementById(id).textContent = letter;
-
-}
+            return;
+        }
 
 
-/* ================= MONEY ================= */
+        if(
+            !data ||
+            !data.session
+        ){
 
-function formatMoney(value){
+            window.location.href =
+            "login.html";
 
-    const number = Number(value) || 0;
+            return;
+        }
 
-    return "₹ " + number.toLocaleString("en-IN");
+
+        const user =
+            data.session.user;
+
+        const meta =
+            user.user_metadata || {};
+
+
+        const name =
+            meta.full_name ||
+            meta.name ||
+            meta.username ||
+            localStorage.getItem("username") ||
+            "Member";
+
+
+        /*
+         * User ID
+         * Supabase UUID ko short member ID
+         * ke form me show kar rahe hain.
+         */
+
+        const userId =
+            "SM" +
+            user.id
+                .replace(/-/g,"")
+                .substring(0,8)
+                .toUpperCase();
+
+
+        /* NAME */
+
+        document
+            .getElementById("profileName")
+            .textContent = name;
+
+
+        document
+            .getElementById("welcomeBannerText")
+            .textContent =
+            "Welcome, " + name;
+
+
+        document
+            .getElementById("walletUserName")
+            .textContent = name;
+
+
+        /* ID */
+
+        document
+            .getElementById("profileId")
+            .textContent = userId;
+
+
+        /* AVATAR */
+
+        const firstLetter =
+            name
+                .trim()
+                .charAt(0)
+                .toUpperCase();
+
+
+        document
+            .getElementById("profileAvatar")
+            .textContent =
+            firstLetter;
+
+
+        document
+            .getElementById("navThumbAvatar")
+            .textContent =
+            firstLetter;
+
+
+        /* LOCAL STORAGE */
+
+        localStorage.setItem(
+            "userId",
+            user.id
+        );
+
+        localStorage.setItem(
+            "username",
+            name
+        );
+
+        localStorage.setItem(
+            "userEmail",
+            user.email || ""
+        );
+
+
+        /* WELCOME POPUP */
+
+        const popup =
+            document.getElementById(
+                "welcomeNotification"
+            );
+
+
+        popup.textContent =
+            "Welcome back, " +
+            name +
+            " 👋";
+
+
+        popup.style.display =
+            "block";
+
+
+        setTimeout(function(){
+
+            popup.style.display =
+            "none";
+
+        },3000);
+
+
+    }catch(error){
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+        window.location.href =
+        "login.html";
+
+    }
 
 }
 
 
 /* ================= COPY ID ================= */
 
-function copyProfileID(){
+async function copyUserId(){
 
-    const id = USER_DATA.id || "";
+    const userId =
+        document
+        .getElementById("profileId")
+        .textContent;
 
-    if(!id){
-        return;
-    }
 
-    if(navigator.clipboard){
+    try{
 
-        navigator.clipboard.writeText(id).then(() => {
+        await navigator.clipboard
+            .writeText(userId);
 
-            const btn =
-                document.querySelector(".copy-btn");
+        showToast(
+            "ID copied successfully!"
+        );
 
-            btn.textContent = "✓";
+    }catch(error){
 
-            setTimeout(() => {
-                btn.textContent = "📋";
-            },1200);
-
-        });
+        showToast(
+            "Copy failed!"
+        );
 
     }
 
 }
 
 
-/* ================= PROFILE MENU ================= */
+/* ================= TOAST ================= */
 
-const profileMenuBtn =
-    document.getElementById("profileMenuBtn");
+function showToast(message){
 
-const profileDropdown =
-    document.getElementById("profileDropdown");
-
-
-profileMenuBtn.addEventListener("click",function(event){
-
-    event.stopPropagation();
-
-    profileDropdown.classList.toggle("show");
-
-});
+    const toast =
+        document.getElementById("toast");
 
 
-document.addEventListener("click",function(event){
+    toast.textContent =
+        message;
 
-    if(
-        !profileDropdown.contains(event.target) &&
-        !profileMenuBtn.contains(event.target)
-    ){
 
-        profileDropdown.classList.remove("show");
+    toast.classList.add("show");
 
-    }
 
-});
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },2000);
+
+}
 
 
 /* ================= LOGOUT ================= */
 
-function logoutUser(){
+async function logoutUser(){
 
-    /*
-       IMPORTANT:
-       Apne existing authentication system ka
-       logout function yahan call karna.
+    try{
 
-       Example:
+        await supabaseClient.auth.signOut();
 
-       auth.signOut();
+        localStorage.removeItem("userId");
+        localStorage.removeItem("username");
+        localStorage.removeItem("userEmail");
 
-       ya
-
-       window.location.href = "login.html";
-    */
-
-    window.location.href = "login.html";
-
-}
+        sessionStorage.removeItem(
+            "loginSuccess"
+        );
 
 
-/* ================= CURRENT DATE ================= */
-
-function updateDate(){
-
-    const today = new Date();
-
-    const day =
-        String(today.getDate()).padStart(2,"0");
-
-    const month =
-        String(today.getMonth()+1).padStart(2,"0");
-
-    const year =
-        today.getFullYear();
-
-    document.getElementById("currentDate").textContent =
-        day + "-" + month + "-" + year;
-
-}
+        window.location.href =
+        "login.html";
 
 
-/* =========================================================
-   PARTICLE SYSTEM
-   ========================================================= */
+    }catch(error){
 
-const canvas =
-    document.getElementById("particles");
+        console.error(error);
 
-const ctx =
-    canvas.getContext("2d");
-
-let particles = [];
-
-function resizeCanvas(){
-
-    canvas.width =
-        window.innerWidth;
-
-    canvas.height =
-        window.innerHeight;
-
-}
-
-resizeCanvas();
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-
-function createParticles(){
-
-    particles = [];
-
-    const amount =
-        window.innerWidth < 600 ? 32 : 55;
-
-    for(let i=0;i<amount;i++){
-
-        particles.push({
-
-            x:Math.random()*canvas.width,
-
-            y:Math.random()*canvas.height,
-
-            size:Math.random()*1.8+.5,
-
-            speedX:(Math.random()-.5)*.35,
-
-            speedY:(Math.random()-.5)*.35,
-
-            opacity:Math.random()*.35+.1
-
-        });
+        window.location.href =
+        "login.html";
 
     }
 
 }
 
-createParticles();
-
-
-function animateParticles(){
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    particles.forEach(p => {
-
-        p.x += p.speedX;
-        p.y += p.speedY;
-
-
-        if(p.x < 0) p.x = canvas.width;
-        if(p.x > canvas.width) p.x = 0;
-
-        if(p.y < 0) p.y = canvas.height;
-        if(p.y > canvas.height) p.y = 0;
-
-
-        ctx.beginPath();
-
-        ctx.arc(
-            p.x,
-            p.y,
-            p.size,
-            0,
-            Math.PI*2
-        );
-
-        ctx.fillStyle =
-            "rgba(79,70,229," +
-            p.opacity +
-            ")";
-
-        ctx.fill();
-
-    });
-
-
-    requestAnimationFrame(
-        animateParticles
-    );
-
-}
-
-animateParticles();
-
 
 /* ================= START ================= */
 
-loadUserData();
-
-updateDate();
+window.addEventListener(
+    "DOMContentLoaded",
+    loadUser
+);
 
 </script>
 
