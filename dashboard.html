@@ -4,120 +4,710 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Skills Market | Dashboard</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Dashboard | Skills Market</title>
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    font-family:Inter,Arial,sans-serif;
-    background:#f6f7fb;
-    color:#171725;
+    min-height:100vh;
+    background:#f7f9fc;
+    color:#1e293b;
+    overflow-x:hidden;
+}
+
+/* ================= PARTICLES ================= */
+
+#particles{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:0;
+    opacity:.55;
+}
+
+/* ================= APP ================= */
+
+.app{
+    position:relative;
+    z-index:1;
     min-height:100vh;
 }
 
 /* ================= NAVBAR ================= */
 
 .navbar{
-    height:72px;
-    background:#fff;
-    border-bottom:1px solid #ececf3;
+    position:sticky;
+    top:0;
+    z-index:100;
+    width:100%;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(148,163,184,.14);
+    box-shadow:0 4px 20px rgba(15,23,42,.04);
+}
+
+.navbar-inner{
+    width:min(1180px,calc(100% - 28px));
+    height:68px;
+    margin:auto;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 28px;
-    position:sticky;
-    top:0;
-    z-index:1000;
 }
+
+/* Logo */
 
 .logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:22px;
-    font-weight:800;
-    color:#25213f;
+    text-decoration:none;
+    font-size:23px;
+    font-weight:900;
+    font-style:italic;
+    letter-spacing:-.8px;
+    color:#1e1b4b;
+    transition:.25s ease;
 }
 
-.logo-mark{
-    width:38px;
-    height:38px;
-    border-radius:12px;
-    background:linear-gradient(135deg,#7137ff,#c13cff,#ff7b35);
+.logo span{
+    color:#2563eb;
+}
+
+.logo:hover{
+    transform:translateY(-1px);
+}
+
+/* Profile button */
+
+.profile-menu-wrap{
+    position:relative;
+}
+
+.profile-menu-btn{
+    width:45px;
+    height:45px;
+    padding:2px;
+    border:0;
+    border-radius:50%;
+    cursor:pointer;
+    background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+    box-shadow:0 5px 16px rgba(79,70,229,.22);
+    transition:.25s ease;
+}
+
+.profile-menu-btn:hover{
+    transform:scale(1.06);
+    box-shadow:0 8px 22px rgba(79,70,229,.3);
+}
+
+.nav-profile-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border:2px solid white;
+    border-radius:50%;
+    display:block;
+}
+
+.nav-fallback{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:white;
-    font-weight:900;
-    box-shadow:0 7px 20px rgba(113,55,255,.25);
+    font-weight:800;
+    color:#4f46e5;
+    font-size:17px;
 }
 
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.avatar-button{
-    border:0;
-    background:none;
-    cursor:pointer;
-}
-
-.avatar{
-    width:43px;
-    height:43px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid #fff;
-    box-shadow:
-        0 0 0 2px #8b5cf6,
-        0 5px 18px rgba(91,55,180,.20);
-}
-
-.menu-btn{
-    width:43px;
-    height:43px;
-    border:none;
-    border-radius:12px;
-    background:#f3f1ff;
-    color:#6538d9;
-    font-size:21px;
-    cursor:pointer;
-}
-
-/* ================= PROFILE DROPDOWN ================= */
+/* Profile dropdown */
 
 .profile-dropdown{
-    position:fixed;
-    top:65px;
-    right:25px;
-    width:270px;
+    position:absolute;
+    right:0;
+    top:57px;
+    width:235px;
     background:#fff;
-    border:1px solid #ececf4;
-    border-radius:18px;
-    box-shadow:0 20px 50px rgba(32,24,70,.15);
-    padding:15px;
-    z-index:1200;
-    display:none;
+    border:1px solid #e2e8f0;
+    border-radius:16px;
+    padding:8px;
+    box-shadow:0 18px 45px rgba(15,23,42,.14);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px) scale(.97);
+    transform-origin:top right;
+    transition:.22s ease;
 }
 
 .profile-dropdown.show{
-    display:block;
-    animation:drop .18s ease;
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
 }
 
-@keyframes drop{
+.dropdown-user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px;
+    border-bottom:1px solid #eef2f7;
+    margin-bottom:5px;
+}
+
+.dropdown-avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #eef2ff;
+}
+
+.dropdown-name{
+    font-size:13px;
+    font-weight:800;
+    color:#0f172a;
+}
+
+.dropdown-id{
+    font-size:10px;
+    color:#64748b;
+    margin-top:2px;
+}
+
+.dropdown-item{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:0;
+    background:transparent;
+    text-decoration:none;
+    color:#334155;
+    padding:11px 10px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.dropdown-item:hover{
+    background:#f5f7ff;
+    color:#4f46e5;
+}
+
+.dropdown-item.logout:hover{
+    background:#fff1f2;
+    color:#e11d48;
+}
+
+/* ================= MAIN ================= */
+
+.dashboard{
+    width:min(1180px,calc(100% - 28px));
+    margin:0 auto;
+    padding:22px 0 35px;
+}
+
+/* ================= PROFILE CARD ================= */
+
+.profile-card{
+    position:relative;
+    background:linear-gradient(135deg,#fff 0%,#f8f7ff 48%,#f1f5ff 100%);
+    border:1px solid rgba(99,102,241,.12);
+    border-radius:20px;
+    padding:24px 20px 19px;
+    margin-bottom:18px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(30,41,59,.07);
+    isolation:isolate;
+    animation:fadeUp .55s ease both;
+}
+
+.profile-card::before{
+    content:"";
+    position:absolute;
+    width:210px;
+    height:210px;
+    right:-90px;
+    top:-115px;
+    border-radius:50%;
+    background:rgba(124,58,237,.09);
+    z-index:-1;
+}
+
+.profile-card::after{
+    content:"";
+    position:absolute;
+    width:160px;
+    height:160px;
+    left:-85px;
+    bottom:-95px;
+    border-radius:50%;
+    background:rgba(37,99,235,.07);
+    z-index:-1;
+}
+
+.profile-circle{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.circle-one{
+    width:95px;
+    height:95px;
+    right:35px;
+    bottom:-55px;
+    border:1px solid rgba(124,58,237,.13);
+    animation:floatCircle 5s ease-in-out infinite;
+}
+
+.circle-two{
+    width:58px;
+    height:58px;
+    right:90px;
+    top:20px;
+    border:1px solid rgba(37,99,235,.12);
+    animation:floatCircle 4s ease-in-out infinite reverse;
+}
+
+.circle-three{
+    width:25px;
+    height:25px;
+    left:115px;
+    top:18px;
+    background:rgba(124,58,237,.06);
+    animation:pulseCircle 3s ease-in-out infinite;
+}
+
+/* Package */
+
+.package-badge{
+    position:absolute;
+    top:0;
+    right:18px;
+    background:linear-gradient(135deg,#7c3aed,#6d28d9);
+    color:#fff;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.55px;
+    padding:7px 13px;
+    border-radius:0 0 10px 10px;
+    box-shadow:0 4px 10px rgba(109,40,217,.22);
+}
+
+/* Profile content */
+
+.profile-content{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+/* Avatar */
+
+.profile-avatar-wrap{
+    position:relative;
+    flex-shrink:0;
+}
+
+.profile-avatar-lg{
+    width:76px;
+    height:76px;
+    border-radius:50%;
+    padding:3px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+    box-shadow:0 7px 20px rgba(79,70,229,.22);
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:avatarFloat 3.5s ease-in-out infinite;
+}
+
+.profile-avatar-lg img{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    background:#fff;
+    border:2px solid #fff;
+    display:block;
+}
+
+.avatar-fallback{
+    display:none;
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:#fff;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+    font-weight:800;
+    color:#4f46e5;
+    border:2px solid #fff;
+}
+
+/* Profile details */
+
+.profile-details{
+    min-width:0;
+}
+
+.profile-details h3{
+    font-size:18px;
+    font-weight:800;
+    color:#111827;
+    letter-spacing:.2px;
+    margin-bottom:7px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.id-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:700;
+    color:#475569;
+}
+
+.copy-btn{
+    width:25px;
+    height:25px;
+    border:0;
+    border-radius:7px;
+    background:#f1eaff;
+    color:#6d28d9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.copy-btn:hover{
+    transform:translateY(-1px) scale(1.05);
+    background:#e9d5ff;
+}
+
+/* ================= REVENUE GRID ================= */
+
+.revenue-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:14px;
+    margin-bottom:18px;
+}
+
+.revenue-card{
+    min-height:150px;
+    border-radius:16px;
+    padding:17px;
+    color:#fff;
+    position:relative;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    overflow:hidden;
+    transition:.25s ease;
+    animation:fadeUp .55s ease both;
+}
+
+.revenue-card:nth-child(2){animation-delay:.06s}
+.revenue-card:nth-child(3){animation-delay:.12s}
+.revenue-card:nth-child(4){animation-delay:.18s}
+.revenue-card:nth-child(5){animation-delay:.24s}
+
+.revenue-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 25px rgba(15,23,42,.13);
+}
+
+.revenue-card::after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    right:-42px;
+    bottom:-50px;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:50%;
+}
+
+.card-purple-1{
+    background:linear-gradient(135deg,#6b21a8,#581c87);
+}
+
+.card-purple-2{
+    background:linear-gradient(135deg,#4f46e5,#3730a3);
+}
+
+.card-magenta{
+    background:linear-gradient(135deg,#db2777,#9d174d);
+}
+
+.card-blue{
+    background:linear-gradient(135deg,#0284c7,#0369a1);
+}
+
+.card-gold{
+    background:linear-gradient(135deg,#ca8a04,#854d0e);
+}
+
+.revenue-amount{
+    font-size:23px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.revenue-title{
+    font-size:11px;
+    font-weight:500;
+    opacity:.95;
+    min-height:30px;
+}
+
+.revenue-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid rgba(255,255,255,.28);
+    padding-top:9px;
+    margin-top:12px;
+    font-size:10px;
+}
+
+.view-details{
+    color:#fff;
+    text-decoration:none;
+}
+
+.arrow{
+    font-size:19px;
+    transition:.2s;
+}
+
+.revenue-card:hover .arrow{
+    transform:translateX(4px);
+}
+
+/* ================= LOWER GRID ================= */
+
+.lower-grid{
+    display:grid;
+    grid-template-columns:1.35fr .85fr;
+    gap:18px;
+}
+
+.section-container{
+    background:rgba(255,255,255,.94);
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 3px 12px rgba(15,23,42,.045);
+    border:1px solid #e2e8f0;
+    animation:fadeUp .65s ease both;
+}
+
+.section-title{
+    font-size:14px;
+    font-weight:800;
+    color:#0f172a;
+    margin-bottom:17px;
+}
+
+/* ================= GRAPH ================= */
+
+.chart-area{
+    position:relative;
+    margin-left:32px;
+}
+
+.chart-y-axis{
+    position:absolute;
+    left:-32px;
+    top:0;
+    bottom:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    font-size:9px;
+    color:#64748b;
+}
+
+.chart-container{
+    height:180px;
+    position:relative;
+    border-left:1px solid #cbd5e1;
+    border-bottom:1px solid #cbd5e1;
+    overflow:hidden;
+}
+
+.chart-grid{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.grid-line{
+    border-top:1px solid #edf2f7;
+    width:100%;
+}
+
+.chart-zero-line{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:2px;
+    background:#db2777;
+}
+
+.chart-dot{
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:#db2777;
+    border:2px solid #fff;
+    border-radius:50%;
+    bottom:-3px;
+    box-shadow:0 1px 5px rgba(219,39,119,.4);
+    animation:dotPulse 2s infinite;
+}
+
+.dot1{left:5%}
+.dot2{left:20%}
+.dot3{left:35%}
+.dot4{left:50%}
+.dot5{left:65%}
+.dot6{left:80%}
+.dot7{left:95%}
+
+.chart-dates{
+    display:flex;
+    justify-content:space-between;
+    font-size:8px;
+    color:#64748b;
+    margin:9px 0 0 32px;
+}
+
+/* ================= WALLET ================= */
+
+.wallet-card{
+    min-height:180px;
+    background:linear-gradient(135deg,#0f2d59,#1e3a8a);
+    border-radius:16px;
+    padding:18px;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 8px 22px rgba(15,45,89,.2);
+}
+
+.wallet-card::after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border:1px solid rgba(255,255,255,.13);
+    border-radius:50%;
+    right:-80px;
+    bottom:-95px;
+}
+
+.wallet-card::before{
+    content:"";
+    position:absolute;
+    width:105px;
+    height:105px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:50%;
+    right:8px;
+    bottom:8px;
+}
+
+.wallet-header{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    opacity:.9;
+    margin-bottom:28px;
+    position:relative;
+    z-index:2;
+}
+
+.wallet-earned{
+    text-align:center;
+    font-size:11px;
+    opacity:.9;
+    margin-bottom:5px;
+    position:relative;
+    z-index:2;
+}
+
+.wallet-balance{
+    text-align:center;
+    font-size:28px;
+    font-weight:800;
+    margin-bottom:25px;
+    position:relative;
+    z-index:2;
+}
+
+.wallet-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:relative;
+    z-index:2;
+}
+
+.wallet-user{
+    font-size:11px;
+    font-weight:600;
+}
+
+.wallet-date{
+    font-size:9px;
+    opacity:.75;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    text-align:center;
+    font-size:10px;
+    color:#64748b;
+    padding:20px 0 5px;
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes fadeUp{
     from{
         opacity:0;
-        transform:translateY(-8px);
+        transform:translateY(14px);
     }
     to{
         opacity:1;
@@ -125,587 +715,149 @@ body{
     }
 }
 
-.profile-head{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding-bottom:14px;
-    border-bottom:1px solid #eeeef5;
+@keyframes avatarFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-3px)}
 }
 
-.profile-head img{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    object-fit:cover;
+@keyframes floatCircle{
+    0%,100%{transform:translate(0,0)}
+    50%{transform:translate(-5px,-5px)}
 }
 
-.profile-head strong{
-    display:block;
-    font-size:14px;
+@keyframes pulseCircle{
+    0%,100%{
+        transform:scale(1);
+        opacity:.5;
+    }
+    50%{
+        transform:scale(1.25);
+        opacity:1;
+    }
 }
 
-.profile-head span{
-    display:block;
-    color:#888;
-    font-size:12px;
-    margin-top:3px;
-    word-break:break-all;
-}
-
-.profile-option{
-    padding:12px 8px;
-    cursor:pointer;
-    font-size:14px;
-    border-radius:10px;
-    margin-top:5px;
-}
-
-.profile-option:hover{
-    background:#f6f3ff;
-}
-
-/* ================= SIDEBAR ================= */
-
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(20,15,40,.35);
-    z-index:1500;
-    display:none;
-}
-
-.overlay.show{
-    display:block;
-}
-
-.sidebar{
-    position:fixed;
-    top:0;
-    right:-340px;
-    width:330px;
-    max-width:88%;
-    height:100vh;
-    background:#fff;
-    z-index:1600;
-    box-shadow:-20px 0 60px rgba(0,0,0,.16);
-    transition:.3s ease;
-    overflow-y:auto;
-}
-
-.sidebar.open{
-    right:0;
-}
-
-.sidebar-top{
-    height:76px;
-    padding:0 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid #eeeef5;
-}
-
-.sidebar-title{
-    font-size:19px;
-    font-weight:800;
-}
-
-.close-sidebar{
-    border:0;
-    background:#f3f1ff;
-    width:38px;
-    height:38px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:19px;
-}
-
-.sidebar-menu{
-    padding:14px;
-}
-
-.side-item{
-    display:flex;
-    align-items:center;
-    gap:13px;
-    padding:13px 14px;
-    margin-bottom:5px;
-    border-radius:12px;
-    color:#4d4b59;
-    cursor:pointer;
-    font-size:14px;
-    font-weight:600;
-}
-
-.side-item:hover{
-    background:#f5f1ff;
-    color:#6836db;
-}
-
-.side-icon{
-    width:27px;
-    text-align:center;
-    font-size:17px;
-}
-
-/* ================= MAIN ================= */
-
-.main{
-    width:min(1420px,calc(100% - 48px));
-    margin:0 auto;
-    padding:27px 0 35px;
-}
-
-.welcome{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    margin-bottom:22px;
-}
-
-.welcome h1{
-    font-size:28px;
-    line-height:1.2;
-}
-
-.welcome p{
-    margin-top:7px;
-    color:#777582;
-    font-size:13px;
-}
-
-/* ================= PROFILE CARD ================= */
-
-.profile-card{
-    background:#fff;
-    border:1px solid #ececf4;
-    border-radius:20px;
-    padding:19px 22px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:20px;
-    box-shadow:0 8px 30px rgba(35,24,70,.045);
-}
-
-.profile-info{
-    display:flex;
-    align-items:center;
-    gap:17px;
-}
-
-.big-avatar-wrap{
-    width:72px;
-    height:72px;
-    border-radius:50%;
-    padding:3px;
-    background:conic-gradient(
-        #733cff,
-        #d13cff,
-        #ff7c35,
-        #00bfa6,
-        #733cff
-    );
-    animation:spin 5s linear infinite;
-}
-
-@keyframes spin{
-    to{transform:rotate(360deg);}
-}
-
-.big-avatar{
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid #fff;
-    animation:reverseSpin 5s linear infinite;
-}
-
-@keyframes reverseSpin{
-    to{transform:rotate(-360deg);}
-}
-
-.user-name{
-    font-size:18px;
-    font-weight:800;
-}
-
-.user-id{
-    color:#888;
-    font-size:12px;
-    margin-top:5px;
-}
-
-.package-badge{
-    display:inline-flex;
-    margin-top:8px;
-    padding:6px 11px;
-    border-radius:30px;
-    background:linear-gradient(135deg,#eee7ff,#f8e9ff);
-    color:#6937d7;
-    font-size:11px;
-    font-weight:800;
-}
-
-.copy-id{
-    margin-left:7px;
-    border:0;
-    background:#f1effb;
-    color:#6236cc;
-    border-radius:7px;
-    padding:4px 7px;
-    cursor:pointer;
-}
-
-/* ================= WALLET ================= */
-
-.wallet-card{
-    min-width:245px;
-    padding:17px 19px;
-    border-radius:18px;
-    color:#fff;
-    position:relative;
-    overflow:hidden;
-    background:linear-gradient(135deg,#6738df,#963de4 55%,#f26d50);
-    box-shadow:0 13px 30px rgba(112,54,220,.20);
-}
-
-.wallet-card:before{
-    content:"";
-    position:absolute;
-    width:125px;
-    height:125px;
-    border:18px solid rgba(255,255,255,.09);
-    border-radius:50%;
-    right:-35px;
-    top:-60px;
-}
-
-.wallet-card:after{
-    content:"";
-    position:absolute;
-    width:80px;
-    height:80px;
-    border:10px solid rgba(255,255,255,.07);
-    border-radius:50%;
-    right:45px;
-    bottom:-55px;
-}
-
-.wallet-title{
-    font-size:11px;
-    opacity:.85;
-}
-
-.wallet-row{
-    margin-top:5px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.wallet-amount{
-    font-size:25px;
-    font-weight:900;
-}
-
-.eye-btn{
-    border:0;
-    background:rgba(255,255,255,.15);
-    color:#fff;
-    width:31px;
-    height:31px;
-    border-radius:9px;
-    cursor:pointer;
-}
-
-.wallet-date{
-    font-size:10px;
-    opacity:.75;
-    margin-top:9px;
-}
-
-/* ================= INCOME GRID ================= */
-
-.income-grid{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    gap:14px;
-    margin-bottom:20px;
-}
-
-.income-card{
-    min-height:118px;
-    border-radius:17px;
-    padding:17px;
-    color:#fff;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 10px 25px rgba(30,20,70,.10);
-    transition:.2s ease;
-}
-
-.income-card:hover{
-    transform:translateY(-3px);
-}
-
-.income-card:before{
-    content:"";
-    position:absolute;
-    width:95px;
-    height:95px;
-    border-radius:50%;
-    border:15px solid rgba(255,255,255,.08);
-    right:-35px;
-    top:-40px;
-}
-
-.card-purple{
-    background:linear-gradient(135deg,#5c35d7,#8d39df);
-}
-
-.card-orange{
-    background:linear-gradient(135deg,#ff7539,#ff4c72);
-}
-
-.card-violet{
-    background:linear-gradient(135deg,#7136dc,#b23de0);
-}
-
-.card-teal{
-    background:linear-gradient(135deg,#277477,#3b9c9e);
-}
-
-.card-pink{
-    background:linear-gradient(135deg,#e43d77,#f25b68);
-}
-
-.card-gold{
-    background:linear-gradient(135deg,#e77b21,#f1aa30);
-}
-
-.income-label{
-    font-size:11px;
-    opacity:.88;
-}
-
-.income-value{
-    font-size:25px;
-    font-weight:900;
-    margin-top:13px;
-}
-
-.income-sub{
-    font-size:10px;
-    opacity:.75;
-    margin-top:3px;
-}
-
-/* ================= GRAPH ================= */
-
-.graph-card{
-    background:#fff;
-    border:1px solid #ececf4;
-    border-radius:20px;
-    padding:21px;
-    box-shadow:0 8px 30px rgba(35,24,70,.045);
-}
-
-.graph-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
-}
-
-.graph-head h2{
-    font-size:18px;
-}
-
-.graph-head span{
-    font-size:11px;
-    color:#888;
-}
-
-.chart-wrap{
-    width:100%;
-    height:280px;
-    position:relative;
-}
-
-#salesChart{
-    width:100%;
-    height:100%;
-}
-
-/* ================= LOADING ================= */
-
-.loading{
-    position:fixed;
-    inset:0;
-    background:rgba(255,255,255,.96);
-    z-index:3000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    gap:12px;
-}
-
-.loader{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    border:4px solid #eee;
-    border-top-color:#7438df;
-    animation:loader .8s linear infinite;
-}
-
-@keyframes loader{
-    to{transform:rotate(360deg);}
-}
-
-.loading p{
-    font-size:13px;
-    color:#777;
-}
-
-/* ================= TOAST ================= */
-
-.toast{
-    position:fixed;
-    bottom:22px;
-    right:22px;
-    background:#20202b;
-    color:#fff;
-    padding:12px 17px;
-    border-radius:11px;
-    font-size:13px;
-    opacity:0;
-    transform:translateY(15px);
-    pointer-events:none;
-    transition:.25s;
-    z-index:5000;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    text-align:center;
-    color:#9695a1;
-    font-size:11px;
-    padding:8px 0 25px;
+@keyframes dotPulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.45)}
 }
 
 /* ================= TABLET ================= */
 
-@media(max-width:1150px){
-    .income-grid{
-        grid-template-columns:repeat(3,1fr);
+@media(max-width:900px){
+
+    .revenue-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .profile-card{
-        gap:20px;
+    .revenue-card:last-child{
+        grid-column:1/-1;
+    }
+
+    .lower-grid{
+        grid-template-columns:1fr;
     }
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:700px){
+@media(max-width:600px){
 
-    .navbar{
-        height:64px;
-        padding:0 14px;
+    .navbar-inner{
+        height:62px;
+        width:calc(100% - 20px);
     }
 
     .logo{
-        font-size:17px;
+        font-size:21px;
     }
 
-    .logo-mark{
-        width:34px;
-        height:34px;
-        border-radius:10px;
+    .profile-menu-btn{
+        width:42px;
+        height:42px;
     }
 
-    .avatar,
-    .menu-btn{
-        width:39px;
-        height:39px;
-    }
-
-    .main{
-        width:calc(100% - 24px);
-        padding-top:18px;
-    }
-
-    .welcome{
-        display:block;
-    }
-
-    .welcome h1{
-        font-size:22px;
+    .dashboard{
+        width:calc(100% - 20px);
+        padding-top:15px;
     }
 
     .profile-card{
+        padding:23px 14px 17px;
+        border-radius:17px;
+    }
+
+    .profile-content{
+        gap:13px;
+    }
+
+    .profile-avatar-lg{
+        width:68px;
+        height:68px;
+    }
+
+    .profile-details h3{
+        font-size:16px;
+    }
+
+    .package-badge{
+        right:13px;
+        font-size:8px;
+        padding:6px 9px;
+    }
+
+    .revenue-grid{
+        grid-template-columns:1fr;
+        gap:11px;
+    }
+
+    .revenue-card{
+        min-height:130px;
+    }
+
+    .revenue-card:last-child{
+        grid-column:auto;
+    }
+
+    .lower-grid{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+
+    .section-container{
         padding:15px;
-        display:block;
     }
 
-    .profile-info{
-        gap:12px;
+    .chart-container{
+        height:155px;
     }
 
-    .big-avatar-wrap{
+    .wallet-card{
+        min-height:170px;
+    }
+
+    .profile-dropdown{
+        right:-2px;
+        width:220px;
+    }
+}
+
+@media(max-width:360px){
+
+    .dashboard{
+        width:calc(100% - 16px);
+    }
+
+    .profile-avatar-lg{
         width:62px;
         height:62px;
     }
 
-    .wallet-card{
-        margin-top:15px;
-        width:100%;
+    .profile-details h3{
+        font-size:15px;
     }
 
-    .income-grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:10px;
-    }
-
-    .income-card{
-        min-height:105px;
-        padding:14px;
-    }
-
-    .income-value{
-        font-size:21px;
-        margin-top:11px;
-    }
-
-    .graph-card{
-        padding:15px;
-    }
-
-    .chart-wrap{
-        height:220px;
-    }
-
-    .profile-dropdown{
-        right:12px;
-        top:58px;
-        width:calc(100% - 24px);
-    }
-}
-
-@media(max-width:390px){
-    .income-grid{
-        grid-template-columns:1fr;
+    .id-row{
+        font-size:10px;
     }
 }
 </style>
@@ -713,1508 +865,815 @@ footer{
 
 <body>
 
-<!-- ================= LOADING ================= -->
+<canvas id="particles"></canvas>
 
-<div class="loading" id="loadingScreen">
-    <div class="loader"></div>
-    <p>Loading your dashboard...</p>
-</div>
+<div class="app">
 
 <!-- ================= NAVBAR ================= -->
 
-<header class="navbar">
+<nav class="navbar">
 
-    <div class="logo">
-        <div class="logo-mark">SM</div>
-        Skills Market
-    </div>
+    <div class="navbar-inner">
 
-    <div class="nav-right">
+        <a href="#" class="logo">
+            Skills<span>Market</span>
+        </a>
 
-        <button class="avatar-button" id="avatarButton">
-            <img
-                id="navAvatar"
-                class="avatar"
-                src="https://ui-avatars.com/api/?name=User"
-                alt="Profile"
-            >
-        </button>
+        <div class="profile-menu-wrap">
 
-        <button class="menu-btn" id="menuButton">
-            ☰
-        </button>
+            <button
+                class="profile-menu-btn"
+                id="profileMenuBtn"
+                aria-label="Open profile menu">
 
-    </div>
-
-</header>
-
-<!-- ================= PROFILE DROPDOWN ================= -->
-
-<div class="profile-dropdown" id="profileDropdown">
-
-    <div class="profile-head">
-
-        <img
-            id="dropdownAvatar"
-            src="https://ui-avatars.com/api/?name=User"
-            alt="Profile"
-        >
-
-        <div>
-            <strong id="dropdownName">User</strong>
-            <span id="dropdownEmail">Loading...</span>
-        </div>
-
-    </div>
-
-    <div class="profile-option" onclick="openProfile()">
-        👤 My Profile
-    </div>
-
-    <div class="profile-option" onclick="logout()">
-        🚪 Logout
-    </div>
-
-</div>
-
-<!-- ================= SIDEBAR ================= -->
-
-<div class="overlay" id="overlay"></div>
-
-<aside class="sidebar" id="sidebar">
-
-    <div class="sidebar-top">
-
-        <div class="sidebar-title">
-            Skills Market
-        </div>
-
-        <button class="close-sidebar" id="closeSidebar">
-            ✕
-        </button>
-
-    </div>
-
-    <div class="sidebar-menu">
-
-        <div class="side-item">
-            <div class="side-icon">📊</div>
-            Affiliate Dashboard
-        </div>
-
-        <div class="side-item" onclick="openProfile()">
-            <div class="side-icon">👤</div>
-            My Profile
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">🔗</div>
-            Affiliate Link
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">🎓</div>
-            My Courses
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">⬆️</div>
-            Upgrade
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">🏆</div>
-            Leaderboard
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">👥</div>
-            My Team
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">📈</div>
-            Reports
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">📚</div>
-            Training
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">🎥</div>
-            Webinars
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">🎁</div>
-            Offers
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">🎯</div>
-            Earning Target
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">💳</div>
-            Wallet Request
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">➕</div>
-            Create Account
-        </div>
-
-        <div class="side-item">
-            <div class="side-icon">💬</div>
-            Community
-        </div>
-
-    </div>
-
-</aside>
-
-<!-- ================= MAIN ================= -->
-
-<main class="main">
-
-    <!-- Welcome -->
-
-    <section class="welcome">
-
-        <div>
-            <h1>
-                Welcome back, <span id="welcomeName">User</span>!
-            </h1>
-
-            <p>
-                Here's what's happening with your Skills Market account.
-            </p>
-        </div>
-
-    </section>
-
-    <!-- Profile -->
-
-    <section class="profile-card">
-
-        <div class="profile-info">
-
-            <div class="big-avatar-wrap">
                 <img
-                    id="profileAvatar"
-                    class="big-avatar"
-                    src="https://ui-avatars.com/api/?name=User"
+                    id="navProfileImage"
+                    class="nav-profile-img"
+                    src=""
                     alt="Profile"
+                    style="display:none;"
                 >
-            </div>
 
-            <div>
-
-                <div class="user-name" id="profileName">
-                    User
+                <div
+                    id="navFallback"
+                    class="nav-fallback">
+                    U
                 </div>
 
-                <div class="user-id">
-                    ID:
-                    <span id="userId">Loading...</span>
+            </button>
 
-                    <button class="copy-id" onclick="copyUserId()">
-                        Copy
-                    </button>
+            <div
+                class="profile-dropdown"
+                id="profileDropdown">
+
+                <div class="dropdown-user">
+
+                    <img
+                        id="dropdownProfileImage"
+                        class="dropdown-avatar"
+                        src=""
+                        alt="Profile"
+                        style="display:none;"
+                    >
+
+                    <div
+                        id="dropdownFallback"
+                        class="dropdown-avatar nav-fallback">
+                        U
+                    </div>
+
+                    <div>
+                        <div
+                            class="dropdown-name"
+                            id="dropdownName">
+                            User
+                        </div>
+
+                        <div
+                            class="dropdown-id"
+                            id="dropdownID">
+                            ID: —
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="package-badge" id="packageBadge">
-                    Premium Package
-                </div>
+                <a href="#" class="dropdown-item">
+                    👤 My Profile
+                </a>
 
-            </div>
+                <a href="#" class="dropdown-item">
+                    ⚙️ Settings
+                </a>
 
-        </div>
-
-        <!-- Wallet -->
-
-        <div class="wallet-card">
-
-            <div class="wallet-title">
-                Skills Market Wallet
-            </div>
-
-            <div class="wallet-row">
-
-                <div class="wallet-amount" id="walletAmount">
-                    ₹0
-                </div>
-
-                <button class="eye-btn" id="eyeButton">
-                    👁
+                <button
+                    class="dropdown-item logout"
+                    onclick="logoutUser()">
+                    🚪 Logout
                 </button>
 
             </div>
 
-            <div class="wallet-date" id="walletDate">
-                Loading date...
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<main class="dashboard">
+
+<!-- ================= PROFILE ================= -->
+
+<div class="profile-card">
+
+    <div class="profile-circle circle-one"></div>
+    <div class="profile-circle circle-two"></div>
+    <div class="profile-circle circle-three"></div>
+
+    <div
+        class="package-badge"
+        id="packageBadge">
+        PACKAGE
+    </div>
+
+    <div class="profile-content">
+
+        <div class="profile-avatar-wrap">
+
+            <div class="profile-avatar-lg">
+
+                <img
+                    id="profileImage"
+                    src=""
+                    alt="Profile Photo"
+                    style="display:none;"
+                >
+
+                <div
+                    id="profileFallback"
+                    class="avatar-fallback">
+                    U
+                </div>
+
             </div>
 
         </div>
 
-    </section>
+        <div class="profile-details">
 
-    <!-- Income Cards -->
+            <h3 id="profileName">
+                User
+            </h3>
 
-    <section class="income-grid">
+            <div class="id-row">
 
-        <div class="income-card card-purple">
+                <span id="profileID">
+                    ID: —
+                </span>
 
-            <div class="income-label">
-                Today's Revenue
-            </div>
+                <button
+                    class="copy-btn"
+                    onclick="copyProfileID()"
+                    title="Copy ID">
+                    📋
+                </button>
 
-            <div class="income-value" id="todayIncome">
-                ₹0
-            </div>
-
-            <div class="income-sub">
-                Confirmed income
-            </div>
-
-        </div>
-
-        <div class="income-card card-orange">
-
-            <div class="income-label">
-                7 Days Revenue
-            </div>
-
-            <div class="income-value" id="sevenIncome">
-                ₹0
-            </div>
-
-            <div class="income-sub">
-                Last 7 days
             </div>
 
         </div>
 
-        <div class="income-card card-violet">
+    </div>
 
-            <div class="income-label">
-                30 Days Revenue
+</div>
+
+
+<!-- ================= REVENUE ================= -->
+
+<div class="revenue-grid">
+
+    <div class="revenue-card card-purple-1">
+
+        <div class="revenue-amount" id="todayRevenue">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            Today's Revenue
+        </div>
+
+        <div class="revenue-footer">
+            <a href="#" class="view-details">
+                View details
+            </a>
+            <span class="arrow">›</span>
+        </div>
+
+    </div>
+
+
+    <div class="revenue-card card-purple-2">
+
+        <div class="revenue-amount" id="sevenRevenue">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            7 Days Revenue
+        </div>
+
+        <div class="revenue-footer">
+            <a href="#" class="view-details">
+                View details
+            </a>
+            <span class="arrow">›</span>
+        </div>
+
+    </div>
+
+
+    <div class="revenue-card card-magenta">
+
+        <div class="revenue-amount" id="thirtyRevenue">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            30 Days Revenue
+        </div>
+
+        <div class="revenue-footer">
+            <a href="#" class="view-details">
+                View details
+            </a>
+            <span class="arrow">›</span>
+        </div>
+
+    </div>
+
+
+    <div class="revenue-card card-blue">
+
+        <div class="revenue-amount" id="allRevenue">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            All Time Revenue
+        </div>
+
+        <div class="revenue-footer">
+            <a href="#" class="view-details">
+                View details
+            </a>
+            <span class="arrow">›</span>
+        </div>
+
+    </div>
+
+
+    <div class="revenue-card card-gold">
+
+        <div class="revenue-amount" id="passiveRevenue">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            Passive Income
+        </div>
+
+        <div class="revenue-footer">
+            <a href="#" class="view-details">
+                View details
+            </a>
+            <span class="arrow">›</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= LOWER SECTIONS ================= -->
+
+<div class="lower-grid">
+
+<!-- ================= GRAPH ================= -->
+
+<div class="section-container">
+
+    <div class="section-title">
+        Sales Last 7 Days
+    </div>
+
+    <div class="chart-area">
+
+        <div class="chart-y-axis">
+            <span>2</span>
+            <span>1.5</span>
+            <span>1</span>
+            <span>0.5</span>
+            <span>0</span>
+        </div>
+
+        <div class="chart-container">
+
+            <div class="chart-grid">
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
             </div>
 
-            <div class="income-value" id="thirtyIncome">
-                ₹0
-            </div>
+            <div class="chart-zero-line"></div>
 
-            <div class="income-sub">
-                Last 30 days
-            </div>
+            <div class="chart-dot dot1"></div>
+            <div class="chart-dot dot2"></div>
+            <div class="chart-dot dot3"></div>
+            <div class="chart-dot dot4"></div>
+            <div class="chart-dot dot5"></div>
+            <div class="chart-dot dot6"></div>
+            <div class="chart-dot dot7"></div>
 
         </div>
 
-        <div class="income-card card-teal">
+    </div>
 
-            <div class="income-label">
-                All Time Revenue
-            </div>
+    <div class="chart-dates">
 
-            <div class="income-value" id="allIncome">
-                ₹0
-            </div>
+        <span>Day 1</span>
+        <span>Day 2</span>
+        <span>Day 3</span>
+        <span>Day 4</span>
+        <span>Day 5</span>
+        <span>Day 6</span>
+        <span>Today</span>
 
-            <div class="income-sub">
-                Total confirmed
-            </div>
+    </div>
 
-        </div>
+</div>
 
-        <div class="income-card card-pink">
 
-            <div class="income-label">
-                Passive Income
-            </div>
+<!-- ================= WALLET ================= -->
 
-            <div class="income-value" id="passiveIncome">
-                ₹0
-            </div>
+<div class="section-container">
 
-            <div class="income-sub">
-                From downline sales
-            </div>
+    <div class="section-title">
+        Wallet Amount
+    </div>
 
-        </div>
+    <div class="wallet-card">
 
-        <div class="income-card card-gold">
-
-            <div class="income-label">
-                Industry Income
-            </div>
-
-            <div class="income-value" id="industryIncome">
-                ₹0
-            </div>
-
-            <div class="income-sub">
-                Confirmed transactions
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- Graph -->
-
-    <section class="graph-card">
-
-        <div class="graph-head">
-
-            <h2>
-                7 Days Sales Graph
-            </h2>
+        <div class="wallet-header">
 
             <span>
-                Commission Performance
+                Wallet Amount
+            </span>
+
+            <span>
+                SkillsMarket
             </span>
 
         </div>
 
-        <div class="chart-wrap">
+        <div class="wallet-earned">
+            🟩 &nbsp; Earned Amount &nbsp; 👁️
+        </div>
 
-            <canvas id="salesChart"></canvas>
+        <div
+            class="wallet-balance"
+            id="walletBalance">
+            ₹ 0
+        </div>
+
+        <div class="wallet-bottom">
+
+            <div
+                class="wallet-user"
+                id="walletUser">
+                User
+            </div>
+
+            <div class="wallet-date">
+                <span id="currentDate"></span>
+            </div>
 
         </div>
 
-    </section>
+    </div>
+
+</div>
+
+</div>
+
+
+<div class="footer">
+    © 2026 SkillsMarket || All Rights Reserved.
+</div>
 
 </main>
 
-<footer>
-    © 2026 Skills Market. All Rights Reserved
-</footer>
-
-<div class="toast" id="toast">
-    Copied successfully
 </div>
+
 
 <script>
 
 /* =========================================================
-   SUPABASE
-========================================================= */
+   USER DATA CONNECTION
+   =========================================================
 
-const SUPABASE_URL =
-    "https://hmlonjwqeqedakzhucix.supabase.co";
+   YAHAN APNE EXISTING LOGIN/BACKEND SYSTEM KA DATA MAP KARO.
 
-const SUPABASE_KEY =
-    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+   Agar tumhare backend se variables already mil rahe hain,
+   isi object ko un variables se replace kar dena.
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+   ========================================================= */
 
+const USER_DATA = {
 
-/* =========================================================
-   GLOBAL
-========================================================= */
+    name: "User",
 
-let currentUser = null;
-let currentUserId = null;
+    id: "SM100001",
 
-let walletVisible = true;
+    package: "INTERMEDIATE PACKAGE",
 
+    photo: "",
 
-/* =========================================================
-   HELPERS
-========================================================= */
+    todayRevenue: 0,
 
-function money(value){
+    sevenRevenue: 0,
 
-    const amount = Number(value || 0);
+    thirtyRevenue: 0,
 
-    return "₹" + amount.toLocaleString("en-IN", {
-        maximumFractionDigits:2
-    });
+    allRevenue: 0,
 
-}
+    passiveIncome: 0,
 
+    wallet: 0
 
-function getName(user){
+};
 
-    const metadata = user?.user_metadata || {};
 
-    return (
-        metadata.full_name ||
-        metadata.name ||
-        metadata.username ||
-        localStorage.getItem("username") ||
-        user?.email?.split("@")[0] ||
-        "User"
-    );
+/* ================= LOAD USER ================= */
 
-}
+function loadUserData(){
 
+    const name = USER_DATA.name || "User";
+    const id = USER_DATA.id || "—";
+    const packageName = USER_DATA.package || "PACKAGE";
+    const photo = USER_DATA.photo || "";
 
-function getAvatar(user){
+    document.getElementById("profileName").textContent = name;
 
-    const metadata = user?.user_metadata || {};
+    document.getElementById("profileID").textContent =
+        "ID: " + id;
 
-    return (
-        metadata.avatar_url ||
-        metadata.picture ||
-        "https://ui-avatars.com/api/?name=" +
-        encodeURIComponent(getName(user)) +
-        "&background=733cff&color=ffffff"
-    );
+    document.getElementById("packageBadge").textContent =
+        packageName;
 
-}
+    document.getElementById("walletUser").textContent =
+        name;
 
+    document.getElementById("dropdownName").textContent =
+        name;
 
-function showToast(message){
+    document.getElementById("dropdownID").textContent =
+        "ID: " + id;
 
-    const toast = document.getElementById("toast");
 
-    toast.textContent = message;
+    /* Revenue */
 
-    toast.classList.add("show");
+    document.getElementById("todayRevenue").textContent =
+        formatMoney(USER_DATA.todayRevenue);
 
-    setTimeout(()=>{
-        toast.classList.remove("show");
-    },2000);
+    document.getElementById("sevenRevenue").textContent =
+        formatMoney(USER_DATA.sevenRevenue);
 
-}
+    document.getElementById("thirtyRevenue").textContent =
+        formatMoney(USER_DATA.thirtyRevenue);
 
+    document.getElementById("allRevenue").textContent =
+        formatMoney(USER_DATA.allRevenue);
 
-/* =========================================================
-   AUTH CHECK
-========================================================= */
+    document.getElementById("passiveRevenue").textContent =
+        formatMoney(USER_DATA.passiveIncome);
 
-async function loadUser(){
+    document.getElementById("walletBalance").textContent =
+        formatMoney(USER_DATA.wallet);
 
-    const {
-        data,
-        error
-    } = await supabaseClient.auth.getSession();
 
-    if(error || !data.session){
+    /* Profile image */
 
-        window.location.href = "login.html";
+    if(photo){
 
-        return;
-
-    }
-
-    currentUser =
-        data.session.user;
-
-    currentUserId =
-        currentUser.id;
-
-    localStorage.setItem(
-        "userEmail",
-        currentUser.email || ""
-    );
-
-    localStorage.setItem(
-        "userId",
-        currentUser.id
-    );
-
-    localStorage.setItem(
-        "username",
-        getName(currentUser)
-    );
-
-    renderUser();
-
-    await loadDashboard();
-
-    document.getElementById(
-        "loadingScreen"
-    ).style.display = "none";
-
-}
-
-
-/* =========================================================
-   RENDER USER
-========================================================= */
-
-function renderUser(){
-
-    const name =
-        getName(currentUser);
-
-    const email =
-        currentUser.email || "";
-
-    const avatar =
-        getAvatar(currentUser);
-
-    document.getElementById(
-        "welcomeName"
-    ).textContent = name;
-
-    document.getElementById(
-        "profileName"
-    ).textContent = name;
-
-    document.getElementById(
-        "dropdownName"
-    ).textContent = name;
-
-    document.getElementById(
-        "dropdownEmail"
-    ).textContent = email;
-
-    document.getElementById(
-        "userId"
-    ).textContent =
-        currentUser.id.slice(0,8).toUpperCase();
-
-    document.getElementById(
-        "navAvatar"
-    ).src = avatar;
-
-    document.getElementById(
-        "profileAvatar"
-    ).src = avatar;
-
-    document.getElementById(
-        "dropdownAvatar"
-    ).src = avatar;
-
-}
-
-
-/* =========================================================
-   LOAD DASHBOARD
-========================================================= */
-
-async function loadDashboard(){
-
-    await Promise.all([
-        loadPackage(),
-        loadIncome()
-    ]);
-
-}
-
-
-/* =========================================================
-   PACKAGE
-========================================================= */
-
-async function loadPackage(){
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("user_packages")
-        .select(`
-            package_id,
-            packages (
-                name,
-                active_income,
-                passive_income
-            )
-        `)
-        .eq("user_id", currentUserId)
-        .maybeSingle();
-
-    if(error){
-
-        console.error(
-            "Package error:",
-            error
+        setImage(
+            "profileImage",
+            "profileFallback",
+            photo
         );
 
-        return;
-
-    }
-
-    if(data && data.packages){
-
-        document.getElementById(
-            "packageBadge"
-        ).textContent =
-            data.packages.name || "Premium Package";
-
-    }
-
-}
-
-
-/* =========================================================
-   LOAD INCOME TRANSACTIONS
-========================================================= */
-
-async function loadIncome(){
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("income_transactions")
-        .select(`
-            id,
-            user_id,
-            type,
-            amount,
-            description,
-            created_at
-        `)
-        .eq("user_id", currentUserId)
-        .order("created_at", {
-            ascending:true
-        });
-
-    if(error){
-
-        console.error(
-            "Income error:",
-            error
+        setImage(
+            "navProfileImage",
+            "navFallback",
+            photo
         );
 
-        showToast(
-            "Income data load nahi hua"
+        setImage(
+            "dropdownProfileImage",
+            "dropdownFallback",
+            photo
         );
-
-        return;
-
-    }
-
-    const transactions =
-        data || [];
-
-    calculateIncome(
-        transactions
-    );
-
-}
-
-
-/* =========================================================
-   CALCULATE INCOME
-========================================================= */
-
-function calculateIncome(transactions){
-
-    const now =
-        new Date();
-
-    const startToday =
-        new Date(now);
-
-    startToday.setHours(
-        0,0,0,0
-    );
-
-    const start7 =
-        new Date(now);
-
-    start7.setDate(
-        start7.getDate() - 6
-    );
-
-    start7.setHours(
-        0,0,0,0
-    );
-
-    const start30 =
-        new Date(now);
-
-    start30.setDate(
-        start30.getDate() - 29
-    );
-
-    start30.setHours(
-        0,0,0,0
-    );
-
-
-    let today = 0;
-    let seven = 0;
-    let thirty = 0;
-    let all = 0;
-    let passive = 0;
-    let industry = 0;
-
-
-    const graphData =
-        [0,0,0,0,0,0,0];
-
-
-    transactions.forEach(
-        transaction => {
-
-            const amount =
-                Number(
-                    transaction.amount || 0
-                );
-
-            const date =
-                new Date(
-                    transaction.created_at
-                );
-
-            if(
-                isNaN(date.getTime())
-            ){
-                return;
-            }
-
-
-            /*
-             * Only confirmed income
-             * transactions are counted.
-             */
-
-            all += amount;
-
-
-            if(date >= startToday){
-
-                today += amount;
-
-            }
-
-
-            if(date >= start7){
-
-                seven += amount;
-
-                const diff =
-                    Math.floor(
-                        (
-                            startToday.getTime() -
-                            new Date(
-                                date.getFullYear(),
-                                date.getMonth(),
-                                date.getDate()
-                            ).getTime()
-                        )
-                        /
-                        (1000*60*60*24)
-                    );
-
-                const index =
-                    6 - diff;
-
-                if(
-                    index >= 0 &&
-                    index <= 6
-                ){
-
-                    graphData[index] += amount;
-
-                }
-
-            }
-
-
-            if(date >= start30){
-
-                thirty += amount;
-
-            }
-
-
-            const type =
-                String(
-                    transaction.type || ""
-                ).toLowerCase();
-
-
-            if(type === "passive"){
-
-                passive += amount;
-
-            }
-
-
-            if(type === "industry"){
-
-                industry += amount;
-
-            }
-
-        }
-    );
-
-
-    document.getElementById(
-        "todayIncome"
-    ).textContent =
-        money(today);
-
-    document.getElementById(
-        "sevenIncome"
-    ).textContent =
-        money(seven);
-
-    document.getElementById(
-        "thirtyIncome"
-    ).textContent =
-        money(thirty);
-
-    document.getElementById(
-        "allIncome"
-    ).textContent =
-        money(all);
-
-    document.getElementById(
-        "passiveIncome"
-    ).textContent =
-        money(passive);
-
-    document.getElementById(
-        "industryIncome"
-    ).textContent =
-        money(industry);
-
-
-    /*
-     * Wallet currently represents
-     * total confirmed income.
-     */
-
-    updateWallet(all);
-
-    drawGraph(
-        graphData
-    );
-
-}
-
-
-/* =========================================================
-   WALLET
-========================================================= */
-
-function updateWallet(amount){
-
-    const wallet =
-        document.getElementById(
-            "walletAmount"
-        );
-
-    wallet.dataset.amount =
-        money(amount);
-
-    if(walletVisible){
-
-        wallet.textContent =
-            money(amount);
 
     }else{
 
-        wallet.textContent =
-            "₹••••";
+        showFallback("profileFallback");
+        showFallback("navFallback");
+        showFallback("dropdownFallback");
+
+        setFallbackLetter(
+            "profileFallback",
+            name
+        );
+
+        setFallbackLetter(
+            "navFallback",
+            name
+        );
+
+        setFallbackLetter(
+            "dropdownFallback",
+            name
+        );
 
     }
 
 }
 
 
-document.getElementById(
-    "eyeButton"
-).addEventListener(
-    "click",
-    function(){
+/* ================= IMAGE HELPER ================= */
 
-        walletVisible =
-            !walletVisible;
+function setImage(imageID,fallbackID,url){
 
-        const wallet =
-            document.getElementById(
-                "walletAmount"
-            );
+    const img = document.getElementById(imageID);
+    const fallback = document.getElementById(fallbackID);
 
-        const amount =
-            wallet.dataset.amount ||
-            "₹0";
+    img.src = url;
 
-        wallet.textContent =
-            walletVisible
-            ? amount
-            : "₹••••";
+    img.onload = function(){
 
-        this.textContent =
-            walletVisible
-            ? "👁"
-            : "🙈";
+        img.style.display = "block";
+        fallback.style.display = "none";
+
+    };
+
+    img.onerror = function(){
+
+        img.style.display = "none";
+        fallback.style.display = "flex";
+
+    };
+
+}
+
+
+/* ================= FALLBACK ================= */
+
+function showFallback(id){
+
+    document.getElementById(id).style.display = "flex";
+
+}
+
+
+function setFallbackLetter(id,name){
+
+    const letter =
+        String(name || "U").trim().charAt(0).toUpperCase() || "U";
+
+    document.getElementById(id).textContent = letter;
+
+}
+
+
+/* ================= MONEY ================= */
+
+function formatMoney(value){
+
+    const number = Number(value) || 0;
+
+    return "₹ " + number.toLocaleString("en-IN");
+
+}
+
+
+/* ================= COPY ID ================= */
+
+function copyProfileID(){
+
+    const id = USER_DATA.id || "";
+
+    if(!id){
+        return;
+    }
+
+    if(navigator.clipboard){
+
+        navigator.clipboard.writeText(id).then(() => {
+
+            const btn =
+                document.querySelector(".copy-btn");
+
+            btn.textContent = "✓";
+
+            setTimeout(() => {
+                btn.textContent = "📋";
+            },1200);
+
+        });
 
     }
+
+}
+
+
+/* ================= PROFILE MENU ================= */
+
+const profileMenuBtn =
+    document.getElementById("profileMenuBtn");
+
+const profileDropdown =
+    document.getElementById("profileDropdown");
+
+
+profileMenuBtn.addEventListener("click",function(event){
+
+    event.stopPropagation();
+
+    profileDropdown.classList.toggle("show");
+
+});
+
+
+document.addEventListener("click",function(event){
+
+    if(
+        !profileDropdown.contains(event.target) &&
+        !profileMenuBtn.contains(event.target)
+    ){
+
+        profileDropdown.classList.remove("show");
+
+    }
+
+});
+
+
+/* ================= LOGOUT ================= */
+
+function logoutUser(){
+
+    /*
+       IMPORTANT:
+       Apne existing authentication system ka
+       logout function yahan call karna.
+
+       Example:
+
+       auth.signOut();
+
+       ya
+
+       window.location.href = "login.html";
+    */
+
+    window.location.href = "login.html";
+
+}
+
+
+/* ================= CURRENT DATE ================= */
+
+function updateDate(){
+
+    const today = new Date();
+
+    const day =
+        String(today.getDate()).padStart(2,"0");
+
+    const month =
+        String(today.getMonth()+1).padStart(2,"0");
+
+    const year =
+        today.getFullYear();
+
+    document.getElementById("currentDate").textContent =
+        day + "-" + month + "-" + year;
+
+}
+
+
+/* =========================================================
+   PARTICLE SYSTEM
+   ========================================================= */
+
+const canvas =
+    document.getElementById("particles");
+
+const ctx =
+    canvas.getContext("2d");
+
+let particles = [];
+
+function resizeCanvas(){
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+resizeCanvas();
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
 );
 
 
-/* =========================================================
-   DATE
-========================================================= */
+function createParticles(){
 
-function setDate(){
+    particles = [];
 
-    const date =
-        new Date();
+    const amount =
+        window.innerWidth < 600 ? 32 : 55;
 
-    document.getElementById(
-        "walletDate"
-    ).textContent =
-        date.toLocaleDateString(
-            "en-IN",
-            {
-                day:"2-digit",
-                month:"short",
-                year:"numeric"
-            }
-        );
+    for(let i=0;i<amount;i++){
+
+        particles.push({
+
+            x:Math.random()*canvas.width,
+
+            y:Math.random()*canvas.height,
+
+            size:Math.random()*1.8+.5,
+
+            speedX:(Math.random()-.5)*.35,
+
+            speedY:(Math.random()-.5)*.35,
+
+            opacity:Math.random()*.35+.1
+
+        });
+
+    }
 
 }
 
-
-/* =========================================================
-   7 DAY GRAPH
-========================================================= */
-
-function drawGraph(values){
-
-    const canvas =
-        document.getElementById(
-            "salesChart"
-        );
-
-    const ctx =
-        canvas.getContext("2d");
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-    const ratio =
-        window.devicePixelRatio || 1;
-
-    canvas.width =
-        rect.width * ratio;
-
-    canvas.height =
-        rect.height * ratio;
-
-    ctx.scale(
-        ratio,
-        ratio
-    );
+createParticles();
 
 
-    const width =
-        rect.width;
-
-    const height =
-        rect.height;
-
+function animateParticles(){
 
     ctx.clearRect(
         0,
         0,
-        width,
-        height
+        canvas.width,
+        canvas.height
     );
 
 
-    const padding = {
-        top:20,
-        right:15,
-        bottom:35,
-        left:48
-    };
+    particles.forEach(p => {
+
+        p.x += p.speedX;
+        p.y += p.speedY;
 
 
-    const chartWidth =
-        width -
-        padding.left -
-        padding.right;
+        if(p.x < 0) p.x = canvas.width;
+        if(p.x > canvas.width) p.x = 0;
 
-    const chartHeight =
-        height -
-        padding.top -
-        padding.bottom;
+        if(p.y < 0) p.y = canvas.height;
+        if(p.y > canvas.height) p.y = 0;
 
-
-    const maxValue =
-        Math.max(
-            ...values,
-            100
-        );
-
-
-    /*
-     * Grid
-     */
-
-    ctx.strokeStyle =
-        "#eeeef4";
-
-    ctx.lineWidth = 1;
-
-    for(let i=0;i<5;i++){
-
-        const y =
-            padding.top +
-            (
-                chartHeight / 4
-            ) * i;
 
         ctx.beginPath();
 
-        ctx.moveTo(
-            padding.left,
-            y
-        );
-
-        ctx.lineTo(
-            width-padding.right,
-            y
-        );
-
-        ctx.stroke();
-
-    }
-
-
-    /*
-     * Points
-     */
-
-    const points =
-        values.map(
-            (value,index)=>{
-
-                const x =
-                    padding.left +
-                    (
-                        chartWidth /
-                        6
-                    ) * index;
-
-                const y =
-                    padding.top +
-                    chartHeight -
-                    (
-                        value /
-                        maxValue
-                    ) *
-                    chartHeight;
-
-                return {
-                    x,
-                    y,
-                    value
-                };
-
-            }
-        );
-
-
-    /*
-     * Area
-     */
-
-    const gradient =
-        ctx.createLinearGradient(
+        ctx.arc(
+            p.x,
+            p.y,
+            p.size,
             0,
-            padding.top,
-            0,
-            height
+            Math.PI*2
         );
 
-    gradient.addColorStop(
-        0,
-        "rgba(115,60,255,.18)"
-    );
+        ctx.fillStyle =
+            "rgba(79,70,229," +
+            p.opacity +
+            ")";
 
-    gradient.addColorStop(
-        1,
-        "rgba(115,60,255,0)"
-    );
+        ctx.fill();
 
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        points[0].x,
-        height-padding.bottom
-    );
-
-    points.forEach(
-        point=>{
-            ctx.lineTo(
-                point.x,
-                point.y
-            );
-        }
-    );
-
-    ctx.lineTo(
-        points[6].x,
-        height-padding.bottom
-    );
-
-    ctx.closePath();
-
-    ctx.fillStyle =
-        gradient;
-
-    ctx.fill();
+    });
 
 
-    /*
-     * Line
-     */
-
-    ctx.beginPath();
-
-    points.forEach(
-        (point,index)=>{
-
-            if(index === 0){
-
-                ctx.moveTo(
-                    point.x,
-                    point.y
-                );
-
-            }else{
-
-                ctx.lineTo(
-                    point.x,
-                    point.y
-                );
-
-            }
-
-        }
-    );
-
-    ctx.strokeStyle =
-        "#733cff";
-
-    ctx.lineWidth = 3;
-
-    ctx.lineJoin =
-        "round";
-
-    ctx.lineCap =
-        "round";
-
-    ctx.stroke();
-
-
-    /*
-     * Dots
-     */
-
-    points.forEach(
-        point=>{
-
-            ctx.beginPath();
-
-            ctx.arc(
-                point.x,
-                point.y,
-                4,
-                0,
-                Math.PI*2
-            );
-
-            ctx.fillStyle =
-                "#fff";
-
-            ctx.fill();
-
-            ctx.strokeStyle =
-                "#733cff";
-
-            ctx.lineWidth = 2;
-
-            ctx.stroke();
-
-        }
-    );
-
-
-    /*
-     * Labels
-     */
-
-    ctx.fillStyle =
-        "#9998a5";
-
-    ctx.font =
-        "11px Arial";
-
-    const days = [];
-
-    for(let i=6;i>=0;i--){
-
-        const date =
-            new Date();
-
-        date.setDate(
-            date.getDate()-i
-        );
-
-        days.push(
-            date.toLocaleDateString(
-                "en-IN",
-                {
-                    day:"2-digit",
-                    month:"short"
-                }
-            )
-        );
-
-    }
-
-
-    points.forEach(
-        (point,index)=>{
-
-            ctx.textAlign =
-                "center";
-
-            ctx.fillText(
-                days[index],
-                point.x,
-                height-12
-            );
-
-        }
+    requestAnimationFrame(
+        animateParticles
     );
 
 }
 
+animateParticles();
 
-/* =========================================================
-   RESIZE GRAPH
-========================================================= */
 
-window.addEventListener(
-    "resize",
-    ()=>{
+/* ================= START ================= */
 
-        /*
-         * Reload transactions only
-         * when needed.
-         */
+loadUserData();
 
-        loadIncome();
-
-    }
-);
-
-
-/* =========================================================
-   COPY USER ID
-========================================================= */
-
-async function copyUserId(){
-
-    if(!currentUserId)
-        return;
-
-    await navigator.clipboard.writeText(
-        currentUserId
-    );
-
-    showToast(
-        "User ID copied"
-    );
-
-}
-
-
-/* =========================================================
-   PROFILE DROPDOWN
-========================================================= */
-
-document.getElementById(
-    "avatarButton"
-).addEventListener(
-    "click",
-    function(e){
-
-        e.stopPropagation();
-
-        document
-            .getElementById(
-                "profileDropdown"
-            )
-            .classList.toggle(
-                "show"
-            );
-
-    }
-);
-
-
-document.addEventListener(
-    "click",
-    function(){
-
-        document
-            .getElementById(
-                "profileDropdown"
-            )
-            .classList.remove(
-                "show"
-            );
-
-    }
-);
-
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-const sidebar =
-    document.getElementById(
-        "sidebar"
-    );
-
-const overlay =
-    document.getElementById(
-        "overlay"
-    );
-
-
-function openSidebar(){
-
-    sidebar.classList.add(
-        "open"
-    );
-
-    overlay.classList.add(
-        "show"
-    );
-
-}
-
-
-function closeSidebar(){
-
-    sidebar.classList.remove(
-        "open"
-    );
-
-    overlay.classList.remove(
-        "show"
-    );
-
-}
-
-
-document.getElementById(
-    "menuButton"
-).addEventListener(
-    "click",
-    openSidebar
-);
-
-
-document.getElementById(
-    "closeSidebar"
-).addEventListener(
-    "click",
-    closeSidebar
-);
-
-
-overlay.addEventListener(
-    "click",
-    closeSidebar
-);
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-function openProfile(){
-
-    closeSidebar();
-
-    /*
-     * Jab My Profile page banega,
-     * yahan uska URL add karenge.
-     */
-
-    window.location.href =
-        "profile.html";
-
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-async function logout(){
-
-    await supabaseClient.auth.signOut();
-
-    localStorage.removeItem(
-        "username"
-    );
-
-    localStorage.removeItem(
-        "userEmail"
-    );
-
-    localStorage.removeItem(
-        "userId"
-    );
-
-    sessionStorage.removeItem(
-        "loginSuccess"
-    );
-
-    window.location.href =
-        "login.html";
-
-}
-
-
-/* =========================================================
-   AUTH STATE LISTENER
-========================================================= */
-
-supabaseClient.auth.onAuthStateChange(
-    (event, session)=>{
-
-        if(
-            event === "SIGNED_OUT"
-        ){
-
-            window.location.href =
-                "login.html";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-setDate();
-
-loadUser();
+updateDate();
 
 </script>
 
