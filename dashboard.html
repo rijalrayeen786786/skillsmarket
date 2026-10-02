@@ -5,556 +5,1093 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Skills Market | Dashboard</title>
-<meta name="description" content="Skills Market Member Dashboard">
 
-<!-- Supabase -->
+<meta name="description" content="Skills Market user dashboard">
+<meta name="theme-color" content="#0b0b0f">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    background:#f1f3f6;
-    color:#202124;
-    min-height:100vh;
+html {
+    scroll-behavior: smooth;
 }
 
-/* ================= NAVBAR ================= */
-
-.navbar{
-    height:68px;
-    background:#080a24;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 22px;
-    position:sticky;
-    top:0;
-    z-index:900;
-    box-shadow:0 3px 12px rgba(0,0,0,.15);
+body {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    background: #f5f6f8;
+    color: #17171b;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-.logo-section{
-    display:flex;
-    flex-direction:column;
-    line-height:1.1;
+button,
+a {
+    font-family: inherit;
 }
 
-.logo-section h2{
-    font-size:21px;
-    letter-spacing:.3px;
-    color:#fff;
+button {
+    border: 0;
+    cursor: pointer;
 }
 
-.logo-section h2 span{
-    color:#ff2020;
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-.logo-section p{
-    font-size:9px;
-    color:#aeb3c2;
-    margin-top:4px;
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
+
+#loadingScreen {
+    position: fixed;
+    inset: 0;
+    background: #09090c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: opacity .4s ease, visibility .4s ease;
 }
 
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:16px;
+#loadingScreen.hide {
+    opacity: 0;
+    visibility: hidden;
 }
 
-.profile-thumb{
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid rgba(255,255,255,.7);
-    background:#222;
+.loaderBox {
+    text-align: center;
 }
 
-.menu-btn{
-    width:40px;
-    height:40px;
-    border-radius:9px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:23px;
-    cursor:pointer;
-    color:#fff;
-    background:rgba(255,255,255,.08);
-    transition:.2s;
+.loaderLogo {
+    font-size: 27px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
 }
 
-.menu-btn:hover{
-    background:#e00000;
+.loaderLogo span {
+    color: #e11d2e;
 }
 
-/* ================= CONTAINER ================= */
-
-.container{
-    width:100%;
-    max-width:620px;
-    margin:0 auto;
-    padding:18px 15px 40px;
+.loader {
+    width: 38px;
+    height: 38px;
+    border: 3px solid rgba(255,255,255,.15);
+    border-top-color: #e11d2e;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+    margin: auto;
 }
 
-/* ================= WELCOME ================= */
-
-.welcome-box{
-    background:#fff;
-    border-radius:12px;
-    padding:16px 17px;
-    margin-bottom:16px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-    border-left:4px solid #e00000;
-}
-
-.welcome-box h2{
-    font-size:17px;
-    margin-bottom:5px;
-}
-
-.welcome-box p{
-    color:#777;
-    font-size:12px;
-}
-
-/* ================= PROFILE ================= */
-
-.profile-card{
-    position:relative;
-    overflow:hidden;
-    background:linear-gradient(135deg,#090b28,#151947);
-    color:#fff;
-    padding:21px;
-    border-radius:15px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    margin-bottom:18px;
-    box-shadow:0 7px 20px rgba(0,0,0,.13);
-}
-
-.profile-card:after{
-    content:"";
-    position:absolute;
-    width:150px;
-    height:150px;
-    right:-55px;
-    top:-65px;
-    border-radius:50%;
-    background:rgba(255,0,0,.15);
-}
-
-.profile-card img{
-    width:68px;
-    height:68px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid #fff;
-    background:#333;
-    position:relative;
-    z-index:2;
-}
-
-.profile-info{
-    position:relative;
-    z-index:2;
-}
-
-.profile-info h3{
-    font-size:17px;
-    margin-bottom:7px;
-    word-break:break-word;
-}
-
-.profile-info p{
-    color:#aeb3c2;
-    font-size:11px;
-    margin-bottom:8px;
-}
-
-.badge{
-    background:linear-gradient(135deg,#e00000,#ff3b3b);
-    color:#fff;
-    font-size:11px;
-    padding:5px 11px;
-    border-radius:20px;
-    display:inline-block;
-    font-weight:bold;
-}
-
-/* ================= EARNING CARDS ================= */
-
-.earning-card{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:21px;
-    border-radius:14px;
-    color:#fff;
-    margin-bottom:14px;
-    box-shadow:0 5px 13px rgba(0,0,0,.12);
-    position:relative;
-    overflow:hidden;
-}
-
-.earning-card:after{
-    content:"";
-    position:absolute;
-    width:120px;
-    height:120px;
-    right:-45px;
-    bottom:-55px;
-    background:rgba(255,255,255,.09);
-    border-radius:50%;
-}
-
-.earning-content{
-    position:relative;
-    z-index:2;
-}
-
-.earning-card h2{
-    font-size:25px;
-    margin-bottom:5px;
-}
-
-.earning-card p{
-    font-size:13px;
-    opacity:.92;
-}
-
-.icon-box{
-    width:48px;
-    height:48px;
-    border-radius:12px;
-    background:rgba(255,255,255,.95);
-    color:#222;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    font-weight:bold;
-    position:relative;
-    z-index:2;
-}
-
-/* ================= GRADIENTS ================= */
-
-.bg-1{
-    background:linear-gradient(135deg,#7928ca,#ff0080);
-}
-
-.bg-2{
-    background:linear-gradient(135deg,#00b8f0,#006eff);
-}
-
-.bg-3{
-    background:linear-gradient(135deg,#7b2be2,#4158d0);
-}
-
-.bg-4{
-    background:linear-gradient(135deg,#ee2610,#f4aa18);
-}
-
-.bg-5{
-    background:linear-gradient(135deg,#104c5b,#6eb47e);
-}
-
-/* ================= GRAPH ================= */
-
-.graph-box{
-    background:#fff;
-    padding:18px;
-    border-radius:14px;
-    margin-top:19px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
-
-.graph-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:17px;
-}
-
-.graph-header h3{
-    font-size:16px;
-}
-
-.graph-header span{
-    font-size:11px;
-    color:#777;
-}
-
-.graph{
-    height:175px;
-    position:relative;
-    border-left:1px solid #ddd;
-    border-bottom:1px solid #ddd;
-    background:
-        linear-gradient(to bottom,
-        transparent 24%,
-        #eee 25%,
-        transparent 26%,
-        transparent 49%,
-        #eee 50%,
-        transparent 51%,
-        transparent 74%,
-        #eee 75%,
-        transparent 76%);
-    overflow:hidden;
-}
-
-.graph-line{
-    position:absolute;
-    left:3%;
-    right:2%;
-    bottom:22px;
-    height:105px;
-}
-
-.graph-line svg{
-    width:100%;
-    height:100%;
-    overflow:visible;
-}
-
-.graph-labels{
-    display:flex;
-    justify-content:space-between;
-    padding:8px 2px 0;
-    color:#888;
-    font-size:10px;
-}
-
-/* ================= SIDEBAR ================= */
-
-.sidebar{
-    height:100vh;
-    width:275px;
-    position:fixed;
-    z-index:1200;
-    top:0;
-    left:-285px;
-    background:#fff;
-    overflow-y:auto;
-    transition:.32s ease;
-    box-shadow:5px 0 20px rgba(0,0,0,.22);
-}
-
-.sidebar.active{
-    left:0;
-}
-
-.sidebar-header{
-    height:68px;
-    background:#080a24;
-    color:#fff;
-    padding:0 18px;
-    font-weight:bold;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.sidebar-brand{
-    font-size:18px;
-}
-
-.sidebar-close{
-    width:34px;
-    height:34px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:25px;
-}
-
-.sidebar-close:hover{
-    background:#e00000;
-}
-
-.sidebar-menu{
-    padding:9px 0 25px;
-}
-
-.sidebar a{
-    padding:13px 18px;
-    text-decoration:none;
-    font-size:14px;
-    color:#333;
-    display:flex;
-    align-items:center;
-    gap:11px;
-    border-bottom:1px solid #f1f1f1;
-    transition:.2s;
-}
-
-.sidebar a:hover,
-.sidebar a.active{
-    background:#fff1f1;
-    color:#d50000;
-    padding-left:22px;
-}
-
-.menu-icon{
-    width:21px;
-    text-align:center;
-    font-size:15px;
-}
-
-.sidebar a.active{
-    font-weight:bold;
-    border-left:3px solid #d50000;
-}
-
-/* ================= OVERLAY ================= */
-
-.sidebar-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.48);
-    z-index:1100;
-    opacity:0;
-    visibility:hidden;
-    transition:.3s;
-}
-
-.sidebar-overlay.active{
-    opacity:1;
-    visibility:visible;
-}
-
-/* ================= POPUP ================= */
-
-.welcome-popup{
-    position:fixed;
-    top:82px;
-    right:18px;
-    width:330px;
-    background:#fff;
-    border-radius:13px;
-    padding:16px;
-    z-index:2000;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
-    border-left:4px solid #e00000;
-    transform:translateX(120%);
-    opacity:0;
-    transition:.4s ease;
-}
-
-.welcome-popup.show{
-    transform:translateX(0);
-    opacity:1;
-}
-
-.popup-title{
-    font-weight:bold;
-    font-size:15px;
-    margin-bottom:5px;
-}
-
-.popup-text{
-    color:#666;
-    font-size:12px;
-    line-height:1.5;
-}
-
-/* ================= LOADING ================= */
-
-.loading-screen{
-    position:fixed;
-    inset:0;
-    background:#080a24;
-    z-index:5000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    color:#fff;
-}
-
-.loading-logo{
-    font-size:25px;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-.loading-logo span{
-    color:#ff2020;
-}
-
-.loader{
-    width:34px;
-    height:34px;
-    border:3px solid rgba(255,255,255,.2);
-    border-top-color:#ff2020;
-    border-radius:50%;
-    animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
-/* ================= MOBILE ================= */
+/* =========================================================
+   APP
+========================================================= */
 
-@media(max-width:500px){
+.app {
+    min-height: 100vh;
+}
 
-    .navbar{
-        padding:0 14px;
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    height: 74px;
+    background: #ffffff;
+    border-bottom: 1px solid #e8e8ec;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.navLeft {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #121217;
+}
+
+.logo span {
+    color: #e11d2e;
+}
+
+.navRight {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+/* Profile button */
+
+.profileButton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f5f5f7;
+    padding: 6px 11px 6px 6px;
+    border-radius: 30px;
+    transition: .25s ease;
+}
+
+.profileButton:hover {
+    background: #eeeeF1;
+}
+
+.profileButton img,
+.profileAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profileMiniInfo {
+    text-align: left;
+    max-width: 150px;
+}
+
+.profileMiniName {
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profileMiniStatus {
+    font-size: 10px;
+    color: #777;
+    margin-top: 2px;
+}
+
+/* Menu button */
+
+.menuButton {
+    width: 44px;
+    height: 44px;
+    background: #111116;
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: .25s ease;
+}
+
+.menuButton:hover {
+    background: #e11d2e;
+}
+
+.menuButton span {
+    width: 19px;
+    height: 2px;
+    background: #fff;
+    border-radius: 5px;
+}
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+.profileDropdown {
+    position: absolute;
+    right: 82px;
+    top: 65px;
+    width: 270px;
+    background: #fff;
+    border: 1px solid #e7e7eb;
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(0,0,0,.13);
+    padding: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: .25s ease;
+    z-index: 1000;
+}
+
+.profileDropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdownUser {
+    padding: 12px;
+    background: #f7f7f9;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+.dropdownName {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.dropdownEmail {
+    font-size: 11px;
+    color: #777;
+    margin-top: 4px;
+    word-break: break-word;
+}
+
+.dropdownItem {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 12px;
+    border-radius: 10px;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 700;
+    color: #28282d;
+    text-align: left;
+}
+
+.dropdownItem:hover {
+    background: #f5f5f7;
+}
+
+.dropdownItem.logout {
+    color: #e11d2e;
+}
+
+/* =========================================================
+   SIDEBAR OVERLAY
+========================================================= */
+
+.sidebarOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease;
+    z-index: 1100;
+}
+
+.sidebarOverlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    max-width: 92%;
+    height: 100vh;
+    background: #0b0b0f;
+    color: #fff;
+    z-index: 1200;
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -15px 0 50px rgba(0,0,0,.25);
+}
+
+.sidebar.show {
+    transform: translateX(0);
+}
+
+.sidebarHeader {
+    height: 82px;
+    padding: 0 23px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.sidebarLogo {
+    font-size: 21px;
+    font-weight: 900;
+}
+
+.sidebarLogo span {
+    color: #e11d2e;
+}
+
+.closeSidebar {
+    width: 39px;
+    height: 39px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.08);
+    color: #fff;
+    font-size: 21px;
+}
+
+.closeSidebar:hover {
+    background: #e11d2e;
+}
+
+.sidebarUser {
+    margin: 18px;
+    padding: 14px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebarUser img,
+.sidebarUser .sideAvatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sideUserName {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.sideUserPackage {
+    font-size: 10px;
+    color: #aaa;
+    margin-top: 3px;
+}
+
+.sidebarNav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 13px 20px;
+}
+
+.sidebarNav::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebarNav::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.15);
+    border-radius: 5px;
+}
+
+.navSectionTitle {
+    color: #777;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 800;
+    padding: 10px 12px;
+}
+
+.sideLink {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 13px;
+    color: #d7d7dc;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 650;
+    margin-bottom: 3px;
+    background: transparent;
+    text-align: left;
+    transition: .2s ease;
+}
+
+.sideLink:hover {
+    color: #fff;
+    background: rgba(255,255,255,.07);
+}
+
+.sideLink.active {
+    color: #fff;
+    background: #e11d2e;
+}
+
+.sideIcon {
+    width: 23px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.sidebarBottom {
+    padding: 14px 18px 18px;
+    border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.logoutSide {
+    width: 100%;
+    background: rgba(225,29,46,.12);
+    color: #ff6b77;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.logoutSide:hover {
+    background: #e11d2e;
+    color: #fff;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+    width: 100%;
+    padding: 34px 30px 0;
+}
+
+.mainInner {
+    max-width: 1380px;
+    margin: auto;
+}
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+.welcomeRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.welcomeLabel {
+    font-size: 12px;
+    color: #777;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.welcomeTitle {
+    font-size: clamp(25px, 3vw, 35px);
+    line-height: 1.15;
+    font-weight: 900;
+    letter-spacing: -1.1px;
+}
+
+.welcomeTitle span {
+    color: #e11d2e;
+}
+
+.welcomeDate {
+    color: #777;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+/* =========================================================
+   PROFILE HERO
+========================================================= */
+
+.profileCard {
+    background: linear-gradient(135deg, #101014, #17171d);
+    border-radius: 20px;
+    padding: 24px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 14px 40px rgba(0,0,0,.13);
+}
+
+.profileCard::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    right: -100px;
+    top: -170px;
+    border-radius: 50%;
+    background: rgba(225,29,46,.22);
+    filter: blur(5px);
+}
+
+.profileCardLeft {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+    z-index: 2;
+}
+
+.bigAvatar {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e11d2e;
+    background: #25252b;
+}
+
+.profileCardName {
+    font-size: 21px;
+    font-weight: 900;
+}
+
+.profileCardEmail {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+.profileCardId {
+    font-size: 11px;
+    color: #777;
+    margin-top: 5px;
+}
+
+.packageBadge {
+    position: relative;
+    z-index: 2;
+    padding: 10px 15px;
+    border-radius: 30px;
+    background: rgba(225,29,46,.12);
+    border: 1px solid rgba(225,29,46,.35);
+    color: #ff6671;
+    font-size: 11px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   EARNING SECTION
+========================================================= */
+
+.sectionHeading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sectionHeading h2 {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.sectionHeading p {
+    font-size: 11px;
+    color: #888;
+}
+
+.earningGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.earningCard {
+    min-height: 160px;
+    border-radius: 17px;
+    padding: 20px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,.09);
+}
+
+.earningCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0,0,0,.13);
+}
+
+.earningCard::after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    right: -35px;
+    bottom: -55px;
+    border: 25px solid rgba(255,255,255,.07);
+    border-radius: 50%;
+}
+
+.cardRed {
+    background: linear-gradient(135deg, #b51425, #e11d3d);
+}
+
+.cardDarkRed {
+    background: linear-gradient(135deg, #74121d, #b7192c);
+}
+
+.cardPurple {
+    background: linear-gradient(135deg, #481a67, #77249a);
+}
+
+.cardBlue {
+    background: linear-gradient(135deg, #123f78, #176dc0);
+}
+
+.cardGold {
+    background: linear-gradient(135deg, #8d6400, #c49108);
+}
+
+.cardGreen {
+    background: linear-gradient(135deg, #086447, #0a8a62);
+}
+
+.earningIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.earningAmount {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -.5px;
+}
+
+.earningLabel {
+    margin-top: 5px;
+    font-size: 11px;
+    color: rgba(255,255,255,.75);
+    font-weight: 700;
+}
+
+.earningDivider {
+    height: 1px;
+    background: rgba(255,255,255,.16);
+    margin: 17px 0 10px;
+}
+
+.viewDetails {
+    font-size: 10px;
+    color: rgba(255,255,255,.75);
+    font-weight: 800;
+}
+
+/* =========================================================
+   GRAPH
+========================================================= */
+
+.graphCard {
+    background: #fff;
+    border: 1px solid #e8e8ec;
+    border-radius: 19px;
+    padding: 23px;
+    margin-bottom: 35px;
+    box-shadow: 0 8px 28px rgba(0,0,0,.04);
+}
+
+.graphTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.graphTitle {
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.graphSubtitle {
+    font-size: 10px;
+    color: #888;
+    margin-top: 4px;
+}
+
+.graphBadge {
+    background: #fdf0f2;
+    color: #e11d2e;
+    padding: 8px 11px;
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.graphArea {
+    height: 270px;
+    position: relative;
+    border-left: 1px solid #e7e7ea;
+    border-bottom: 1px solid #e7e7ea;
+    background-image:
+        linear-gradient(to right, rgba(0,0,0,.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,.045) 1px, transparent 1px);
+    background-size: calc(100% / 7) 100%, 100% 54px;
+    overflow: hidden;
+}
+
+.graphLine {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+}
+
+.graphLine svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.graphPath {
+    fill: none;
+    stroke: #e11d2e;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.graphFill {
+    fill: rgba(225,29,46,.08);
+    stroke: none;
+}
+
+.graphPoint {
+    fill: #fff;
+    stroke: #e11d2e;
+    stroke-width: 3;
+}
+
+.graphLabels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-top: 10px;
+    padding-left: 2px;
+}
+
+.graphLabels span {
+    font-size: 9px;
+    color: #999;
+    text-align: center;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    border-top: 1px solid #e7e7ea;
+    padding: 23px 20px;
+    text-align: center;
+    color: #888;
+    font-size: 11px;
+}
+
+/* =========================================================
+   WELCOME POPUP
+========================================================= */
+
+.welcomePopup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.62);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease;
+}
+
+.welcomePopup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popupBox {
+    width: 410px;
+    max-width: 100%;
+    background: #fff;
+    border-radius: 22px;
+    padding: 32px 25px 25px;
+    text-align: center;
+    transform: translateY(20px) scale(.97);
+    transition: .3s ease;
+}
+
+.welcomePopup.show .popupBox {
+    transform: translateY(0) scale(1);
+}
+
+.popupIcon {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 17px;
+    border-radius: 50%;
+    background: #fff0f2;
+    color: #e11d2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.popupBox h2 {
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.popupBox p {
+    color: #777;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 9px 0 21px;
+}
+
+.popupClose {
+    width: 100%;
+    padding: 13px;
+    border-radius: 11px;
+    background: #111116;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.popupClose:hover {
+    background: #e11d2e;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translate(-50%, 30px);
+    background: #111116;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease;
+    z-index: 5000;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+    .navbar {
+        padding: 0 20px;
     }
 
-    .logo-section h2{
-        font-size:19px;
+    .main {
+        padding: 28px 20px 0;
     }
 
-    .logo-section p{
-        font-size:8px;
+    .earningGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .navbar {
+        height: 65px;
+        padding: 0 13px;
     }
 
-    .profile-thumb{
-        width:35px;
-        height:35px;
+    .logo {
+        font-size: 20px;
     }
 
-    .container{
-        padding:15px 12px 35px;
+    .profileButton {
+        padding: 4px;
+        background: transparent;
     }
 
-    .profile-card{
-        padding:18px;
+    .profileButton img,
+    .profileButton .profileAvatar {
+        width: 38px;
+        height: 38px;
     }
 
-    .profile-card img{
-        width:61px;
-        height:61px;
+    .profileMiniInfo {
+        display: none;
     }
 
-    .earning-card{
-        padding:19px;
+    .menuButton {
+        width: 40px;
+        height: 40px;
     }
 
-    .earning-card h2{
-        font-size:23px;
+    .profileDropdown {
+        right: 58px;
+        top: 58px;
+        width: 250px;
     }
 
-    .welcome-popup{
-        left:12px;
-        right:12px;
-        width:auto;
+    .main {
+        padding: 22px 13px 0;
+    }
+
+    .welcomeRow {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 20px;
+    }
+
+    .welcomeTitle {
+        font-size: 25px;
+    }
+
+    .welcomeDate {
+        font-size: 10px;
+    }
+
+    .profileCard {
+        padding: 17px;
+        border-radius: 17px;
+        align-items: flex-start;
+    }
+
+    .profileCardLeft {
+        gap: 12px;
+    }
+
+    .bigAvatar {
+        width: 62px;
+        height: 62px;
+    }
+
+    .profileCardName {
+        font-size: 16px;
+    }
+
+    .profileCardEmail {
+        font-size: 10px;
+        max-width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .packageBadge {
+        font-size: 9px;
+        padding: 7px 9px;
+    }
+
+    .sectionHeading h2 {
+        font-size: 16px;
+    }
+
+    .earningGrid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .earningCard {
+        min-height: 145px;
+    }
+
+    .graphCard {
+        padding: 17px;
+        border-radius: 16px;
+    }
+
+    .graphArea {
+        height: 210px;
+    }
+
+    .graphBadge {
+        font-size: 8px;
+        padding: 7px;
+    }
+
+    .sidebar {
+        width: 310px;
+    }
+
+    .footer {
+        font-size: 10px;
+    }
+}
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .navbar {
+        padding: 0 10px;
+    }
+
+    .profileCard {
+        flex-direction: column;
+    }
+
+    .packageBadge {
+        align-self: flex-start;
     }
 }
 </style>
@@ -562,702 +1099,1144 @@ body{
 
 <body>
 
-<!-- ================= LOADING ================= -->
+<!-- =======================================================
+     LOADING
+======================================================= -->
 
-<div class="loading-screen" id="loadingScreen">
-
-    <div class="loading-logo">
-        Skills<span>Market</span>
+<div id="loadingScreen">
+    <div class="loaderBox">
+        <div class="loaderLogo">Skills <span>Market</span></div>
+        <div class="loader"></div>
     </div>
-
-    <div class="loader"></div>
-
 </div>
 
 
-<!-- ================= NAVBAR ================= -->
+<div class="app">
 
-<div class="navbar">
+<!-- =======================================================
+     NAVBAR
+======================================================= -->
 
-    <div class="logo-section">
+<header class="navbar">
 
-        <h2>Skills<span>Market</span></h2>
-
-        <p>Learn. Grow. Earn.</p>
-
+    <div class="navLeft">
+        <div class="logo">
+            Skills <span>Market</span>
+        </div>
     </div>
 
-    <div class="nav-right">
+    <div class="navRight">
 
-        <img
-            id="navProfile"
-            src="https://via.placeholder.com/80"
-            class="profile-thumb"
-            alt="Profile"
+        <button class="profileButton" id="profileButton" type="button">
+
+            <img
+                id="navAvatar"
+                class="profileAvatar"
+                src=""
+                alt="Profile"
+            >
+
+            <div class="profileMiniInfo">
+                <div class="profileMiniName" id="navName">
+                    Loading...
+                </div>
+
+                <div class="profileMiniStatus">
+                    Active Member
+                </div>
+            </div>
+
+        </button>
+
+        <button
+            class="menuButton"
+            id="menuButton"
+            type="button"
+            aria-label="Open Menu"
         >
-
-        <div
-            class="menu-btn"
-            onclick="toggleSidebar()"
-            aria-label="Open menu"
-        >
-            &#9776;
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ================= SIDEBAR OVERLAY ================= -->
-
-<div
-    id="sidebarOverlay"
-    class="sidebar-overlay"
-    onclick="toggleSidebar()"
-></div>
-
-
-<!-- ================= SIDEBAR ================= -->
-
-<div id="sidebar" class="sidebar">
-
-    <div class="sidebar-header">
-
-        <span class="sidebar-brand">
-            Skills Market
-        </span>
-
-        <span
-            class="sidebar-close"
-            onclick="toggleSidebar()"
-        >
-            &times;
-        </span>
-
-    </div>
-
-    <div class="sidebar-menu">
-
-        <a href="#" class="active">
-            <span class="menu-icon">📊</span>
-            Affiliate Dashboard
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">👤</span>
-            My Profile
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">🔗</span>
-            Affiliate Link
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">📚</span>
-            My Courses
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">⬆️</span>
-            Upgrade
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">🏆</span>
-            Leaderboard
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">👥</span>
-            My Team
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">📈</span>
-            Reports
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">🎓</span>
-            Training
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">🎥</span>
-            Webinars
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">🎁</span>
-            Offers
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">$</span>
-            Earning Target
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">💳</span>
-            Wallet Request
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">➕</span>
-            Create Account
-        </a>
-
-        <a href="#">
-            <span class="menu-icon">🌐</span>
-            Community
-        </a>
-
-    </div>
-
-</div>
-
-
-<!-- ================= WELCOME POPUP ================= -->
-
-<div
-    class="welcome-popup"
-    id="welcomePopup"
->
-
-    <div
-        class="popup-title"
-        id="popupTitle"
-    >
-        Welcome to Skills Market!
-    </div>
-
-    <div
-        class="popup-text"
-        id="popupText"
-    >
-        Your dashboard is ready.
-    </div>
-
-</div>
-
-
-<!-- ================= DASHBOARD ================= -->
-
-<div class="container">
-
-    <!-- Welcome -->
-
-    <div class="welcome-box">
-
-        <h2 id="welcomeTitle">
-            Welcome back!
-        </h2>
-
-        <p>
-            Welcome to your Skills Market dashboard.
-        </p>
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
     </div>
 
 
-    <!-- Profile -->
+    <!-- PROFILE DROPDOWN -->
 
-    <div class="profile-card">
+    <div class="profileDropdown" id="profileDropdown">
 
-        <img
-            id="profileImage"
-            src="https://via.placeholder.com/80"
-            alt="Profile"
-        >
+        <div class="dropdownUser">
 
-        <div class="profile-info">
+            <div class="dropdownName" id="dropdownName">
+                User
+            </div>
 
-            <h3 id="profileName">
-                Skills Market Member
-            </h3>
-
-            <p id="profileEmail">
-                Loading account...
-            </p>
-
-            <span class="badge">
-                Active Member
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- Today's Earning -->
-
-    <div class="earning-card bg-1">
-
-        <div class="earning-content">
-
-            <h2>₹0 /-</h2>
-
-            <p>
-                Today's Earning
-            </p>
-
-        </div>
-
-        <div class="icon-box">
-            ₹
-        </div>
-
-    </div>
-
-
-    <!-- Weekly Earning -->
-
-    <div class="earning-card bg-2">
-
-        <div class="earning-content">
-
-            <h2>₹0 /-</h2>
-
-            <p>
-                Weekly Earning
-            </p>
-
-        </div>
-
-        <div class="icon-box">
-            ₹
-        </div>
-
-    </div>
-
-
-    <!-- Monthly Earning -->
-
-    <div class="earning-card bg-3">
-
-        <div class="earning-content">
-
-            <h2>₹0 /-</h2>
-
-            <p>
-                Monthly Earning
-            </p>
-
-        </div>
-
-        <div class="icon-box">
-            ₹
-        </div>
-
-    </div>
-
-
-    <!-- All Time Earning -->
-
-    <div class="earning-card bg-4">
-
-        <div class="earning-content">
-
-            <h2>₹0 /-</h2>
-
-            <p>
-                All Time Earning
-            </p>
-
-        </div>
-
-        <div class="icon-box">
-            ₹
-        </div>
-
-    </div>
-
-
-    <!-- Passive Earning -->
-
-    <div class="earning-card bg-5">
-
-        <div class="earning-content">
-
-            <h2>₹0 /-</h2>
-
-            <p>
-                Total Passive Earning
-            </p>
-
-        </div>
-
-        <div class="icon-box">
-            ₹
-        </div>
-
-    </div>
-
-
-    <!-- Sales Graph -->
-
-    <div class="graph-box">
-
-        <div class="graph-header">
-
-            <h3>
-                7 Days Sales Graph
-            </h3>
-
-            <span>
-                Sales Overview
-            </span>
-
-        </div>
-
-        <div class="graph">
-
-            <div class="graph-line">
-
-                <svg
-                    viewBox="0 0 600 120"
-                    preserveAspectRatio="none"
-                >
-
-                    <polyline
-                        points="0,100 85,83 170,94 255,55 340,72 425,38 510,52 600,20"
-                        fill="none"
-                        stroke="#e00000"
-                        stroke-width="4"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-
-                    <polyline
-                        points="0,100 85,83 170,94 255,55 340,72 425,38 510,52 600,20 600,120 0,120"
-                        fill="rgba(224,0,0,.08)"
-                        stroke="none"
-                    />
-
-                </svg>
-
+            <div class="dropdownEmail" id="dropdownEmail">
+                user@email.com
             </div>
 
         </div>
 
-        <div class="graph-labels">
+        <button
+            class="dropdownItem"
+            type="button"
+            onclick="openProfilePage()"
+        >
+            👤
+            <span>My Profile</span>
+        </button>
 
-            <span>Day 1</span>
-            <span>Day 2</span>
-            <span>Day 3</span>
-            <span>Day 4</span>
-            <span>Day 5</span>
-            <span>Day 6</span>
-            <span>Day 7</span>
+        <button
+            class="dropdownItem"
+            type="button"
+            onclick="openProfilePage()"
+        >
+            ⚙️
+            <span>Account Settings</span>
+        </button>
 
+        <button
+            class="dropdownItem logout"
+            type="button"
+            onclick="logoutUser()"
+        >
+            🚪
+            <span>Logout</span>
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =======================================================
+     SIDEBAR OVERLAY
+======================================================= -->
+
+<div class="sidebarOverlay" id="sidebarOverlay"></div>
+
+
+<!-- =======================================================
+     SIDEBAR
+======================================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebarHeader">
+
+        <div class="sidebarLogo">
+            Skills <span>Market</span>
         </div>
+
+        <button
+            class="closeSidebar"
+            id="closeSidebar"
+            type="button"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="sidebarUser">
+
+        <img
+            id="sidebarAvatar"
+            src=""
+            alt="User"
+        >
+
+        <div>
+            <div
+                class="sideUserName"
+                id="sidebarName"
+            >
+                User
+            </div>
+
+            <div class="sideUserPackage">
+                Premium Package
+            </div>
+        </div>
+
+    </div>
+
+
+    <nav class="sidebarNav">
+
+        <div class="navSectionTitle">
+            Dashboard
+        </div>
+
+        <!-- 1 -->
+
+        <button
+            class="sideLink active"
+            type="button"
+            data-page="Affiliate Dashboard"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">▦</span>
+            <span>Affiliate Dashboard</span>
+        </button>
+
+
+        <!-- 2 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="My Profile"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">👤</span>
+            <span>My Profile</span>
+        </button>
+
+
+        <!-- 3 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Affiliate Link"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">🔗</span>
+            <span>Affiliate Link</span>
+        </button>
+
+
+        <!-- 4 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="My Courses"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">▤</span>
+            <span>My Courses</span>
+        </button>
+
+
+        <!-- 5 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Upgrade"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">⬆</span>
+            <span>Upgrade</span>
+        </button>
+
+
+        <!-- 6 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Leaderboard"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">🏆</span>
+            <span>Leaderboard</span>
+        </button>
+
+
+        <!-- 7 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="My Team"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">👥</span>
+            <span>My Team</span>
+        </button>
+
+
+        <!-- 8 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Reports"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">▥</span>
+            <span>Reports</span>
+        </button>
+
+
+        <!-- 9 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Training"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">🎓</span>
+            <span>Training</span>
+        </button>
+
+
+        <!-- 10 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Webinars"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">◉</span>
+            <span>Webinars</span>
+        </button>
+
+
+        <!-- 11 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Offers"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">🎁</span>
+            <span>Offers</span>
+        </button>
+
+
+        <!-- 12 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Earning Target"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">🎯</span>
+            <span>Earning Target</span>
+        </button>
+
+
+        <!-- 13 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Wallet Request"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">₹</span>
+            <span>Wallet Request</span>
+        </button>
+
+
+        <!-- 14 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Create Account"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">＋</span>
+            <span>Create Account</span>
+        </button>
+
+
+        <!-- 15 -->
+
+        <button
+            class="sideLink"
+            type="button"
+            data-page="Community"
+            onclick="selectMenu(this)"
+        >
+            <span class="sideIcon">💬</span>
+            <span>Community</span>
+        </button>
+
+    </nav>
+
+
+    <div class="sidebarBottom">
+
+        <button
+            class="logoutSide"
+            type="button"
+            onclick="logoutUser()"
+        >
+            🚪 Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =======================================================
+     MAIN CONTENT
+======================================================= -->
+
+<main class="main">
+
+    <div class="mainInner">
+
+
+        <!-- WELCOME -->
+
+        <section class="welcomeRow">
+
+            <div>
+
+                <div class="welcomeLabel">
+                    Welcome back
+                </div>
+
+                <h1 class="welcomeTitle">
+                    Welcome back,
+                    <span id="welcomeName">
+                        User
+                    </span>!
+                </h1>
+
+            </div>
+
+            <div
+                class="welcomeDate"
+                id="currentDate"
+            >
+                --
+            </div>
+
+        </section>
+
+
+        <!-- PROFILE CARD -->
+
+        <section class="profileCard">
+
+            <div class="profileCardLeft">
+
+                <img
+                    id="mainAvatar"
+                    class="bigAvatar"
+                    src=""
+                    alt="Profile Photo"
+                >
+
+                <div>
+
+                    <div
+                        class="profileCardName"
+                        id="mainName"
+                    >
+                        User
+                    </div>
+
+                    <div
+                        class="profileCardEmail"
+                        id="mainEmail"
+                    >
+                        user@email.com
+                    </div>
+
+                    <div
+                        class="profileCardId"
+                        id="mainUserId"
+                    >
+                        Member ID: --
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="packageBadge">
+                Premium Package
+            </div>
+
+        </section>
+
+
+        <!-- EARNINGS -->
+
+        <section>
+
+            <div class="sectionHeading">
+
+                <h2>
+                    Earnings Overview
+                </h2>
+
+                <p>
+                    Current earnings
+                </p>
+
+            </div>
+
+
+            <div class="earningGrid">
+
+
+                <!-- TODAY -->
+
+                <div class="earningCard cardRed">
+
+                    <div class="earningIcon">
+                        ₹
+                    </div>
+
+                    <div class="earningAmount">
+                        ₹0/-
+                    </div>
+
+                    <div class="earningLabel">
+                        Today's Earning
+                    </div>
+
+                    <div class="earningDivider"></div>
+
+                    <div class="viewDetails">
+                        View details →
+                    </div>
+
+                </div>
+
+
+                <!-- WEEKLY -->
+
+                <div class="earningCard cardDarkRed">
+
+                    <div class="earningIcon">
+                        ◷
+                    </div>
+
+                    <div class="earningAmount">
+                        ₹0/-
+                    </div>
+
+                    <div class="earningLabel">
+                        Weekly Earning
+                    </div>
+
+                    <div class="earningDivider"></div>
+
+                    <div class="viewDetails">
+                        View details →
+                    </div>
+
+                </div>
+
+
+                <!-- MONTHLY -->
+
+                <div class="earningCard cardPurple">
+
+                    <div class="earningIcon">
+                        ◫
+                    </div>
+
+                    <div class="earningAmount">
+                        ₹0/-
+                    </div>
+
+                    <div class="earningLabel">
+                        Monthly Earning
+                    </div>
+
+                    <div class="earningDivider"></div>
+
+                    <div class="viewDetails">
+                        View details →
+                    </div>
+
+                </div>
+
+
+                <!-- ALL TIME -->
+
+                <div class="earningCard cardBlue">
+
+                    <div class="earningIcon">
+                        ∞
+                    </div>
+
+                    <div class="earningAmount">
+                        ₹0/-
+                    </div>
+
+                    <div class="earningLabel">
+                        All Time Earning
+                    </div>
+
+                    <div class="earningDivider"></div>
+
+                    <div class="viewDetails">
+                        View details →
+                    </div>
+
+                </div>
+
+
+                <!-- PASSIVE -->
+
+                <div class="earningCard cardGold">
+
+                    <div class="earningIcon">
+                        ◈
+                    </div>
+
+                    <div class="earningAmount">
+                        ₹0/-
+                    </div>
+
+                    <div class="earningLabel">
+                        Total Passive Earning
+                    </div>
+
+                    <div class="earningDivider"></div>
+
+                    <div class="viewDetails">
+                        View details →
+                    </div>
+
+                </div>
+
+
+                <!-- INDUSTRY -->
+
+                <div class="earningCard cardGreen">
+
+                    <div class="earningIcon">
+                        ◉
+                    </div>
+
+                    <div class="earningAmount">
+                        ₹0/-
+                    </div>
+
+                    <div class="earningLabel">
+                        Industry Earning
+                    </div>
+
+                    <div class="earningDivider"></div>
+
+                    <div class="viewDetails">
+                        View details →
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SALES GRAPH -->
+
+        <section class="graphCard">
+
+            <div class="graphTop">
+
+                <div>
+
+                    <div class="graphTitle">
+                        7 Days Sales Graph
+                    </div>
+
+                    <div class="graphSubtitle">
+                        Your recent sales performance
+                    </div>
+
+                </div>
+
+                <div class="graphBadge">
+                    Last 7 Days
+                </div>
+
+            </div>
+
+
+            <div class="graphArea">
+
+                <div class="graphLine">
+
+                    <svg
+                        viewBox="0 0 1000 270"
+                        preserveAspectRatio="none"
+                    >
+
+                        <path
+                            class="graphFill"
+                            d="
+                            M0,230
+                            C80,230 100,215 145,220
+                            C210,225 240,185 285,195
+                            C345,210 370,160 430,175
+                            C500,195 525,120 590,140
+                            C655,158 690,100 735,115
+                            C800,135 830,75 875,95
+                            C920,110 960,58 1000,70
+                            L1000,270
+                            L0,270
+                            Z
+                            "
+                        ></path>
+
+                        <path
+                            class="graphPath"
+                            d="
+                            M0,230
+                            C80,230 100,215 145,220
+                            C210,225 240,185 285,195
+                            C345,210 370,160 430,175
+                            C500,195 525,120 590,140
+                            C655,158 690,100 735,115
+                            C800,135 830,75 875,95
+                            C920,110 960,58 1000,70
+                            "
+                        ></path>
+
+
+                        <circle
+                            class="graphPoint"
+                            cx="0"
+                            cy="230"
+                            r="5"
+                        />
+
+                        <circle
+                            class="graphPoint"
+                            cx="165"
+                            cy="220"
+                            r="5"
+                        />
+
+                        <circle
+                            class="graphPoint"
+                            cx="285"
+                            cy="195"
+                            r="5"
+                        />
+
+                        <circle
+                            class="graphPoint"
+                            cx="430"
+                            cy="175"
+                            r="5"
+                        />
+
+                        <circle
+                            class="graphPoint"
+                            cx="590"
+                            cy="140"
+                            r="5"
+                        />
+
+                        <circle
+                            class="graphPoint"
+                            cx="735"
+                            cy="115"
+                            r="5"
+                        />
+
+                        <circle
+                            class="graphPoint"
+                            cx="1000"
+                            cy="70"
+                            r="5"
+                        />
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            <div class="graphLabels">
+
+                <span>Day 1</span>
+                <span>Day 2</span>
+                <span>Day 3</span>
+                <span>Day 4</span>
+                <span>Day 5</span>
+                <span>Day 6</span>
+                <span>Day 7</span>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer class="footer">
+
+    © 2026 Skills Market. All Rights Reserved
+
+</footer>
+
+
+<!-- =======================================================
+     WELCOME POPUP
+======================================================= -->
+
+<div
+    class="welcomePopup"
+    id="welcomePopup"
+>
+
+    <div class="popupBox">
+
+        <div class="popupIcon">
+            ✓
+        </div>
+
+        <h2>
+            Welcome to Skills Market!
+        </h2>
+
+        <p>
+            Your dashboard is ready.
+            Explore your profile, courses,
+            affiliate tools and earning section.
+        </p>
+
+        <button
+            class="popupClose"
+            id="popupClose"
+            type="button"
+        >
+            Continue to Dashboard
+        </button>
 
     </div>
 
 </div>
 
 
-<script>
+<!-- TOAST -->
 
+<div
+    class="toast"
+    id="toast"
+>
+    Coming soon
+</div>
+
+
+<script>
 /* =========================================================
    SUPABASE CONFIG
-   ========================================================= */
+========================================================= */
 
 const SUPABASE_URL =
     "https://hmlonjwqeqedakzhucix.supabase.co";
 
-const SUPABASE_KEY =
+const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
 
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_KEY
+        SUPABASE_PUBLISHABLE_KEY
     );
 
 
 /* =========================================================
    ELEMENTS
-   ========================================================= */
+========================================================= */
 
 const loadingScreen =
     document.getElementById("loadingScreen");
 
-const welcomeTitle =
-    document.getElementById("welcomeTitle");
+const profileButton =
+    document.getElementById("profileButton");
 
-const profileName =
-    document.getElementById("profileName");
+const profileDropdown =
+    document.getElementById("profileDropdown");
 
-const profileEmail =
-    document.getElementById("profileEmail");
+const menuButton =
+    document.getElementById("menuButton");
 
-const profileImage =
-    document.getElementById("profileImage");
+const closeSidebar =
+    document.getElementById("closeSidebar");
 
-const navProfile =
-    document.getElementById("navProfile");
+const sidebar =
+    document.getElementById("sidebar");
+
+const sidebarOverlay =
+    document.getElementById("sidebarOverlay");
 
 const welcomePopup =
     document.getElementById("welcomePopup");
 
-const popupTitle =
-    document.getElementById("popupTitle");
+const popupClose =
+    document.getElementById("popupClose");
 
-const popupText =
-    document.getElementById("popupText");
+const toast =
+    document.getElementById("toast");
 
 
 /* =========================================================
-   GET USER NAME
-   ========================================================= */
+   DEFAULT AVATAR
+========================================================= */
 
-function getUserName(user){
+function createAvatar(name) {
+
+    const safeName =
+        (name || "User")
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(word => word.charAt(0).toUpperCase())
+        .join("");
+
+    const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="200"
+             height="200"
+             viewBox="0 0 200 200">
+
+            <rect
+                width="200"
+                height="200"
+                rx="100"
+                fill="#17171d"
+            />
+
+            <text
+                x="100"
+                y="118"
+                text-anchor="middle"
+                font-family="Arial"
+                font-size="70"
+                font-weight="700"
+                fill="#ffffff"
+            >
+                ${safeName}
+            </text>
+
+        </svg>
+    `;
+
+    return "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(svg);
+}
+
+
+/* =========================================================
+   FORMAT USER NAME
+========================================================= */
+
+function getDisplayName(user) {
 
     const metadata =
-        user.user_metadata || {};
+        user?.user_metadata || {};
 
     return (
         metadata.full_name ||
         metadata.name ||
         metadata.username ||
-        user.email?.split("@")[0] ||
-        "Skills Market Member"
+        localStorage.getItem("username") ||
+        user?.email?.split("@")[0] ||
+        "User"
     );
-
 }
 
 
 /* =========================================================
-   UPDATE USER DATA
-   ========================================================= */
+   SET USER DATA
+========================================================= */
 
-function updateUserData(user){
+function setUserData(user) {
 
-    const userName =
-        getUserName(user);
+    const name =
+        getDisplayName(user);
 
-    const userEmail =
-        user.email || "";
+    const email =
+        user?.email || "No email available";
+
+    const userId =
+        user?.id || "N/A";
 
     const avatarUrl =
-        user.user_metadata?.avatar_url ||
-        user.user_metadata?.picture ||
-        "https://via.placeholder.com/80";
+        user?.user_metadata?.avatar_url ||
+        user?.user_metadata?.picture ||
+        createAvatar(name);
 
 
-    /* Local session information */
+    /* Navbar */
+
+    document.getElementById("navName")
+        .textContent = name;
+
+    document.getElementById("navAvatar")
+        .src = avatarUrl;
+
+
+    /* Dropdown */
+
+    document.getElementById("dropdownName")
+        .textContent = name;
+
+    document.getElementById("dropdownEmail")
+        .textContent = email;
+
+
+    /* Sidebar */
+
+    document.getElementById("sidebarName")
+        .textContent = name;
+
+    document.getElementById("sidebarAvatar")
+        .src = avatarUrl;
+
+
+    /* Main */
+
+    document.getElementById("welcomeName")
+        .textContent = name;
+
+    document.getElementById("mainName")
+        .textContent = name;
+
+    document.getElementById("mainEmail")
+        .textContent = email;
+
+    document.getElementById("mainUserId")
+        .textContent =
+        "Member ID: " + userId.substring(0, 8);
+
+
+    document.getElementById("mainAvatar")
+        .src = avatarUrl;
+
+
+    /* Local storage */
 
     localStorage.setItem(
         "username",
-        userName
+        name
     );
 
     localStorage.setItem(
         "userEmail",
-        userEmail
+        email
     );
 
     localStorage.setItem(
         "userId",
-        user.id
+        userId
     );
-
-
-    /* Dashboard name */
-
-    welcomeTitle.textContent =
-        `Welcome back, ${userName}!`;
-
-    profileName.textContent =
-        userName;
-
-    profileEmail.textContent =
-        userEmail;
-
-
-    /* Profile photo */
-
-    profileImage.src =
-        avatarUrl;
-
-    navProfile.src =
-        avatarUrl;
-
 }
 
 
 /* =========================================================
-   WELCOME POPUP
-   ========================================================= */
+   CURRENT DATE
+========================================================= */
 
-function showWelcomePopup(userName){
+function setCurrentDate() {
 
-    popupTitle.textContent =
-        `Welcome, ${userName}! 👋`;
+    const now = new Date();
 
-    popupText.textContent =
-        "Login successful. Welcome to your Skills Market Dashboard.";
-
-    welcomePopup.classList.add("show");
-
-
-    setTimeout(function(){
-
-        welcomePopup.classList.remove("show");
-
-    },3500);
-
-}
-
-
-/* =========================================================
-   REDIRECT TO LOGIN
-   ========================================================= */
-
-function redirectToLogin(){
-
-    localStorage.removeItem("username");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userId");
-
-    sessionStorage.removeItem(
-        "loginSuccess"
-    );
-
-    window.location.replace(
-        "login.html"
-    );
-
-}
-
-
-/* =========================================================
-   CHECK SUPABASE SESSION
-   ========================================================= */
-
-async function checkSession(){
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.auth.getSession();
-
-
-        /* Error */
-
-        if(error){
-
-            console.error(
-                "Session error:",
-                error
-            );
-
-            redirectToLogin();
-            return;
-
-        }
-
-
-        /* No logged-in user */
-
-        if(
-            !data ||
-            !data.session ||
-            !data.session.user
-        ){
-
-            redirectToLogin();
-            return;
-
-        }
-
-
-        /* Logged-in user */
-
-        const user =
-            data.session.user;
-
-        updateUserData(user);
-
-
-        /* Login popup */
-
-        if(
-            sessionStorage.getItem(
-                "loginSuccess"
-            ) === "true"
-        ){
-
-            showWelcomePopup(
-                getUserName(user)
-            );
-
-            sessionStorage.removeItem(
-                "loginSuccess"
-            );
-
-        }
-
-
-        /* Remove loading screen */
-
-        setTimeout(function(){
-
-            loadingScreen.style.display =
-                "none";
-
-        },300);
-
-
-    }catch(error){
-
-        console.error(
-            "Authentication error:",
-            error
+    const formatted =
+        now.toLocaleDateString(
+            "en-IN",
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
         );
 
-        redirectToLogin();
+    document.getElementById("currentDate")
+        .textContent = formatted;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function openSidebar() {
+
+    sidebar.classList.add("show");
+    sidebarOverlay.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function closeSideMenu() {
+
+    sidebar.classList.remove("show");
+    sidebarOverlay.classList.remove("show");
+
+    document.body.style.overflow = "";
+}
+
+
+menuButton.addEventListener(
+    "click",
+    openSidebar
+);
+
+closeSidebar.addEventListener(
+    "click",
+    closeSideMenu
+);
+
+sidebarOverlay.addEventListener(
+    "click",
+    closeSideMenu
+);
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+profileButton.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        profileDropdown.classList.toggle("show");
 
     }
-
-}
-
-
-/* =========================================================
-   SESSION CHANGE LISTENER
-   ========================================================= */
-
-supabaseClient.auth.onAuthStateChange(
-    function(event, session){
-
-        console.log(
-            "Auth state:",
-            event
-        );
+);
 
 
-        if(
-            event === "SIGNED_OUT" ||
-            !session
-        ){
+document.addEventListener(
+    "click",
+    function(event) {
 
-            redirectToLogin();
-            return;
+        if (
+            !profileDropdown.contains(event.target) &&
+            !profileButton.contains(event.target)
+        ) {
 
-        }
-
-
-        if(session.user){
-
-            updateUserData(
-                session.user
+            profileDropdown.classList.remove(
+                "show"
             );
 
         }
@@ -1267,28 +2246,271 @@ supabaseClient.auth.onAuthStateChange(
 
 
 /* =========================================================
-   SIDEBAR
-   ========================================================= */
+   MENU SELECT
+========================================================= */
 
-function toggleSidebar(){
+function selectMenu(element) {
 
-    document
-        .getElementById("sidebar")
-        .classList.toggle("active");
+    const page =
+        element.getAttribute("data-page");
 
-    document
-        .getElementById("sidebarOverlay")
-        .classList.toggle("active");
+    document.querySelectorAll(".sideLink")
+        .forEach(link => {
+            link.classList.remove("active");
+        });
+
+    element.classList.add("active");
+
+    closeSideMenu();
+
+    if (page !== "Affiliate Dashboard") {
+        showToast(
+            page + " section is ready for setup."
+        );
+    }
+}
+
+
+/* =========================================================
+   PROFILE PAGE
+========================================================= */
+
+function openProfilePage() {
+
+    profileDropdown.classList.remove("show");
+
+    showToast(
+        "My Profile section is ready for setup."
+    );
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(message) {
+
+    clearTimeout(toastTimer);
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    toastTimer = setTimeout(
+        () => {
+            toast.classList.remove("show");
+        },
+        2200
+    );
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logoutUser() {
+
+    try {
+
+        await supabaseClient.auth.signOut();
+
+    } catch (error) {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+    }
+
+    localStorage.removeItem("username");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userId");
+
+    sessionStorage.removeItem("loginSuccess");
+
+    window.location.replace(
+        "index.html"
+    );
+}
+
+
+/* =========================================================
+   WELCOME POPUP
+========================================================= */
+
+function showWelcomePopup() {
+
+    const alreadyShown =
+        sessionStorage.getItem(
+            "dashboardWelcomeShown"
+        );
+
+    if (
+        sessionStorage.getItem("loginSuccess") === "true" &&
+        alreadyShown !== "true"
+    ) {
+
+        welcomePopup.classList.add("show");
+
+        sessionStorage.setItem(
+            "dashboardWelcomeShown",
+            "true"
+        );
+
+    }
+}
+
+
+popupClose.addEventListener(
+    "click",
+    function() {
+
+        welcomePopup.classList.remove(
+            "show"
+        );
+
+        sessionStorage.removeItem(
+            "loginSuccess"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE POPUP ON BACKDROP
+========================================================= */
+
+welcomePopup.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === welcomePopup
+        ) {
+
+            welcomePopup.classList.remove(
+                "show"
+            );
+
+            sessionStorage.removeItem(
+                "loginSuccess"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   AUTH CHECK
+========================================================= */
+
+async function checkAuthentication() {
+
+    try {
+
+        const {
+            data: {
+                session
+            },
+            error
+        } =
+            await supabaseClient.auth
+                .getSession();
+
+
+        if (
+            error ||
+            !session ||
+            !session.user
+        ) {
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return;
+
+        }
+
+
+        const user =
+            session.user;
+
+
+        setUserData(user);
+
+        setCurrentDate();
+
+        setTimeout(
+            () => {
+
+                loadingScreen
+                    .classList.add("hide");
+
+                showWelcomePopup();
+
+            },
+            350
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Authentication error:",
+            error
+        );
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
 
 }
 
 
 /* =========================================================
+   AUTH STATE LISTENER
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            window.location.replace(
+                "login.html"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
    START
-   ========================================================= */
+========================================================= */
 
-checkSession();
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
+        checkAuthentication();
+
+    }
+);
 </script>
 
 </body>
