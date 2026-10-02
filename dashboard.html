@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dashboard | Skills Market</title>
-<meta name="description" content="Skills Market Member Dashboard">
+
+<meta
+    name="description"
+    content="Skills Market Member Dashboard"
+>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -27,7 +33,11 @@ body{
     overflow-x:hidden;
 }
 
-/* NAVBAR */
+
+/* ==================================================
+   NAVBAR
+================================================== */
+
 .navbar{
     height:72px;
     background:rgba(255,255,255,.96);
@@ -121,7 +131,11 @@ body{
     color:#7138e8;
 }
 
-/* PROFILE DROPDOWN */
+
+/* ==================================================
+   PROFILE DROPDOWN
+================================================== */
+
 .profile-menu{
     position:fixed;
     top:62px;
@@ -159,7 +173,11 @@ body{
     color:#7138e8;
 }
 
-/* MAIN */
+
+/* ==================================================
+   MAIN
+================================================== */
+
 .container{
     width:100%;
     max-width:1380px;
@@ -167,11 +185,24 @@ body{
     padding:30px 32px 0;
 }
 
-/* WELCOME */
+
+/* ==================================================
+   WELCOME
+================================================== */
+
 .welcome-top-banner{
     background:
-        radial-gradient(circle at 90% 20%,rgba(213,63,202,.13),transparent 28%),
-        linear-gradient(135deg,#f3efff,#fff5fb);
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(213,63,202,.13),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #f3efff,
+            #fff5fb
+        );
+
     border:1px solid #e8defc;
     border-radius:18px;
     padding:16px 20px;
@@ -187,7 +218,11 @@ body{
     width:42px;
     height:42px;
     border-radius:12px;
-    background:linear-gradient(135deg,#7138e8,#a855f7);
+    background:linear-gradient(
+        135deg,
+        #7138e8,
+        #a855f7
+    );
     color:white;
     display:flex;
     align-items:center;
@@ -202,13 +237,21 @@ body{
     color:#302452;
 }
 
-/* WELCOME POPUP */
+
+/* ==================================================
+   WELCOME POPUP
+================================================== */
+
 #welcomeNotification{
     position:fixed;
     top:85px;
     right:25px;
     max-width:340px;
-    background:linear-gradient(135deg,#7138e8,#d53fca);
+    background:linear-gradient(
+        135deg,
+        #7138e8,
+        #d53fca
+    );
     color:white;
     padding:13px 20px;
     border-radius:12px;
@@ -220,13 +263,31 @@ body{
     animation:slideInRight .5s ease;
 }
 
-/* PROFILE CARD */
+
+/* ==================================================
+   PROFILE CARD
+================================================== */
+
 .profile-card{
     min-height:155px;
+
     background:
-        radial-gradient(circle at 90% 20%,rgba(213,63,202,.14),transparent 25%),
-        radial-gradient(circle at 70% 100%,rgba(113,56,232,.09),transparent 25%),
-        linear-gradient(135deg,#fff,#faf8ff);
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(213,63,202,.14),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 70% 100%,
+            rgba(113,56,232,.09),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #fff,
+            #faf8ff
+        );
+
     border-radius:22px;
     padding:28px;
     position:relative;
@@ -252,7 +313,11 @@ body{
     position:absolute;
     top:25px;
     right:25px;
-    background:linear-gradient(135deg,#ff9f1c,#ff6b35);
+    background:linear-gradient(
+        135deg,
+        #ff9f1c,
+        #ff6b35
+    );
     color:white;
     font-size:10px;
     padding:7px 14px;
@@ -261,6 +326,10 @@ body{
     box-shadow:0 5px 15px rgba(255,125,30,.22);
     text-transform:uppercase;
     letter-spacing:.5px;
+    max-width:220px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 
 .profile-content{
@@ -276,7 +345,11 @@ body{
     height:82px;
     border-radius:50%;
     object-fit:cover;
-    background:linear-gradient(135deg,#7138e8,#d53fca);
+    background:linear-gradient(
+        135deg,
+        #7138e8,
+        #d53fca
+    );
     color:white;
     display:flex;
     align-items:center;
@@ -284,11 +357,15 @@ body{
     font-size:30px;
     font-weight:800;
     border:4px solid #fff;
+
     box-shadow:
         0 0 0 4px rgba(113,56,232,.13),
         0 8px 25px rgba(80,50,130,.15);
+
     flex-shrink:0;
-    animation:avatarPulse 3s ease-in-out infinite;
+
+    animation:
+        avatarPulse 3s ease-in-out infinite;
 }
 
 .profile-info h3{
@@ -333,9 +410,10 @@ body{
     color:white;
 }
 
+
 /* ==================================================
    REVENUE GRID
-   ================================================== */
+================================================== */
 
 .revenue-grid{
     display:grid;
@@ -360,7 +438,9 @@ body{
         box-shadow .3s ease;
 }
 
+
 /* STAGGERED LOAD */
+
 .rev-card:nth-child(1){
     animation-delay:.05s;
 }
@@ -385,12 +465,15 @@ body{
     animation-delay:.40s;
 }
 
+
 .rev-card:hover{
     transform:translateY(-6px);
     box-shadow:0 16px 35px rgba(35,35,70,.18);
 }
 
+
 /* EXISTING INNER CIRCLE */
+
 .rev-card::before{
     content:"";
     position:absolute;
@@ -401,11 +484,13 @@ body{
     border:2px dashed rgba(255,255,255,.17);
     border-radius:50%;
 
-    /* NEW MOTION */
-    animation:innerCircleMove 7s ease-in-out infinite;
+    animation:
+        innerCircleMove 7s ease-in-out infinite;
 }
 
+
 /* EXISTING INNER GLOW */
+
 .rev-card::after{
     content:"";
     position:absolute;
@@ -416,11 +501,13 @@ body{
     border-radius:50%;
     background:rgba(255,255,255,.08);
 
-    /* NEW MOTION */
-    animation:innerGlowMove 5s ease-in-out infinite;
+    animation:
+        innerGlowMove 5s ease-in-out infinite;
 }
 
+
 /* ICON */
+
 .rev-row{
     display:flex;
     align-items:center;
@@ -448,8 +535,8 @@ body{
     box-shadow:inset 0 2px 5px rgba(255,255,255,.15);
     flex-shrink:0;
 
-    /* NEW MOTION */
-    animation:iconFloat 3s ease-in-out infinite;
+    animation:
+        iconFloat 3s ease-in-out infinite;
 }
 
 .rev-info p{
@@ -464,8 +551,8 @@ body{
     font-weight:800;
     letter-spacing:.3px;
 
-    /* NEW MOTION */
-    animation:amountPulse 3s ease-in-out infinite;
+    animation:
+        amountPulse 3s ease-in-out infinite;
 }
 
 .divider{
@@ -492,15 +579,17 @@ body{
     transition:.25s;
     font-size:16px;
 
-    /* NEW MOTION */
-    animation:arrowMove 1.8s ease-in-out infinite;
+    animation:
+        arrowMove 1.8s ease-in-out infinite;
 }
 
 .rev-card:hover .arrow{
     transform:translateX(5px);
 }
 
+
 /* ICON DIFFERENT TIMING */
+
 .rev-card:nth-child(1) .rev-icon-box{
     animation-delay:0s;
 }
@@ -525,78 +614,124 @@ body{
     animation-delay:1.25s;
 }
 
-/* GRADIENTS — SAME AS BEFORE */
+
+/* GRADIENTS */
+
 .g-1{
-    background:linear-gradient(135deg,#7138e8,#9655e8);
+    background:linear-gradient(
+        135deg,
+        #7138e8,
+        #9655e8
+    );
 }
 
 .g-2{
-    background:linear-gradient(135deg,#db2777,#a855f7);
+    background:linear-gradient(
+        135deg,
+        #db2777,
+        #a855f7
+    );
 }
 
 .g-3{
-    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
 }
 
 .g-4{
-    background:linear-gradient(135deg,#d97706,#f59e0b);
+    background:linear-gradient(
+        135deg,
+        #d97706,
+        #f59e0b
+    );
 }
 
 .g-5{
-    background:linear-gradient(135deg,#ff7a18,#ffb347);
+    background:linear-gradient(
+        135deg,
+        #ff7a18,
+        #ffb347
+    );
 }
 
 .g-6{
-    background:linear-gradient(135deg,#0f9b8e,#13b8a6);
+    background:linear-gradient(
+        135deg,
+        #0f9b8e,
+        #13b8a6
+    );
 }
 
-/* ==================================================
-   NEW INNER MOTION ANIMATIONS
-   ================================================== */
 
-/* Dashed circle slowly moves */
+/* ==================================================
+   INNER MOTION ANIMATIONS
+================================================== */
+
 @keyframes innerCircleMove{
+
     0%,100%{
-        transform:translate(0,0) rotate(0deg);
+        transform:
+            translate(0,0)
+            rotate(0deg);
     }
 
     25%{
-        transform:translate(-8px,-5px) rotate(8deg);
+        transform:
+            translate(-8px,-5px)
+            rotate(8deg);
     }
 
     50%{
-        transform:translate(-18px,-12px) rotate(18deg);
+        transform:
+            translate(-18px,-12px)
+            rotate(18deg);
     }
 
     75%{
-        transform:translate(-8px,-4px) rotate(10deg);
+        transform:
+            translate(-8px,-4px)
+            rotate(10deg);
     }
+
 }
 
-/* Top light circle moves softly */
 @keyframes innerGlowMove{
+
     0%,100%{
-        transform:translate(0,0) scale(1);
+        transform:
+            translate(0,0)
+            scale(1);
     }
 
     50%{
-        transform:translate(-12px,15px) scale(1.12);
+        transform:
+            translate(-12px,15px)
+            scale(1.12);
     }
+
 }
 
-/* Icon floating effect */
 @keyframes iconFloat{
+
     0%,100%{
-        transform:translateY(0) rotate(0deg);
+        transform:
+            translateY(0)
+            rotate(0deg);
     }
 
     50%{
-        transform:translateY(-5px) rotate(1deg);
+        transform:
+            translateY(-5px)
+            rotate(1deg);
     }
+
 }
 
-/* Amount subtle breathing effect */
 @keyframes amountPulse{
+
     0%,100%{
         transform:scale(1);
     }
@@ -604,10 +739,11 @@ body{
     50%{
         transform:scale(1.035);
     }
+
 }
 
-/* Arrow moving inside box */
 @keyframes arrowMove{
+
     0%,100%{
         transform:translateX(0);
     }
@@ -615,9 +751,14 @@ body{
     50%{
         transform:translateX(5px);
     }
+
 }
 
-/* GRAPH */
+
+/* ==================================================
+   GRAPH
+================================================== */
+
 .graph-card{
     background:#fff;
     border-radius:21px;
@@ -701,7 +842,11 @@ body{
     padding-top:8px;
 }
 
-/* WALLET */
+
+/* ==================================================
+   WALLET
+================================================== */
+
 .wallet-section-title{
     font-size:16px;
     font-weight:800;
@@ -711,8 +856,18 @@ body{
 
 .wallet-atm-card{
     background:
-        radial-gradient(circle at 90% 20%,rgba(255,255,255,.14),transparent 22%),
-        linear-gradient(135deg,#4338ca,#7138e8,#a855f7);
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(255,255,255,.14),
+            transparent 22%
+        ),
+        linear-gradient(
+            135deg,
+            #4338ca,
+            #7138e8,
+            #a855f7
+        );
+
     border-radius:21px;
     padding:25px;
     color:white;
@@ -758,7 +913,11 @@ body{
     margin-top:18px;
 }
 
-/* SIDEBAR */
+
+/* ==================================================
+   SIDEBAR
+================================================== */
+
 .sidebar{
     height:100%;
     width:295px;
@@ -768,7 +927,8 @@ body{
     left:-315px;
     background:#fff;
     overflow-y:auto;
-    transition:left .35s cubic-bezier(.4,0,.2,1);
+    transition:
+        left .35s cubic-bezier(.4,0,.2,1);
     box-shadow:8px 0 30px rgba(20,20,50,.15);
 }
 
@@ -789,7 +949,14 @@ body{
 .sidebar-brand{
     font-size:19px;
     font-weight:900;
-    background:linear-gradient(90deg,#7138e8,#d53fca,#ff7a18);
+    background:
+        linear-gradient(
+            90deg,
+            #7138e8,
+            #d53fca,
+            #ff7a18
+        );
+
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
@@ -833,13 +1000,23 @@ body{
 }
 
 .sidebar a.active-link{
-    background:linear-gradient(90deg,#f0eaff,#faf7ff);
+    background:
+        linear-gradient(
+            90deg,
+            #f0eaff,
+            #faf7ff
+        );
+
     color:#7138e8;
     font-weight:750;
     border-left:3px solid #7138e8;
 }
 
-/* OVERLAY */
+
+/* ==================================================
+   OVERLAY
+================================================== */
+
 #sidebarOverlay{
     position:fixed;
     inset:0;
@@ -856,7 +1033,11 @@ body{
     visibility:visible;
 }
 
-/* TOAST */
+
+/* ==================================================
+   TOAST
+================================================== */
+
 #toast{
     position:fixed;
     bottom:25px;
@@ -879,7 +1060,11 @@ body{
     transform:translate(-50%,0);
 }
 
-/* FOOTER */
+
+/* ==================================================
+   FOOTER
+================================================== */
+
 .footer{
     text-align:center;
     font-size:11px;
@@ -887,8 +1072,13 @@ body{
     padding:28px 10px;
 }
 
-/* ANIMATIONS */
+
+/* ==================================================
+   ANIMATIONS
+================================================== */
+
 @keyframes fadeInDown{
+
     from{
         opacity:0;
         transform:translateY(-15px);
@@ -898,9 +1088,11 @@ body{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
 @keyframes fadeUp{
+
     from{
         opacity:0;
         transform:translateY(20px);
@@ -910,9 +1102,11 @@ body{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
 @keyframes slideUp{
+
     from{
         opacity:0;
         transform:translateY(25px);
@@ -922,9 +1116,11 @@ body{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
 @keyframes slideInRight{
+
     from{
         transform:translateX(110px);
         opacity:0;
@@ -934,23 +1130,34 @@ body{
         transform:translateX(0);
         opacity:1;
     }
+
 }
 
 @keyframes avatarPulse{
+
     0%,100%{
+
         box-shadow:
             0 0 0 4px rgba(113,56,232,.13),
             0 8px 25px rgba(80,50,130,.15);
+
     }
 
     50%{
+
         box-shadow:
             0 0 0 10px rgba(113,56,232,.04),
             0 8px 25px rgba(80,50,130,.15);
+
     }
+
 }
 
-/* TABLET */
+
+/* ==================================================
+   TABLET
+================================================== */
+
 @media(max-width:1000px){
 
     .container{
@@ -960,9 +1167,14 @@ body{
     .revenue-grid{
         grid-template-columns:repeat(2,1fr);
     }
+
 }
 
-/* MOBILE */
+
+/* ==================================================
+   MOBILE
+================================================== */
+
 @media(max-width:650px){
 
     .navbar{
@@ -1012,6 +1224,7 @@ body{
         right:15px;
         font-size:8px;
         padding:6px 9px;
+        max-width:140px;
     }
 
     .profile-content{
@@ -1085,36 +1298,74 @@ body{
     .sidebar{
         width:285px;
     }
+
 }
 
-/* REDUCE MOTION FOR USERS WHO PREFER IT */
+
+/* ==================================================
+   REDUCE MOTION
+================================================== */
+
 @media(prefers-reduced-motion:reduce){
 
     *,
     *::before,
     *::after{
+
         animation-duration:.01ms !important;
+
         animation-iteration-count:1 !important;
+
         transition-duration:.01ms !important;
+
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<div id="welcomeNotification">Welcome back to Skills Market!</div>
 
-<div id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<!-- ==================================================
+     WELCOME NOTIFICATION
+================================================== -->
 
-<!-- NAVBAR -->
+<div id="welcomeNotification">
+    Welcome back to Skills Market!
+</div>
+
+
+<!-- ==================================================
+     SIDEBAR OVERLAY
+================================================== -->
+
+<div
+    id="sidebarOverlay"
+    onclick="toggleSidebar()"
+></div>
+
+
+<!-- ==================================================
+     NAVBAR
+================================================== -->
+
 <div class="navbar">
 
     <div class="logo-container">
 
         <div class="logo-text">
-            <span class="skills">SKILLS </span>
-            <span class="market">MARKET</span>
+
+            <span class="skills">
+                SKILLS
+            </span>
+
+            <span class="market">
+                MARKET
+            </span>
+
         </div>
 
         <div class="logo-tagline">
@@ -1123,25 +1374,38 @@ body{
 
     </div>
 
+
     <div class="nav-right-icons">
 
         <div
             class="nav-avatar-ring"
             id="navThumbAvatar"
             onclick="toggleProfileMenu()"
-        >P</div>
+        >
+            P
+        </div>
+
 
         <div
             class="menu-icon"
             onclick="toggleSidebar()"
-        >&#9776;</div>
+        >
+            &#9776;
+        </div>
 
     </div>
 
 </div>
 
-<!-- PROFILE MENU -->
-<div id="profileMenu" class="profile-menu">
+
+<!-- ==================================================
+     PROFILE MENU
+================================================== -->
+
+<div
+    id="profileMenu"
+    class="profile-menu"
+>
 
     <div class="profile-menu-item">
         👤 My Profile
@@ -1160,8 +1424,15 @@ body{
 
 </div>
 
-<!-- SIDEBAR -->
-<div id="sidebar" class="sidebar">
+
+<!-- ==================================================
+     SIDEBAR
+================================================== -->
+
+<div
+    id="sidebar"
+    class="sidebar"
+>
 
     <div class="sidebar-header">
 
@@ -1172,73 +1443,95 @@ body{
         <span
             class="sidebar-close"
             onclick="toggleSidebar()"
-        >&times;</span>
+        >
+            &times;
+        </span>
 
     </div>
+
 
     <div class="sidebar-section">
         Dashboard
     </div>
 
-    <a href="dashboard.html" class="active-link">
+
+    <a
+        href="dashboard.html"
+        class="active-link"
+    >
         📊 Affiliate Dashboard
     </a>
+
 
     <a href="#">
         👤 My Profile
     </a>
 
+
     <a href="#">
         🔗 Affiliate Link
     </a>
+
 
     <a href="#">
         📚 My Courses
     </a>
 
+
     <a href="#">
         📈 Upgrade
     </a>
+
 
     <a href="#">
         🏆 Leaderboard
     </a>
 
+
     <a href="#">
         👥 My Team
     </a>
+
 
     <a href="#">
         📄 Reports
     </a>
 
+
     <a href="#">
         💼 Wallet Request
     </a>
+
 
     <a href="#">
         🌐 Community
     </a>
 
+
     <div class="sidebar-section">
         More
     </div>
+
 
     <a href="#">
         🎓 Training
     </a>
 
+
     <a href="#">
         🎥 Webinars
     </a>
+
 
     <a href="#">
         🔥 Offers
     </a>
 
+
     <a href="#">
         🎯 Earning Target
     </a>
+
 
     <a href="#">
         ➕ Create Account
@@ -1246,10 +1539,18 @@ body{
 
 </div>
 
-<!-- MAIN -->
+
+<!-- ==================================================
+     MAIN
+================================================== -->
+
 <div class="container">
 
-    <!-- WELCOME -->
+
+    <!-- ==================================================
+         WELCOME
+    ================================================== -->
+
     <div class="welcome-top-banner">
 
         <div class="welcome-icon-box">
@@ -1262,33 +1563,52 @@ body{
 
     </div>
 
-    <!-- PROFILE CARD -->
+
+    <!-- ==================================================
+         PROFILE CARD
+    ================================================== -->
+
     <div class="profile-card">
 
-        <div class="package-badge">
-            Premium Package
+
+        <div
+            class="package-badge"
+            id="packageBadge"
+        >
+            Package
         </div>
 
+
         <div class="profile-content">
+
 
             <div
                 class="profile-avatar"
                 id="profileAvatar"
-            >P</div>
+            >
+                P
+            </div>
+
 
             <div class="profile-info">
+
 
                 <h3 id="profileName">
                     Member
                 </h3>
 
+
                 <div class="id-box">
 
-                    <span>ID:</span>
+                    <span>
+                        ID:
+                    </span>
+
 
                     <span id="profileId">
                         SM-MEMBER
                     </span>
+
 
                     <button
                         class="copy-btn"
@@ -1305,8 +1625,13 @@ body{
 
     </div>
 
-    <!-- INCOME BOXES -->
+
+    <!-- ==================================================
+         INCOME BOXES
+    ================================================== -->
+
     <div class="revenue-grid">
+
 
         <div class="rev-card g-1">
 
@@ -1334,7 +1659,9 @@ body{
 
             </div>
 
+
             <div class="divider"></div>
+
 
             <div class="view-details">
 
@@ -1349,6 +1676,7 @@ body{
             </div>
 
         </div>
+
 
 
         <div class="rev-card g-2">
@@ -1377,7 +1705,9 @@ body{
 
             </div>
 
+
             <div class="divider"></div>
+
 
             <div class="view-details">
 
@@ -1392,6 +1722,7 @@ body{
             </div>
 
         </div>
+
 
 
         <div class="rev-card g-3">
@@ -1420,7 +1751,9 @@ body{
 
             </div>
 
+
             <div class="divider"></div>
+
 
             <div class="view-details">
 
@@ -1435,6 +1768,7 @@ body{
             </div>
 
         </div>
+
 
 
         <div class="rev-card g-4">
@@ -1463,7 +1797,9 @@ body{
 
             </div>
 
+
             <div class="divider"></div>
+
 
             <div class="view-details">
 
@@ -1478,6 +1814,7 @@ body{
             </div>
 
         </div>
+
 
 
         <div class="rev-card g-5">
@@ -1506,7 +1843,9 @@ body{
 
             </div>
 
+
             <div class="divider"></div>
+
 
             <div class="view-details">
 
@@ -1521,6 +1860,7 @@ body{
             </div>
 
         </div>
+
 
 
         <div class="rev-card g-6">
@@ -1549,7 +1889,9 @@ body{
 
             </div>
 
+
             <div class="divider"></div>
+
 
             <div class="view-details">
 
@@ -1568,8 +1910,12 @@ body{
     </div>
 
 
-    <!-- GRAPH -->
+    <!-- ==================================================
+         GRAPH
+    ================================================== -->
+
     <div class="graph-card">
+
 
         <div class="graph-header-row">
 
@@ -1587,29 +1933,37 @@ body{
 
         </div>
 
+
         <div class="chart-container">
 
+
             <div class="chart-grid">
+
 
                 <div class="grid-line">
                     <span>100</span>
                 </div>
 
+
                 <div class="grid-line">
                     <span>80</span>
                 </div>
+
 
                 <div class="grid-line">
                     <span>60</span>
                 </div>
 
+
                 <div class="grid-line">
                     <span>40</span>
                 </div>
 
+
                 <div class="grid-line">
                     <span>20</span>
                 </div>
+
 
                 <div class="grid-line">
                     <span>0</span>
@@ -1617,11 +1971,13 @@ body{
 
             </div>
 
+
             <svg
                 class="chart-svg"
                 viewBox="0 0 700 250"
                 preserveAspectRatio="none"
             >
+
 
                 <defs>
 
@@ -1649,10 +2005,12 @@ body{
 
                 </defs>
 
+
                 <path
                     d="M0 205 C55 205,55 205,100 205 C145 205,145 205,200 205 C245 205,245 205,300 205 C345 205,345 205,400 205 C450 205,450 205,500 205 C550 205,550 205,600 205 C650 205,650 205,700 205 L700 250 L0 250 Z"
                     fill="url(#chartGradient)"
                 />
+
 
                 <path
                     d="M0 205 C55 205,55 205,100 205 C145 205,145 205,200 205 C245 205,245 205,300 205 C345 205,345 205,400 205 C450 205,450 205,500 205 C550 205,550 205,600 205 C650 205,650 205,700 205"
@@ -1663,6 +2021,7 @@ body{
                 />
 
             </svg>
+
 
             <div class="chart-axis-labels">
 
@@ -1681,12 +2040,17 @@ body{
     </div>
 
 
-    <!-- WALLET -->
+    <!-- ==================================================
+         WALLET
+    ================================================== -->
+
     <div class="wallet-section-title">
         Wallet Amount
     </div>
 
+
     <div class="wallet-atm-card">
+
 
         <div class="wallet-top-row">
 
@@ -1700,13 +2064,19 @@ body{
 
         </div>
 
+
         <div class="wallet-amount-val">
             ₹ 0
         </div>
 
-        <div class="wallet-date-row">
+
+        <div
+            class="wallet-date-row"
+            id="walletDate"
+        >
             02-10-2026 &nbsp; ℹ️
         </div>
+
 
         <div
             class="wallet-card-name"
@@ -1718,13 +2088,21 @@ body{
     </div>
 
 
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
     <div class="footer">
         © 2026 Skills Market. All Rights Reserved.
     </div>
 
 </div>
 
-<!-- TOAST -->
+
+<!-- ==================================================
+     TOAST
+================================================== -->
+
 <div id="toast">
     ID copied successfully!
 </div>
@@ -1732,11 +2110,18 @@ body{
 
 <script>
 
+
+/* ==================================================
+   SUPABASE CONFIG
+================================================== */
+
 const SUPABASE_URL =
     "https://hmlonjwqeqedakzhucix.supabase.co";
 
+
 const SUPABASE_KEY =
     "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -1745,7 +2130,10 @@ const supabaseClient =
     );
 
 
-/* SIDEBAR */
+/* ==================================================
+   SIDEBAR
+================================================== */
+
 function toggleSidebar(){
 
     document
@@ -1753,14 +2141,19 @@ function toggleSidebar(){
         .classList
         .toggle("active");
 
+
     document
         .getElementById("sidebarOverlay")
         .classList
         .toggle("active");
+
 }
 
 
-/* PROFILE MENU */
+/* ==================================================
+   PROFILE MENU
+================================================== */
+
 function toggleProfileMenu(){
 
     document
@@ -1771,22 +2164,34 @@ function toggleProfileMenu(){
 }
 
 
+/* ==================================================
+   CLOSE PROFILE MENU OUTSIDE
+================================================== */
+
 document.addEventListener(
     "click",
     function(event){
 
         const menu =
-            document.getElementById("profileMenu");
+            document.getElementById(
+                "profileMenu"
+            );
+
 
         const avatar =
-            document.getElementById("navThumbAvatar");
+            document.getElementById(
+                "navThumbAvatar"
+            );
+
 
         if(
             !menu.contains(event.target) &&
             !avatar.contains(event.target)
         ){
 
-            menu.classList.remove("active");
+            menu.classList.remove(
+                "active"
+            );
 
         }
 
@@ -1794,26 +2199,40 @@ document.addEventListener(
 );
 
 
-/* LOAD USER */
+/* ==================================================
+   LOAD USER
+================================================== */
+
 async function loadUser(){
 
     try{
 
+
+        /* ------------------------------------------
+           STEP 1
+           GET CURRENT AUTH SESSION
+        ------------------------------------------ */
+
         const {
-            data,
-            error
+            data:sessionData,
+            error:sessionError
         } =
         await supabaseClient
             .auth
             .getSession();
 
 
-        if(error){
+        if(sessionError){
 
-            console.log(error);
+            console.error(
+                "Session Error:",
+                sessionError
+            );
+
 
             window.location.href =
                 "login.html";
+
 
             return;
 
@@ -1821,64 +2240,220 @@ async function loadUser(){
 
 
         if(
-            !data ||
-            !data.session
+            !sessionData ||
+            !sessionData.session
         ){
 
             window.location.href =
                 "login.html";
+
 
             return;
 
         }
 
 
+        /* ------------------------------------------
+           STEP 2
+           CURRENT AUTH USER
+        ------------------------------------------ */
+
         const user =
-            data.session.user;
+            sessionData.session.user;
 
-        const meta =
-            user.user_metadata || {};
 
+        console.log(
+            "Authenticated User:",
+            user
+        );
+
+
+        /* ------------------------------------------
+           STEP 3
+           FETCH PROFILE FROM DATABASE
+           
+           profiles.id = auth.users.id
+        ------------------------------------------ */
+
+        const {
+            data:profile,
+            error:profileError
+        } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id", user.id)
+            .maybeSingle();
+
+
+        if(profileError){
+
+            console.error(
+                "Profile Fetch Error:",
+                profileError
+            );
+
+
+            showToast(
+                "Profile database error!"
+            );
+
+
+            return;
+
+        }
+
+
+        /* ------------------------------------------
+           STEP 4
+           PROFILE NOT FOUND
+        ------------------------------------------ */
+
+        if(!profile){
+
+            console.error(
+                "No profile found for Auth ID:",
+                user.id
+            );
+
+
+            showToast(
+                "Profile record nahi mila!"
+            );
+
+
+            return;
+
+        }
+
+
+        console.log(
+            "Database Profile:",
+            profile
+        );
+
+
+        /* ==================================================
+           STEP 5
+           GET FULL NAME
+           
+           Primary:
+           full_name
+           
+           Fallback:
+           Full Name
+        ================================================== */
 
         const name =
-            meta.full_name ||
-            meta.name ||
-            meta.username ||
-            localStorage.getItem("username") ||
+            profile.full_name ||
+            profile["Full Name"] ||
+            user.user_metadata?.full_name ||
+            user.user_metadata?.name ||
             "Member";
 
 
-        const userId =
-            "SM" +
-            user.id
-                .replace(/-/g,"")
-                .substring(0,8)
-                .toUpperCase();
+        /* ==================================================
+           STEP 6
+           GET MEMBER ID
+           
+           Primary:
+           member_id
+           
+           Fallback:
+           Member ID
+        ================================================== */
 
+        const memberId =
+            profile.member_id ||
+            profile["Member ID"] ||
+            "SM-MEMBER";
+
+
+        /* ==================================================
+           STEP 7
+           GET PACKAGE
+           
+           Supports both:
+           Package name
+           package_name
+        ================================================== */
+
+        const packageName =
+            profile["Package name"] ||
+            profile.package_name ||
+            profile["Package Name"] ||
+            "Package";
+
+
+        /* ==================================================
+           STEP 8
+           UPDATE PROFILE NAME
+        ================================================== */
 
         document
-            .getElementById("profileName")
+            .getElementById(
+                "profileName"
+            )
             .textContent =
             name;
 
 
+        /* ==================================================
+           STEP 9
+           UPDATE WELCOME BANNER
+        ================================================== */
+
         document
-            .getElementById("welcomeBannerText")
+            .getElementById(
+                "welcomeBannerText"
+            )
             .textContent =
             "Welcome, " + name;
 
 
+        /* ==================================================
+           STEP 10
+           UPDATE WALLET NAME
+        ================================================== */
+
         document
-            .getElementById("walletUserName")
+            .getElementById(
+                "walletUserName"
+            )
             .textContent =
             name;
 
 
-        document
-            .getElementById("profileId")
-            .textContent =
-            userId;
+        /* ==================================================
+           STEP 11
+           UPDATE MEMBER ID
+        ================================================== */
 
+        document
+            .getElementById(
+                "profileId"
+            )
+            .textContent =
+            memberId;
+
+
+        /* ==================================================
+           STEP 12
+           UPDATE PACKAGE BADGE
+        ================================================== */
+
+        document
+            .getElementById(
+                "packageBadge"
+            )
+            .textContent =
+            packageName;
+
+
+        /* ==================================================
+           STEP 13
+           AVATAR FIRST LETTER
+        ================================================== */
 
         const firstLetter =
             name
@@ -1888,32 +2463,60 @@ async function loadUser(){
 
 
         document
-            .getElementById("profileAvatar")
+            .getElementById(
+                "profileAvatar"
+            )
             .textContent =
             firstLetter;
 
 
         document
-            .getElementById("navThumbAvatar")
+            .getElementById(
+                "navThumbAvatar"
+            )
             .textContent =
             firstLetter;
 
+
+        /* ==================================================
+           STEP 14
+           LOCAL CACHE
+        ================================================== */
 
         localStorage.setItem(
             "userId",
             user.id
         );
 
+
         localStorage.setItem(
             "username",
             name
         );
+
+
+        localStorage.setItem(
+            "memberId",
+            memberId
+        );
+
+
+        localStorage.setItem(
+            "packageName",
+            packageName
+        );
+
 
         localStorage.setItem(
             "userEmail",
             user.email || ""
         );
 
+
+        /* ==================================================
+           STEP 15
+           WELCOME POPUP
+        ================================================== */
 
         const popup =
             document.getElementById(
@@ -1942,27 +2545,76 @@ async function loadUser(){
         );
 
 
+        /* ==================================================
+           DEBUG INFORMATION
+        ================================================== */
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "SKILLS MARKET PROFILE"
+        );
+
+        console.log(
+            "Name:",
+            name
+        );
+
+        console.log(
+            "Member ID:",
+            memberId
+        );
+
+        console.log(
+            "Package:",
+            packageName
+        );
+
+        console.log(
+            "Email:",
+            user.email
+        );
+
+        console.log(
+            "Auth ID:",
+            user.id
+        );
+
+        console.log(
+            "================================"
+        );
+
+
     }catch(error){
 
         console.error(
-            "Dashboard error:",
+            "Dashboard Error:",
             error
         );
 
-        window.location.href =
-            "login.html";
+
+        showToast(
+            "Dashboard load error!"
+        );
 
     }
 
 }
 
 
-/* COPY USER ID */
+/* ==================================================
+   COPY MEMBER ID
+================================================== */
+
 async function copyUserId(){
 
     const userId =
         document
-            .getElementById("profileId")
+            .getElementById(
+                "profileId"
+            )
             .textContent;
 
 
@@ -1971,12 +2623,19 @@ async function copyUserId(){
         await navigator.clipboard
             .writeText(userId);
 
+
         showToast(
-            "ID copied successfully!"
+            "Member ID copied successfully!"
         );
 
 
     }catch(error){
+
+        console.error(
+            "Copy Error:",
+            error
+        );
+
 
         showToast(
             "Copy failed!"
@@ -1987,16 +2646,25 @@ async function copyUserId(){
 }
 
 
-/* TOAST */
+/* ==================================================
+   TOAST
+================================================== */
+
 function showToast(message){
 
     const toast =
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
+
 
     toast.textContent =
         message;
 
-    toast.classList.add("show");
+
+    toast.classList.add(
+        "show"
+    );
 
 
     setTimeout(
@@ -2013,27 +2681,46 @@ function showToast(message){
 }
 
 
-/* LOGOUT */
+/* ==================================================
+   LOGOUT
+================================================== */
+
 async function logoutUser(){
 
     try{
+
 
         await supabaseClient
             .auth
             .signOut();
 
 
+        /* CLEAR LOCAL USER DATA */
+
         localStorage.removeItem(
             "userId"
         );
+
 
         localStorage.removeItem(
             "username"
         );
 
+
+        localStorage.removeItem(
+            "memberId"
+        );
+
+
+        localStorage.removeItem(
+            "packageName"
+        );
+
+
         localStorage.removeItem(
             "userEmail"
         );
+
 
         sessionStorage.removeItem(
             "loginSuccess"
@@ -2046,7 +2733,11 @@ async function logoutUser(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Logout Error:",
+            error
+        );
+
 
         window.location.href =
             "login.html";
@@ -2056,10 +2747,17 @@ async function logoutUser(){
 }
 
 
-/* START */
+/* ==================================================
+   START DASHBOARD
+================================================== */
+
 window.addEventListener(
     "DOMContentLoaded",
-    loadUser
+    function(){
+
+        loadUser();
+
+    }
 );
 
 </script>
