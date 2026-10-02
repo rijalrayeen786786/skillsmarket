@@ -27,8 +27,7 @@ body{
     overflow-x:hidden;
 }
 
-/* ================= NAVBAR ================= */
-
+/* NAVBAR */
 .navbar{
     height:72px;
     background:rgba(255,255,255,.96);
@@ -122,8 +121,7 @@ body{
     color:#7138e8;
 }
 
-/* ================= PROFILE DROPDOWN ================= */
-
+/* PROFILE DROPDOWN */
 .profile-menu{
     position:fixed;
     top:62px;
@@ -161,8 +159,7 @@ body{
     color:#7138e8;
 }
 
-/* ================= MAIN CONTAINER ================= */
-
+/* MAIN */
 .container{
     width:100%;
     max-width:1380px;
@@ -170,8 +167,7 @@ body{
     padding:30px 32px 0;
 }
 
-/* ================= WELCOME BANNER ================= */
-
+/* WELCOME */
 .welcome-top-banner{
     background:
         radial-gradient(circle at 90% 20%,rgba(213,63,202,.13),transparent 28%),
@@ -206,8 +202,7 @@ body{
     color:#302452;
 }
 
-/* ================= WELCOME POPUP ================= */
-
+/* WELCOME POPUP */
 #welcomeNotification{
     position:fixed;
     top:85px;
@@ -225,8 +220,7 @@ body{
     animation:slideInRight .5s ease;
 }
 
-/* ================= PROFILE CARD ================= */
-
+/* PROFILE CARD */
 .profile-card{
     min-height:155px;
     background:
@@ -278,8 +272,8 @@ body{
 }
 
 .profile-avatar{
-    width:96px;
-    height:96px;
+    width:82px;
+    height:82px;
     border-radius:50%;
     object-fit:cover;
     background:linear-gradient(135deg,#7138e8,#d53fca);
@@ -339,15 +333,15 @@ body{
     color:white;
 }
 
-/* ================= REVENUE GRID ================= */
+/* ==================================================
+   REVENUE GRID
+   ================================================== */
 
 .revenue-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:18px;
 }
-
-/* ================= REVENUE CARDS ================= */
 
 .rev-card{
     min-height:185px;
@@ -357,8 +351,38 @@ body{
     box-shadow:0 9px 25px rgba(35,35,70,.13);
     position:relative;
     overflow:hidden;
-    animation:slideUp .6s cubic-bezier(.16,1,.3,1) both;
-    transition:transform .3s ease,box-shadow .3s ease;
+
+    animation:
+        slideUp .6s cubic-bezier(.16,1,.3,1) both;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+/* STAGGERED LOAD */
+.rev-card:nth-child(1){
+    animation-delay:.05s;
+}
+
+.rev-card:nth-child(2){
+    animation-delay:.12s;
+}
+
+.rev-card:nth-child(3){
+    animation-delay:.19s;
+}
+
+.rev-card:nth-child(4){
+    animation-delay:.26s;
+}
+
+.rev-card:nth-child(5){
+    animation-delay:.33s;
+}
+
+.rev-card:nth-child(6){
+    animation-delay:.40s;
 }
 
 .rev-card:hover{
@@ -366,6 +390,7 @@ body{
     box-shadow:0 16px 35px rgba(35,35,70,.18);
 }
 
+/* EXISTING INNER CIRCLE */
 .rev-card::before{
     content:"";
     position:absolute;
@@ -375,8 +400,12 @@ body{
     bottom:-65px;
     border:2px dashed rgba(255,255,255,.17);
     border-radius:50%;
+
+    /* NEW MOTION */
+    animation:innerCircleMove 7s ease-in-out infinite;
 }
 
+/* EXISTING INNER GLOW */
 .rev-card::after{
     content:"";
     position:absolute;
@@ -386,8 +415,12 @@ body{
     top:-45px;
     border-radius:50%;
     background:rgba(255,255,255,.08);
+
+    /* NEW MOTION */
+    animation:innerGlowMove 5s ease-in-out infinite;
 }
 
+/* ICON */
 .rev-row{
     display:flex;
     align-items:center;
@@ -414,6 +447,9 @@ body{
     border:1px solid rgba(255,255,255,.25);
     box-shadow:inset 0 2px 5px rgba(255,255,255,.15);
     flex-shrink:0;
+
+    /* NEW MOTION */
+    animation:iconFloat 3s ease-in-out infinite;
 }
 
 .rev-info p{
@@ -427,6 +463,9 @@ body{
     font-size:25px;
     font-weight:800;
     letter-spacing:.3px;
+
+    /* NEW MOTION */
+    animation:amountPulse 3s ease-in-out infinite;
 }
 
 .divider{
@@ -452,14 +491,41 @@ body{
 .arrow{
     transition:.25s;
     font-size:16px;
+
+    /* NEW MOTION */
+    animation:arrowMove 1.8s ease-in-out infinite;
 }
 
 .rev-card:hover .arrow{
     transform:translateX(5px);
 }
 
-/* ================= CARD GRADIENTS ================= */
+/* ICON DIFFERENT TIMING */
+.rev-card:nth-child(1) .rev-icon-box{
+    animation-delay:0s;
+}
 
+.rev-card:nth-child(2) .rev-icon-box{
+    animation-delay:.25s;
+}
+
+.rev-card:nth-child(3) .rev-icon-box{
+    animation-delay:.5s;
+}
+
+.rev-card:nth-child(4) .rev-icon-box{
+    animation-delay:.75s;
+}
+
+.rev-card:nth-child(5) .rev-icon-box{
+    animation-delay:1s;
+}
+
+.rev-card:nth-child(6) .rev-icon-box{
+    animation-delay:1.25s;
+}
+
+/* GRADIENTS — SAME AS BEFORE */
 .g-1{
     background:linear-gradient(135deg,#7138e8,#9655e8);
 }
@@ -484,8 +550,74 @@ body{
     background:linear-gradient(135deg,#0f9b8e,#13b8a6);
 }
 
-/* ================= GRAPH ================= */
+/* ==================================================
+   NEW INNER MOTION ANIMATIONS
+   ================================================== */
 
+/* Dashed circle slowly moves */
+@keyframes innerCircleMove{
+    0%,100%{
+        transform:translate(0,0) rotate(0deg);
+    }
+
+    25%{
+        transform:translate(-8px,-5px) rotate(8deg);
+    }
+
+    50%{
+        transform:translate(-18px,-12px) rotate(18deg);
+    }
+
+    75%{
+        transform:translate(-8px,-4px) rotate(10deg);
+    }
+}
+
+/* Top light circle moves softly */
+@keyframes innerGlowMove{
+    0%,100%{
+        transform:translate(0,0) scale(1);
+    }
+
+    50%{
+        transform:translate(-12px,15px) scale(1.12);
+    }
+}
+
+/* Icon floating effect */
+@keyframes iconFloat{
+    0%,100%{
+        transform:translateY(0) rotate(0deg);
+    }
+
+    50%{
+        transform:translateY(-5px) rotate(1deg);
+    }
+}
+
+/* Amount subtle breathing effect */
+@keyframes amountPulse{
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.035);
+    }
+}
+
+/* Arrow moving inside box */
+@keyframes arrowMove{
+    0%,100%{
+        transform:translateX(0);
+    }
+
+    50%{
+        transform:translateX(5px);
+    }
+}
+
+/* GRAPH */
 .graph-card{
     background:#fff;
     border-radius:21px;
@@ -569,8 +701,7 @@ body{
     padding-top:8px;
 }
 
-/* ================= WALLET ================= */
-
+/* WALLET */
 .wallet-section-title{
     font-size:16px;
     font-weight:800;
@@ -627,8 +758,7 @@ body{
     margin-top:18px;
 }
 
-/* ================= SIDEBAR ================= */
-
+/* SIDEBAR */
 .sidebar{
     height:100%;
     width:295px;
@@ -709,8 +839,7 @@ body{
     border-left:3px solid #7138e8;
 }
 
-/* ================= OVERLAY ================= */
-
+/* OVERLAY */
 #sidebarOverlay{
     position:fixed;
     inset:0;
@@ -727,8 +856,7 @@ body{
     visibility:visible;
 }
 
-/* ================= TOAST ================= */
-
+/* TOAST */
 #toast{
     position:fixed;
     bottom:25px;
@@ -751,8 +879,7 @@ body{
     transform:translate(-50%,0);
 }
 
-/* ================= FOOTER ================= */
-
+/* FOOTER */
 .footer{
     text-align:center;
     font-size:11px;
@@ -760,13 +887,13 @@ body{
     padding:28px 10px;
 }
 
-/* ================= ANIMATIONS ================= */
-
+/* ANIMATIONS */
 @keyframes fadeInDown{
     from{
         opacity:0;
         transform:translateY(-15px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
@@ -778,6 +905,7 @@ body{
         opacity:0;
         transform:translateY(20px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
@@ -789,6 +917,7 @@ body{
         opacity:0;
         transform:translateY(25px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
@@ -800,6 +929,7 @@ body{
         transform:translateX(110px);
         opacity:0;
     }
+
     to{
         transform:translateX(0);
         opacity:1;
@@ -809,18 +939,18 @@ body{
 @keyframes avatarPulse{
     0%,100%{
         box-shadow:
-        0 0 0 4px rgba(113,56,232,.13),
-        0 8px 25px rgba(80,50,130,.15);
+            0 0 0 4px rgba(113,56,232,.13),
+            0 8px 25px rgba(80,50,130,.15);
     }
+
     50%{
         box-shadow:
-        0 0 0 10px rgba(113,56,232,.04),
-        0 8px 25px rgba(80,50,130,.15);
+            0 0 0 10px rgba(113,56,232,.04),
+            0 8px 25px rgba(80,50,130,.15);
     }
 }
 
-/* ================= TABLET ================= */
-
+/* TABLET */
 @media(max-width:1000px){
 
     .container{
@@ -832,8 +962,7 @@ body{
     }
 }
 
-/* ================= MOBILE ================= */
-
+/* MOBILE */
 @media(max-width:650px){
 
     .navbar{
@@ -890,9 +1019,9 @@ body{
     }
 
     .profile-avatar{
-        width:65px;
-        height:65px;
-        font-size:24px;
+        width:75px;
+        height:75px;
+        font-size:26px;
     }
 
     .profile-info h3{
@@ -908,6 +1037,15 @@ body{
     .rev-card{
         min-height:165px;
         margin-bottom:0;
+    }
+
+    .rev-icon-box{
+        width:48px;
+        height:48px;
+    }
+
+    .rev-info h2{
+        font-size:23px;
     }
 
     .graph-card{
@@ -948,29 +1086,41 @@ body{
         width:285px;
     }
 }
+
+/* REDUCE MOTION FOR USERS WHO PREFER IT */
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- WELCOME POPUP -->
 <div id="welcomeNotification">Welcome back to Skills Market!</div>
 
-<!-- OVERLAY -->
 <div id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-<!-- ================= NAVBAR ================= -->
-
+<!-- NAVBAR -->
 <div class="navbar">
 
     <div class="logo-container">
+
         <div class="logo-text">
             <span class="skills">SKILLS </span>
             <span class="market">MARKET</span>
         </div>
+
         <div class="logo-tagline">
             Learn • Grow • Earn
         </div>
+
     </div>
 
     <div class="nav-right-icons">
@@ -978,22 +1128,19 @@ body{
         <div
             class="nav-avatar-ring"
             id="navThumbAvatar"
-            onclick="toggleProfileMenu()">
-            P
-        </div>
+            onclick="toggleProfileMenu()"
+        >P</div>
 
         <div
             class="menu-icon"
-            onclick="toggleSidebar()">
-            &#9776;
-        </div>
+            onclick="toggleSidebar()"
+        >&#9776;</div>
 
     </div>
 
 </div>
 
-<!-- ================= PROFILE DROPDOWN ================= -->
-
+<!-- PROFILE MENU -->
 <div id="profileMenu" class="profile-menu">
 
     <div class="profile-menu-item">
@@ -1006,14 +1153,14 @@ body{
 
     <div
         class="profile-menu-item"
-        onclick="logoutUser()">
+        onclick="logoutUser()"
+    >
         🚪 Logout
     </div>
 
 </div>
 
-<!-- ================= SIDEBAR ================= -->
-
+<!-- SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
     <div class="sidebar-header">
@@ -1024,9 +1171,8 @@ body{
 
         <span
             class="sidebar-close"
-            onclick="toggleSidebar()">
-            &times;
-        </span>
+            onclick="toggleSidebar()"
+        >&times;</span>
 
     </div>
 
@@ -1100,12 +1246,10 @@ body{
 
 </div>
 
-<!-- ================= MAIN ================= -->
-
+<!-- MAIN -->
 <div class="container">
 
     <!-- WELCOME -->
-
     <div class="welcome-top-banner">
 
         <div class="welcome-icon-box">
@@ -1118,9 +1262,7 @@ body{
 
     </div>
 
-
-    <!-- PROFILE -->
-
+    <!-- PROFILE CARD -->
     <div class="profile-card">
 
         <div class="package-badge">
@@ -1131,9 +1273,8 @@ body{
 
             <div
                 class="profile-avatar"
-                id="profileAvatar">
-                P
-            </div>
+                id="profileAvatar"
+            >P</div>
 
             <div class="profile-info">
 
@@ -1151,7 +1292,8 @@ body{
 
                     <button
                         class="copy-btn"
-                        onclick="copyUserId()">
+                        onclick="copyUserId()"
+                    >
                         📋
                     </button>
 
@@ -1163,12 +1305,8 @@ body{
 
     </div>
 
-
-    <!-- ================= REVENUE ================= -->
-
+    <!-- INCOME BOXES -->
     <div class="revenue-grid">
-
-        <!-- TODAY -->
 
         <div class="rev-card g-1">
 
@@ -1199,14 +1337,19 @@ body{
             <div class="divider"></div>
 
             <div class="view-details">
-                <span>View Details</span>
-                <span class="arrow">›</span>
+
+                <span>
+                    View Details
+                </span>
+
+                <span class="arrow">
+                    ›
+                </span>
+
             </div>
 
         </div>
 
-
-        <!-- 7 DAYS -->
 
         <div class="rev-card g-2">
 
@@ -1237,14 +1380,19 @@ body{
             <div class="divider"></div>
 
             <div class="view-details">
-                <span>View Details</span>
-                <span class="arrow">›</span>
+
+                <span>
+                    View Details
+                </span>
+
+                <span class="arrow">
+                    ›
+                </span>
+
             </div>
 
         </div>
 
-
-        <!-- 30 DAYS -->
 
         <div class="rev-card g-3">
 
@@ -1275,14 +1423,19 @@ body{
             <div class="divider"></div>
 
             <div class="view-details">
-                <span>View Details</span>
-                <span class="arrow">›</span>
+
+                <span>
+                    View Details
+                </span>
+
+                <span class="arrow">
+                    ›
+                </span>
+
             </div>
 
         </div>
 
-
-        <!-- ALL TIME -->
 
         <div class="rev-card g-4">
 
@@ -1313,14 +1466,19 @@ body{
             <div class="divider"></div>
 
             <div class="view-details">
-                <span>View Details</span>
-                <span class="arrow">›</span>
+
+                <span>
+                    View Details
+                </span>
+
+                <span class="arrow">
+                    ›
+                </span>
+
             </div>
 
         </div>
 
-
-        <!-- INDUSTRY -->
 
         <div class="rev-card g-5">
 
@@ -1351,14 +1509,19 @@ body{
             <div class="divider"></div>
 
             <div class="view-details">
-                <span>View Details</span>
-                <span class="arrow">›</span>
+
+                <span>
+                    View Details
+                </span>
+
+                <span class="arrow">
+                    ›
+                </span>
+
             </div>
 
         </div>
 
-
-        <!-- PASSIVE -->
 
         <div class="rev-card g-6">
 
@@ -1389,8 +1552,15 @@ body{
             <div class="divider"></div>
 
             <div class="view-details">
-                <span>View Details</span>
-                <span class="arrow">›</span>
+
+                <span>
+                    View Details
+                </span>
+
+                <span class="arrow">
+                    ›
+                </span>
+
             </div>
 
         </div>
@@ -1398,8 +1568,7 @@ body{
     </div>
 
 
-    <!-- ================= GRAPH ================= -->
-
+    <!-- GRAPH -->
     <div class="graph-card">
 
         <div class="graph-header-row">
@@ -1448,11 +1617,11 @@ body{
 
             </div>
 
-
             <svg
                 class="chart-svg"
                 viewBox="0 0 700 250"
-                preserveAspectRatio="none">
+                preserveAspectRatio="none"
+            >
 
                 <defs>
 
@@ -1461,51 +1630,39 @@ body{
                         x1="0"
                         y1="0"
                         x2="0"
-                        y2="1">
+                        y2="1"
+                    >
 
                         <stop
                             offset="0%"
                             stop-color="#7138e8"
-                            stop-opacity=".22"/>
+                            stop-opacity=".22"
+                        />
 
                         <stop
                             offset="100%"
                             stop-color="#7138e8"
-                            stop-opacity="0"/>
+                            stop-opacity="0"
+                        />
 
                     </linearGradient>
 
                 </defs>
 
                 <path
-                    d="M0 205
-                       C55 205,55 205,100 205
-                       C145 205,145 205,200 205
-                       C245 205,245 205,300 205
-                       C345 205,345 205,400 205
-                       C450 205,450 205,500 205
-                       C550 205,550 205,600 205
-                       C650 205,650 205,700 205
-                       L700 250
-                       L0 250 Z"
-                    fill="url(#chartGradient)"/>
+                    d="M0 205 C55 205,55 205,100 205 C145 205,145 205,200 205 C245 205,245 205,300 205 C345 205,345 205,400 205 C450 205,450 205,500 205 C550 205,550 205,600 205 C650 205,650 205,700 205 L700 250 L0 250 Z"
+                    fill="url(#chartGradient)"
+                />
 
                 <path
-                    d="M0 205
-                       C55 205,55 205,100 205
-                       C145 205,145 205,200 205
-                       C245 205,245 205,300 205
-                       C345 205,345 205,400 205
-                       C450 205,450 205,500 205
-                       C550 205,550 205,600 205
-                       C650 205,650 205,700 205"
+                    d="M0 205 C55 205,55 205,100 205 C145 205,145 205,200 205 C245 205,245 205,300 205 C345 205,345 205,400 205 C450 205,450 205,500 205 C550 205,550 205,600 205 C650 205,650 205,700 205"
                     fill="none"
                     stroke="#7138e8"
                     stroke-width="4"
-                    stroke-linecap="round"/>
+                    stroke-linecap="round"
+                />
 
             </svg>
-
 
             <div class="chart-axis-labels">
 
@@ -1524,8 +1681,7 @@ body{
     </div>
 
 
-    <!-- ================= WALLET ================= -->
-
+    <!-- WALLET -->
     <div class="wallet-section-title">
         Wallet Amount
     </div>
@@ -1554,14 +1710,13 @@ body{
 
         <div
             class="wallet-card-name"
-            id="walletUserName">
+            id="walletUserName"
+        >
             Member
         </div>
 
     </div>
 
-
-    <!-- FOOTER -->
 
     <div class="footer">
         © 2026 Skills Market. All Rights Reserved.
@@ -1569,9 +1724,7 @@ body{
 
 </div>
 
-
 <!-- TOAST -->
-
 <div id="toast">
     ID copied successfully!
 </div>
@@ -1579,69 +1732,69 @@ body{
 
 <script>
 
-/* ================= SUPABASE ================= */
-
 const SUPABASE_URL =
-"https://hmlonjwqeqedakzhucix.supabase.co";
+    "https://hmlonjwqeqedakzhucix.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
 
 const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-/* ================= SIDEBAR ================= */
-
+/* SIDEBAR */
 function toggleSidebar(){
 
     document
         .getElementById("sidebar")
-        .classList.toggle("active");
+        .classList
+        .toggle("active");
 
     document
         .getElementById("sidebarOverlay")
-        .classList.toggle("active");
+        .classList
+        .toggle("active");
 }
 
 
-/* ================= PROFILE MENU ================= */
-
+/* PROFILE MENU */
 function toggleProfileMenu(){
 
     document
         .getElementById("profileMenu")
-        .classList.toggle("active");
+        .classList
+        .toggle("active");
+
 }
 
 
-/* ================= CLOSE PROFILE MENU ================= */
+document.addEventListener(
+    "click",
+    function(event){
 
-document.addEventListener("click",function(event){
+        const menu =
+            document.getElementById("profileMenu");
 
-    const menu =
-        document.getElementById("profileMenu");
+        const avatar =
+            document.getElementById("navThumbAvatar");
 
-    const avatar =
-        document.getElementById("navThumbAvatar");
+        if(
+            !menu.contains(event.target) &&
+            !avatar.contains(event.target)
+        ){
 
-    if(
-        !menu.contains(event.target) &&
-        !avatar.contains(event.target)
-    ){
+            menu.classList.remove("active");
 
-        menu.classList.remove("active");
+        }
 
     }
+);
 
-});
 
-
-/* ================= LOAD LOGGED USER ================= */
-
+/* LOAD USER */
 async function loadUser(){
 
     try{
@@ -1650,7 +1803,9 @@ async function loadUser(){
             data,
             error
         } =
-        await supabaseClient.auth.getSession();
+        await supabaseClient
+            .auth
+            .getSession();
 
 
         if(error){
@@ -1658,9 +1813,10 @@ async function loadUser(){
             console.log(error);
 
             window.location.href =
-            "login.html";
+                "login.html";
 
             return;
+
         }
 
 
@@ -1670,9 +1826,10 @@ async function loadUser(){
         ){
 
             window.location.href =
-            "login.html";
+                "login.html";
 
             return;
+
         }
 
 
@@ -1691,12 +1848,6 @@ async function loadUser(){
             "Member";
 
 
-        /*
-         * User ID
-         * Supabase UUID ko short member ID
-         * ke form me show kar rahe hain.
-         */
-
         const userId =
             "SM" +
             user.id
@@ -1705,11 +1856,10 @@ async function loadUser(){
                 .toUpperCase();
 
 
-        /* NAME */
-
         document
             .getElementById("profileName")
-            .textContent = name;
+            .textContent =
+            name;
 
 
         document
@@ -1720,17 +1870,15 @@ async function loadUser(){
 
         document
             .getElementById("walletUserName")
-            .textContent = name;
+            .textContent =
+            name;
 
-
-        /* ID */
 
         document
             .getElementById("profileId")
-            .textContent = userId;
+            .textContent =
+            userId;
 
-
-        /* AVATAR */
 
         const firstLetter =
             name
@@ -1751,8 +1899,6 @@ async function loadUser(){
             firstLetter;
 
 
-        /* LOCAL STORAGE */
-
         localStorage.setItem(
             "userId",
             user.id
@@ -1768,8 +1914,6 @@ async function loadUser(){
             user.email || ""
         );
 
-
-        /* WELCOME POPUP */
 
         const popup =
             document.getElementById(
@@ -1787,12 +1931,15 @@ async function loadUser(){
             "block";
 
 
-        setTimeout(function(){
+        setTimeout(
+            function(){
 
-            popup.style.display =
-            "none";
+                popup.style.display =
+                    "none";
 
-        },3000);
+            },
+            3000
+        );
 
 
     }catch(error){
@@ -1803,21 +1950,20 @@ async function loadUser(){
         );
 
         window.location.href =
-        "login.html";
+            "login.html";
 
     }
 
 }
 
 
-/* ================= COPY ID ================= */
-
+/* COPY USER ID */
 async function copyUserId(){
 
     const userId =
         document
-        .getElementById("profileId")
-        .textContent;
+            .getElementById("profileId")
+            .textContent;
 
 
     try{
@@ -1828,6 +1974,7 @@ async function copyUserId(){
         showToast(
             "ID copied successfully!"
         );
+
 
     }catch(error){
 
@@ -1840,41 +1987,53 @@ async function copyUserId(){
 }
 
 
-/* ================= TOAST ================= */
-
+/* TOAST */
 function showToast(message){
 
     const toast =
         document.getElementById("toast");
 
-
     toast.textContent =
         message;
-
 
     toast.classList.add("show");
 
 
-    setTimeout(function(){
+    setTimeout(
+        function(){
 
-        toast.classList.remove("show");
+            toast.classList.remove(
+                "show"
+            );
 
-    },2000);
+        },
+        2000
+    );
 
 }
 
 
-/* ================= LOGOUT ================= */
-
+/* LOGOUT */
 async function logoutUser(){
 
     try{
 
-        await supabaseClient.auth.signOut();
+        await supabaseClient
+            .auth
+            .signOut();
 
-        localStorage.removeItem("userId");
-        localStorage.removeItem("username");
-        localStorage.removeItem("userEmail");
+
+        localStorage.removeItem(
+            "userId"
+        );
+
+        localStorage.removeItem(
+            "username"
+        );
+
+        localStorage.removeItem(
+            "userEmail"
+        );
 
         sessionStorage.removeItem(
             "loginSuccess"
@@ -1882,7 +2041,7 @@ async function logoutUser(){
 
 
         window.location.href =
-        "login.html";
+            "login.html";
 
 
     }catch(error){
@@ -1890,15 +2049,14 @@ async function logoutUser(){
         console.error(error);
 
         window.location.href =
-        "login.html";
+            "login.html";
 
     }
 
 }
 
 
-/* ================= START ================= */
-
+/* START */
 window.addEventListener(
     "DOMContentLoaded",
     loadUser
