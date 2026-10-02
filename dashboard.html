@@ -7,6 +7,9 @@
 <title>Skills Market | Dashboard</title>
 <meta name="description" content="Skills Market Member Dashboard">
 
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{
     margin:0;
@@ -16,111 +19,335 @@
 }
 
 body{
-    background:#f5f6f8;
-    color:#171717;
+    background:#f1f3f6;
+    color:#202124;
     min-height:100vh;
 }
 
 /* ================= NAVBAR ================= */
 
 .navbar{
-    height:70px;
-    background:#fff;
-    border-bottom:1px solid #e8e8e8;
+    height:68px;
+    background:#080a24;
+    color:#fff;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 25px;
-    position:fixed;
+    padding:0 22px;
+    position:sticky;
     top:0;
-    left:0;
-    right:0;
-    z-index:1000;
+    z-index:900;
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
 
-.logo{
+.logo-section{
+    display:flex;
+    flex-direction:column;
+    line-height:1.1;
+}
+
+.logo-section h2{
+    font-size:21px;
+    letter-spacing:.3px;
+    color:#fff;
+}
+
+.logo-section h2 span{
+    color:#ff2020;
+}
+
+.logo-section p{
+    font-size:9px;
+    color:#aeb3c2;
+    margin-top:4px;
+}
+
+.nav-right{
     display:flex;
     align-items:center;
-    gap:10px;
-    font-size:22px;
-    font-weight:800;
-    color:#111;
+    gap:16px;
 }
 
-.logo-mark{
+.profile-thumb{
     width:38px;
     height:38px;
-    border-radius:10px;
-    background:linear-gradient(135deg,#ff1f1f,#b40000);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    font-weight:900;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid rgba(255,255,255,.7);
+    background:#222;
 }
 
 .menu-btn{
-    width:42px;
-    height:42px;
-    border:none;
-    border-radius:10px;
-    background:#111;
-    color:#fff;
-    font-size:21px;
-    cursor:pointer;
-}
-
-.profile-mini{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.profile-mini .avatar{
     width:40px;
     height:40px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#ff1f1f,#8b0000);
-    color:#fff;
+    border-radius:9px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:800;
+    font-size:23px;
+    cursor:pointer;
+    color:#fff;
+    background:rgba(255,255,255,.08);
+    transition:.2s;
 }
 
-.profile-mini span{
-    font-weight:700;
+.menu-btn:hover{
+    background:#e00000;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    width:100%;
+    max-width:620px;
+    margin:0 auto;
+    padding:18px 15px 40px;
+}
+
+/* ================= WELCOME ================= */
+
+.welcome-box{
+    background:#fff;
+    border-radius:12px;
+    padding:16px 17px;
+    margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    border-left:4px solid #e00000;
+}
+
+.welcome-box h2{
+    font-size:17px;
+    margin-bottom:5px;
+}
+
+.welcome-box p{
+    color:#777;
+    font-size:12px;
+}
+
+/* ================= PROFILE ================= */
+
+.profile-card{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,#090b28,#151947);
+    color:#fff;
+    padding:21px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:18px;
+    box-shadow:0 7px 20px rgba(0,0,0,.13);
+}
+
+.profile-card:after{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    right:-55px;
+    top:-65px;
+    border-radius:50%;
+    background:rgba(255,0,0,.15);
+}
+
+.profile-card img{
+    width:68px;
+    height:68px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #fff;
+    background:#333;
+    position:relative;
+    z-index:2;
+}
+
+.profile-info{
+    position:relative;
+    z-index:2;
+}
+
+.profile-info h3{
+    font-size:17px;
+    margin-bottom:7px;
+    word-break:break-word;
+}
+
+.profile-info p{
+    color:#aeb3c2;
+    font-size:11px;
+    margin-bottom:8px;
+}
+
+.badge{
+    background:linear-gradient(135deg,#e00000,#ff3b3b);
+    color:#fff;
+    font-size:11px;
+    padding:5px 11px;
+    border-radius:20px;
+    display:inline-block;
+    font-weight:bold;
+}
+
+/* ================= EARNING CARDS ================= */
+
+.earning-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:21px;
+    border-radius:14px;
+    color:#fff;
+    margin-bottom:14px;
+    box-shadow:0 5px 13px rgba(0,0,0,.12);
+    position:relative;
+    overflow:hidden;
+}
+
+.earning-card:after{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    right:-45px;
+    bottom:-55px;
+    background:rgba(255,255,255,.09);
+    border-radius:50%;
+}
+
+.earning-content{
+    position:relative;
+    z-index:2;
+}
+
+.earning-card h2{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.earning-card p{
+    font-size:13px;
+    opacity:.92;
+}
+
+.icon-box{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:rgba(255,255,255,.95);
+    color:#222;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    font-weight:bold;
+    position:relative;
+    z-index:2;
+}
+
+/* ================= GRADIENTS ================= */
+
+.bg-1{
+    background:linear-gradient(135deg,#7928ca,#ff0080);
+}
+
+.bg-2{
+    background:linear-gradient(135deg,#00b8f0,#006eff);
+}
+
+.bg-3{
+    background:linear-gradient(135deg,#7b2be2,#4158d0);
+}
+
+.bg-4{
+    background:linear-gradient(135deg,#ee2610,#f4aa18);
+}
+
+.bg-5{
+    background:linear-gradient(135deg,#104c5b,#6eb47e);
+}
+
+/* ================= GRAPH ================= */
+
+.graph-box{
+    background:#fff;
+    padding:18px;
+    border-radius:14px;
+    margin-top:19px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+
+.graph-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:17px;
+}
+
+.graph-header h3{
+    font-size:16px;
+}
+
+.graph-header span{
+    font-size:11px;
+    color:#777;
+}
+
+.graph{
+    height:175px;
+    position:relative;
+    border-left:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    background:
+        linear-gradient(to bottom,
+        transparent 24%,
+        #eee 25%,
+        transparent 26%,
+        transparent 49%,
+        #eee 50%,
+        transparent 51%,
+        transparent 74%,
+        #eee 75%,
+        transparent 76%);
+    overflow:hidden;
+}
+
+.graph-line{
+    position:absolute;
+    left:3%;
+    right:2%;
+    bottom:22px;
+    height:105px;
+}
+
+.graph-line svg{
+    width:100%;
+    height:100%;
+    overflow:visible;
+}
+
+.graph-labels{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 2px 0;
+    color:#888;
+    font-size:10px;
 }
 
 /* ================= SIDEBAR ================= */
 
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    opacity:0;
-    visibility:hidden;
-    transition:.3s;
-    z-index:1090;
-}
-
-.overlay.active{
-    opacity:1;
-    visibility:visible;
-}
-
 .sidebar{
-    position:fixed;
-    top:0;
-    left:-300px;
-    width:290px;
     height:100vh;
-    background:#111;
-    color:#fff;
-    z-index:1100;
-    transition:.35s ease;
+    width:275px;
+    position:fixed;
+    z-index:1200;
+    top:0;
+    left:-285px;
+    background:#fff;
     overflow-y:auto;
-    box-shadow:5px 0 25px rgba(0,0,0,.25);
+    transition:.32s ease;
+    box-shadow:5px 0 20px rgba(0,0,0,.22);
 }
 
 .sidebar.active{
@@ -128,274 +355,99 @@ body{
 }
 
 .sidebar-header{
-    height:70px;
-    padding:0 20px;
+    height:68px;
+    background:#080a24;
+    color:#fff;
+    padding:0 18px;
+    font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.sidebar-brand{
+    font-size:18px;
+}
+
+.sidebar-close{
+    width:34px;
+    height:34px;
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid rgba(255,255,255,.1);
-}
-
-.sidebar-logo{
-    font-size:21px;
-    font-weight:800;
-}
-
-.close-btn{
-    border:none;
-    background:transparent;
-    color:#fff;
-    font-size:28px;
+    justify-content:center;
+    border-radius:8px;
     cursor:pointer;
+    font-size:25px;
+}
+
+.sidebar-close:hover{
+    background:#e00000;
 }
 
 .sidebar-menu{
-    padding:15px 10px 30px;
+    padding:9px 0 25px;
 }
 
-.sidebar-menu a{
+.sidebar a{
+    padding:13px 18px;
     text-decoration:none;
-    color:#ddd;
+    font-size:14px;
+    color:#333;
     display:flex;
     align-items:center;
-    gap:13px;
-    padding:13px 14px;
-    margin:4px 0;
-    border-radius:9px;
-    font-size:14px;
-    font-weight:600;
+    gap:11px;
+    border-bottom:1px solid #f1f1f1;
     transition:.2s;
 }
 
-.sidebar-menu a:hover,
-.sidebar-menu a.active{
-    background:#d90000;
-    color:#fff;
+.sidebar a:hover,
+.sidebar a.active{
+    background:#fff1f1;
+    color:#d50000;
+    padding-left:22px;
 }
 
 .menu-icon{
-    width:25px;
+    width:21px;
     text-align:center;
-    font-size:17px;
+    font-size:15px;
 }
 
-/* ================= MAIN ================= */
-
-.main{
-    padding:95px 25px 40px;
-    max-width:1400px;
-    margin:auto;
+.sidebar a.active{
+    font-weight:bold;
+    border-left:3px solid #d50000;
 }
 
-.welcome-section{
-    background:linear-gradient(135deg,#111,#2b0000);
-    color:#fff;
-    border-radius:18px;
-    padding:30px;
-    position:relative;
-    overflow:hidden;
-    margin-bottom:25px;
+/* ================= OVERLAY ================= */
+
+.sidebar-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.48);
+    z-index:1100;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
 }
 
-.welcome-section:after{
-    content:"";
-    position:absolute;
-    width:220px;
-    height:220px;
-    right:-80px;
-    top:-80px;
-    border-radius:50%;
-    background:rgba(255,0,0,.18);
-}
-
-.welcome-section h1{
-    font-size:30px;
-    margin-bottom:8px;
-    position:relative;
-    z-index:1;
-}
-
-.welcome-section p{
-    color:#d8d8d8;
-    position:relative;
-    z-index:1;
-}
-
-/* ================= STATS ================= */
-
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-    margin-bottom:25px;
-}
-
-.stat-card{
-    background:#fff;
-    border:1px solid #e8e8e8;
-    border-radius:15px;
-    padding:22px;
-    box-shadow:0 5px 20px rgba(0,0,0,.04);
-}
-
-.stat-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:17px;
-}
-
-.stat-icon{
-    width:42px;
-    height:42px;
-    border-radius:11px;
-    background:#fff0f0;
-    color:#d50000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:19px;
-}
-
-.stat-card h3{
-    font-size:25px;
-    margin-bottom:5px;
-}
-
-.stat-card p{
-    color:#777;
-    font-size:13px;
-}
-
-/* ================= CONTENT ================= */
-
-.content-grid{
-    display:grid;
-    grid-template-columns:1.4fr 1fr;
-    gap:20px;
-}
-
-.panel{
-    background:#fff;
-    border:1px solid #e8e8e8;
-    border-radius:15px;
-    padding:24px;
-    box-shadow:0 5px 20px rgba(0,0,0,.04);
-}
-
-.panel-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
-
-.panel-title h2{
-    font-size:19px;
-}
-
-.panel-title span{
-    color:#d50000;
-    font-size:13px;
-    font-weight:700;
-}
-
-/* QUICK ACCESS */
-
-.quick-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.quick-item{
-    border:1px solid #eee;
-    padding:16px;
-    border-radius:11px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.quick-item:hover{
-    border-color:#d50000;
-    transform:translateY(-2px);
-}
-
-.quick-item strong{
-    display:block;
-    margin-bottom:5px;
-}
-
-.quick-item small{
-    color:#777;
-}
-
-/* PROFILE */
-
-.profile-box{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding-bottom:20px;
-    border-bottom:1px solid #eee;
-    margin-bottom:18px;
-}
-
-.big-avatar{
-    width:65px;
-    height:65px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#ff2020,#8b0000);
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
-    font-weight:800;
-}
-
-.profile-box h3{
-    margin-bottom:5px;
-}
-
-.profile-box p{
-    color:#777;
-    font-size:13px;
-}
-
-.profile-details div{
-    display:flex;
-    justify-content:space-between;
-    padding:10px 0;
-    border-bottom:1px solid #f0f0f0;
-    font-size:14px;
-}
-
-.profile-details div:last-child{
-    border-bottom:none;
-}
-
-.profile-details span:first-child{
-    color:#777;
-}
-
-.profile-details span:last-child{
-    font-weight:600;
+.sidebar-overlay.active{
+    opacity:1;
+    visibility:visible;
 }
 
 /* ================= POPUP ================= */
 
 .welcome-popup{
     position:fixed;
-    right:20px;
-    top:85px;
+    top:82px;
+    right:18px;
     width:330px;
     background:#fff;
-    border-left:5px solid #d50000;
-    border-radius:12px;
-    padding:17px;
-    box-shadow:0 10px 35px rgba(0,0,0,.18);
+    border-radius:13px;
+    padding:16px;
     z-index:2000;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    border-left:4px solid #e00000;
     transform:translateX(120%);
     opacity:0;
     transition:.4s ease;
@@ -407,74 +459,102 @@ body{
 }
 
 .popup-title{
-    font-weight:800;
-    margin-bottom:6px;
+    font-weight:bold;
+    font-size:15px;
+    margin-bottom:5px;
 }
 
 .popup-text{
     color:#666;
-    font-size:13px;
+    font-size:12px;
     line-height:1.5;
+}
+
+/* ================= LOADING ================= */
+
+.loading-screen{
+    position:fixed;
+    inset:0;
+    background:#080a24;
+    z-index:5000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    color:#fff;
+}
+
+.loading-logo{
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.loading-logo span{
+    color:#ff2020;
+}
+
+.loader{
+    width:34px;
+    height:34px;
+    border:3px solid rgba(255,255,255,.2);
+    border-top-color:#ff2020;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:1000px){
-    .stats-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
+@media(max-width:500px){
 
-    .content-grid{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:600px){
     .navbar{
-        padding:0 15px;
+        padding:0 14px;
     }
 
-    .profile-mini span{
-        display:none;
+    .logo-section h2{
+        font-size:19px;
     }
 
-    .main{
-        padding:90px 14px 30px;
+    .logo-section p{
+        font-size:8px;
     }
 
-    .welcome-section{
-        padding:23px;
+    .profile-thumb{
+        width:35px;
+        height:35px;
     }
 
-    .welcome-section h1{
-        font-size:24px;
+    .container{
+        padding:15px 12px 35px;
     }
 
-    .stats-grid{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
+    .profile-card{
+        padding:18px;
     }
 
-    .stat-card{
-        padding:16px;
+    .profile-card img{
+        width:61px;
+        height:61px;
     }
 
-    .stat-card h3{
-        font-size:20px;
+    .earning-card{
+        padding:19px;
     }
 
-    .quick-grid{
-        grid-template-columns:1fr;
+    .earning-card h2{
+        font-size:23px;
     }
 
     .welcome-popup{
-        left:15px;
-        right:15px;
+        left:12px;
+        right:12px;
         width:auto;
-    }
-
-    .logo{
-        font-size:18px;
     }
 }
 </style>
@@ -482,40 +562,82 @@ body{
 
 <body>
 
+<!-- ================= LOADING ================= -->
+
+<div class="loading-screen" id="loadingScreen">
+
+    <div class="loading-logo">
+        Skills<span>Market</span>
+    </div>
+
+    <div class="loader"></div>
+
+</div>
+
+
 <!-- ================= NAVBAR ================= -->
 
-<header class="navbar">
+<div class="navbar">
 
-    <button class="menu-btn" id="menuBtn">☰</button>
+    <div class="logo-section">
 
-    <div class="logo">
-        <div class="logo-mark">SM</div>
-        <span>Skills Market</span>
+        <h2>Skills<span>Market</span></h2>
+
+        <p>Learn. Grow. Earn.</p>
+
     </div>
 
-    <div class="profile-mini">
-        <div class="avatar" id="miniAvatar">S</div>
-        <span id="miniName">Member</span>
+    <div class="nav-right">
+
+        <img
+            id="navProfile"
+            src="https://via.placeholder.com/80"
+            class="profile-thumb"
+            alt="Profile"
+        >
+
+        <div
+            class="menu-btn"
+            onclick="toggleSidebar()"
+            aria-label="Open menu"
+        >
+            &#9776;
+        </div>
+
     </div>
 
-</header>
+</div>
 
 
-<!-- ================= OVERLAY ================= -->
+<!-- ================= SIDEBAR OVERLAY ================= -->
 
-<div class="overlay" id="overlay"></div>
+<div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+    onclick="toggleSidebar()"
+></div>
 
 
 <!-- ================= SIDEBAR ================= -->
 
-<aside class="sidebar" id="sidebar">
+<div id="sidebar" class="sidebar">
 
     <div class="sidebar-header">
-        <div class="sidebar-logo">Skills Market</div>
-        <button class="close-btn" id="closeBtn">×</button>
+
+        <span class="sidebar-brand">
+            Skills Market
+        </span>
+
+        <span
+            class="sidebar-close"
+            onclick="toggleSidebar()"
+        >
+            &times;
+        </span>
+
     </div>
 
-    <nav class="sidebar-menu">
+    <div class="sidebar-menu">
 
         <a href="#" class="active">
             <span class="menu-icon">📊</span>
@@ -589,256 +711,294 @@ body{
 
         <a href="#">
             <span class="menu-icon">🌐</span>
-            Skills Market Community
+            Community
         </a>
 
-    </nav>
-
-</aside>
-
-
-<!-- ================= WELCOME POPUP ================= -->
-
-<div class="welcome-popup" id="welcomePopup">
-
-    <div class="popup-title" id="popupTitle">
-        Welcome to Skills Market!
-    </div>
-
-    <div class="popup-text" id="popupText">
-        Your dashboard is ready. Start exploring Skills Market.
     </div>
 
 </div>
 
 
-<!-- ================= MAIN DASHBOARD ================= -->
+<!-- ================= WELCOME POPUP ================= -->
 
-<main class="main">
+<div
+    class="welcome-popup"
+    id="welcomePopup"
+>
 
-    <!-- WELCOME -->
+    <div
+        class="popup-title"
+        id="popupTitle"
+    >
+        Welcome to Skills Market!
+    </div>
 
-    <section class="welcome-section">
+    <div
+        class="popup-text"
+        id="popupText"
+    >
+        Your dashboard is ready.
+    </div>
 
-        <h1 id="welcomeTitle">
-            Welcome back, Skills Market Member!
-        </h1>
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div class="container">
+
+    <!-- Welcome -->
+
+    <div class="welcome-box">
+
+        <h2 id="welcomeTitle">
+            Welcome back!
+        </h2>
 
         <p>
-            Manage your learning, affiliate activities and account from your dashboard.
+            Welcome to your Skills Market dashboard.
         </p>
 
-    </section>
+    </div>
 
 
-    <!-- STATS -->
+    <!-- Profile -->
 
-    <section class="stats-grid">
+    <div class="profile-card">
 
-        <div class="stat-card">
+        <img
+            id="profileImage"
+            src="https://via.placeholder.com/80"
+            alt="Profile"
+        >
 
-            <div class="stat-top">
-                <div class="stat-icon">₹</div>
-            </div>
+        <div class="profile-info">
 
-            <h3>₹0</h3>
-            <p>Today's Earning</p>
+            <h3 id="profileName">
+                Skills Market Member
+            </h3>
 
-        </div>
+            <p id="profileEmail">
+                Loading account...
+            </p>
 
-
-        <div class="stat-card">
-
-            <div class="stat-top">
-                <div class="stat-icon">👥</div>
-            </div>
-
-            <h3>0</h3>
-            <p>Total Referrals</p>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-top">
-                <div class="stat-icon">📚</div>
-            </div>
-
-            <h3>0</h3>
-            <p>My Courses</p>
+            <span class="badge">
+                Active Member
+            </span>
 
         </div>
 
-
-        <div class="stat-card">
-
-            <div class="stat-top">
-                <div class="stat-icon">💰</div>
-            </div>
-
-            <h3>₹0</h3>
-            <p>Wallet Balance</p>
-
-        </div>
-
-    </section>
+    </div>
 
 
-    <!-- CONTENT -->
+    <!-- Today's Earning -->
 
-    <section class="content-grid">
+    <div class="earning-card bg-1">
 
-        <!-- QUICK ACCESS -->
+        <div class="earning-content">
 
-        <div class="panel">
+            <h2>₹0 /-</h2>
 
-            <div class="panel-title">
-                <h2>Quick Access</h2>
-                <span>Skills Market</span>
-            </div>
-
-            <div class="quick-grid">
-
-                <div class="quick-item">
-                    <strong>📚 My Courses</strong>
-                    <small>View your enrolled courses</small>
-                </div>
-
-                <div class="quick-item">
-                    <strong>🔗 Affiliate Link</strong>
-                    <small>Manage your referral link</small>
-                </div>
-
-                <div class="quick-item">
-                    <strong>👥 My Team</strong>
-                    <small>View your team</small>
-                </div>
-
-                <div class="quick-item">
-                    <strong>💰 Wallet</strong>
-                    <small>Check wallet information</small>
-                </div>
-
-            </div>
+            <p>
+                Today's Earning
+            </p>
 
         </div>
 
+        <div class="icon-box">
+            ₹
+        </div>
 
-        <!-- PROFILE -->
+    </div>
 
-        <div class="panel">
 
-            <div class="panel-title">
-                <h2>My Profile</h2>
-                <span>Account</span>
-            </div>
+    <!-- Weekly Earning -->
 
-            <div class="profile-box">
+    <div class="earning-card bg-2">
 
-                <div class="big-avatar" id="bigAvatar">S</div>
+        <div class="earning-content">
 
-                <div>
-                    <h3 id="profileName">Skills Market Member</h3>
-                    <p id="profileEmail">Member Account</p>
-                </div>
+            <h2>₹0 /-</h2>
 
-            </div>
+            <p>
+                Weekly Earning
+            </p>
 
-            <div class="profile-details">
+        </div>
 
-                <div>
-                    <span>Status</span>
-                    <span>Active</span>
-                </div>
+        <div class="icon-box">
+            ₹
+        </div>
 
-                <div>
-                    <span>Member Type</span>
-                    <span>Member</span>
-                </div>
+    </div>
 
-                <div>
-                    <span>Courses</span>
-                    <span>0</span>
-                </div>
+
+    <!-- Monthly Earning -->
+
+    <div class="earning-card bg-3">
+
+        <div class="earning-content">
+
+            <h2>₹0 /-</h2>
+
+            <p>
+                Monthly Earning
+            </p>
+
+        </div>
+
+        <div class="icon-box">
+            ₹
+        </div>
+
+    </div>
+
+
+    <!-- All Time Earning -->
+
+    <div class="earning-card bg-4">
+
+        <div class="earning-content">
+
+            <h2>₹0 /-</h2>
+
+            <p>
+                All Time Earning
+            </p>
+
+        </div>
+
+        <div class="icon-box">
+            ₹
+        </div>
+
+    </div>
+
+
+    <!-- Passive Earning -->
+
+    <div class="earning-card bg-5">
+
+        <div class="earning-content">
+
+            <h2>₹0 /-</h2>
+
+            <p>
+                Total Passive Earning
+            </p>
+
+        </div>
+
+        <div class="icon-box">
+            ₹
+        </div>
+
+    </div>
+
+
+    <!-- Sales Graph -->
+
+    <div class="graph-box">
+
+        <div class="graph-header">
+
+            <h3>
+                7 Days Sales Graph
+            </h3>
+
+            <span>
+                Sales Overview
+            </span>
+
+        </div>
+
+        <div class="graph">
+
+            <div class="graph-line">
+
+                <svg
+                    viewBox="0 0 600 120"
+                    preserveAspectRatio="none"
+                >
+
+                    <polyline
+                        points="0,100 85,83 170,94 255,55 340,72 425,38 510,52 600,20"
+                        fill="none"
+                        stroke="#e00000"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
+                    <polyline
+                        points="0,100 85,83 170,94 255,55 340,72 425,38 510,52 600,20 600,120 0,120"
+                        fill="rgba(224,0,0,.08)"
+                        stroke="none"
+                    />
+
+                </svg>
 
             </div>
 
         </div>
 
-    </section>
+        <div class="graph-labels">
 
-</main>
+            <span>Day 1</span>
+            <span>Day 2</span>
+            <span>Day 3</span>
+            <span>Day 4</span>
+            <span>Day 5</span>
+            <span>Day 6</span>
+            <span>Day 7</span>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 <script>
 
-/* ================= USER DATA ================= */
+/* =========================================================
+   SUPABASE CONFIG
+   ========================================================= */
 
-const userName =
-    localStorage.getItem("username") ||
-    localStorage.getItem("userName") ||
-    "Skills Market Member";
+const SUPABASE_URL =
+    "https://hmlonjwqeqedakzhucix.supabase.co";
 
-const userEmail =
-    localStorage.getItem("userEmail") ||
-    "Member Account";
+const SUPABASE_KEY =
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
 
-
-/* ================= NAME ================= */
-
-document.getElementById("welcomeTitle").textContent =
-    `Welcome back, ${userName}!`;
-
-document.getElementById("profileName").textContent =
-    userName;
-
-document.getElementById("miniName").textContent =
-    userName;
-
-document.getElementById("profileEmail").textContent =
-    userEmail;
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-/* ================= AVATAR ================= */
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
 
-const firstLetter =
-    userName.trim().charAt(0).toUpperCase() || "S";
+const loadingScreen =
+    document.getElementById("loadingScreen");
 
-document.getElementById("miniAvatar").textContent =
-    firstLetter;
+const welcomeTitle =
+    document.getElementById("welcomeTitle");
 
-document.getElementById("bigAvatar").textContent =
-    firstLetter;
+const profileName =
+    document.getElementById("profileName");
 
+const profileEmail =
+    document.getElementById("profileEmail");
 
-/* ================= SIDEBAR ================= */
+const profileImage =
+    document.getElementById("profileImage");
 
-const menuBtn = document.getElementById("menuBtn");
-const closeBtn = document.getElementById("closeBtn");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
-
-function openSidebar(){
-
-    sidebar.classList.add("active");
-    overlay.classList.add("active");
-
-}
-
-function closeSidebar(){
-
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-
-}
-
-menuBtn.addEventListener("click", openSidebar);
-closeBtn.addEventListener("click", closeSidebar);
-overlay.addEventListener("click", closeSidebar);
-
-
-/* ================= WELCOME POPUP ================= */
+const navProfile =
+    document.getElementById("navProfile");
 
 const welcomePopup =
     document.getElementById("welcomePopup");
@@ -850,7 +1010,90 @@ const popupText =
     document.getElementById("popupText");
 
 
-if(sessionStorage.getItem("loginSuccess") === "true"){
+/* =========================================================
+   GET USER NAME
+   ========================================================= */
+
+function getUserName(user){
+
+    const metadata =
+        user.user_metadata || {};
+
+    return (
+        metadata.full_name ||
+        metadata.name ||
+        metadata.username ||
+        user.email?.split("@")[0] ||
+        "Skills Market Member"
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE USER DATA
+   ========================================================= */
+
+function updateUserData(user){
+
+    const userName =
+        getUserName(user);
+
+    const userEmail =
+        user.email || "";
+
+    const avatarUrl =
+        user.user_metadata?.avatar_url ||
+        user.user_metadata?.picture ||
+        "https://via.placeholder.com/80";
+
+
+    /* Local session information */
+
+    localStorage.setItem(
+        "username",
+        userName
+    );
+
+    localStorage.setItem(
+        "userEmail",
+        userEmail
+    );
+
+    localStorage.setItem(
+        "userId",
+        user.id
+    );
+
+
+    /* Dashboard name */
+
+    welcomeTitle.textContent =
+        `Welcome back, ${userName}!`;
+
+    profileName.textContent =
+        userName;
+
+    profileEmail.textContent =
+        userEmail;
+
+
+    /* Profile photo */
+
+    profileImage.src =
+        avatarUrl;
+
+    navProfile.src =
+        avatarUrl;
+
+}
+
+
+/* =========================================================
+   WELCOME POPUP
+   ========================================================= */
+
+function showWelcomePopup(userName){
 
     popupTitle.textContent =
         `Welcome, ${userName}! 👋`;
@@ -860,15 +1103,191 @@ if(sessionStorage.getItem("loginSuccess") === "true"){
 
     welcomePopup.classList.add("show");
 
-    sessionStorage.removeItem("loginSuccess");
 
-    setTimeout(() => {
+    setTimeout(function(){
 
         welcomePopup.classList.remove("show");
 
-    }, 3500);
+    },3500);
 
 }
+
+
+/* =========================================================
+   REDIRECT TO LOGIN
+   ========================================================= */
+
+function redirectToLogin(){
+
+    localStorage.removeItem("username");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userId");
+
+    sessionStorage.removeItem(
+        "loginSuccess"
+    );
+
+    window.location.replace(
+        "login.html"
+    );
+
+}
+
+
+/* =========================================================
+   CHECK SUPABASE SESSION
+   ========================================================= */
+
+async function checkSession(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.getSession();
+
+
+        /* Error */
+
+        if(error){
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            redirectToLogin();
+            return;
+
+        }
+
+
+        /* No logged-in user */
+
+        if(
+            !data ||
+            !data.session ||
+            !data.session.user
+        ){
+
+            redirectToLogin();
+            return;
+
+        }
+
+
+        /* Logged-in user */
+
+        const user =
+            data.session.user;
+
+        updateUserData(user);
+
+
+        /* Login popup */
+
+        if(
+            sessionStorage.getItem(
+                "loginSuccess"
+            ) === "true"
+        ){
+
+            showWelcomePopup(
+                getUserName(user)
+            );
+
+            sessionStorage.removeItem(
+                "loginSuccess"
+            );
+
+        }
+
+
+        /* Remove loading screen */
+
+        setTimeout(function(){
+
+            loadingScreen.style.display =
+                "none";
+
+        },300);
+
+
+    }catch(error){
+
+        console.error(
+            "Authentication error:",
+            error
+        );
+
+        redirectToLogin();
+
+    }
+
+}
+
+
+/* =========================================================
+   SESSION CHANGE LISTENER
+   ========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session){
+
+        console.log(
+            "Auth state:",
+            event
+        );
+
+
+        if(
+            event === "SIGNED_OUT" ||
+            !session
+        ){
+
+            redirectToLogin();
+            return;
+
+        }
+
+
+        if(session.user){
+
+            updateUserData(
+                session.user
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("active");
+
+    document
+        .getElementById("sidebarOverlay")
+        .classList.toggle("active");
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+checkSession();
 
 </script>
 
