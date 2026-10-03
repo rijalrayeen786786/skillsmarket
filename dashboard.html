@@ -448,9 +448,17 @@ body{
     margin-bottom: 12px;
 }
 
+/* Passive income card ko full width dene ke liye */
+.revenue-card.full-width {
+    grid-column: span 2;
+}
+
 @media(min-width: 768px) {
     .revenue-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+    .revenue-card.full-width {
+        grid-column: span 3;
     }
 }
 
@@ -533,7 +541,7 @@ body{
     position:relative;
     z-index:2;
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items:center;
     border-top:1px solid rgba(255,255,255,.25);
     padding-top:8px;
@@ -543,10 +551,6 @@ body{
 .view-details{
     color:white;
     text-decoration:none;
-}
-
-.arrow{
-    font-size:18px;
 }
 
 /* ================= GRAPH ================= */
@@ -1011,15 +1015,9 @@ body{
         </div>
 
         <div class="revenue-footer">
-
             <a href="#" class="view-details">
-                View details
+                Click here to view detail(s)
             </a>
-
-            <span class="arrow">
-                ›
-            </span>
-
         </div>
 
     </div>
@@ -1032,19 +1030,13 @@ body{
         </div>
 
         <div class="revenue-title">
-            7 Days Revenue
+            Last 7 Days Revenue
         </div>
 
         <div class="revenue-footer">
-
             <a href="#" class="view-details">
-                View details
+                Click here to view detail(s)
             </a>
-
-            <span class="arrow">
-                ›
-            </span>
-
         </div>
 
     </div>
@@ -1057,19 +1049,13 @@ body{
         </div>
 
         <div class="revenue-title">
-            30 Days Revenue
+            Last 30 Days Revenue
         </div>
 
         <div class="revenue-footer">
-
             <a href="#" class="view-details">
-                View details
+                Click here to view detail(s)
             </a>
-
-            <span class="arrow">
-                ›
-            </span>
-
         </div>
 
     </div>
@@ -1078,7 +1064,7 @@ body{
     <div class="revenue-card blue">
 
         <div class="revenue-amount">
-            ₹ 0
+            ₹ 36,019
         </div>
 
         <div class="revenue-title">
@@ -1086,24 +1072,18 @@ body{
         </div>
 
         <div class="revenue-footer">
-
             <a href="#" class="view-details">
-                View details
+                Click here to view detail(s)
             </a>
-
-            <span class="arrow">
-                ›
-            </span>
-
         </div>
 
     </div>
 
 
-    <div class="revenue-card gold">
+    <div class="revenue-card gold full-width">
 
         <div class="revenue-amount">
-            ₹ 0
+            ₹ 4,519
         </div>
 
         <div class="revenue-title">
@@ -1111,15 +1091,9 @@ body{
         </div>
 
         <div class="revenue-footer">
-
             <a href="#" class="view-details">
-                View details
+                Click here to view detail(s)
             </a>
-
-            <span class="arrow">
-                ›
-            </span>
-
         </div>
 
     </div>
@@ -1134,11 +1108,11 @@ body{
     <div class="graph-header">
 
         <div class="graph-title">
-            Sales Last 30 Days
+            Sales Last 7 Days
         </div>
 
         <div class="graph-badge">
-            30 DAYS
+            7 DAYS
         </div>
 
     </div>
@@ -1148,11 +1122,17 @@ body{
 
         <div class="y-axis">
 
-            <span>₹2</span>
-            <span>₹1.5</span>
-            <span>₹1</span>
-            <span>₹0.5</span>
-            <span>₹0</span>
+            <span>1.0</span>
+            <span>0.8</span>
+            <span>0.6</span>
+            <span>0.4</span>
+            <span>0.2</span>
+            <span>0</span>
+            <span>-0.2</span>
+            <span>-0.4</span>
+            <span>-0.6</span>
+            <span>-0.8</span>
+            <span>-1.0</span>
 
         </div>
 
@@ -1168,19 +1148,14 @@ body{
 
     <div class="graph-dates">
 
-        <span>Sep 03</span>
-        <span>Sep 08</span>
-        <span>Sep 13</span>
-        <span>Sep 18</span>
-        <span>Sep 23</span>
-        <span>Sep 28</span>
-        <span>Oct 02</span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
 
-    </div>
-
-
-    <div class="graph-note">
-        No commission recorded yet
     </div>
 
 </section>
@@ -1265,11 +1240,6 @@ function logoutUser(event){
         confirm("Are you sure you want to logout?");
 
     if(confirmLogout){
-
-        /*
-        Supabase logout yaha connect hoga.
-        Abhi login page par redirect.
-        */
 
         window.location.href = "login.html";
 
