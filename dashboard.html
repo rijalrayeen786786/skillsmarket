@@ -6,6 +6,8 @@
 
 <title>Skills Market | Dashboard</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{
     margin:0;
@@ -22,7 +24,7 @@ body{
 
 .dashboard{
     width:100%;
-    max-width: 100%;
+    max-width:100%;
     margin:auto;
 }
 
@@ -225,8 +227,6 @@ body{
     color:#dc2626;
 }
 
-/* overlay */
-
 .menu-overlay{
     position:fixed;
     inset:0;
@@ -366,22 +366,12 @@ body{
     justify-content:center;
 }
 
-.profile-avatar img{
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    object-fit:cover;
-    background:#fff;
-    border:2px solid #fff;
-    display:block;
-}
-
 .avatar-fallback{
-    display:none;
     width:100%;
     height:100%;
     border-radius:50%;
     background:#fff;
+    display:flex;
     align-items:center;
     justify-content:center;
     font-size:25px;
@@ -441,25 +431,24 @@ body{
 
 /* ================= REVENUE GRID ================= */
 
-.revenue-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 12px;
+.revenue-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-bottom:12px;
 }
 
-/* Yeh sirf mobile ke liye full width rahega */
-.revenue-card.full-width {
-    grid-column: span 2;
+.revenue-card.full-width{
+    grid-column:span 2;
 }
 
-@media(min-width: 768px) {
-    .revenue-grid {
-        grid-template-columns: repeat(3, 1fr);
+@media(min-width:768px){
+    .revenue-grid{
+        grid-template-columns:repeat(3,1fr);
     }
-    /* Laptop par full width hata diya gaya hai taaki bada na ho */
-    .revenue-card.full-width {
-        grid-column: span 1;
+
+    .revenue-card.full-width{
+        grid-column:span 1;
     }
 }
 
@@ -501,7 +490,6 @@ body{
     bottom:-30px;
 }
 
-/* CARD ICON SYMBOL STYLE */
 .card-icon{
     position:absolute;
     top:14px;
@@ -673,21 +661,13 @@ body{
 /* ================= ANIMATION ================= */
 
 @keyframes floatOne{
-    0%,100%{
-        transform:translate(0,0);
-    }
-    50%{
-        transform:translate(-5px,-5px);
-    }
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(-5px,-5px);}
 }
 
 @keyframes floatTwo{
-    0%,100%{
-        transform:translate(0,0);
-    }
-    50%{
-        transform:translate(5px,4px);
-    }
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(5px,4px);}
 }
 
 @keyframes pulseCircle{
@@ -753,165 +733,95 @@ body{
 
 <body>
 
-<!-- ================= MENU OVERLAY ================= -->
-
-<div
-    class="menu-overlay"
-    id="menuOverlay"
-    onclick="closeMenu()">
-</div>
-
-
-<!-- ================= SIDE MENU ================= -->
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
 <div class="nav-menu" id="navMenu">
 
     <div class="menu-top">
+        <div class="menu-title">Skills Market</div>
 
-        <div class="menu-title">
-            Skills Market
-        </div>
-
-        <button
-            class="close-menu"
-            onclick="closeMenu()">
+        <button class="close-menu" onclick="closeMenu()">
             ✕
         </button>
-
     </div>
-
 
     <div class="menu-profile">
 
-        <div class="menu-avatar">
+        <div class="menu-avatar" id="menuAvatar">
             R
         </div>
 
         <div>
 
-            <div class="menu-profile-name">
-                RIJAL RAYEEN
+            <div class="menu-profile-name" id="menuProfileName">
+                Loading...
             </div>
 
-            <div class="menu-profile-id">
-                ID: SM000001
+            <div class="menu-profile-id" id="menuProfileId">
+                ID: Loading...
             </div>
 
         </div>
 
     </div>
 
-
     <div class="menu-links">
 
-        <a
-            href="dashboard.html"
-            class="menu-link active">
-
+        <a href="dashboard.html" class="menu-link active">
             <span class="menu-icon">⌂</span>
             <span>Dashboard</span>
-
         </a>
 
-
-        <a
-            href="#"
-            class="menu-link">
-
+        <a href="#" class="menu-link">
             <span class="menu-icon">👤</span>
             <span>My Profile</span>
-
         </a>
 
-
-        <a
-            href="#"
-            class="menu-link">
-
+        <a href="#" class="menu-link">
             <span class="menu-icon">🔗</span>
             <span>Affiliate Link</span>
-
         </a>
 
-
-        <a
-            href="#"
-            class="menu-link">
-
+        <a href="#" class="menu-link">
             <span class="menu-icon">📚</span>
             <span>My Courses</span>
-
         </a>
 
-
-        <a
-            href="#"
-            class="menu-link">
-
+        <a href="#" class="menu-link">
             <span class="menu-icon">💰</span>
             <span>Wallet</span>
-
         </a>
 
-
-        <a
-            href="#"
-            class="menu-link">
-
+        <a href="#" class="menu-link">
             <span class="menu-icon">👥</span>
             <span>My Team</span>
-
         </a>
 
-
-        <a
-            href="#"
-            class="menu-link">
-
+        <a href="#" class="menu-link">
             <span class="menu-icon">🏆</span>
             <span>Leaderboard</span>
-
         </a>
 
-
-        <a
-            href="#"
-            class="menu-link">
-
+        <a href="#" class="menu-link">
             <span class="menu-icon">📊</span>
             <span>Reports</span>
-
         </a>
 
-
-        <a
-            href="#"
-            class="menu-link">
-
+        <a href="#" class="menu-link">
             <span class="menu-icon">🎓</span>
             <span>Training</span>
-
         </a>
 
-
-        <a
-            href="#"
-            class="menu-link logout-link"
-            onclick="logoutUser(event)">
-
+        <a href="#" class="menu-link logout-link" onclick="logoutUser(event)">
             <span class="menu-icon">↪</span>
             <span>Logout</span>
-
         </a>
 
     </div>
 
 </div>
 
-
 <div class="dashboard">
-
-<!-- ================= NAVBAR ================= -->
 
 <header class="navbar">
 
@@ -927,10 +837,9 @@ body{
 
     </div>
 
-
     <div class="nav-right">
 
-        <div class="profile-mini">
+        <div class="profile-mini" id="profileMini">
             R
         </div>
 
@@ -947,17 +856,14 @@ body{
 
 </header>
 
-
-<!-- ================= PROFILE CARD ================= -->
-
 <section class="profile-card">
 
     <div class="profile-circle circle-one"></div>
     <div class="profile-circle circle-two"></div>
     <div class="profile-circle circle-three"></div>
 
-    <div class="package-badge">
-        
+    <div class="package-badge" id="packageBadge">
+        Loading...
     </div>
 
     <div class="profile-content">
@@ -966,16 +872,7 @@ body{
 
             <div class="profile-avatar">
 
-                <img
-                    src="YOUR_PROFILE_IMAGE_URL"
-                    alt="Profile Photo"
-                    onerror="
-                    this.style.display='none';
-                    this.nextElementSibling.style.display='flex';
-                    "
-                >
-
-                <div class="avatar-fallback">
+                <div class="avatar-fallback" id="avatarFallback">
                     R
                 </div>
 
@@ -983,21 +880,20 @@ body{
 
         </div>
 
-
         <div class="profile-details">
 
             <div class="member-label">
-                
+                MEMBER PROFILE
             </div>
 
-            <div class="profile-name">
-                RIJAL RAYEEN
+            <div class="profile-name" id="profileName">
+                Loading...
             </div>
 
             <div class="id-row">
 
-                <span>
-                    ID: SM000001
+                <span id="profileId">
+                    ID: Loading...
                 </span>
 
                 <button
@@ -1016,9 +912,6 @@ body{
 
 </section>
 
-
-<!-- ================= REVENUE GRID CONTAINER ================= -->
-
 <div class="revenue-grid">
 
     <div class="revenue-card purple">
@@ -1030,7 +923,6 @@ body{
         </div>
     </div>
 
-
     <div class="revenue-card indigo">
         <div class="card-icon">📊</div>
         <div class="revenue-amount">₹ 0</div>
@@ -1039,7 +931,6 @@ body{
             <a href="#" class="view-details">Click here to view detail(s)</a>
         </div>
     </div>
-
 
     <div class="revenue-card pink">
         <div class="card-icon">🎓</div>
@@ -1050,7 +941,6 @@ body{
         </div>
     </div>
 
-
     <div class="revenue-card blue">
         <div class="card-icon">🏆</div>
         <div class="revenue-amount">₹ 0</div>
@@ -1059,7 +949,6 @@ body{
             <a href="#" class="view-details">Click here to view detail(s)</a>
         </div>
     </div>
-
 
     <div class="revenue-card gold full-width">
         <div class="card-icon">🏆</div>
@@ -1071,9 +960,6 @@ body{
     </div>
 
 </div>
-
-
-<!-- ================= GRAPH ================= -->
 
 <section class="graph-card">
 
@@ -1088,7 +974,6 @@ body{
         </div>
 
     </div>
-
 
     <div class="graph-wrapper">
 
@@ -1108,7 +993,6 @@ body{
 
         </div>
 
-
         <div class="graph">
 
             <div class="zero-line"></div>
@@ -1117,9 +1001,7 @@ body{
 
     </div>
 
-
     <div class="graph-dates">
-
         <span></span>
         <span></span>
         <span></span>
@@ -1127,11 +1009,9 @@ body{
         <span></span>
         <span></span>
         <span></span>
-
     </div>
 
 </section>
-
 
 <div class="footer">
     © 2026 Skills Market · All Rights Reserved
@@ -1139,8 +1019,174 @@ body{
 
 </div>
 
-
 <script>
+
+/* ================= SUPABASE ================= */
+
+const SUPABASE_URL =
+    "https://hmlonjwqeqedakzhucix.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* ================= DASHBOARD LOAD ================= */
+
+let currentMemberID = "";
+
+
+async function loadDashboard(){
+
+    try{
+
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+
+        if(authError || !user){
+
+            window.location.href = "login.html";
+            return;
+
+        }
+
+
+        /*
+         * IMPORTANT:
+         * profiles.id ko logged-in Auth user's ID
+         * ke saath match kiya ja raha hai.
+         */
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id", user.id)
+            .maybeSingle();
+
+
+        if(error){
+
+            console.error("Profile error:", error);
+
+            alert(
+                "Profile data load nahi ho pa raha. Supabase table/column connection check karein."
+            );
+
+            return;
+
+        }
+
+
+        if(!profile){
+
+            alert(
+                "Is login account ke liye profile record nahi mila."
+            );
+
+            return;
+
+        }
+
+
+        /* ================= NAME ================= */
+
+        const fullName =
+            profile["full_name"] ||
+            user.user_metadata?.full_name ||
+            "Member";
+
+
+        /* ================= MEMBER ID ================= */
+
+        const memberID =
+            profile["member_id"] ||
+            "Not Assigned";
+
+
+        currentMemberID = memberID;
+
+
+        /* ================= PACKAGE ================= */
+
+        const packageName =
+            profile["Package name"] ||
+            "Package Not Assigned";
+
+
+        /* ================= UPDATE MAIN PROFILE ================= */
+
+        document.getElementById("profileName")
+            .textContent = fullName;
+
+
+        document.getElementById("profileId")
+            .textContent = "ID: " + memberID;
+
+
+        document.getElementById("packageBadge")
+            .textContent = packageName.toUpperCase();
+
+
+        /* ================= AVATAR INITIAL ================= */
+
+        const firstLetter =
+            fullName.trim().charAt(0).toUpperCase() || "M";
+
+
+        document.getElementById("avatarFallback")
+            .textContent = firstLetter;
+
+
+        document.getElementById("profileMini")
+            .textContent = firstLetter;
+
+
+        /* ================= MENU PROFILE ================= */
+
+        document.getElementById("menuAvatar")
+            .textContent = firstLetter;
+
+
+        document.getElementById("menuProfileName")
+            .textContent = fullName;
+
+
+        document.getElementById("menuProfileId")
+            .textContent = "ID: " + memberID;
+
+
+        console.log(
+            "Dashboard loaded successfully:",
+            {
+                name:fullName,
+                memberID:memberID,
+                package:packageName
+            }
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Dashboard load karte waqt error aaya."
+        );
+
+    }
+
+}
+
 
 /* ================= OPEN MENU ================= */
 
@@ -1155,6 +1201,7 @@ function openMenu(){
         .classList.add("active");
 
     document.body.style.overflow = "hidden";
+
 }
 
 
@@ -1171,6 +1218,7 @@ function closeMenu(){
         .classList.remove("active");
 
     document.body.style.overflow = "";
+
 }
 
 
@@ -1178,24 +1226,32 @@ function closeMenu(){
 
 function copyProfileID(){
 
-    const id = "SM000001";
+    if(!currentMemberID){
+
+        return;
+
+    }
+
 
     if(navigator.clipboard){
 
-        navigator.clipboard.writeText(id).then(function(){
+        navigator.clipboard
+            .writeText(currentMemberID)
+            .then(function(){
 
-            const button =
-                document.querySelector(".copy-btn");
+                const button =
+                    document.querySelector(".copy-btn");
 
-            button.textContent = "✓";
+                button.textContent = "✓";
 
-            setTimeout(function(){
 
-                button.textContent = "📋";
+                setTimeout(function(){
 
-            },1200);
+                    button.textContent = "📋";
 
-        });
+                },1200);
+
+            });
 
     }
 
@@ -1204,20 +1260,46 @@ function copyProfileID(){
 
 /* ================= LOGOUT ================= */
 
-function logoutUser(event){
+async function logoutUser(event){
 
     event.preventDefault();
+
 
     const confirmLogout =
         confirm("Are you sure you want to logout?");
 
-    if(confirmLogout){
 
-        window.location.href = "login.html";
+    if(!confirmLogout){
+
+        return;
 
     }
 
+
+    const {
+        error
+    } = await supabaseClient.auth.signOut();
+
+
+    if(error){
+
+        alert("Logout failed.");
+
+        console.error(error);
+
+        return;
+
+    }
+
+
+    window.location.href = "login.html";
+
 }
+
+
+/* ================= START ================= */
+
+loadDashboard();
 
 </script>
 
