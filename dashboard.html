@@ -1,1624 +1,765 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard | Skills Market</title>
-
-<meta
-    name="description"
-    content="Skills Market Member Dashboard"
->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Skills Market | Dashboard</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
-}
-
-html{
-    scroll-behavior:smooth;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
 body{
-    background:#f5f6fb;
-    color:#252525;
-    overflow-x:hidden;
+    background:#f6f7fb;
+    color:#111827;
+    padding:12px;
 }
 
+.dashboard{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+}
 
-/* ==================================================
-   NAVBAR
-================================================== */
+/* ================= NAVBAR ================= */
 
 .navbar{
-    height:72px;
-    background:rgba(255,255,255,.96);
+    height:54px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    padding:0 32px;
-    box-shadow:0 2px 15px rgba(30,30,60,.07);
-    position:sticky;
-    top:0;
-    z-index:1000;
-    backdrop-filter:blur(12px);
+    justify-content:space-between;
+    margin-bottom:14px;
 }
 
-.logo-container{
+.brand{
     display:flex;
-    flex-direction:column;
+    align-items:center;
+    gap:9px;
 }
 
-.logo-text{
-    font-size:23px;
+.brand-logo{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
     font-weight:900;
-    letter-spacing:.3px;
-    line-height:1;
+    box-shadow:0 5px 15px rgba(79,70,229,.22);
 }
 
-.logo-text .skills{
-    color:#202020;
+.brand-name{
+    font-size:19px;
+    font-weight:900;
+    letter-spacing:-.4px;
+    color:#111827;
 }
 
-.logo-text .market{
-    background:linear-gradient(90deg,#7138e8,#d53fca,#ff7a18);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+.brand-name span{
+    color:#6d28d9;
 }
 
-.logo-tagline{
-    margin-top:5px;
-    font-size:8px;
-    color:#777;
-    letter-spacing:1.1px;
-    font-weight:700;
-    text-transform:uppercase;
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:9px;
 }
 
-.nav-right-icons{
+.profile-mini{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:15px;
+    font-weight:800;
+    color:#4f46e5;
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+.menu-btn{
+    width:35px;
+    height:35px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:19px;
+    color:#334155;
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+/* ================= NAV MENU ================= */
+
+.nav-menu{
+    position:fixed;
+    top:0;
+    right:-310px;
+    width:290px;
+    max-width:85%;
+    height:100vh;
+    background:#fff;
+    z-index:9999;
+    padding:20px;
+    box-shadow:-8px 0 30px rgba(15,23,42,.14);
+    transition:right .3s ease;
+}
+
+.nav-menu.active{
+    right:0;
+}
+
+.menu-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:18px;
+    border-bottom:1px solid #eef2f7;
+}
+
+.menu-title{
+    font-size:18px;
+    font-weight:900;
+    color:#111827;
+}
+
+.close-menu{
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:9px;
+    background:#f1f5f9;
+    color:#334155;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.menu-profile{
     display:flex;
     align-items:center;
     gap:12px;
+    padding:18px 0;
+    border-bottom:1px solid #eef2f7;
 }
 
-.nav-avatar-ring{
-    width:42px;
-    height:42px;
+.menu-avatar{
+    width:45px;
+    height:45px;
     border-radius:50%;
-    background:linear-gradient(135deg,#7138e8,#d53fca);
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
     color:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:800;
-    font-size:16px;
-    box-shadow:0 5px 16px rgba(113,56,232,.25);
-    cursor:pointer;
-    transition:.3s;
+    font-size:17px;
+    font-weight:900;
 }
 
-.nav-avatar-ring:hover{
-    transform:scale(1.07);
+.menu-profile-name{
+    font-size:14px;
+    font-weight:850;
+    color:#111827;
 }
 
-.menu-icon{
-    width:42px;
-    height:42px;
+.menu-profile-id{
+    font-size:10px;
+    color:#64748b;
+    margin-top:3px;
+}
+
+.menu-links{
+    padding-top:14px;
+}
+
+.menu-link{
+    width:100%;
     display:flex;
     align-items:center;
-    justify-content:center;
-    font-size:21px;
-    cursor:pointer;
-    color:#333;
-    background:#fff;
-    border:1px solid #e9e9ef;
-    border-radius:12px;
-    box-shadow:0 3px 10px rgba(0,0,0,.05);
-    transition:.3s;
-}
-
-.menu-icon:hover{
-    transform:translateY(-2px);
-    background:#f6f2ff;
-    color:#7138e8;
-}
-
-
-/* ==================================================
-   PROFILE DROPDOWN
-================================================== */
-
-.profile-menu{
-    position:fixed;
-    top:62px;
-    right:25px;
-    width:210px;
-    background:#fff;
-    border:1px solid #eee;
-    border-radius:15px;
-    box-shadow:0 15px 40px rgba(0,0,0,.13);
-    padding:8px;
-    z-index:4000;
-    opacity:0;
-    visibility:hidden;
-    transform:translateY(-8px);
-    transition:.25s;
-}
-
-.profile-menu.active{
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
-}
-
-.profile-menu-item{
-    padding:11px 13px;
-    border-radius:9px;
+    gap:12px;
+    padding:13px 12px;
+    margin-bottom:5px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#334155;
     font-size:13px;
-    color:#333;
-    cursor:pointer;
+    font-weight:700;
     transition:.2s;
 }
 
-.profile-menu-item:hover{
-    background:#f5f1ff;
-    color:#7138e8;
+.menu-link:hover{
+    background:#f5f3ff;
+    color:#6d28d9;
 }
 
-
-/* ==================================================
-   MAIN
-================================================== */
-
-.container{
-    width:100%;
-    max-width:1380px;
-    margin:0 auto;
-    padding:30px 32px 0;
+.menu-link.active{
+    background:#f3e8ff;
+    color:#6d28d9;
 }
 
-
-/* ==================================================
-   WELCOME
-================================================== */
-
-.welcome-top-banner{
-    background:
-        radial-gradient(
-            circle at 90% 20%,
-            rgba(213,63,202,.13),
-            transparent 28%
-        ),
-        linear-gradient(
-            135deg,
-            #f3efff,
-            #fff5fb
-        );
-
-    border:1px solid #e8defc;
-    border-radius:18px;
-    padding:16px 20px;
-    display:flex;
-    align-items:center;
-    gap:13px;
-    margin-bottom:20px;
-    box-shadow:0 5px 20px rgba(80,50,130,.05);
-    animation:fadeInDown .6s ease;
+.menu-icon{
+    width:25px;
+    text-align:center;
+    font-size:16px;
 }
 
-.welcome-icon-box{
-    width:42px;
-    height:42px;
-    border-radius:12px;
-    background:linear-gradient(
-        135deg,
-        #7138e8,
-        #a855f7
-    );
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:18px;
-    box-shadow:0 6px 15px rgba(113,56,232,.22);
+.logout-link{
+    color:#dc2626;
 }
 
-.welcome-top-banner span{
-    font-size:15px;
-    font-weight:750;
-    color:#302452;
+.logout-link:hover{
+    background:#fef2f2;
+    color:#dc2626;
 }
 
+/* overlay */
 
-/* ==================================================
-   WELCOME POPUP
-================================================== */
-
-#welcomeNotification{
+.menu-overlay{
     position:fixed;
-    top:85px;
-    right:25px;
-    max-width:340px;
-    background:linear-gradient(
-        135deg,
-        #7138e8,
-        #d53fca
-    );
-    color:white;
-    padding:13px 20px;
-    border-radius:12px;
-    box-shadow:0 10px 30px rgba(113,56,232,.28);
-    z-index:5000;
-    font-size:14px;
-    font-weight:600;
-    display:none;
-    animation:slideInRight .5s ease;
+    inset:0;
+    background:rgba(15,23,42,.35);
+    z-index:9998;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
 }
 
+.menu-overlay.active{
+    opacity:1;
+    visibility:visible;
+}
 
-/* ==================================================
-   PROFILE CARD
-================================================== */
+/* ================= PROFILE CARD ================= */
 
 .profile-card{
-    min-height:155px;
-
-    background:
-        radial-gradient(
-            circle at 90% 20%,
-            rgba(213,63,202,.14),
-            transparent 25%
-        ),
-        radial-gradient(
-            circle at 70% 100%,
-            rgba(113,56,232,.09),
-            transparent 25%
-        ),
-        linear-gradient(
-            135deg,
-            #fff,
-            #faf8ff
-        );
-
-    border-radius:22px;
-    padding:28px;
     position:relative;
-    box-shadow:0 10px 35px rgba(45,35,80,.07);
-    margin-bottom:24px;
-    border:1px solid #ece7f7;
+    background:linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #faf8ff 48%,
+        #f1f5ff 100%
+    );
+    border:1px solid rgba(99,102,241,.13);
+    border-radius:18px;
+    padding:22px 16px 17px;
+    margin-bottom:15px;
     overflow:hidden;
-    animation:fadeUp .7s ease both;
+    box-shadow:
+        0 8px 25px rgba(30,41,59,.07),
+        inset 0 1px 0 rgba(255,255,255,.9);
+    isolation:isolate;
+}
+
+.profile-card::before{
+    content:"";
+    position:absolute;
+    width:190px;
+    height:190px;
+    right:-85px;
+    top:-105px;
+    border-radius:50%;
+    background:rgba(124,58,237,.09);
+    z-index:-1;
 }
 
 .profile-card::after{
     content:"";
     position:absolute;
-    width:180px;
-    height:180px;
-    border:1px solid rgba(113,56,232,.08);
+    width:150px;
+    height:150px;
+    left:-80px;
+    bottom:-90px;
     border-radius:50%;
-    right:-70px;
-    bottom:-100px;
+    background:rgba(37,99,235,.07);
+    z-index:-1;
+}
+
+.profile-circle{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.circle-one{
+    width:92px;
+    height:92px;
+    right:22px;
+    bottom:-55px;
+    border:1px solid rgba(124,58,237,.14);
+    animation:floatOne 5s ease-in-out infinite;
+}
+
+.circle-two{
+    width:58px;
+    height:58px;
+    right:76px;
+    top:20px;
+    border:1px solid rgba(37,99,235,.12);
+    animation:floatTwo 4s ease-in-out infinite;
+}
+
+.circle-three{
+    width:25px;
+    height:25px;
+    left:105px;
+    top:18px;
+    background:rgba(124,58,237,.07);
+    animation:pulseCircle 3s ease-in-out infinite;
 }
 
 .package-badge{
     position:absolute;
-    top:25px;
-    right:25px;
-    background:linear-gradient(
-        135deg,
-        #ff9f1c,
-        #ff6b35
-    );
-    color:white;
-    font-size:10px;
-    padding:7px 14px;
-    border-radius:30px;
+    top:0;
+    right:16px;
+    background:linear-gradient(135deg,#7c3aed,#6d28d9);
+    color:#fff;
+    font-size:8.5px;
     font-weight:800;
-    box-shadow:0 5px 15px rgba(255,125,30,.22);
-    text-transform:uppercase;
-    letter-spacing:.5px;
-    max-width:220px;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+    letter-spacing:.55px;
+    padding:6px 11px;
+    border-radius:0 0 9px 9px;
+    box-shadow:0 4px 10px rgba(109,40,217,.22);
 }
 
 .profile-content{
-    display:flex;
-    align-items:center;
-    gap:20px;
     position:relative;
     z-index:2;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding-top:5px;
+}
+
+.profile-avatar-wrap{
+    flex-shrink:0;
 }
 
 .profile-avatar{
-    width:82px;
-    height:82px;
+    width:72px;
+    height:72px;
     border-radius:50%;
-    object-fit:cover;
+    padding:3px;
     background:linear-gradient(
         135deg,
-        #7138e8,
-        #d53fca
+        #7c3aed,
+        #2563eb,
+        #06b6d4
     );
-    color:white;
+    box-shadow:0 6px 18px rgba(79,70,229,.22);
+    overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:30px;
-    font-weight:800;
-    border:4px solid #fff;
-
-    box-shadow:
-        0 0 0 4px rgba(113,56,232,.13),
-        0 8px 25px rgba(80,50,130,.15);
-
-    flex-shrink:0;
-
-    animation:
-        avatarPulse 3s ease-in-out infinite;
 }
 
-.profile-info h3{
-    font-size:20px;
-    color:#202020;
-    margin-bottom:9px;
-    font-weight:800;
+.profile-avatar img{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    background:#fff;
+    border:2px solid #fff;
+    display:block;
 }
 
-.profile-info .id-box{
+.avatar-fallback{
+    display:none;
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:#fff;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    font-weight:900;
+    color:#4f46e5;
+    border:2px solid #fff;
+}
+
+.profile-details{
+    min-width:0;
+}
+
+.member-label{
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:#7c3aed;
+    margin-bottom:3px;
+}
+
+.profile-name{
+    font-size:17px;
+    font-weight:850;
+    color:#111827;
+    letter-spacing:.2px;
+    margin-bottom:5px;
+}
+
+.id-row{
     display:flex;
     align-items:center;
     gap:7px;
-    font-size:12px;
-    color:#666;
-    background:#f6f3fc;
-    padding:6px 10px;
-    border-radius:9px;
-    width:fit-content;
-    border:1px solid #ebe5f7;
-}
-
-.profile-info .id-box span{
+    font-size:11px;
     font-weight:700;
-    color:#333;
+    color:#475569;
 }
 
 .copy-btn{
-    background:#fff;
-    color:#7138e8;
-    border:1px solid #ddd2f6;
-    border-radius:6px;
-    padding:3px 7px;
+    width:24px;
+    height:24px;
+    border:0;
+    border-radius:7px;
+    background:#f1eaff;
+    color:#6d28d9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-size:11px;
     cursor:pointer;
     transition:.2s;
 }
 
 .copy-btn:hover{
-    transform:scale(1.08);
-    background:#7138e8;
-    color:white;
+    background:#e9d5ff;
+    transform:translateY(-1px);
 }
 
+/* ================= REVENUE ================= */
 
-/* ==================================================
-   REVENUE GRID
-================================================== */
-
-.revenue-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.rev-card{
-    min-height:85px;
-    border-radius:14px;
-    padding:14px 16px;
-    color:#fff;
-    box-shadow:0 4px 12px rgba(35,35,70,.13);
+.revenue-card{
     position:relative;
     overflow:hidden;
-
-    animation:
-        slideUp .6s cubic-bezier(.16,1,.3,1) both;
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease;
+    border-radius:15px;
+    padding:15px 16px;
+    color:white;
+    margin-bottom:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:transform .2s ease;
 }
 
-
-/* STAGGERED LOAD */
-
-.rev-card:nth-child(1){
-    animation-delay:.05s;
+.revenue-card:hover{
+    transform:translateY(-2px);
 }
 
-.rev-card:nth-child(2){
-    animation-delay:.12s;
-}
-
-.rev-card:nth-child(3){
-    animation-delay:.19s;
-}
-
-.rev-card:nth-child(4){
-    animation-delay:.26s;
-}
-
-.rev-card:nth-child(5){
-    animation-delay:.33s;
-}
-
-.rev-card:nth-child(6){
-    animation-delay:.40s;
-}
-
-
-.rev-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 16px 35px rgba(35,35,70,.18);
-}
-
-
-/* EXISTING INNER CIRCLE */
-
-.rev-card::before{
+.revenue-card::before{
     content:"";
     position:absolute;
-    width:150px;
-    height:150px;
-    right:-55px;
-    bottom:-65px;
-    border:2px dashed rgba(255,255,255,.17);
+    width:105px;
+    height:105px;
+    border:1px solid rgba(255,255,255,.13);
     border-radius:50%;
-
-    animation:
-        innerCircleMove 7s ease-in-out infinite;
+    right:-45px;
+    top:-48px;
 }
 
-
-/* EXISTING INNER GLOW */
-
-.rev-card::after{
+.revenue-card::after{
     content:"";
     position:absolute;
-    width:90px;
-    height:90px;
-    right:30px;
-    top:-45px;
+    width:55px;
+    height:55px;
+    border:1px solid rgba(255,255,255,.08);
     border-radius:50%;
-    background:rgba(255,255,255,.08);
-
-    animation:
-        innerGlowMove 5s ease-in-out infinite;
+    right:12px;
+    bottom:-30px;
 }
 
+.purple{
+    background:linear-gradient(135deg,#6b21a8,#581c87);
+}
 
-/* ICON */
+.indigo{
+    background:linear-gradient(135deg,#4f46e5,#3730a3);
+}
 
-.rev-row{
-    display:flex;
-    align-items:center;
+.pink{
+    background:linear-gradient(135deg,#db2777,#9d174d);
+}
+
+.blue{
+    background:linear-gradient(135deg,#0284c7,#0369a1);
+}
+
+.gold{
+    background:linear-gradient(135deg,#ca8a04,#854d0e);
+}
+
+.revenue-amount{
     position:relative;
     z-index:2;
+    font-size:23px;
+    font-weight:850;
+    margin-bottom:3px;
 }
 
-.rev-left-group{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.rev-icon-box{
-    width:50px;
-    height:50px;
-    background:rgba(255,255,255,.18);
-    backdrop-filter:blur(7px);
-    border-radius:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:21px;
-    border:1px solid rgba(255,255,255,.25);
-    box-shadow:inset 0 2px 5px rgba(255,255,255,.15);
-    flex-shrink:0;
-
-    animation:
-        iconFloat 3s ease-in-out infinite;
-}
-
-.rev-info p{
+.revenue-title{
+    position:relative;
+    z-index:2;
     font-size:12px;
-    opacity:.9;
-    margin-bottom:5px;
-    font-weight:550;
+    font-weight:500;
+    opacity:.95;
+    margin-bottom:12px;
 }
 
-.rev-info h2{
-    font-size:25px;
-    font-weight:800;
-    letter-spacing:.3px;
-
-    animation:
-        amountPulse 3s ease-in-out infinite;
-}
-
-.divider{
-    height:1px;
-    background:rgba(255,255,255,.23);
-    width:100%;
-    margin:25px 0 12px;
+.revenue-footer{
     position:relative;
     z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid rgba(255,255,255,.25);
+    padding-top:8px;
+    font-size:11px;
 }
 
 .view-details{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:12px;
-    font-weight:600;
-    cursor:pointer;
-    position:relative;
-    z-index:2;
+    color:white;
+    text-decoration:none;
 }
 
 .arrow{
-    transition:.25s;
-    font-size:16px;
-
-    animation:
-        arrowMove 1.8s ease-in-out infinite;
+    font-size:18px;
 }
 
-.rev-card:hover .arrow{
-    transform:translateX(5px);
-}
-
-
-/* ICON DIFFERENT TIMING */
-
-.rev-card:nth-child(1) .rev-icon-box{
-    animation-delay:0s;
-}
-
-.rev-card:nth-child(2) .rev-icon-box{
-    animation-delay:.25s;
-}
-
-.rev-card:nth-child(3) .rev-icon-box{
-    animation-delay:.5s;
-}
-
-.rev-card:nth-child(4) .rev-icon-box{
-    animation-delay:.75s;
-}
-
-.rev-card:nth-child(5) .rev-icon-box{
-    animation-delay:1s;
-}
-
-.rev-card:nth-child(6) .rev-icon-box{
-    animation-delay:1.25s;
-}
-
-
-/* GRADIENTS */
-
-.g-1{
-    background:linear-gradient(
-        135deg,
-        #7138e8,
-        #9655e8
-    );
-}
-
-.g-2{
-    background:linear-gradient(
-        135deg,
-        #db2777,
-        #a855f7
-    );
-}
-
-.g-3{
-    background:linear-gradient(
-        135deg,
-        #2563eb,
-        #4f46e5
-    );
-}
-
-.g-4{
-    background:linear-gradient(
-        135deg,
-        #d97706,
-        #f59e0b
-    );
-}
-
-.g-5{
-    background:linear-gradient(
-        135deg,
-        #ff7a18,
-        #ffb347
-    );
-}
-
-.g-6{
-    background:linear-gradient(
-        135deg,
-        #0f9b8e,
-        #13b8a6
-    );
-}
-
-
-/* ==================================================
-   INNER MOTION ANIMATIONS
-================================================== */
-
-@keyframes innerCircleMove{
-
-    0%,100%{
-        transform:
-            translate(0,0)
-            rotate(0deg);
-    }
-
-    25%{
-        transform:
-            translate(-8px,-5px)
-            rotate(8deg);
-    }
-
-    50%{
-        transform:
-            translate(-18px,-12px)
-            rotate(18deg);
-    }
-
-    75%{
-        transform:
-            translate(-8px,-4px)
-            rotate(10deg);
-    }
-
-}
-
-@keyframes innerGlowMove{
-
-    0%,100%{
-        transform:
-            translate(0,0)
-            scale(1);
-    }
-
-    50%{
-        transform:
-            translate(-12px,15px)
-            scale(1.12);
-    }
-
-}
-
-@keyframes iconFloat{
-
-    0%,100%{
-        transform:
-            translateY(0)
-            rotate(0deg);
-    }
-
-    50%{
-        transform:
-            translateY(-5px)
-            rotate(1deg);
-    }
-
-}
-
-@keyframes amountPulse{
-
-    0%,100%{
-        transform:scale(1);
-    }
-
-    50%{
-        transform:scale(1.035);
-    }
-
-}
-
-@keyframes arrowMove{
-
-    0%,100%{
-        transform:translateX(0);
-    }
-
-    50%{
-        transform:translateX(5px);
-    }
-
-}
-
-
-/* ==================================================
-   GRAPH
-================================================== */
+/* ================= GRAPH ================= */
 
 .graph-card{
     background:#fff;
-    border-radius:21px;
-    padding:25px;
-    box-shadow:0 9px 30px rgba(35,35,70,.07);
-    margin-top:24px;
-    border:1px solid #eeeef4;
-    animation:fadeUp .8s .5s ease both;
+    border:1px solid #e2e8f0;
+    border-radius:17px;
+    padding:16px;
+    margin-top:4px;
+    box-shadow:0 3px 12px rgba(0,0,0,.045);
 }
 
-.graph-header-row{
+.graph-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
+    margin-bottom:16px;
 }
 
-.graph-header-row h3{
-    font-size:16px;
-    color:#222;
-    font-weight:800;
+.graph-title{
+    font-size:15px;
+    font-weight:850;
+    color:#0f172a;
 }
 
-.graph-subtitle{
-    font-size:11px;
-    color:#999;
-    margin-top:4px;
+.graph-badge{
+    font-size:9px;
+    font-weight:700;
+    color:#6d28d9;
+    background:#f3e8ff;
+    padding:5px 8px;
+    border-radius:7px;
 }
 
-.chart-container{
+.graph-wrapper{
     position:relative;
-    height:285px;
-    width:100%;
-    padding-left:35px;
+    margin-left:31px;
 }
 
-.chart-grid{
+.graph{
+    height:185px;
+    position:relative;
+    border-left:1px solid #cbd5e1;
+    border-bottom:1px solid #cbd5e1;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 36px,
+            #eef2f7 37px
+        );
+}
+
+.y-axis{
     position:absolute;
-    inset:0 0 30px 35px;
+    left:-31px;
+    top:0;
+    bottom:0;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    pointer-events:none;
-}
-
-.grid-line{
-    border-bottom:1px solid #edf0f5;
-    width:100%;
-    display:flex;
-    align-items:center;
-    position:relative;
-}
-
-.grid-line span{
-    position:absolute;
-    left:-31px;
     font-size:9px;
-    color:#a0a7b4;
+    color:#94a3b8;
 }
 
-.chart-svg{
+.zero-line{
     position:absolute;
-    left:35px;
-    right:0;
-    top:0;
-    bottom:30px;
-    width:calc(100% - 35px);
-    height:calc(100% - 30px);
-    overflow:visible;
-}
-
-.chart-axis-labels{
-    position:absolute;
-    bottom:0;
-    left:35px;
-    right:0;
-    display:flex;
-    justify-content:space-between;
-    font-size:9px;
-    color:#7c8492;
-    padding-top:8px;
-}
-
-
-/* ==================================================
-   WALLET
-================================================== */
-
-.wallet-section-title{
-    font-size:16px;
-    font-weight:800;
-    color:#202020;
-    margin:27px 0 12px;
-}
-
-.wallet-atm-card{
-    background:
-        radial-gradient(
-            circle at 90% 20%,
-            rgba(255,255,255,.14),
-            transparent 22%
-        ),
-        linear-gradient(
-            135deg,
-            #4338ca,
-            #7138e8,
-            #a855f7
-        );
-
-    border-radius:21px;
-    padding:25px;
-    color:white;
-    box-shadow:0 12px 30px rgba(76,55,180,.22);
-    position:relative;
-    overflow:hidden;
-}
-
-.wallet-atm-card::after{
-    content:"";
-    position:absolute;
-    width:220px;
-    height:220px;
-    right:-100px;
-    bottom:-130px;
-    border:2px solid rgba(255,255,255,.13);
-    border-radius:50%;
-}
-
-.wallet-top-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-    font-size:13px;
-    opacity:.9;
-}
-
-.wallet-amount-val{
-    font-size:30px;
-    font-weight:850;
-    margin-bottom:8px;
-}
-
-.wallet-date-row{
-    font-size:11px;
-    opacity:.75;
-}
-
-.wallet-card-name{
-    font-size:14px;
-    font-weight:700;
-    margin-top:18px;
-}
-
-
-/* ==================================================
-   SIDEBAR
-================================================== */
-
-.sidebar{
-    height:100%;
-    width:295px;
-    position:fixed;
-    z-index:3000;
-    top:0;
-    left:-315px;
-    background:#fff;
-    overflow-y:auto;
-    transition:
-        left .35s cubic-bezier(.4,0,.2,1);
-    box-shadow:8px 0 30px rgba(20,20,50,.15);
-}
-
-.sidebar.active{
     left:0;
+    right:0;
+    bottom:0;
+    height:2px;
+    background:#db2777;
 }
 
-.sidebar-header{
-    height:76px;
-    padding:0 20px;
-    background:#fff;
-    border-bottom:1px solid #eee;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.graph-dates{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    margin-left:31px;
+    margin-top:8px;
+    font-size:8px;
+    color:#64748b;
+    text-align:center;
 }
 
-.sidebar-brand{
-    font-size:19px;
-    font-weight:900;
-    background:
-        linear-gradient(
-            90deg,
-            #7138e8,
-            #d53fca,
-            #ff7a18
-        );
-
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.sidebar-close{
-    cursor:pointer;
-    font-size:26px;
-    color:#555;
-    transition:.2s;
-}
-
-.sidebar-close:hover{
-    transform:rotate(90deg);
-    color:#7138e8;
-}
-
-.sidebar-section{
-    padding:15px 18px 7px;
+.graph-note{
+    text-align:center;
+    margin-top:13px;
+    color:#94a3b8;
     font-size:10px;
-    font-weight:800;
-    color:#aaa;
-    text-transform:uppercase;
-    letter-spacing:1px;
 }
 
-.sidebar a{
-    margin:3px 10px;
-    padding:12px 13px;
-    text-decoration:none;
-    font-size:13px;
-    color:#444;
-    display:block;
-    border-radius:10px;
-    transition:.25s;
-}
-
-.sidebar a:hover{
-    background:#f6f2ff;
-    color:#7138e8;
-    padding-left:18px;
-}
-
-.sidebar a.active-link{
-    background:
-        linear-gradient(
-            90deg,
-            #f0eaff,
-            #faf7ff
-        );
-
-    color:#7138e8;
-    font-weight:750;
-    border-left:3px solid #7138e8;
-}
-
-
-/* ==================================================
-   OVERLAY
-================================================== */
-
-#sidebarOverlay{
-    position:fixed;
-    inset:0;
-    background:rgba(20,20,35,.38);
-    backdrop-filter:blur(2px);
-    z-index:2500;
-    opacity:0;
-    visibility:hidden;
-    transition:.3s;
-}
-
-#sidebarOverlay.active{
-    opacity:1;
-    visibility:visible;
-}
-
-
-/* ==================================================
-   TOAST
-================================================== */
-
-#toast{
-    position:fixed;
-    bottom:25px;
-    left:50%;
-    transform:translate(-50%,20px);
-    background:#222;
-    color:#fff;
-    padding:11px 17px;
-    border-radius:9px;
-    font-size:13px;
-    opacity:0;
-    visibility:hidden;
-    z-index:6000;
-    transition:.3s;
-}
-
-#toast.show{
-    opacity:1;
-    visibility:visible;
-    transform:translate(-50%,0);
-}
-
-
-/* ==================================================
-   FOOTER
-================================================== */
+/* ================= FOOTER ================= */
 
 .footer{
     text-align:center;
-    font-size:11px;
-    color:#858585;
-    padding:28px 10px;
+    color:#94a3b8;
+    font-size:10px;
+    padding:15px 0 20px;
 }
 
+/* ================= ANIMATION ================= */
 
-/* ==================================================
-   ANIMATIONS
-================================================== */
-
-@keyframes fadeInDown{
-
-    from{
-        opacity:0;
-        transform:translateY(-15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-@keyframes fadeUp{
-
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-@keyframes slideUp{
-
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-@keyframes slideInRight{
-
-    from{
-        transform:translateX(110px);
-        opacity:0;
-    }
-
-    to{
-        transform:translateX(0);
-        opacity:1;
-    }
-
-}
-
-@keyframes avatarPulse{
-
+@keyframes floatOne{
     0%,100%{
-
-        box-shadow:
-            0 0 0 4px rgba(113,56,232,.13),
-            0 8px 25px rgba(80,50,130,.15);
-
+        transform:translate(0,0);
     }
-
     50%{
-
-        box-shadow:
-            0 0 0 10px rgba(113,56,232,.04),
-            0 8px 25px rgba(80,50,130,.15);
-
+        transform:translate(-5px,-5px);
     }
-
 }
 
-
-/* ==================================================
-   TABLET
-================================================== */
-
-@media(max-width:1000px){
-
-    .container{
-        padding:25px 20px 0;
+@keyframes floatTwo{
+    0%,100%{
+        transform:translate(0,0);
     }
-
-    .revenue-grid{
-        grid-template-columns:repeat(2,1fr);
+    50%{
+        transform:translate(5px,4px);
     }
-
 }
 
+@keyframes pulseCircle{
+    0%,100%{
+        transform:scale(1);
+        opacity:.45;
+    }
+    50%{
+        transform:scale(1.25);
+        opacity:1;
+    }
+}
 
-/* ==================================================
-   MOBILE
-================================================== */
+/* ================= MOBILE ================= */
 
-@media(max-width:650px){
+@media(max-width:380px){
 
-    .navbar{
-        height:65px;
-        padding:0 15px;
+    body{
+        padding:9px;
     }
 
-    .logo-text{
-        font-size:19px;
+    .brand-name{
+        font-size:17px;
     }
 
-    .logo-tagline{
-        font-size:7px;
-    }
-
-    .nav-avatar-ring,
-    .menu-icon{
-        width:38px;
-        height:38px;
-    }
-
-    .container{
-        padding:15px 12px 0;
-    }
-
-    .welcome-top-banner{
-        padding:13px;
-        margin-bottom:15px;
-    }
-
-    .welcome-icon-box{
-        width:38px;
-        height:38px;
-    }
-
-    .welcome-top-banner span{
-        font-size:13px;
+    .brand-logo{
+        width:31px;
+        height:31px;
     }
 
     .profile-card{
-        padding:20px;
-        min-height:145px;
-    }
-
-    .package-badge{
-        top:15px;
-        right:15px;
-        font-size:8px;
-        padding:6px 9px;
-        max-width:140px;
-    }
-
-    .profile-content{
-        gap:13px;
+        padding:20px 13px 15px;
     }
 
     .profile-avatar{
-        width:75px;
-        height:75px;
-        font-size:26px;
+        width:66px;
+        height:66px;
     }
 
-    .profile-info h3{
+    .profile-name{
         font-size:15px;
-        padding-right:80px;
     }
 
-    .revenue-grid{
-        grid-template-columns:1fr;
-        gap:14px;
+    .package-badge{
+        font-size:7.5px;
+        padding:5px 8px;
     }
 
-    .rev-card{
-        min-height:165px;
-        margin-bottom:0;
+    .revenue-card{
+        padding:14px;
     }
 
-    .rev-icon-box{
-        width:48px;
-        height:48px;
+    .revenue-amount{
+        font-size:21px;
     }
 
-    .rev-info h2{
-        font-size:23px;
+    .graph-dates{
+        font-size:7px;
     }
-
-    .graph-card{
-        padding:18px 12px;
-    }
-
-    .chart-container{
-        height:220px;
-        padding-left:28px;
-    }
-
-    .chart-grid{
-        left:28px;
-    }
-
-    .chart-svg{
-        left:28px;
-        width:calc(100% - 28px);
-    }
-
-    .chart-axis-labels{
-        left:28px;
-    }
-
-    .grid-line span{
-        left:-25px;
-    }
-
-    .wallet-atm-card{
-        padding:21px;
-    }
-
-    .wallet-amount-val{
-        font-size:26px;
-    }
-
-    .sidebar{
-        width:285px;
-    }
-
 }
-
-
-/* ==================================================
-   REDUCE MOTION
-================================================== */
-
-@media(prefers-reduced-motion:reduce){
-
-    *,
-    *::before,
-    *::after{
-
-        animation-duration:.01ms !important;
-
-        animation-iteration-count:1 !important;
-
-        transition-duration:.01ms !important;
-
-    }
-
-}
-
 </style>
 </head>
 
-
 <body>
 
+<!-- ================= MENU OVERLAY ================= -->
 
-<!-- ==================================================
-     WELCOME NOTIFICATION
-================================================== -->
-
-<div id="welcomeNotification">
-    Welcome back to Skills Market!
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+    onclick="closeMenu()">
 </div>
 
 
-<!-- ==================================================
-     SIDEBAR OVERLAY
-================================================== -->
+<!-- ================= SIDE MENU ================= -->
 
-<div
-    id="sidebarOverlay"
-    onclick="toggleSidebar()"
-></div>
+<div class="nav-menu" id="navMenu">
 
+    <div class="menu-top">
 
-<!-- ==================================================
-     NAVBAR
-================================================== -->
-
-<div class="navbar">
-
-    <div class="logo-container">
-
-        <div class="logo-text">
-
-            <span class="skills">
-                SKILLS
-            </span>
-
-            <span class="market">
-                MARKET
-            </span>
-
-        </div>
-
-        <div class="logo-tagline">
-            Learn • Grow • Earn
-        </div>
-
-    </div>
-
-
-    <div class="nav-right-icons">
-
-        <div
-            class="nav-avatar-ring"
-            id="navThumbAvatar"
-            onclick="toggleProfileMenu()"
-        >
-            P
-        </div>
-
-
-        <div
-            class="menu-icon"
-            onclick="toggleSidebar()"
-        >
-            &#9776;
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ==================================================
-     PROFILE MENU
-================================================== -->
-
-<div
-    id="profileMenu"
-    class="profile-menu"
->
-
-    <div class="profile-menu-item">
-        👤 My Profile
-    </div>
-
-    <div class="profile-menu-item">
-        ⚙️ Account Settings
-    </div>
-
-    <div
-        class="profile-menu-item"
-        onclick="logoutUser()"
-    >
-        🚪 Logout
-    </div>
-
-</div>
-
-
-<!-- ==================================================
-     SIDEBAR
-================================================== -->
-
-<div
-    id="sidebar"
-    class="sidebar"
->
-
-    <div class="sidebar-header">
-
-        <span class="sidebar-brand">
+        <div class="menu-title">
             Skills Market
-        </span>
-
-        <span
-            class="sidebar-close"
-            onclick="toggleSidebar()"
-        >
-            &times;
-        </span>
-
-    </div>
-
-
-    <div class="sidebar-section">
-        Dashboard
-    </div>
-
-
-    <a
-        href="dashboard.html"
-        class="active-link"
-    >
-        📊 Affiliate Dashboard
-    </a>
-
-
-    <a href="#">
-        👤 My Profile
-    </a>
-
-
-    <a href="#">
-        🔗 Affiliate Link
-    </a>
-
-
-    <a href="#">
-        📚 My Courses
-    </a>
-
-
-    <a href="#">
-        📈 Upgrade
-    </a>
-
-
-    <a href="#">
-        🏆 Leaderboard
-    </a>
-
-
-    <a href="#">
-        👥 My Team
-    </a>
-
-
-    <a href="#">
-        📄 Reports
-    </a>
-
-
-    <a href="#">
-        💼 Wallet Request
-    </a>
-
-
-    <a href="#">
-        🌐 Community
-    </a>
-
-
-    <div class="sidebar-section">
-        More
-    </div>
-
-
-    <a href="#">
-        🎓 Training
-    </a>
-
-
-    <a href="#">
-        🎥 Webinars
-    </a>
-
-
-    <a href="#">
-        🔥 Offers
-    </a>
-
-
-    <a href="#">
-        🎯 Earning Target
-    </a>
-
-
-    <a href="#">
-        ➕ Create Account
-    </a>
-
-</div>
-
-
-<!-- ==================================================
-     MAIN
-================================================== -->
-
-<div class="container">
-
-
-    <!-- ==================================================
-         WELCOME
-    ================================================== -->
-
-    <div class="welcome-top-banner">
-
-        <div class="welcome-icon-box">
-            🎓
         </div>
 
-        <span id="welcomeBannerText">
-            Welcome, Member
-        </span>
+        <button
+            class="close-menu"
+            onclick="closeMenu()">
+            ✕
+        </button>
 
     </div>
 
 
-    <!-- ==================================================
-         PROFILE CARD
-    ================================================== -->
+    <div class="menu-profile">
 
-    <div class="profile-card">
-
-
-        <div
-            class="package-badge"
-            id="packageBadge"
-        >
-            Package
+        <div class="menu-avatar">
+            R
         </div>
 
+        <div>
 
-        <div class="profile-content">
-
-
-            <div
-                class="profile-avatar"
-                id="profileAvatar"
-            >
-                P
+            <div class="menu-profile-name">
+                RIJAL RAYEEN
             </div>
 
-
-            <div class="profile-info">
-
-
-                <h3 id="profileName">
-                    Member
-                </h3>
-
-
-                <div class="id-box">
-
-                    <span>
-                        ID:
-                    </span>
-
-
-                    <span id="profileId">
-                        SM-MEMBER
-                    </span>
-
-
-                    <button
-                        class="copy-btn"
-                        onclick="copyUserId()"
-                    >
-                        📋
-                    </button>
-
-                </div>
-
+            <div class="menu-profile-id">
+                ID: SM000001
             </div>
 
         </div>
@@ -1626,1139 +767,497 @@ body{
     </div>
 
 
-    <!-- ==================================================
-         INCOME BOXES
-    ================================================== -->
+    <div class="menu-links">
 
-    <div class="revenue-grid">
+        <a
+            href="dashboard.html"
+            class="menu-link active">
 
+            <span class="menu-icon">⌂</span>
+            <span>Dashboard</span>
 
-        <div class="rev-card g-1">
+        </a>
 
-            <div class="rev-row">
 
-                <div class="rev-left-group">
+        <a
+            href="#"
+            class="menu-link">
 
-                    <div class="rev-icon-box">
-                        💳
-                    </div>
+            <span class="menu-icon">👤</span>
+            <span>My Profile</span>
 
-                    <div class="rev-info">
+        </a>
 
-                        <p>
-                            Today's Revenue
-                        </p>
 
-                        <h2>
-                            ₹ 0
-                        </h2>
+        <a
+            href="#"
+            class="menu-link">
 
-                    </div>
+            <span class="menu-icon">🔗</span>
+            <span>Affiliate Link</span>
 
-                </div>
+        </a>
 
-            </div>
 
+        <a
+            href="#"
+            class="menu-link">
 
-            <div class="divider"></div>
+            <span class="menu-icon">📚</span>
+            <span>My Courses</span>
 
+        </a>
 
-            <div class="view-details">
 
-                <span>
-                    View Details
-                </span>
+        <a
+            href="#"
+            class="menu-link">
 
-                <span class="arrow">
-                    ›
-                </span>
+            <span class="menu-icon">💰</span>
+            <span>Wallet</span>
 
-            </div>
+        </a>
 
-        </div>
 
+        <a
+            href="#"
+            class="menu-link">
 
+            <span class="menu-icon">👥</span>
+            <span>My Team</span>
 
-        <div class="rev-card g-2">
+        </a>
 
-            <div class="rev-row">
 
-                <div class="rev-left-group">
+        <a
+            href="#"
+            class="menu-link">
 
-                    <div class="rev-icon-box">
-                        📅
-                    </div>
+            <span class="menu-icon">🏆</span>
+            <span>Leaderboard</span>
 
-                    <div class="rev-info">
+        </a>
 
-                        <p>
-                            7 Days Revenue
-                        </p>
 
-                        <h2>
-                            ₹ 0
-                        </h2>
+        <a
+            href="#"
+            class="menu-link">
 
-                    </div>
+            <span class="menu-icon">📊</span>
+            <span>Reports</span>
 
-                </div>
+        </a>
 
-            </div>
 
+        <a
+            href="#"
+            class="menu-link">
 
-            <div class="divider"></div>
+            <span class="menu-icon">🎓</span>
+            <span>Training</span>
 
+        </a>
 
-            <div class="view-details">
 
-                <span>
-                    View Details
-                </span>
+        <a
+            href="#"
+            class="menu-link logout-link"
+            onclick="logoutUser(event)">
 
-                <span class="arrow">
-                    ›
-                </span>
+            <span class="menu-icon">↪</span>
+            <span>Logout</span>
 
-            </div>
+        </a>
 
-        </div>
-
-
-
-        <div class="rev-card g-3">
-
-            <div class="rev-row">
-
-                <div class="rev-left-group">
-
-                    <div class="rev-icon-box">
-                        📈
-                    </div>
-
-                    <div class="rev-info">
-
-                        <p>
-                            30 Days Revenue
-                        </p>
-
-                        <h2>
-                            ₹ 0
-                        </h2>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="divider"></div>
-
-
-            <div class="view-details">
-
-                <span>
-                    View Details
-                </span>
-
-                <span class="arrow">
-                    ›
-                </span>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="rev-card g-4">
-
-            <div class="rev-row">
-
-                <div class="rev-left-group">
-
-                    <div class="rev-icon-box">
-                        🏆
-                    </div>
-
-                    <div class="rev-info">
-
-                        <p>
-                            All Time Revenue
-                        </p>
-
-                        <h2>
-                            ₹ 0
-                        </h2>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="divider"></div>
-
-
-            <div class="view-details">
-
-                <span>
-                    View Details
-                </span>
-
-                <span class="arrow">
-                    ›
-                </span>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="rev-card g-5">
-
-            <div class="rev-row">
-
-                <div class="rev-left-group">
-
-                    <div class="rev-icon-box">
-                        🏅
-                    </div>
-
-                    <div class="rev-info">
-
-                        <p>
-                            Industry Income
-                        </p>
-
-                        <h2>
-                            ₹ 0
-                        </h2>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="divider"></div>
-
-
-            <div class="view-details">
-
-                <span>
-                    View Details
-                </span>
-
-                <span class="arrow">
-                    ›
-                </span>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="rev-card g-6">
-
-            <div class="rev-row">
-
-                <div class="rev-left-group">
-
-                    <div class="rev-icon-box">
-                        💎
-                    </div>
-
-                    <div class="rev-info">
-
-                        <p>
-                            Passive Income
-                        </p>
-
-                        <h2>
-                            ₹ 0
-                        </h2>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="divider"></div>
-
-
-            <div class="view-details">
-
-                <span>
-                    View Details
-                </span>
-
-                <span class="arrow">
-                    ›
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ==================================================
-         GRAPH
-    ================================================== -->
-
-    <div class="graph-card">
-
-
-        <div class="graph-header-row">
-
-            <div>
-
-                <h3>
-                    7 Days Sales Graph
-                </h3>
-
-                <div class="graph-subtitle">
-                    Sales & commission performance
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="chart-container">
-
-
-            <div class="chart-grid">
-
-
-                <div class="grid-line">
-                    <span>100</span>
-                </div>
-
-
-                <div class="grid-line">
-                    <span>80</span>
-                </div>
-
-
-                <div class="grid-line">
-                    <span>60</span>
-                </div>
-
-
-                <div class="grid-line">
-                    <span>40</span>
-                </div>
-
-
-                <div class="grid-line">
-                    <span>20</span>
-                </div>
-
-
-                <div class="grid-line">
-                    <span>0</span>
-                </div>
-
-            </div>
-
-
-            <svg
-                class="chart-svg"
-                viewBox="0 0 700 250"
-                preserveAspectRatio="none"
-            >
-
-
-                <defs>
-
-                    <linearGradient
-                        id="chartGradient"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                    >
-
-                        <stop
-                            offset="0%"
-                            stop-color="#7138e8"
-                            stop-opacity=".22"
-                        />
-
-                        <stop
-                            offset="100%"
-                            stop-color="#7138e8"
-                            stop-opacity="0"
-                        />
-
-                    </linearGradient>
-
-                </defs>
-
-
-                <path
-                    d="M0 205 C55 205,55 205,100 205 C145 205,145 205,200 205 C245 205,245 205,300 205 C345 205,345 205,400 205 C450 205,450 205,500 205 C550 205,550 205,600 205 C650 205,650 205,700 205 L700 250 L0 250 Z"
-                    fill="url(#chartGradient)"
-                />
-
-
-                <path
-                    d="M0 205 C55 205,55 205,100 205 C145 205,145 205,200 205 C245 205,245 205,300 205 C345 205,345 205,400 205 C450 205,450 205,500 205 C550 205,550 205,600 205 C650 205,650 205,700 205"
-                    fill="none"
-                    stroke="#7138e8"
-                    stroke-width="4"
-                    stroke-linecap="round"
-                />
-
-            </svg>
-
-
-            <div class="chart-axis-labels">
-
-                <span>Mon</span>
-                <span>Tue</span>
-                <span>Wed</span>
-                <span>Thu</span>
-                <span>Fri</span>
-                <span>Sat</span>
-                <span>Sun</span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ==================================================
-         WALLET
-    ================================================== -->
-
-    <div class="wallet-section-title">
-        Wallet Amount
-    </div>
-
-
-    <div class="wallet-atm-card">
-
-
-        <div class="wallet-top-row">
-
-            <span>
-                Wallet Amount &nbsp; • &nbsp; Skills Market
-            </span>
-
-            <span>
-                👁️
-            </span>
-
-        </div>
-
-
-        <div class="wallet-amount-val">
-            ₹ 0
-        </div>
-
-
-        <div
-            class="wallet-date-row"
-            id="walletDate"
-        >
-            02-10-2026 &nbsp; ℹ️
-        </div>
-
-
-        <div
-            class="wallet-card-name"
-            id="walletUserName"
-        >
-            Member
-        </div>
-
-    </div>
-
-
-    <!-- ==================================================
-         FOOTER
-    ================================================== -->
-
-    <div class="footer">
-        © 2026 Skills Market. All Rights Reserved.
     </div>
 
 </div>
 
 
-<!-- ==================================================
-     TOAST
-================================================== -->
+<div class="dashboard">
 
-<div id="toast">
-    ID copied successfully!
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            SM
+        </div>
+
+        <div class="brand-name">
+            Skills <span>Market</span>
+        </div>
+
+    </div>
+
+
+    <div class="nav-right">
+
+        <div class="profile-mini">
+            R
+        </div>
+
+        <button
+            class="menu-btn"
+            onclick="openMenu()"
+            aria-label="Open menu">
+
+            ☰
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= PROFILE CARD ================= -->
+
+<section class="profile-card">
+
+    <div class="profile-circle circle-one"></div>
+    <div class="profile-circle circle-two"></div>
+    <div class="profile-circle circle-three"></div>
+
+    <div class="package-badge">
+        INTERMEDIATE PACKAGE
+    </div>
+
+    <div class="profile-content">
+
+        <div class="profile-avatar-wrap">
+
+            <div class="profile-avatar">
+
+                <img
+                    src="YOUR_PROFILE_IMAGE_URL"
+                    alt="Profile Photo"
+                    onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                    "
+                >
+
+                <div class="avatar-fallback">
+                    R
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-details">
+
+            <div class="member-label">
+                
+            </div>
+
+            <div class="profile-name">
+                RIJAL RAYEEN
+            </div>
+
+            <div class="id-row">
+
+                <span>
+                    ID: SM000001
+                </span>
+
+                <button
+                    class="copy-btn"
+                    onclick="copyProfileID()">
+
+                    📋
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= REVENUE ================= -->
+
+<div class="revenue-card purple">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        Today's Revenue
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="revenue-card indigo">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        7 Days Revenue
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="revenue-card pink">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        30 Days Revenue
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="revenue-card blue">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        All Time Revenue
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="revenue-card gold">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        Passive Income
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- ================= GRAPH ================= -->
+
+<section class="graph-card">
+
+    <div class="graph-header">
+
+        <div class="graph-title">
+            Sales Last 30 Days
+        </div>
+
+        <div class="graph-badge">
+            30 DAYS
+        </div>
+
+    </div>
+
+
+    <div class="graph-wrapper">
+
+        <div class="y-axis">
+
+            <span>₹2</span>
+            <span>₹1.5</span>
+            <span>₹1</span>
+            <span>₹0.5</span>
+            <span>₹0</span>
+
+        </div>
+
+
+        <div class="graph">
+
+            <div class="zero-line"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="graph-dates">
+
+        <span>Sep 03</span>
+        <span>Sep 08</span>
+        <span>Sep 13</span>
+        <span>Sep 18</span>
+        <span>Sep 23</span>
+        <span>Sep 28</span>
+        <span>Oct 02</span>
+
+    </div>
+
+
+    <div class="graph-note">
+        No commission recorded yet
+    </div>
+
+</section>
+
+
+<div class="footer">
+    © 2026 Skills Market · All Rights Reserved
+</div>
+
 </div>
 
 
 <script>
 
+/* ================= OPEN MENU ================= */
 
-/* ==================================================
-   SUPABASE CONFIG
-================================================== */
-
-const SUPABASE_URL =
-    "https://hmlonjwqeqedakzhucix.supabase.co";
-
-
-const SUPABASE_KEY =
-    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
-
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-/* ==================================================
-   SIDEBAR
-================================================== */
-
-function toggleSidebar(){
+function openMenu(){
 
     document
-        .getElementById("sidebar")
-        .classList
-        .toggle("active");
-
+        .getElementById("navMenu")
+        .classList.add("active");
 
     document
-        .getElementById("sidebarOverlay")
-        .classList
-        .toggle("active");
+        .getElementById("menuOverlay")
+        .classList.add("active");
 
+    document.body.style.overflow = "hidden";
 }
 
 
-/* ==================================================
-   PROFILE MENU
-================================================== */
+/* ================= CLOSE MENU ================= */
 
-function toggleProfileMenu(){
+function closeMenu(){
 
     document
-        .getElementById("profileMenu")
-        .classList
-        .toggle("active");
+        .getElementById("navMenu")
+        .classList.remove("active");
 
+    document
+        .getElementById("menuOverlay")
+        .classList.remove("active");
+
+    document.body.style.overflow = "";
 }
 
 
-/* ==================================================
-   CLOSE PROFILE MENU OUTSIDE
-================================================== */
+/* ================= COPY ID ================= */
 
-document.addEventListener(
-    "click",
-    function(event){
+function copyProfileID(){
 
-        const menu =
-            document.getElementById(
-                "profileMenu"
-            );
+    const id = "SM000001";
 
+    if(navigator.clipboard){
 
-        const avatar =
-            document.getElementById(
-                "navThumbAvatar"
-            );
+        navigator.clipboard.writeText(id).then(function(){
 
+            const button =
+                document.querySelector(".copy-btn");
 
-        if(
-            !menu.contains(event.target) &&
-            !avatar.contains(event.target)
-        ){
+            button.textContent = "✓";
 
-            menu.classList.remove(
-                "active"
-            );
+            setTimeout(function(){
 
-        }
+                button.textContent = "📋";
 
-    }
-);
+            },1200);
 
-
-/* ==================================================
-   LOAD USER
-================================================== */
-
-async function loadUser(){
-
-    try{
-
-
-        /* ------------------------------------------
-           STEP 1
-           GET CURRENT AUTH SESSION
-        ------------------------------------------ */
-
-        const {
-            data:sessionData,
-            error:sessionError
-        } =
-        await supabaseClient
-            .auth
-            .getSession();
-
-
-        if(sessionError){
-
-            console.error(
-                "Session Error:",
-                sessionError
-            );
-
-
-            window.location.href =
-                "login.html";
-
-
-            return;
-
-        }
-
-
-        if(
-            !sessionData ||
-            !sessionData.session
-        ){
-
-            window.location.href =
-                "login.html";
-
-
-            return;
-
-        }
-
-
-        /* ------------------------------------------
-           STEP 2
-           CURRENT AUTH USER
-        ------------------------------------------ */
-
-        const user =
-            sessionData.session.user;
-
-
-        console.log(
-            "Authenticated User:",
-            user
-        );
-
-
-        /* ------------------------------------------
-           STEP 3
-           FETCH PROFILE FROM DATABASE
-           
-           profiles.id = auth.users.id
-        ------------------------------------------ */
-
-        const {
-            data:profile,
-            error:profileError
-        } =
-        await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq("id", user.id)
-            .maybeSingle();
-
-
-        if(profileError){
-
-            console.error(
-                "Profile Fetch Error:",
-                profileError
-            );
-
-
-            showToast(
-                "Profile database error!"
-            );
-
-
-            return;
-
-        }
-
-
-        /* ------------------------------------------
-           STEP 4
-           PROFILE NOT FOUND
-        ------------------------------------------ */
-
-        if(!profile){
-
-            console.error(
-                "No profile found for Auth ID:",
-                user.id
-            );
-
-
-            showToast(
-                "Profile record nahi mila!"
-            );
-
-
-            return;
-
-        }
-
-
-        console.log(
-            "Database Profile:",
-            profile
-        );
-
-
-        /* ==================================================
-           STEP 5
-           GET FULL NAME
-           
-           Primary:
-           full_name
-           
-           Fallback:
-           Full Name
-        ================================================== */
-
-        const name =
-            profile.full_name ||
-            profile["Full Name"] ||
-            user.user_metadata?.full_name ||
-            user.user_metadata?.name ||
-            "Member";
-
-
-        /* ==================================================
-           STEP 6
-           GET MEMBER ID
-           
-           Primary:
-           member_id
-           
-           Fallback:
-           Member ID
-        ================================================== */
-
-        const memberId =
-            profile.member_id ||
-            profile["Member ID"] ||
-            "SM-MEMBER";
-
-
-        /* ==================================================
-           STEP 7
-           GET PACKAGE
-           
-           Supports both:
-           Package name
-           package_name
-        ================================================== */
-
-        const packageName =
-            profile["Package name"] ||
-            profile.package_name ||
-            profile["Package Name"] ||
-            "Package";
-
-
-        /* ==================================================
-           STEP 8
-           UPDATE PROFILE NAME
-        ================================================== */
-
-        document
-            .getElementById(
-                "profileName"
-            )
-            .textContent =
-            name;
-
-
-        /* ==================================================
-           STEP 9
-           UPDATE WELCOME BANNER
-        ================================================== */
-
-        document
-            .getElementById(
-                "welcomeBannerText"
-            )
-            .textContent =
-            "Welcome, " + name;
-
-
-        /* ==================================================
-           STEP 10
-           UPDATE WALLET NAME
-        ================================================== */
-
-        document
-            .getElementById(
-                "walletUserName"
-            )
-            .textContent =
-            name;
-
-
-        /* ==================================================
-           STEP 11
-           UPDATE MEMBER ID
-        ================================================== */
-
-        document
-            .getElementById(
-                "profileId"
-            )
-            .textContent =
-            memberId;
-
-
-        /* ==================================================
-           STEP 12
-           UPDATE PACKAGE BADGE
-        ================================================== */
-
-        document
-            .getElementById(
-                "packageBadge"
-            )
-            .textContent =
-            packageName;
-
-
-        /* ==================================================
-           STEP 13
-           AVATAR FIRST LETTER
-        ================================================== */
-
-        const firstLetter =
-            name
-                .trim()
-                .charAt(0)
-                .toUpperCase();
-
-
-        document
-            .getElementById(
-                "profileAvatar"
-            )
-            .textContent =
-            firstLetter;
-
-
-        document
-            .getElementById(
-                "navThumbAvatar"
-            )
-            .textContent =
-            firstLetter;
-
-
-        /* ==================================================
-           STEP 14
-           LOCAL CACHE
-        ================================================== */
-
-        localStorage.setItem(
-            "userId",
-            user.id
-        );
-
-
-        localStorage.setItem(
-            "username",
-            name
-        );
-
-
-        localStorage.setItem(
-            "memberId",
-            memberId
-        );
-
-
-        localStorage.setItem(
-            "packageName",
-            packageName
-        );
-
-
-        localStorage.setItem(
-            "userEmail",
-            user.email || ""
-        );
-
-
-        /* ==================================================
-           STEP 15
-           WELCOME POPUP
-        ================================================== */
-
-        const popup =
-            document.getElementById(
-                "welcomeNotification"
-            );
-
-
-        popup.textContent =
-            "Welcome back, " +
-            name +
-            " 👋";
-
-
-        popup.style.display =
-            "block";
-
-
-        setTimeout(
-            function(){
-
-                popup.style.display =
-                    "none";
-
-            },
-            3000
-        );
-
-
-        /* ==================================================
-           DEBUG INFORMATION
-        ================================================== */
-
-        console.log(
-            "================================"
-        );
-
-        console.log(
-            "SKILLS MARKET PROFILE"
-        );
-
-        console.log(
-            "Name:",
-            name
-        );
-
-        console.log(
-            "Member ID:",
-            memberId
-        );
-
-        console.log(
-            "Package:",
-            packageName
-        );
-
-        console.log(
-            "Email:",
-            user.email
-        );
-
-        console.log(
-            "Auth ID:",
-            user.id
-        );
-
-        console.log(
-            "================================"
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Dashboard Error:",
-            error
-        );
-
-
-        showToast(
-            "Dashboard load error!"
-        );
+        });
 
     }
 
 }
 
 
-/* ==================================================
-   COPY MEMBER ID
-================================================== */
+/* ================= LOGOUT ================= */
 
-async function copyUserId(){
+function logoutUser(event){
 
-    const userId =
-        document
-            .getElementById(
-                "profileId"
-            )
-            .textContent;
+    event.preventDefault();
 
+    const confirmLogout =
+        confirm("Are you sure you want to logout?");
 
-    try{
+    if(confirmLogout){
 
-        await navigator.clipboard
-            .writeText(userId);
+        /*
+        Supabase logout yaha connect hoga.
+        Abhi login page par redirect.
+        */
 
-
-        showToast(
-            "Member ID copied successfully!"
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Copy Error:",
-            error
-        );
-
-
-        showToast(
-            "Copy failed!"
-        );
+        window.location.href = "login.html";
 
     }
 
 }
-
-
-/* ==================================================
-   TOAST
-================================================== */
-
-function showToast(message){
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    setTimeout(
-        function(){
-
-            toast.classList.remove(
-                "show"
-            );
-
-        },
-        2000
-    );
-
-}
-
-
-/* ==================================================
-   LOGOUT
-================================================== */
-
-async function logoutUser(){
-
-    try{
-
-
-        await supabaseClient
-            .auth
-            .signOut();
-
-
-        /* CLEAR LOCAL USER DATA */
-
-        localStorage.removeItem(
-            "userId"
-        );
-
-
-        localStorage.removeItem(
-            "username"
-        );
-
-
-        localStorage.removeItem(
-            "memberId"
-        );
-
-
-        localStorage.removeItem(
-            "packageName"
-        );
-
-
-        localStorage.removeItem(
-            "userEmail"
-        );
-
-
-        sessionStorage.removeItem(
-            "loginSuccess"
-        );
-
-
-        window.location.href =
-            "login.html";
-
-
-    }catch(error){
-
-        console.error(
-            "Logout Error:",
-            error
-        );
-
-
-        window.location.href =
-            "login.html";
-
-    }
-
-}
-
-
-/* ==================================================
-   START DASHBOARD
-================================================== */
-
-window.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        loadUser();
-
-    }
-);
 
 </script>
 
