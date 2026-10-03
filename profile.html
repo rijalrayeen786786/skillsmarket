@@ -279,26 +279,21 @@
            PROFILE FORM
         ========================= */
 
-        .form-input {
-            border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            width: 100%;
-            font-size: 0.9rem;
-            color: #334155;
-            background-color: #ffffff;
-            outline: none;
-            transition: all 0.2s ease;
+        .form-input{
+            border:1px solid #e2e8f0;
+            border-radius:.5rem;
+            padding:.75rem 1rem;
+            width:100%;
+            font-size:.9rem;
+            color:#334155;
+            background-color:#ffffff;
+            outline:none;
+            transition:all .2s ease;
         }
 
-        .form-input:focus {
-            border-color: #9333ea;
-            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.15);
-        }
-
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
+        .form-input:focus{
+            border-color:#9333ea;
+            box-shadow:0 0 0 3px rgba(147,51,234,.15);
         }
 
         @media(max-width:640px){
@@ -336,9 +331,7 @@
 
 <body class="bg-gradient-to-b from-purple-50/40 to-pink-50/20 font-sans antialiased text-slate-800">
 
-    <!-- =====================================================
-         NAVBAR
-    ====================================================== -->
+    <!-- NAVBAR -->
 
     <nav class="sm-navbar">
 
@@ -354,10 +347,8 @@
 
         </a>
 
-
         <div class="sm-nav-right">
 
-            <!-- Profile -->
             <div class="profile-dropdown-wrap">
 
                 <button
@@ -368,7 +359,6 @@
                 >
                     M
                 </button>
-
 
                 <div
                     class="profile-dropdown"
@@ -383,7 +373,6 @@
                         <span>My Profile</span>
                     </a>
 
-
                     <a
                         href="#"
                         class="profile-dropdown-item"
@@ -392,7 +381,6 @@
                         ⚙️
                         <span>Account Settings</span>
                     </a>
-
 
                     <button
                         type="button"
@@ -407,8 +395,6 @@
 
             </div>
 
-
-            <!-- Menu -->
             <button
                 class="menu-btn"
                 onclick="openMenu()"
@@ -422,9 +408,7 @@
     </nav>
 
 
-    <!-- =====================================================
-         MENU OVERLAY
-    ====================================================== -->
+    <!-- MENU OVERLAY -->
 
     <div
         class="menu-overlay"
@@ -433,9 +417,7 @@
     ></div>
 
 
-    <!-- =====================================================
-         SIDE MENU
-    ====================================================== -->
+    <!-- SIDE MENU -->
 
     <aside
         class="nav-menu"
@@ -466,13 +448,12 @@
                         class="menu-profile-id"
                         id="menuProfileId"
                     >
-                        ID: Loading...
+                        ID
                     </div>
 
                 </div>
 
             </div>
-
 
             <button
                 class="menu-close"
@@ -487,134 +468,77 @@
 
         <div class="menu-links">
 
-            <a
-                href="dashboard.html"
-                class="menu-link"
-            >
+            <a href="dashboard.html" class="menu-link">
                 <span class="menu-icon">⌂</span>
                 <span>Affiliate Dashboard</span>
             </a>
 
-
-            <a
-                href="my-course.html"
-                class="menu-link"
-            >
+            <a href="my-course.html" class="menu-link">
                 <span class="menu-icon">🎓</span>
                 <span>My Course</span>
             </a>
 
-
-            <a
-                href="profile.html"
-                class="menu-link active"
-            >
+            <a href="profile.html" class="menu-link active">
                 <span class="menu-icon">👤</span>
                 <span>My Profile</span>
             </a>
 
-
-            <a
-                href="affiliate-link.html"
-                class="menu-link"
-            >
+            <a href="affiliate-link.html" class="menu-link">
                 <span class="menu-icon">🔗</span>
                 <span>Affiliate Link</span>
             </a>
 
-
-            <a
-                href="kyc.html"
-                class="menu-link"
-            >
+            <a href="kyc.html" class="menu-link">
                 <span class="menu-icon">📄</span>
                 <span>KYC</span>
             </a>
 
-
-            <a
-                href="leaderboard.html"
-                class="menu-link"
-            >
+            <a href="leaderboard.html" class="menu-link">
                 <span class="menu-icon">🏆</span>
                 <span>Leaderboard</span>
             </a>
 
-
-            <a
-                href="my-team.html"
-                class="menu-link"
-            >
+            <a href="my-team.html" class="menu-link">
                 <span class="menu-icon">👥</span>
                 <span>My Team</span>
             </a>
 
-
-            <a
-                href="registration-request.html"
-                class="menu-link"
-            >
+            <a href="registration-request.html" class="menu-link">
                 <span class="menu-icon">📝</span>
                 <span>Registration Request</span>
             </a>
 
-
-            <a
-                href="withdrawal-request.html"
-                class="menu-link"
-            >
+            <a href="withdrawal-request.html" class="menu-link">
                 <span class="menu-icon">💸</span>
                 <span>Withdrawal Request</span>
             </a>
 
-
-            <a
-                href="upgrade-request.html"
-                class="menu-link"
-            >
+            <a href="upgrade-request.html" class="menu-link">
                 <span class="menu-icon">⬆️</span>
                 <span>Upgrade Request</span>
             </a>
 
-
-            <a
-                href="qualification.html"
-                class="menu-link"
-            >
+            <a href="qualification.html" class="menu-link">
                 <span class="menu-icon">⭐</span>
                 <span>Qualification</span>
             </a>
 
-
-            <a
-                href="payout-transaction.html"
-                class="menu-link"
-            >
+            <a href="payout-transaction.html" class="menu-link">
                 <span class="menu-icon">💳</span>
                 <span>Payout Transaction</span>
             </a>
 
-
-            <a
-                href="training.html"
-                class="menu-link"
-            >
+            <a href="training.html" class="menu-link">
                 <span class="menu-icon">📚</span>
                 <span>Training</span>
             </a>
 
-
-            <a
-                href="community.html"
-                class="menu-link"
-            >
+            <a href="community.html" class="menu-link">
                 <span class="menu-icon">💬</span>
                 <span>Community & Support</span>
             </a>
 
-
             <div class="menu-divider"></div>
-
 
             <a
                 href="#"
@@ -630,13 +554,9 @@
     </aside>
 
 
-    <!-- =====================================================
-         MAIN PROFILE CONTAINER
-    ====================================================== -->
+    <!-- MAIN PROFILE -->
 
-    <div class="max-w-3xl mx-auto px-4 py-8">
-
-        <!-- Header -->
+    <div class="w-full max-w-6xl mx-auto px-6 lg:px-10 py-8">
 
         <div class="mb-6">
 
@@ -651,12 +571,10 @@
         </div>
 
 
-        <!-- Card -->
-
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-purple-100 space-y-6">
+        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-purple-100 space-y-6 w-full">
 
 
-            <!-- SPONSOR INFORMATION -->
+            <!-- SPONSOR -->
 
             <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm">
                 Sponsor Information
@@ -674,7 +592,7 @@
                     <input
                         id="sponsorName"
                         type="text"
-                        value="Loading..."
+                        value=""
                         readonly
                         class="form-input bg-slate-50/50"
                     >
@@ -691,7 +609,7 @@
                     <input
                         id="sponsorPhone"
                         type="text"
-                        value="Loading..."
+                        value=""
                         readonly
                         class="form-input bg-slate-50/50"
                     >
@@ -701,7 +619,7 @@
             </div>
 
 
-            <!-- PERSONAL INFORMATION -->
+            <!-- PERSONAL -->
 
             <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm mt-8">
                 Personal Information
@@ -709,8 +627,6 @@
 
 
             <form id="profileForm" class="space-y-4">
-
-                <!-- Name -->
 
                 <div>
 
@@ -728,8 +644,6 @@
                 </div>
 
 
-                <!-- Email -->
-
                 <div>
 
                     <label class="block text-sm text-slate-700 mb-1.5">
@@ -746,8 +660,6 @@
                 </div>
 
 
-                <!-- Phone -->
-
                 <div>
 
                     <label class="block text-sm text-slate-700 mb-1.5">
@@ -763,8 +675,6 @@
 
                 </div>
 
-
-                <!-- Gender -->
 
                 <div>
 
@@ -812,8 +722,6 @@
                 </div>
 
 
-                <!-- Address -->
-
                 <div>
 
                     <label class="block text-sm text-slate-700 mb-1.5">
@@ -828,8 +736,6 @@
 
                 </div>
 
-
-                <!-- City -->
 
                 <div>
 
@@ -846,8 +752,6 @@
                 </div>
 
 
-                <!-- State -->
-
                 <div>
 
                     <label class="block text-sm text-slate-700 mb-1.5">
@@ -861,49 +765,18 @@
                             class="form-input appearance-none bg-white"
                         >
 
-                            <option value="">
-                                Select State
-                            </option>
+                            <option value="">Select State</option>
 
-                            <option value="Madhya Pradesh">
-                                Madhya Pradesh
-                            </option>
-
-                            <option value="Uttar Pradesh">
-                                Uttar Pradesh
-                            </option>
-
-                            <option value="Bihar">
-                                Bihar
-                            </option>
-
-                            <option value="Delhi">
-                                Delhi
-                            </option>
-
-                            <option value="Rajasthan">
-                                Rajasthan
-                            </option>
-
-                            <option value="Maharashtra">
-                                Maharashtra
-                            </option>
-
-                            <option value="Gujarat">
-                                Gujarat
-                            </option>
-
-                            <option value="Haryana">
-                                Haryana
-                            </option>
-
-                            <option value="Punjab">
-                                Punjab
-                            </option>
-
-                            <option value="West Bengal">
-                                West Bengal
-                            </option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="West Bengal">West Bengal</option>
 
                         </select>
 
@@ -915,8 +788,6 @@
 
                 </div>
 
-
-                <!-- Pincode -->
 
                 <div>
 
@@ -935,7 +806,7 @@
                 </div>
 
 
-                <!-- Avatar -->
+                <!-- AVATAR -->
 
                 <div>
 
@@ -976,7 +847,7 @@
                 </div>
 
 
-                <!-- Save -->
+                <!-- SAVE -->
 
                 <div class="pt-4">
 
@@ -995,8 +866,6 @@
         </div>
 
 
-        <!-- Footer -->
-
         <div class="text-center mt-8 text-xs text-slate-400">
             © 2026 Skills Market. All rights reserved.
         </div>
@@ -1007,7 +876,7 @@
 <script>
 
 /* =====================================================
-   SUPABASE CONNECTION
+   SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
@@ -1021,92 +890,6 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_KEY
     );
-
-
-/* =====================================================
-   NAVBAR PROFILE DROPDOWN
-===================================================== */
-
-function toggleProfileDropdown(event){
-
-    event.stopPropagation();
-
-    const dropdown =
-        document.getElementById("profileDropdown");
-
-    dropdown.classList.toggle("active");
-}
-
-
-function closeProfileDropdown(){
-
-    const dropdown =
-        document.getElementById("profileDropdown");
-
-    if(dropdown){
-
-        dropdown.classList.remove("active");
-
-    }
-
-}
-
-
-document.addEventListener(
-    "click",
-    function(event){
-
-        const wrap =
-            document.querySelector(
-                ".profile-dropdown-wrap"
-            );
-
-        if(
-            wrap &&
-            !wrap.contains(event.target)
-        ){
-
-            closeProfileDropdown();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   SIDE MENU
-===================================================== */
-
-function openMenu(){
-
-    document
-        .getElementById("navMenu")
-        .classList.add("active");
-
-    document
-        .getElementById("menuOverlay")
-        .classList.add("active");
-
-    document.body.style.overflow =
-        "hidden";
-}
-
-
-function closeMenu(){
-
-    document
-        .getElementById("navMenu")
-        .classList.remove("active");
-
-    document
-        .getElementById("menuOverlay")
-        .classList.remove("active");
-
-    document.body.style.overflow =
-        "";
-
-}
 
 
 /* =====================================================
@@ -1163,216 +946,102 @@ const saveButton =
 
 
 /* =====================================================
-   LOAD PROFILE
+   PROFILE VARIABLES
 ===================================================== */
 
-async function loadProfile(){
+let currentMemberID = "";
+let currentAvatarUrl = "";
 
-    try{
 
-        const {
-            data:{user},
-            error:authError
-        } =
-        await supabaseClient.auth.getUser();
+/* =====================================================
+   NAVBAR PROFILE DROPDOWN
+===================================================== */
 
+function toggleProfileDropdown(event){
 
-        if(authError || !user){
+    event.stopPropagation();
 
-            window.location.href =
-                "login.html";
+    document
+        .getElementById("profileDropdown")
+        .classList.toggle("active");
 
-            return;
-        }
+}
 
 
-        const {
-            data:profile,
-            error:profileError
-        } =
-        await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq("id",user.id)
-            .maybeSingle();
+function closeProfileDropdown(){
 
+    const dropdown =
+        document.getElementById("profileDropdown");
 
-        if(profileError){
+    if(dropdown){
 
-            console.error(
-                "Profile error:",
-                profileError
-            );
-
-            alert(
-                "Unable to load profile."
-            );
-
-            return;
-        }
-
-
-        if(!profile){
-
-            alert(
-                "Profile record not found."
-            );
-
-            return;
-        }
-
-
-        const metadata =
-            user.user_metadata || {};
-
-
-        const name =
-            profile.full_name ||
-            metadata.full_name ||
-            "";
-
-
-        const phone =
-            profile.phone ||
-            "";
-
-
-        fullNameInput.value =
-            name;
-
-
-        emailInput.value =
-            user.email || "";
-
-
-        phoneInput.value =
-            phone;
-
-
-        addressInput.value =
-            metadata.address || "";
-
-
-        cityInput.value =
-            metadata.city || "";
-
-
-        stateInput.value =
-            metadata.state || "";
-
-
-        pincodeInput.value =
-            metadata.pincode || "";
-
-
-        const gender =
-            metadata.gender || "";
-
-
-        if(gender === "Male"){
-
-            genderMale.checked = true;
-
-        }
-
-
-        if(gender === "Female"){
-
-            genderFemale.checked = true;
-
-        }
-
-
-        const avatar =
-            metadata.avatar_url || "";
-
-
-        if(avatar){
-
-            avatarPreview.src =
-                avatar;
-
-            avatarPreview.classList.remove(
-                "hidden"
-            );
-
-            avatarLetter.classList.add(
-                "hidden"
-            );
-
-        }else{
-
-            setAvatarLetter(name);
-
-        }
-
-
-        /* Navbar profile */
-
-        updateNavbarProfile(
-            name,
-            profile.member_id
-        );
-
-
-        /* Sponsor */
-
-        sponsorNameInput.value =
-            "Not Available";
-
-        sponsorPhoneInput.value =
-            "Not Available";
-
-
-        if(profile.referrer_member_id){
-
-            const {
-                data:sponsor,
-                error:sponsorError
-            } =
-            await supabaseClient
-                .from("profiles")
-                .select(
-                    "full_name, phone, member_id"
-                )
-                .eq(
-                    "member_id",
-                    profile.referrer_member_id
-                )
-                .maybeSingle();
-
-
-            if(
-                !sponsorError &&
-                sponsor
-            ){
-
-                sponsorNameInput.value =
-                    sponsor.full_name ||
-                    "Not Available";
-
-                sponsorPhoneInput.value =
-                    sponsor.phone ||
-                    "Not Available";
-
-            }
-
-        }
-
-    }catch(error){
-
-        console.error(
-            "Profile loading error:",
-            error
-        );
+        dropdown.classList.remove("active");
 
     }
 
 }
 
 
+document.addEventListener(
+    "click",
+    function(event){
+
+        const wrap =
+            document.querySelector(
+                ".profile-dropdown-wrap"
+            );
+
+        if(
+            wrap &&
+            !wrap.contains(event.target)
+        ){
+
+            closeProfileDropdown();
+
+        }
+
+    }
+);
+
+
 /* =====================================================
-   UPDATE NAVBAR PROFILE
+   SIDE MENU
+===================================================== */
+
+function openMenu(){
+
+    document
+        .getElementById("navMenu")
+        .classList.add("active");
+
+    document
+        .getElementById("menuOverlay")
+        .classList.add("active");
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+function closeMenu(){
+
+    document
+        .getElementById("navMenu")
+        .classList.remove("active");
+
+    document
+        .getElementById("menuOverlay")
+        .classList.remove("active");
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =====================================================
+   UPDATE NAVBAR
 ===================================================== */
 
 function updateNavbarProfile(
@@ -1422,26 +1091,56 @@ function updateNavbarProfile(
 
 function setAvatarLetter(name){
 
-    if(!name){
-
-        avatarLetter.textContent =
-            "M";
-
-        return;
-    }
-
-
     avatarLetter.textContent =
-        name
-            .trim()
-            .charAt(0)
-            .toUpperCase();
+        name &&
+        name.trim()
+            ? name.trim()
+                .charAt(0)
+                .toUpperCase()
+            : "M";
 
 }
 
 
 /* =====================================================
-   AVATAR PREVIEW
+   SHOW AVATAR
+===================================================== */
+
+function showAvatar(url){
+
+    if(url){
+
+        avatarPreview.src =
+            url;
+
+        avatarPreview.classList.remove(
+            "hidden"
+        );
+
+        avatarLetter.classList.add(
+            "hidden"
+        );
+
+    }else{
+
+        avatarPreview.src =
+            "";
+
+        avatarPreview.classList.add(
+            "hidden"
+        );
+
+        avatarLetter.classList.remove(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   AVATAR PREVIEW BEFORE SAVE
 ===================================================== */
 
 avatarInput.addEventListener(
@@ -1454,6 +1153,33 @@ avatarInput.addEventListener(
         if(!file){
 
             return;
+
+        }
+
+
+        if(!file.type.startsWith("image/")){
+
+            alert(
+                "Please select a valid image."
+            );
+
+            this.value = "";
+
+            return;
+
+        }
+
+
+        if(file.size > 5 * 1024 * 1024){
+
+            alert(
+                "Image size must be less than 5 MB."
+            );
+
+            this.value = "";
+
+            return;
+
         }
 
 
@@ -1464,15 +1190,8 @@ avatarInput.addEventListener(
         reader.onload =
             function(event){
 
-                avatarPreview.src =
-                    event.target.result;
-
-                avatarPreview.classList.remove(
-                    "hidden"
-                );
-
-                avatarLetter.classList.add(
-                    "hidden"
+                showAvatar(
+                    event.target.result
                 );
 
             };
@@ -1482,6 +1201,319 @@ avatarInput.addEventListener(
 
     }
 );
+
+
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
+
+async function loadProfile(){
+
+    try{
+
+        const {
+            data:{user},
+            error:authError
+        } =
+        await supabaseClient.auth.getUser();
+
+
+        if(authError || !user){
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        const {
+            data:profile,
+            error:profileError
+        } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id",user.id)
+            .maybeSingle();
+
+
+        if(profileError){
+
+            console.error(
+                "Profile error:",
+                profileError
+            );
+
+            alert(
+                "Unable to load profile."
+            );
+
+            return;
+
+        }
+
+
+        if(!profile){
+
+            alert(
+                "Profile record not found."
+            );
+
+            return;
+
+        }
+
+
+        const metadata =
+            user.user_metadata || {};
+
+
+        const name =
+            profile.full_name ||
+            metadata.full_name ||
+            "";
+
+
+        const phone =
+            profile.phone ||
+            "";
+
+
+        currentMemberID =
+            profile.member_id ||
+            "";
+
+
+        currentAvatarUrl =
+            metadata.avatar_url ||
+            "";
+
+
+        /* PERSONAL DATA */
+
+        fullNameInput.value =
+            name;
+
+
+        emailInput.value =
+            user.email || "";
+
+
+        phoneInput.value =
+            phone;
+
+
+        addressInput.value =
+            metadata.address || "";
+
+
+        cityInput.value =
+            metadata.city || "";
+
+
+        stateInput.value =
+            metadata.state || "";
+
+
+        pincodeInput.value =
+            metadata.pincode || "";
+
+
+        /* GENDER */
+
+        genderMale.checked =
+            metadata.gender === "Male";
+
+
+        genderFemale.checked =
+            metadata.gender === "Female";
+
+
+        /* AVATAR */
+
+        if(currentAvatarUrl){
+
+            showAvatar(
+                currentAvatarUrl
+            );
+
+        }else{
+
+            setAvatarLetter(name);
+
+        }
+
+
+        /* NAVBAR */
+
+        updateNavbarProfile(
+            name,
+            currentMemberID
+        );
+
+
+        /* SPONSOR */
+
+        sponsorNameInput.value =
+            "";
+
+        sponsorPhoneInput.value =
+            "";
+
+
+        if(profile.referrer_member_id){
+
+            const {
+                data:sponsor,
+                error:sponsorError
+            } =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "full_name, phone, member_id"
+                )
+                .eq(
+                    "member_id",
+                    profile.referrer_member_id
+                )
+                .maybeSingle();
+
+
+            if(
+                !sponsorError &&
+                sponsor
+            ){
+
+                sponsorNameInput.value =
+                    sponsor.full_name ||
+                    "Not Available";
+
+
+                sponsorPhoneInput.value =
+                    sponsor.phone ||
+                    "Not Available";
+
+            }else{
+
+                sponsorNameInput.value =
+                    "Not Available";
+
+                sponsorPhoneInput.value =
+                    "Not Available";
+
+            }
+
+        }else{
+
+            sponsorNameInput.value =
+                "Not Available";
+
+            sponsorPhoneInput.value =
+                "Not Available";
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "Profile loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   UPLOAD AVATAR
+===================================================== */
+
+async function uploadAvatar(
+    user,
+    file
+){
+
+    if(!file){
+
+        return currentAvatarUrl;
+
+    }
+
+
+    const extension =
+        file.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    const filePath =
+        user.id +
+        "/avatar-" +
+        Date.now() +
+        "." +
+        extension;
+
+
+    const {
+        error:uploadError
+    } =
+    await supabaseClient
+        .storage
+        .from("avatars")
+        .upload(
+            filePath,
+            file,
+            {
+                cacheControl:"3600",
+                upsert:false,
+                contentType:file.type
+            }
+        );
+
+
+    if(uploadError){
+
+        console.error(
+            "Avatar upload error:",
+            uploadError
+        );
+
+        throw uploadError;
+
+    }
+
+
+    const {
+        data:publicData
+    } =
+    supabaseClient
+        .storage
+        .from("avatars")
+        .getPublicUrl(
+            filePath
+        );
+
+
+    if(
+        !publicData ||
+        !publicData.publicUrl
+    ){
+
+        throw new Error(
+            "Unable to create avatar URL."
+        );
+
+    }
+
+
+    return publicData.publicUrl;
+
+}
 
 
 /* =====================================================
@@ -1517,24 +1549,56 @@ profileForm.addEventListener(
                     "login.html";
 
                 return;
+
             }
 
+
+            /* =========================
+               GENDER
+            ========================= */
 
             let gender = "";
 
 
             if(genderMale.checked){
 
-                gender = "Male";
+                gender =
+                    "Male";
 
             }else if(genderFemale.checked){
 
-                gender = "Female";
+                gender =
+                    "Female";
 
             }
 
 
-            /* UPDATE PROFILE */
+            /* =========================
+               AVATAR UPLOAD
+            ========================= */
+
+            const selectedFile =
+                avatarInput.files[0];
+
+
+            let avatarUrl =
+                currentAvatarUrl;
+
+
+            if(selectedFile){
+
+                avatarUrl =
+                    await uploadAvatar(
+                        user,
+                        selectedFile
+                    );
+
+            }
+
+
+            /* =========================
+               UPDATE PROFILES TABLE
+            ========================= */
 
             const {
                 error:profileUpdateError
@@ -1563,19 +1627,13 @@ profileForm.addEventListener(
                 );
 
                 throw profileUpdateError;
+
             }
 
 
-            /* UPDATE AUTH METADATA */
-
-            const currentMetadata =
-                user.user_metadata || {};
-
-
-            let avatarUrl =
-                currentMetadata.avatar_url ||
-                "";
-
+            /* =========================
+               UPDATE AUTH METADATA
+            ========================= */
 
             const {
                 error:metadataError
@@ -1617,19 +1675,54 @@ profileForm.addEventListener(
                 );
 
                 throw metadataError;
+
             }
 
 
-            /* Update navbar immediately */
+            /* =========================
+               UPDATE LOCAL VALUES
+            ========================= */
+
+            currentAvatarUrl =
+                avatarUrl;
+
+
+            currentMemberID =
+                currentMemberID ||
+                "";
+
 
             updateNavbarProfile(
                 fullNameInput.value.trim(),
-                null
+                currentMemberID
             );
 
 
+            if(avatarUrl){
+
+                showAvatar(
+                    avatarUrl
+                );
+
+            }else{
+
+                setAvatarLetter(
+                    fullNameInput.value.trim()
+                );
+
+            }
+
+
+            /* =========================
+               SAVE BUTTON
+            ========================= */
+
             saveButton.textContent =
                 "Saved ✓";
+
+
+            avatarInput.value =
+                "";
 
 
             setTimeout(
@@ -1712,6 +1805,7 @@ async function logoutUser(event){
         console.error(error);
 
         return;
+
     }
 
 
