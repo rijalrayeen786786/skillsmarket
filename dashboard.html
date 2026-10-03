@@ -1,963 +1,1371 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Profile | Skills Market</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-        .form-input {
-            border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            width: 100%;
-            font-size: 0.9rem;
-            color: #334155;
-            background-color: #ffffff;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .form-input:focus {
-            border-color: #9333ea;
-            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.15);
-        }
-
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-    </style>
-</head>
-
-<body class="bg-gradient-to-b from-purple-50/40 to-pink-50/20 font-sans antialiased text-slate-800">
-
-    <!-- Main Container -->
-    <div class="max-w-3xl mx-auto px-4 py-8">
-
-        <!-- Header -->
-        <div class="mb-6">
-            <h1 class="text-2xl font-bold text-purple-900">
-                My Profile
-            </h1>
-
-            <p class="text-sm text-slate-500 mt-1">
-                Manage your personal information
-            </p>
-        </div>
-
-        <!-- Card -->
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-purple-100 space-y-6">
-
-            <!-- ========================= -->
-            <!-- SPONSOR INFORMATION -->
-            <!-- ========================= -->
-
-            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm">
-                Sponsor Information
-            </div>
-
-            <div class="space-y-4">
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        Name
-                    </label>
-
-                    <input
-                        id="sponsorName"
-                        type="text"
-                        value="Loading..."
-                        readonly
-                        class="form-input bg-slate-50/50"
-                    >
-                </div>
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        Phone
-                    </label>
-
-                    <input
-                        id="sponsorPhone"
-                        type="text"
-                        value="Loading..."
-                        readonly
-                        class="form-input bg-slate-50/50"
-                    >
-                </div>
-
-            </div>
-
-
-            <!-- ========================= -->
-            <!-- PERSONAL INFORMATION -->
-            <!-- ========================= -->
-
-            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm mt-8">
-                Personal Information
-            </div>
-
-            <form id="profileForm" class="space-y-4">
-
-                <!-- Name -->
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        Name <span class="text-red-500">*</span>
-                    </label>
-
-                    <input
-                        id="fullName"
-                        type="text"
-                        class="form-input"
-                        required
-                    >
-                </div>
-
-
-                <!-- Email -->
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        Email <span class="text-red-500">*</span>
-                    </label>
-
-                    <input
-                        id="email"
-                        type="email"
-                        class="form-input bg-slate-50/50"
-                        readonly
-                    >
-                </div>
-
-
-                <!-- Phone -->
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        Phone <span class="text-red-500">*</span>
-                    </label>
-
-                    <input
-                        id="phone"
-                        type="text"
-                        class="form-input"
-                        required
-                    >
-                </div>
-
-
-                <!-- Gender -->
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        Gender <span class="text-red-500">*</span>
-                    </label>
-
-                    <div class="flex gap-6 pt-1">
-
-                        <label class="flex items-center gap-2 cursor-pointer">
-
-                            <input
-                                id="genderMale"
-                                type="radio"
-                                name="gender"
-                                value="Male"
-                                class="text-purple-600 focus:ring-purple-500 h-4 w-4"
-                            >
-
-                            <span class="text-sm">
-                                Male
-                            </span>
-
-                        </label>
-
-
-                        <label class="flex items-center gap-2 cursor-pointer">
-
-                            <input
-                                id="genderFemale"
-                                type="radio"
-                                name="gender"
-                                value="Female"
-                                class="text-purple-600 focus:ring-purple-500 h-4 w-4"
-                            >
-
-                            <span class="text-sm">
-                                Female
-                            </span>
-
-                        </label>
-
-                    </div>
-                </div>
-
-
-                <!-- Address -->
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        Address <span class="text-red-500">*</span>
-                    </label>
-
-                    <input
-                        id="address"
-                        type="text"
-                        class="form-input"
-                    >
-                </div>
-
-
-                <!-- City -->
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        City <span class="text-red-500">*</span>
-                    </label>
-
-                    <input
-                        id="city"
-                        type="text"
-                        class="form-input"
-                    >
-                </div>
-
-
-                <!-- State -->
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        State <span class="text-red-500">*</span>
-                    </label>
-
-                    <div class="relative">
-
-                        <select
-                            id="state"
-                            class="form-input appearance-none bg-white"
-                        >
-
-                            <option value="">
-                                Select State
-                            </option>
-
-                            <option value="Madhya Pradesh">
-                                Madhya Pradesh
-                            </option>
-
-                            <option value="Uttar Pradesh">
-                                Uttar Pradesh
-                            </option>
-
-                            <option value="Bihar">
-                                Bihar
-                            </option>
-
-                            <option value="Delhi">
-                                Delhi
-                            </option>
-
-                            <option value="Rajasthan">
-                                Rajasthan
-                            </option>
-
-                            <option value="Maharashtra">
-                                Maharashtra
-                            </option>
-
-                            <option value="Gujarat">
-                                Gujarat
-                            </option>
-
-                            <option value="Haryana">
-                                Haryana
-                            </option>
-
-                            <option value="Punjab">
-                                Punjab
-                            </option>
-
-                            <option value="West Bengal">
-                                West Bengal
-                            </option>
-
-                        </select>
-
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-purple-600">
-                            ⌄
-                        </span>
-
-                    </div>
-                </div>
-
-
-                <!-- Pincode -->
-
-                <div>
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        Pincode <span class="text-red-500">*</span>
-                    </label>
-
-                    <input
-                        id="pincode"
-                        type="text"
-                        inputmode="numeric"
-                        maxlength="6"
-                        class="form-input"
-                    >
-                </div>
-
-
-                <!-- Avatar -->
-
-                <div>
-
-                    <label class="block text-sm text-slate-700 mb-1.5">
-                        Avatar
-                    </label>
-
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-
-                        <input
-                            id="avatarInput"
-                            type="file"
-                            accept="image/*"
-                            class="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 border border-slate-200 rounded-lg p-1"
-                        >
-
-                    </div>
-
-
-                    <div class="mt-3 w-20 h-20 border border-slate-200 rounded-lg p-1 bg-slate-50 flex items-center justify-center">
-
-                        <img
-                            id="avatarPreview"
-                            src=""
-                            alt="Avatar Preview"
-                            class="max-h-full max-w-full object-contain rounded hidden"
-                        >
-
-                        <div
-                            id="avatarLetter"
-                            class="w-full h-full rounded flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-2xl font-bold"
-                        >
-                            M
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Save -->
-
-                <div class="pt-4">
-
-                    <button
-                        id="saveButton"
-                        type="submit"
-                        class="bg-gradient-to-r from-pink-500 to-purple-600 text-white font-medium px-8 py-3 rounded-full shadow-md hover:opacity-90 transition-all text-sm"
-                    >
-                        Save Changes
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-
-        <!-- Footer -->
-
-        <div class="text-center mt-8 text-xs text-slate-400">
-            © 2026 Skills Market. All rights reserved.
-        </div>
-
-    </div>
-
-
-<script>
-
-/* =====================================================
-   SUPABASE CONNECTION
-===================================================== */
-
-const SUPABASE_URL =
-    "https://hmlonjwqeqedakzhucix.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const fullNameInput =
-    document.getElementById("fullName");
-
-const emailInput =
-    document.getElementById("email");
-
-const phoneInput =
-    document.getElementById("phone");
-
-const addressInput =
-    document.getElementById("address");
-
-const cityInput =
-    document.getElementById("city");
-
-const stateInput =
-    document.getElementById("state");
-
-const pincodeInput =
-    document.getElementById("pincode");
-
-const sponsorNameInput =
-    document.getElementById("sponsorName");
-
-const sponsorPhoneInput =
-    document.getElementById("sponsorPhone");
-
-const genderMale =
-    document.getElementById("genderMale");
-
-const genderFemale =
-    document.getElementById("genderFemale");
-
-const avatarInput =
-    document.getElementById("avatarInput");
-
-const avatarPreview =
-    document.getElementById("avatarPreview");
-
-const avatarLetter =
-    document.getElementById("avatarLetter");
-
-const profileForm =
-    document.getElementById("profileForm");
-
-const saveButton =
-    document.getElementById("saveButton");
-
-
-/* =====================================================
-   LOAD PROFILE
-===================================================== */
-
-async function loadProfile(){
-
-    try{
-
-        const {
-            data:{user},
-            error:authError
-        } =
-        await supabaseClient.auth.getUser();
-
-
-        /* No login */
-
-        if(authError || !user){
-
-            window.location.href =
-                "login.html";
-
-            return;
-        }
-
-
-        console.log("Logged in user:", user);
-
-
-        /* =========================================
-           GET PROFILE
-        ========================================= */
-
-        const {
-            data:profile,
-            error:profileError
-        } =
-        await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq("id",user.id)
-            .maybeSingle();
-
-
-        if(profileError){
-
-            console.error(
-                "Profile error:",
-                profileError
-            );
-
-            alert(
-                "Unable to load profile."
-            );
-
-            return;
-        }
-
-
-        if(!profile){
-
-            alert(
-                "Profile record not found."
-            );
-
-            return;
-        }
-
-
-        /* =========================================
-           PERSONAL DATA
-        ========================================= */
-
-        const metadata =
-            user.user_metadata || {};
-
-
-        const name =
-            profile.full_name ||
-            metadata.full_name ||
-            "";
-
-
-        const phone =
-            profile.phone ||
-            "";
-
-
-        fullNameInput.value =
-            name;
-
-
-        emailInput.value =
-            user.email || "";
-
-
-        phoneInput.value =
-            phone;
-
-
-        /* =========================================
-           EXTRA PERSONAL DATA
-           Stored in Supabase Auth metadata
-        ========================================= */
-
-        addressInput.value =
-            metadata.address || "";
-
-
-        cityInput.value =
-            metadata.city || "";
-
-
-        stateInput.value =
-            metadata.state || "";
-
-
-        pincodeInput.value =
-            metadata.pincode || "";
-
-
-        const gender =
-            metadata.gender || "";
-
-
-        if(gender === "Male"){
-
-            genderMale.checked = true;
-
-        }
-
-
-        if(gender === "Female"){
-
-            genderFemale.checked = true;
-
-        }
-
-
-        /* =========================================
-           AVATAR
-        ========================================= */
-
-        const avatar =
-            metadata.avatar_url || "";
-
-
-        if(avatar){
-
-            avatarPreview.src =
-                avatar;
-
-            avatarPreview.classList.remove(
-                "hidden"
-            );
-
-            avatarLetter.classList.add(
-                "hidden"
-            );
-
-        }else{
-
-            setAvatarLetter(name);
-
-        }
-
-
-        /* =========================================
-           SPONSOR
-        ========================================= */
-
-        sponsorNameInput.value =
-            "Not Available";
-
-        sponsorPhoneInput.value =
-            "Not Available";
-
-
-        if(profile.referrer_member_id){
-
-            const {
-                data:sponsor,
-                error:sponsorError
-            } =
-            await supabaseClient
-                .from("profiles")
-                .select(
-                    "full_name, phone, member_id"
-                )
-                .eq(
-                    "member_id",
-                    profile.referrer_member_id
-                )
-                .maybeSingle();
-
-
-            if(
-                !sponsorError &&
-                sponsor
-            ){
-
-                sponsorNameInput.value =
-                    sponsor.full_name ||
-                    "Not Available";
-
-                sponsorPhoneInput.value =
-                    sponsor.phone ||
-                    "Not Available";
-
-            }
-
-        }
-
-    }catch(error){
-
-        console.error(
-            "Profile loading error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   AVATAR LETTER
-===================================================== */
-
-function setAvatarLetter(name){
-
-    if(!name){
-
-        avatarLetter.textContent =
-            "M";
-
-        return;
-    }
-
-
-    avatarLetter.textContent =
-        name
-            .trim()
-            .charAt(0)
-            .toUpperCase();
-
-}
-
-
-/* =====================================================
-   AVATAR PREVIEW
-===================================================== */
-
-avatarInput.addEventListener(
-    "change",
-    function(){
-
-        const file =
-            this.files[0];
-
-        if(!file){
-
-            return;
-        }
-
-
-        const reader =
-            new FileReader();
-
-
-        reader.onload =
-            function(event){
-
-                avatarPreview.src =
-                    event.target.result;
-
-                avatarPreview.classList.remove(
-                    "hidden"
-                );
-
-                avatarLetter.classList.add(
-                    "hidden"
-                );
-
-            };
-
-
-        reader.readAsDataURL(file);
-
-    }
-);
-
-
-/* =====================================================
-   SAVE PROFILE
-===================================================== */
-
-profileForm.addEventListener(
-    "submit",
-    async function(event){
-
-        event.preventDefault();
-
-
-        saveButton.disabled =
-            true;
-
-        saveButton.textContent =
-            "Saving...";
-
-
-        try{
-
-            const {
-                data:{user},
-                error:authError
-            } =
-            await supabaseClient.auth.getUser();
-
-
-            if(authError || !user){
-
-                window.location.href =
-                    "login.html";
-
-                return;
-            }
-
-
-            /* =====================================
-               GENDER
-            ===================================== */
-
-            let gender = "";
-
-
-            if(genderMale.checked){
-
-                gender = "Male";
-
-            }else if(genderFemale.checked){
-
-                gender = "Female";
-
-            }
-
-
-            /* =====================================
-               UPDATE PROFILE TABLE
-            ===================================== */
-
-            const {
-                error:profileUpdateError
-            } =
-            await supabaseClient
-                .from("profiles")
-                .update({
-
-                    full_name:
-                        fullNameInput.value.trim(),
-
-                    phone:
-                        phoneInput.value.trim()
-
-                })
-                .eq(
-                    "id",
-                    user.id
-                );
-
-
-            if(profileUpdateError){
-
-                console.error(
-                    profileUpdateError
-                );
-
-                throw profileUpdateError;
-            }
-
-
-            /* =====================================
-               UPDATE AUTH METADATA
-            ===================================== */
-
-            const currentMetadata =
-                user.user_metadata || {};
-
-
-            const avatarFile =
-                avatarInput.files[0];
-
-
-            let avatarUrl =
-                currentMetadata.avatar_url ||
-                "";
-
-
-            /*
-              Avatar file preview works immediately.
-              Permanent Storage upload will be added
-              after the Skills Market storage bucket
-              is configured.
-            */
-
-
-            const {
-                error:metadataError
-            } =
-            await supabaseClient.auth.updateUser({
-
-                data:{
-
-                    full_name:
-                        fullNameInput.value.trim(),
-
-                    gender:
-                        gender,
-
-                    address:
-                        addressInput.value.trim(),
-
-                    city:
-                        cityInput.value.trim(),
-
-                    state:
-                        stateInput.value,
-
-                    pincode:
-                        pincodeInput.value.trim(),
-
-                    avatar_url:
-                        avatarUrl
-
-                }
-
-            });
-
-
-            if(metadataError){
-
-                console.error(
-                    metadataError
-                );
-
-                throw metadataError;
-            }
-
-
-            /* =====================================
-               SUCCESS
-            ===================================== */
-
-            saveButton.textContent =
-                "Saved ✓";
-
-
-            setTimeout(
-                function(){
-
-                    saveButton.textContent =
-                        "Save Changes";
-
-                    saveButton.disabled =
-                        false;
-
-                },
-                1500
-            );
-
-
-        }catch(error){
-
-            console.error(
-                "Save error:",
-                error
-            );
-
-
-            alert(
-                "Profile update failed. Please try again."
-            );
-
-
-            saveButton.textContent =
-                "Save Changes";
-
-            saveButton.disabled =
-                false;
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   START
-===================================================== */
-
-loadProfile();
-
-</script>
-
-</body>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Skills Market | Dashboard</title>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <style>  
+*{  
+    margin:0;  
+    padding:0;  
+    box-sizing:border-box;  
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;  
+}  
+  
+body{  
+    background:#f6f7fb;  
+    color:#111827;  
+    padding:16px;  
+}  
+  
+.dashboard{  
+    width:100%;  
+    max-width:100%;  
+    margin:auto;  
+}  
+  
+/* ================= NAVBAR ================= */  
+  
+.navbar{  
+    height:54px;  
+    display:flex;  
+    align-items:center;  
+    justify-content:space-between;  
+    margin-bottom:14px;  
+}  
+  
+.brand{  
+    display:flex;  
+    align-items:center;  
+    gap:9px;  
+}  
+  
+.brand-logo{  
+    width:34px;  
+    height:34px;  
+    border-radius:10px;  
+    background:linear-gradient(135deg,#7c3aed,#2563eb);  
+    color:white;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:14px;  
+    font-weight:900;  
+    box-shadow:0 5px 15px rgba(79,70,229,.22);  
+}  
+  
+.brand-name{  
+    font-size:19px;  
+    font-weight:900;  
+    letter-spacing:-.4px;  
+    color:#111827;  
+}  
+  
+.brand-name span{  
+    color:#6d28d9;  
+}  
+  
+.nav-right{  
+    display:flex;  
+    align-items:center;  
+    gap:9px;  
+}  
+  
+.profile-mini{  
+    width:35px;  
+    height:35px;  
+    border-radius:50%;  
+    background:#fff;  
+    border:1px solid #e5e7eb;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:15px;  
+    font-weight:800;  
+    color:#4f46e5;  
+    box-shadow:0 3px 10px rgba(0,0,0,.05);  
+}  
+  
+.menu-btn{  
+    width:35px;  
+    height:35px;  
+    border:1px solid #e5e7eb;  
+    border-radius:10px;  
+    background:#fff;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    cursor:pointer;  
+    font-size:19px;  
+    color:#334155;  
+    box-shadow:0 3px 10px rgba(0,0,0,.05);  
+}  
+  
+/* ================= NAV MENU ================= */  
+  
+.nav-menu{  
+    position:fixed;  
+    top:0;  
+    right:-310px;  
+    width:290px;  
+    max-width:85%;  
+    height:100vh;  
+    background:#fff;  
+    z-index:9999;  
+    padding:20px;  
+    box-shadow:-8px 0 30px rgba(15,23,42,.14);  
+    transition:right .3s ease;  
+}  
+  
+.nav-menu.active{  
+    right:0;  
+}  
+  
+.menu-top{  
+    display:flex;  
+    align-items:center;  
+    justify-content:space-between;  
+    padding-bottom:18px;  
+    border-bottom:1px solid #eef2f7;  
+}  
+  
+.menu-title{  
+    font-size:18px;  
+    font-weight:900;  
+    color:#111827;  
+}  
+  
+.close-menu{  
+    width:34px;  
+    height:34px;  
+    border:0;  
+    border-radius:9px;  
+    background:#f1f5f9;  
+    color:#334155;  
+    font-size:18px;  
+    cursor:pointer;  
+}  
+  
+.menu-profile{  
+    display:flex;  
+    align-items:center;  
+    gap:12px;  
+    padding:18px 0;  
+    border-bottom:1px solid #eef2f7;  
+}  
+  
+.menu-avatar{  
+    width:45px;  
+    height:45px;  
+    border-radius:50%;  
+    background:linear-gradient(135deg,#7c3aed,#2563eb);  
+    color:#fff;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:17px;  
+    font-weight:900;  
+}  
+  
+.menu-profile-name{  
+    font-size:14px;  
+    font-weight:850;  
+    color:#111827;  
+}  
+  
+.menu-profile-id{  
+    font-size:10px;  
+    color:#64748b;  
+    margin-top:3px;  
+}  
+  
+.menu-links{  
+    padding-top:14px;  
+}  
+  
+.menu-link{  
+    width:100%;  
+    display:flex;  
+    align-items:center;  
+    gap:12px;  
+    padding:13px 12px;  
+    margin-bottom:5px;  
+    border-radius:10px;  
+    text-decoration:none;  
+    color:#334155;  
+    font-size:13px;  
+    font-weight:700;  
+    transition:.2s;  
+}  
+  
+.menu-link:hover{  
+    background:#f5f3ff;  
+    color:#6d28d9;  
+}  
+  
+.menu-link.active{  
+    background:#f3e8ff;  
+    color:#6d28d9;  
+}  
+  
+.menu-icon{  
+    width:25px;  
+    text-align:center;  
+    font-size:16px;  
+}  
+  
+.logout-link{  
+    color:#dc2626;  
+}  
+  
+.logout-link:hover{  
+    background:#fef2f2;  
+    color:#dc2626;  
+}  
+  
+.menu-overlay{  
+    position:fixed;  
+    inset:0;  
+    background:rgba(15,23,42,.35);  
+    z-index:9998;  
+    opacity:0;  
+    visibility:hidden;  
+    transition:.3s;  
+}  
+  
+.menu-overlay.active{  
+    opacity:1;  
+    visibility:visible;  
+}  
+  
+/* ================= PROFILE CARD ================= */  
+  
+.profile-card{  
+    position:relative;  
+    background:linear-gradient(  
+        135deg,  
+        #ffffff 0%,  
+        #faf8ff 48%,  
+        #f1f5ff 100%  
+    );  
+    border:1px solid rgba(99,102,241,.13);  
+    border-radius:18px;  
+    padding:22px 16px 17px;  
+    margin-bottom:15px;  
+    overflow:hidden;  
+    box-shadow:  
+        0 8px 25px rgba(30,41,59,.07),  
+        inset 0 1px 0 rgba(255,255,255,.9);  
+    isolation:isolate;  
+}  
+  
+.profile-card::before{  
+    content:"";  
+    position:absolute;  
+    width:190px;  
+    height:190px;  
+    right:-85px;  
+    top:-105px;  
+    border-radius:50%;  
+    background:rgba(124,58,237,.09);  
+    z-index:-1;  
+}  
+  
+.profile-card::after{  
+    content:"";  
+    position:absolute;  
+    width:150px;  
+    height:150px;  
+    left:-80px;  
+    bottom:-90px;  
+    border-radius:50%;  
+    background:rgba(37,99,235,.07);  
+    z-index:-1;  
+}  
+  
+.profile-circle{  
+    position:absolute;  
+    border-radius:50%;  
+    pointer-events:none;  
+    z-index:-1;  
+}  
+  
+.circle-one{  
+    width:92px;  
+    height:92px;  
+    right:22px;  
+    bottom:-55px;  
+    border:1px solid rgba(124,58,237,.14);  
+    animation:floatOne 5s ease-in-out infinite;  
+}  
+  
+.circle-two{  
+    width:58px;  
+    height:58px;  
+    right:76px;  
+    top:20px;  
+    border:1px solid rgba(37,99,235,.12);  
+    animation:floatTwo 4s ease-in-out infinite;  
+}  
+  
+.circle-three{  
+    width:25px;  
+    height:25px;  
+    left:105px;  
+    top:18px;  
+    background:rgba(124,58,237,.07);  
+    animation:pulseCircle 3s ease-in-out infinite;  
+}  
+  
+.package-badge{  
+    position:absolute;  
+    top:0;  
+    right:16px;  
+    background:linear-gradient(135deg,#7c3aed,#6d28d9);  
+    color:#fff;  
+    font-size:8.5px;  
+    font-weight:800;  
+    letter-spacing:.55px;  
+    padding:6px 11px;  
+    border-radius:0 0 9px 9px;  
+    box-shadow:0 4px 10px rgba(109,40,217,.22);  
+}  
+  
+.profile-content{  
+    position:relative;  
+    z-index:2;  
+    display:flex;  
+    align-items:center;  
+    gap:15px;  
+    padding-top:5px;  
+}  
+  
+.profile-avatar-wrap{  
+    flex-shrink:0;  
+}  
+  
+.profile-avatar{  
+    width:72px;  
+    height:72px;  
+    border-radius:50%;  
+    padding:3px;  
+    background:linear-gradient(  
+        135deg,  
+        #7c3aed,  
+        #2563eb,  
+        #06b6d4  
+    );  
+    box-shadow:0 6px 18px rgba(79,70,229,.22);  
+    overflow:hidden;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+}  
+  
+.avatar-fallback{  
+    width:100%;  
+    height:100%;  
+    border-radius:50%;  
+    background:#fff;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:25px;  
+    font-weight:900;  
+    color:#4f46e5;  
+    border:2px solid #fff;  
+}  
+  
+.profile-details{  
+    min-width:0;  
+}  
+  
+.profile-name{  
+    font-size:17px;  
+    font-weight:850;  
+    color:#111827;  
+    letter-spacing:.2px;  
+    margin-bottom:5px;  
+}  
+  
+.id-row{  
+    display:flex;  
+    align-items:center;  
+    gap:7px;  
+    font-size:11px;  
+    font-weight:700;  
+    color:#475569;  
+}  
+  
+.copy-btn{  
+    width:24px;  
+    height:24px;  
+    border:0;  
+    border-radius:7px;  
+    background:#f1eaff;  
+    color:#6d28d9;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:11px;  
+    cursor:pointer;  
+    transition:.2s;  
+}  
+  
+.copy-btn:hover{  
+    background:#e9d5ff;  
+    transform:translateY(-1px);  
+}  
+  
+/* ================= REVENUE GRID ================= */  
+  
+.revenue-grid{  
+    display:grid;  
+    grid-template-columns:repeat(2,1fr);  
+    gap:12px;  
+    margin-bottom:12px;  
+}  
+  
+.revenue-card.full-width{  
+    grid-column:span 2;  
+}  
+  
+@media(min-width:768px){  
+    .revenue-grid{  
+        grid-template-columns:repeat(3,1fr);  
+    }  
+  
+    .revenue-card.full-width{  
+        grid-column:span 1;  
+    }  
+}  
+  
+/* ================= REVENUE CARDS ================= */  
+  
+.revenue-card{  
+    position:relative;  
+    overflow:hidden;  
+    border-radius:15px;  
+    padding:15px 16px;  
+    color:white;  
+    box-shadow:0 5px 15px rgba(0,0,0,.08);  
+    transition:transform .2s ease;  
+}  
+  
+.revenue-card:hover{  
+    transform:translateY(-2px);  
+}  
+  
+.revenue-card::before{  
+    content:"";  
+    position:absolute;  
+    width:105px;  
+    height:105px;  
+    border:1px solid rgba(255,255,255,.13);  
+    border-radius:50%;  
+    right:-45px;  
+    top:-48px;  
+}  
+  
+.revenue-card::after{  
+    content:"";  
+    position:absolute;  
+    width:55px;  
+    height:55px;  
+    border:1px solid rgba(255,255,255,.08);  
+    border-radius:50%;  
+    right:12px;  
+    bottom:-30px;  
+}  
+  
+.card-icon{  
+    position:absolute;  
+    top:14px;  
+    right:14px;  
+    width:28px;  
+    height:28px;  
+    background:rgba(255,255,255,.15);  
+    border-radius:50%;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:13px;  
+    z-index:2;  
+}  
+  
+.purple{  
+    background:linear-gradient(135deg,#6b21a8,#581c87);  
+}  
+  
+.indigo{  
+    background:linear-gradient(135deg,#4f46e5,#3730a3);  
+}  
+  
+.pink{  
+    background:linear-gradient(135deg,#db2777,#9d174d);  
+}  
+  
+.blue{  
+    background:linear-gradient(135deg,#0284c7,#0369a1);  
+}  
+  
+.gold{  
+    background:linear-gradient(135deg,#ca8a04,#854d0e);  
+}  
+  
+.revenue-amount{  
+    position:relative;  
+    z-index:2;  
+    font-size:23px;  
+    font-weight:850;  
+    margin-bottom:3px;  
+}  
+  
+.revenue-title{  
+    position:relative;  
+    z-index:2;  
+    font-size:12px;  
+    font-weight:500;  
+    opacity:.95;  
+    margin-bottom:12px;  
+}  
+  
+.revenue-footer{  
+    position:relative;  
+    z-index:2;  
+    display:flex;  
+    justify-content:flex-start;  
+    align-items:center;  
+    border-top:1px solid rgba(255,255,255,.25);  
+    padding-top:8px;  
+    font-size:11px;  
+}  
+  
+.view-details{  
+    color:white;  
+    text-decoration:none;  
+}  
+  
+/* ================= GRAPH ================= */  
+  
+.graph-card{  
+    background:#fff;  
+    border:1px solid #e2e8f0;  
+    border-radius:17px;  
+    padding:16px;  
+    margin-top:4px;  
+    box-shadow:0 3px 12px rgba(0,0,0,.045);  
+}  
+  
+.graph-header{  
+    display:flex;  
+    justify-content:space-between;  
+    align-items:center;  
+    margin-bottom:16px;  
+}  
+  
+.graph-title{  
+    font-size:15px;  
+    font-weight:850;  
+    color:#0f172a;  
+}  
+  
+.graph-badge{  
+    font-size:9px;  
+    font-weight:700;  
+    color:#6d28d9;  
+    background:#f3e8ff;  
+    padding:5px 8px;  
+    border-radius:7px;  
+}  
+  
+.graph-wrapper{  
+    position:relative;  
+    margin-left:31px;  
+}  
+  
+.graph{  
+    height:185px;  
+    position:relative;  
+    border-left:1px solid #cbd5e1;  
+    border-bottom:1px solid #cbd5e1;  
+  
+    background:  
+        repeating-linear-gradient(  
+            to bottom,  
+            transparent 0,  
+            transparent 36px,  
+            #eef2f7 37px  
+        );  
+}  
+  
+.y-axis{  
+    position:absolute;  
+    left:-31px;  
+    top:0;  
+    bottom:0;  
+    display:flex;  
+    flex-direction:column;  
+    justify-content:space-between;  
+    font-size:9px;  
+    color:#94a3b8;  
+}  
+  
+.zero-line{  
+    position:absolute;  
+    left:0;  
+    right:0;  
+    bottom:0;  
+    height:2px;  
+    background:#db2777;  
+}  
+  
+.graph-dates{  
+    display:grid;  
+    grid-template-columns:repeat(7,1fr);  
+    margin-left:31px;  
+    margin-top:8px;  
+    font-size:8px;  
+    color:#64748b;  
+    text-align:center;  
+}  
+  
+.graph-note{  
+    text-align:center;  
+    margin-top:13px;  
+    color:#94a3b8;  
+    font-size:10px;  
+}  
+  
+/* ================= FOOTER ================= */  
+  
+.footer{  
+    text-align:center;  
+    color:#94a3b8;  
+    font-size:10px;  
+    padding:15px 0 20px;  
+}  
+  
+/* ================= ANIMATION ================= */  
+  
+@keyframes floatOne{  
+    0%,100%{transform:translate(0,0);}  
+    50%{transform:translate(-5px,-5px);}  
+}  
+  
+@keyframes floatTwo{  
+    0%,100%{transform:translate(0,0);}  
+    50%{transform:translate(5px,4px);}  
+}  
+  
+@keyframes pulseCircle{  
+    0%,100%{  
+        transform:scale(1);  
+        opacity:.45;  
+    }  
+    50%{  
+        transform:scale(1.25);  
+        opacity:1;  
+    }  
+}  
+  
+/* ================= MOBILE ================= */  
+  
+@media(max-width:380px){  
+  
+    body{  
+        padding:9px;  
+    }  
+  
+    .brand-name{  
+        font-size:17px;  
+    }  
+  
+    .brand-logo{  
+        width:31px;  
+        height:31px;  
+    }  
+  
+    .profile-card{  
+        padding:20px 13px 15px;  
+    }  
+  
+    .profile-avatar{  
+        width:66px;  
+        height:66px;  
+    }  
+  
+    .profile-name{  
+        font-size:15px;  
+    }  
+  
+    .package-badge{  
+        font-size:7.5px;  
+        padding:5px 8px;  
+    }  
+  
+    .revenue-card{  
+        padding:14px;  
+    }  
+  
+    .revenue-amount{  
+        font-size:21px;  
+    }  
+  
+    .graph-dates{  
+        font-size:7px;  
+    }  
+}  
+</style>  </head>  <body>  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>  <div class="nav-menu" id="navMenu">  <div class="menu-top">  
+    <div class="menu-title">Skills Market</div>  
+
+    <button class="close-menu" onclick="closeMenu()">  
+        ✕  
+    </button>  
+</div>  
+
+<div class="menu-profile">  
+
+    <div class="menu-avatar" id="menuAvatar">  
+        R  
+    </div>  
+
+    <div>  
+
+        <div class="menu-profile-name" id="menuProfileName">  
+        </div>  
+
+        <div class="menu-profile-id" id="menuProfileId">  
+        </div>  
+
+    </div>  
+
+</div>  
+
+<div class="menu-links">  
+
+    <a href="dashboard.html" class="menu-link active">  
+        <span class="menu-icon">⌂</span>  
+        <span>Dashboard</span>  
+    </a>  
+
+    <a href="#" class="menu-link">  
+        <span class="menu-icon">👤</span>  
+        <span>My Profile</span>  
+    </a>  
+
+    <a href="#" class="menu-link">  
+        <span class="menu-icon">🔗</span>  
+        <span>Affiliate Link</span>  
+    </a>  
+
+    <a href="#" class="menu-link">  
+        <span class="menu-icon">📚</span>  
+        <span>My Courses</span>  
+    </a>  
+
+    <a href="#" class="menu-link">  
+        <span class="menu-icon">💰</span>  
+        <span>Wallet</span>  
+    </a>  
+
+    <a href="#" class="menu-link">  
+        <span class="menu-icon">👥</span>  
+        <span>My Team</span>  
+    </a>  
+
+    <a href="#" class="menu-link">  
+        <span class="menu-icon">🏆</span>  
+        <span>Leaderboard</span>  
+    </a>  
+
+    <a href="#" class="menu-link">  
+        <span class="menu-icon">📊</span>  
+        <span>Reports</span>  
+    </a>  
+
+    <a href="#" class="menu-link">  
+        <span class="menu-icon">🎓</span>  
+        <span>Training</span>  
+    </a>  
+
+    <a href="#" class="menu-link logout-link" onclick="logoutUser(event)">  
+        <span class="menu-icon">↪</span>  
+        <span>Logout</span>  
+    </a>  
+
+</div>
+
+</div>  <div class="dashboard">  <header class="navbar">  <div class="brand">  
+
+    <div class="brand-logo">  
+        SM  
+    </div>  
+
+    <div class="brand-name">  
+        Skills <span>Market</span>  
+    </div>  
+
+</div>  
+
+<div class="nav-right">  
+
+    <div class="profile-mini" id="profileMini">  
+        R  
+    </div>  
+
+    <button  
+        class="menu-btn"  
+        onclick="openMenu()"  
+        aria-label="Open menu">  
+
+        ☰  
+
+    </button>  
+
+</div>
+
+</header>  <section class="profile-card">  <div class="profile-circle circle-one"></div>  
+<div class="profile-circle circle-two"></div>  
+<div class="profile-circle circle-three"></div>  
+
+<div class="package-badge" id="packageBadge">  
+</div>  
+
+<div class="profile-content">  
+
+    <div class="profile-avatar-wrap">  
+
+        <div class="profile-avatar">  
+
+            <div class="avatar-fallback" id="avatarFallback">  
+                R  
+            </div>  
+
+        </div>  
+
+    </div>  
+
+    <div class="profile-details">  
+
+        <div class="profile-name" id="profileName">  
+        </div>  
+
+        <div class="id-row">  
+
+            <span id="profileId">  
+            </span>  
+
+            <button  
+                class="copy-btn"  
+                onclick="copyProfileID()">  
+
+                📋  
+
+            </button>  
+
+        </div>  
+
+    </div>  
+
+</div>
+
+</section>  <div class="revenue-grid">  <div class="revenue-card purple">  
+    <div class="card-icon">💳</div>  
+    <div class="revenue-amount">₹ 0</div>  
+    <div class="revenue-title">Today's Revenue</div>  
+    <div class="revenue-footer">  
+        <a href="#" class="view-details">Click here to view detail(s)</a>  
+    </div>  
+</div>  
+
+<div class="revenue-card indigo">  
+    <div class="card-icon">📊</div>  
+    <div class="revenue-amount">₹ 0</div>  
+    <div class="revenue-title">Last 7 Days Revenue</div>  
+    <div class="revenue-footer">  
+        <a href="#" class="view-details">Click here to view detail(s)</a>  
+    </div>  
+</div>  
+
+<div class="revenue-card pink">  
+    <div class="card-icon">🎓</div>  
+    <div class="revenue-amount">₹ 0</div>  
+    <div class="revenue-title">Last 30 Days Revenue</div>  
+    <div class="revenue-footer">  
+        <a href="#" class="view-details">Click here to view detail(s)</a>  
+    </div>  
+</div>  
+
+<div class="revenue-card blue">  
+    <div class="card-icon">🏆</div>  
+    <div class="revenue-amount">₹ 0</div>  
+    <div class="revenue-title">All Time Revenue</div>  
+    <div class="revenue-footer">  
+        <a href="#" class="view-details">Click here to view detail(s)</a>  
+    </div>  
+</div>  
+
+<div class="revenue-card gold full-width">  
+    <div class="card-icon">🏆</div>  
+    <div class="revenue-amount">₹ 0</div>  
+    <div class="revenue-title">Passive Income</div>  
+    <div class="revenue-footer">  
+        <a href="#" class="view-details">Click here to view detail(s)</a>  
+    </div>  
+</div>
+
+</div>  <section class="graph-card">  <div class="graph-header">  
+
+    <div class="graph-title">  
+        Sales Last 7 Days  
+    </div>  
+
+    <div class="graph-badge">  
+        7 DAYS  
+    </div>  
+
+</div>  
+
+<div class="graph-wrapper">  
+
+    <div class="y-axis">  
+
+        <span>1.0</span>  
+        <span>0.8</span>  
+        <span>0.6</span>  
+        <span>0.4</span>  
+        <span>0.2</span>  
+        <span>0</span>  
+        <span>-0.2</span>  
+        <span>-0.4</span>  
+        <span>-0.6</span>  
+        <span>-0.8</span>  
+        <span>-1.0</span>  
+
+    </div>  
+
+    <div class="graph">  
+
+        <div class="zero-line"></div>  
+
+    </div>  
+
+</div>  
+
+<div class="graph-dates">  
+    <span></span>  
+    <span></span>  
+    <span></span>  
+    <span></span>  
+    <span></span>  
+    <span></span>  
+    <span></span>  
+</div>
+
+</section>  <div class="footer">  
+    © 2026 Skills Market · All Rights Reserved  
+</div>  </div>  <script>  
+  
+/* ================= SUPABASE ================= */  
+  
+const SUPABASE_URL =  
+    "https://hmlonjwqeqedakzhucix.supabase.co";  
+  
+const SUPABASE_KEY =  
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";  
+  
+const supabaseClient =  
+    window.supabase.createClient(  
+        SUPABASE_URL,  
+        SUPABASE_KEY  
+    );  
+  
+  
+/* ================= DASHBOARD ================= */  
+  
+let currentMemberID = "";  
+  
+  
+/* ================= APPLY PROFILE ================= */  
+  
+function applyProfileToScreen(  
+    fullName,  
+    memberID,  
+    packageName  
+){  
+  
+    currentMemberID = memberID;  
+  
+  
+    /* Main profile */  
+  
+    document.getElementById("profileName")  
+        .textContent = fullName;  
+  
+    document.getElementById("profileId")  
+        .textContent = "ID: " + memberID;  
+  
+    document.getElementById("packageBadge")  
+        .textContent =  
+            packageName.toUpperCase();  
+  
+  
+    /* Avatar */  
+  
+    const firstLetter =  
+        fullName.trim().charAt(0).toUpperCase() || "M";  
+  
+  
+    document.getElementById("avatarFallback")  
+        .textContent = firstLetter;  
+  
+    document.getElementById("profileMini")  
+        .textContent = firstLetter;  
+  
+  
+    /* Menu profile */  
+  
+    document.getElementById("menuAvatar")  
+        .textContent = firstLetter;  
+  
+    document.getElementById("menuProfileName")  
+        .textContent = fullName;  
+  
+    document.getElementById("menuProfileId")  
+        .textContent = "ID: " + memberID;  
+  
+}  
+  
+  
+/* ================= LOAD CACHE INSTANTLY ================= */  
+  
+function loadCachedProfile(){  
+  
+    try{  
+  
+        const cached =  
+            sessionStorage.getItem(  
+                "sm_profile_cache"  
+            );  
+  
+  
+        if(!cached){  
+  
+            return;  
+  
+        }  
+  
+  
+        const profile =  
+            JSON.parse(cached);  
+  
+  
+        if(  
+            profile &&  
+            profile.fullName &&  
+            profile.memberID  
+        ){  
+  
+            applyProfileToScreen(  
+  
+                profile.fullName,  
+  
+                profile.memberID,  
+  
+                profile.packageName ||  
+                "Package Not Assigned"  
+  
+            );  
+  
+        }  
+  
+    }catch(error){  
+  
+        console.error(  
+            "Profile cache error:",  
+            error  
+        );  
+  
+    }  
+  
+}  
+  
+  
+/* ================= DASHBOARD LOAD ================= */  
+  
+async function loadDashboard(){  
+  
+    try{  
+  
+        const {  
+            data: { user },  
+            error: authError  
+        } =  
+        await supabaseClient.auth.getUser();  
+  
+  
+        if(authError || !user){  
+  
+            sessionStorage.removeItem(  
+                "sm_profile_cache"  
+            );  
+  
+            window.location.href =  
+                "login.html";  
+  
+            return;  
+  
+        }  
+  
+  
+        const {  
+            data: profile,  
+            error  
+        } =  
+        await supabaseClient  
+            .from("profiles")  
+            .select("*")  
+            .eq("id", user.id)  
+            .maybeSingle();  
+  
+  
+        if(error){  
+  
+            console.error(  
+                "Profile error:",  
+                error  
+            );  
+  
+            alert(  
+                "Profile data load nahi ho pa raha. Supabase table/column connection check karein."  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(!profile){  
+  
+            alert(  
+                "Is login account ke liye profile record nahi mila."  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        /* ================= NAME ================= */  
+  
+        const fullName =  
+            profile.full_name ||  
+            user.user_metadata?.full_name ||  
+            "Member";  
+  
+  
+        /* ================= MEMBER ID ================= */  
+  
+        const memberID =  
+            profile.member_id ||  
+            "Not Assigned";  
+  
+  
+        /* ================= PACKAGE ================= */  
+  
+        const packageName =  
+            profile.package_name ||  
+            "Package Not Assigned";  
+  
+  
+        /* ================= UPDATE SCREEN ================= */  
+  
+        applyProfileToScreen(  
+  
+            fullName,  
+  
+            memberID,  
+  
+            packageName  
+  
+        );  
+  
+  
+        /* ================= SAVE CACHE ================= */  
+  
+        sessionStorage.setItem(  
+  
+            "sm_profile_cache",  
+  
+            JSON.stringify({  
+  
+                userId:user.id,  
+  
+                fullName:fullName,  
+  
+                memberID:memberID,  
+  
+                packageName:packageName  
+  
+            })  
+  
+        );  
+  
+  
+        console.log(  
+            "Dashboard loaded successfully:",  
+            {  
+                name:fullName,  
+                memberID:memberID,  
+                package:packageName  
+            }  
+        );  
+  
+    }catch(error){  
+  
+        console.error(error);  
+  
+        alert(  
+            "Dashboard load karte waqt error aaya."  
+        );  
+  
+    }  
+  
+}  
+  
+  
+/* ================= OPEN MENU ================= */  
+  
+function openMenu(){  
+  
+    document  
+        .getElementById("navMenu")  
+        .classList.add("active");  
+  
+    document  
+        .getElementById("menuOverlay")  
+        .classList.add("active");  
+  
+    document.body.style.overflow =  
+        "hidden";  
+  
+}  
+  
+  
+/* ================= CLOSE MENU ================= */  
+  
+function closeMenu(){  
+  
+    document  
+        .getElementById("navMenu")  
+        .classList.remove("active");  
+  
+    document  
+        .getElementById("menuOverlay")  
+        .classList.remove("active");  
+  
+    document.body.style.overflow =  
+        "";  
+  
+}  
+  
+  
+/* ================= COPY ID ================= */  
+  
+function copyProfileID(){  
+  
+    if(!currentMemberID){  
+  
+        return;  
+  
+    }  
+  
+  
+    if(navigator.clipboard){  
+  
+        navigator.clipboard  
+            .writeText(currentMemberID)  
+            .then(function(){  
+  
+                const button =  
+                    document.querySelector(  
+                        ".copy-btn"  
+                    );  
+  
+                button.textContent = "✓";  
+  
+  
+                setTimeout(function(){  
+  
+                    button.textContent = "📋";  
+  
+                },1200);  
+  
+            });  
+  
+    }  
+  
+}  
+  
+  
+/* ================= LOGOUT ================= */  
+  
+async function logoutUser(event){  
+  
+    event.preventDefault();  
+  
+  
+    const confirmLogout =  
+        confirm(  
+            "Are you sure you want to logout?"  
+        );  
+  
+  
+    if(!confirmLogout){  
+  
+        return;  
+  
+    }  
+  
+  
+    const {  
+        error  
+    } =  
+    await supabaseClient.auth.signOut();  
+  
+  
+    if(error){  
+  
+        alert("Logout failed.");  
+  
+        console.error(error);  
+  
+        return;  
+  
+    }  
+  
+  
+    sessionStorage.removeItem(  
+        "sm_profile_cache"  
+    );  
+  
+  
+    window.location.href =  
+        "login.html";  
+  
+}  
+  
+  
+/* ================= START ================= */  
+  
+/*  
+   IMPORTANT:  
+   Cache pehle load hoga,  
+   isliye refresh par naam immediately dikhega.  
+   Uske baad Supabase latest data update karega.  
+*/  
+  
+loadCachedProfile();  
+  
+loadDashboard();  
+  
+</script>  </body>  
 </html>
