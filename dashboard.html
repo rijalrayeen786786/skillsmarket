@@ -48,28 +48,20 @@ body{
     width:100%;
     height:68px;
     background:#ffffff;
-
     border-bottom:1px solid #e5e7eb;
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     position:sticky;
     top:0;
-
     z-index:5000;
     padding:0 24px;
 }
-
-
-/* Brand */
 
 .sm-brand{
     display:flex;
     align-items:center;
     gap:10px;
-
     text-decoration:none;
     color:#111827;
 }
@@ -77,26 +69,15 @@ body{
 .sm-brand-logo{
     width:38px;
     height:38px;
-
     border-radius:11px;
-
-    background:linear-gradient(
-        135deg,
-        #7c3aed,
-        #4f46e5
-    );
-
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
     color:#ffffff;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     font-size:13px;
     font-weight:900;
-
-    box-shadow:
-        0 5px 15px rgba(79,70,229,.18);
+    box-shadow:0 5px 15px rgba(79,70,229,.18);
 }
 
 .sm-brand-name{
@@ -108,9 +89,6 @@ body{
 .sm-brand-name span{
     color:#6d28d9;
 }
-
-
-/* Navbar right */
 
 .sm-nav-right{
     display:flex;
@@ -127,72 +105,50 @@ body{
     position:relative;
 }
 
-
-/* Profile circle */
-
 .profile-mini{
     width:40px;
     height:40px;
-
     border-radius:50%;
-
     border:0;
-
-    background:linear-gradient(
-        135deg,
-        #7c3aed,
-        #4f46e5
-    );
-
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
     color:#ffffff;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     font-size:14px;
     font-weight:900;
-
     cursor:pointer;
-
-    box-shadow:
-        0 5px 15px rgba(79,70,229,.20);
-
+    box-shadow:0 5px 15px rgba(79,70,229,.20);
     outline:none;
-
     transition:.2s;
+    overflow:hidden;
+    padding:0;
 }
 
 .profile-mini:hover{
     transform:translateY(-1px);
-    box-shadow:
-        0 7px 18px rgba(79,70,229,.25);
+    box-shadow:0 7px 18px rgba(79,70,229,.25);
 }
 
-
-/* Dropdown */
+.profile-mini img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+}
 
 .profile-dropdown{
     position:absolute;
-
     top:50px;
     right:0;
-
     width:200px;
-
     background:#ffffff;
-
     border:1px solid #e5e7eb;
-
     border-radius:14px;
-
     padding:7px;
-
-    box-shadow:
-        0 15px 35px rgba(15,23,42,.14);
-
+    box-shadow:0 15px 35px rgba(15,23,42,.14);
     display:none;
-
     z-index:10000;
 }
 
@@ -200,33 +156,21 @@ body{
     display:block;
 }
 
-
-/* Dropdown item */
-
 .profile-dropdown-item{
     width:100%;
     min-height:43px;
-
     display:flex;
     align-items:center;
     gap:10px;
-
     padding:10px 12px;
-
     border:0;
     border-radius:9px;
-
     background:transparent;
-
     color:#334155;
-
     text-decoration:none;
-
     font-size:13px;
     font-weight:700;
-
     cursor:pointer;
-
     text-align:left;
 }
 
@@ -248,23 +192,15 @@ body{
 .menu-btn{
     width:40px;
     height:40px;
-
     border:1px solid #e5e7eb;
-
     border-radius:11px;
-
     background:#ffffff;
-
     color:#334155;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     font-size:20px;
-
     cursor:pointer;
-
     transition:.2s;
 }
 
@@ -280,26 +216,16 @@ body{
 
 .nav-menu{
     position:fixed;
-
     top:0;
     right:-330px;
-
     width:310px;
     max-width:88%;
-
     height:100vh;
-
     background:#ffffff;
-
     z-index:9999;
-
     padding:20px 16px;
-
-    box-shadow:
-        -10px 0 35px rgba(15,23,42,.15);
-
+    box-shadow:-10px 0 35px rgba(15,23,42,.15);
     transition:right .3s ease;
-
     overflow-y:auto;
 }
 
@@ -307,16 +233,11 @@ body{
     right:0;
 }
 
-
-/* Menu top */
-
 .menu-top{
     height:48px;
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     border-bottom:1px solid #eef2f7;
 }
 
@@ -329,52 +250,48 @@ body{
 .close-menu{
     width:35px;
     height:35px;
-
     border:0;
     border-radius:9px;
-
     background:#f1f5f9;
-
     color:#334155;
-
     font-size:17px;
-
     cursor:pointer;
 }
 
 
-/* Menu profile */
+/* =========================================================
+   MENU PROFILE
+========================================================= */
 
 .menu-profile{
     display:flex;
     align-items:center;
     gap:12px;
-
     padding:18px 4px;
-
     border-bottom:1px solid #eef2f7;
 }
 
 .menu-avatar{
     width:45px;
     height:45px;
-
     border-radius:50%;
-
-    background:linear-gradient(
-        135deg,
-        #7c3aed,
-        #4f46e5
-    );
-
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
     color:#fff;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     font-size:16px;
     font-weight:900;
+    overflow:hidden;
+    flex-shrink:0;
+}
+
+.menu-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
 }
 
 .menu-profile-name{
@@ -389,33 +306,22 @@ body{
     margin-top:3px;
 }
 
-
-/* Menu links */
-
 .menu-links{
     padding-top:14px;
 }
 
 .menu-link{
     width:100%;
-
     display:flex;
     align-items:center;
     gap:12px;
-
     padding:12px;
-
     margin-bottom:4px;
-
     border-radius:10px;
-
     text-decoration:none;
-
     color:#334155;
-
     font-size:12.5px;
     font-weight:700;
-
     transition:.2s;
 }
 
@@ -446,21 +352,13 @@ body{
     color:#dc2626;
 }
 
-
-/* Overlay */
-
 .menu-overlay{
     position:fixed;
-
     inset:0;
-
     background:rgba(15,23,42,.35);
-
     z-index:9998;
-
     opacity:0;
     visibility:hidden;
-
     transition:.3s;
 }
 
@@ -476,65 +374,43 @@ body{
 
 .profile-card{
     position:relative;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff 0%,
-            #faf8ff 48%,
-            #f1f5ff 100%
-        );
-
+    background:linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #faf8ff 48%,
+        #f1f5ff 100%
+    );
     border:1px solid rgba(99,102,241,.13);
-
     border-radius:18px;
-
     padding:22px 20px 17px;
-
     margin-top:20px;
     margin-bottom:20px;
-
     overflow:hidden;
-
-    box-shadow:
-        0 8px 25px rgba(30,41,59,.07);
-
+    box-shadow:0 8px 25px rgba(30,41,59,.07);
     isolation:isolate;
 }
 
 .profile-card::before{
     content:"";
-
     position:absolute;
-
     width:190px;
     height:190px;
-
     right:-85px;
     top:-105px;
-
     border-radius:50%;
-
     background:rgba(124,58,237,.09);
-
     z-index:-1;
 }
 
 .profile-card::after{
     content:"";
-
     position:absolute;
-
     width:150px;
     height:150px;
-
     left:-80px;
     bottom:-90px;
-
     border-radius:50%;
-
     background:rgba(37,99,235,.07);
-
     z-index:-1;
 }
 
@@ -548,112 +424,89 @@ body{
 .circle-one{
     width:92px;
     height:92px;
-
     right:22px;
     bottom:-55px;
-
     border:1px solid rgba(124,58,237,.14);
-
     animation:floatOne 5s ease-in-out infinite;
 }
 
 .circle-two{
     width:58px;
     height:58px;
-
     right:76px;
     top:20px;
-
     border:1px solid rgba(37,99,235,.12);
-
     animation:floatTwo 4s ease-in-out infinite;
 }
 
 .circle-three{
     width:25px;
     height:25px;
-
     left:105px;
     top:18px;
-
     background:rgba(124,58,237,.07);
-
     animation:pulseCircle 3s ease-in-out infinite;
 }
 
 .package-badge{
     position:absolute;
-
     top:0;
     right:20px;
-
-    background:linear-gradient(
-        135deg,
-        #7c3aed,
-        #6d28d9
-    );
-
+    background:linear-gradient(135deg,#7c3aed,#6d28d9);
     color:#fff;
-
     font-size:9px;
     font-weight:800;
-
     letter-spacing:.55px;
-
     padding:6px 14px;
-
     border-radius:0 0 9px 9px;
 }
 
 .profile-content{
     position:relative;
     z-index:2;
-
     display:flex;
     align-items:center;
-
     gap:18px;
-
     padding-top:5px;
 }
 
 .profile-avatar{
     width:72px;
     height:72px;
-
     border-radius:50%;
-
     padding:3px;
-
     background:linear-gradient(
         135deg,
         #7c3aed,
         #2563eb,
         #06b6d4
     );
-
     display:flex;
     align-items:center;
     justify-content:center;
+    overflow:hidden;
+}
+
+.profile-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    border:2px solid #fff;
+    display:none;
 }
 
 .avatar-fallback{
     width:100%;
     height:100%;
-
     border-radius:50%;
-
     background:#fff;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     font-size:25px;
     font-weight:900;
-
     color:#4f46e5;
-
     border:2px solid #fff;
 }
 
@@ -664,39 +517,29 @@ body{
 .profile-name{
     font-size:18px;
     font-weight:850;
-
     color:#111827;
-
     margin-bottom:5px;
 }
 
 .id-row{
     display:flex;
     align-items:center;
-
     gap:8px;
-
     font-size:12px;
     font-weight:700;
-
     color:#475569;
 }
 
 .copy-btn{
     width:24px;
     height:24px;
-
     border:0;
     border-radius:7px;
-
     background:#f1eaff;
-
     color:#6d28d9;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     cursor:pointer;
 }
 
@@ -707,11 +550,8 @@ body{
 
 .revenue-grid{
     display:grid;
-
     grid-template-columns:repeat(2,1fr);
-
     gap:16px;
-
     margin-bottom:16px;
 }
 
@@ -721,52 +561,35 @@ body{
 
 .revenue-card{
     position:relative;
-
     overflow:hidden;
-
     border-radius:16px;
-
     padding:18px 20px;
-
     color:#fff;
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,.08);
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
 .revenue-card::before{
     content:"";
-
     position:absolute;
-
     width:105px;
     height:105px;
-
     border:1px solid rgba(255,255,255,.13);
-
     border-radius:50%;
-
     right:-45px;
     top:-48px;
 }
 
 .card-icon{
     position:absolute;
-
     top:16px;
     right:16px;
-
     width:32px;
     height:32px;
-
     background:rgba(255,255,255,.15);
-
     border-radius:50%;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     font-size:14px;
 }
 
@@ -792,30 +615,22 @@ body{
 
 .revenue-amount{
     position:relative;
-
     font-size:26px;
     font-weight:850;
-
     margin-bottom:4px;
 }
 
 .revenue-title{
     position:relative;
-
     font-size:13px;
-
     opacity:.95;
-
     margin-bottom:14px;
 }
 
 .revenue-footer{
     position:relative;
-
     border-top:1px solid rgba(255,255,255,.25);
-
     padding-top:10px;
-
     font-size:12px;
 }
 
@@ -831,22 +646,16 @@ body{
 
 .graph-card{
     background:#fff;
-
     border:1px solid #e2e8f0;
-
     border-radius:18px;
-
     padding:20px;
-
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.045);
+    box-shadow:0 3px 12px rgba(0,0,0,.045);
 }
 
 .graph-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     margin-bottom:16px;
 }
 
@@ -858,13 +667,9 @@ body{
 .graph-badge{
     font-size:10px;
     font-weight:700;
-
     color:#6d28d9;
-
     background:#f3e8ff;
-
     padding:5px 10px;
-
     border-radius:7px;
 }
 
@@ -875,63 +680,45 @@ body{
 
 .graph{
     height:200px;
-
     position:relative;
-
     border-left:1px solid #cbd5e1;
     border-bottom:1px solid #cbd5e1;
-
-    background:
-        repeating-linear-gradient(
-            to bottom,
-            transparent 0,
-            transparent 36px,
-            #eef2f7 37px
-        );
+    background:repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 36px,
+        #eef2f7 37px
+    );
 }
 
 .y-axis{
     position:absolute;
-
     left:-35px;
-
     top:0;
     bottom:0;
-
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-
     font-size:10px;
-
     color:#94a3b8;
 }
 
 .zero-line{
     position:absolute;
-
     left:0;
     right:0;
     bottom:0;
-
     height:2px;
-
     background:#db2777;
 }
 
 .graph-dates{
     display:grid;
-
     grid-template-columns:repeat(7,1fr);
-
     margin-left:35px;
-
     margin-top:10px;
-
     font-size:10px;
-
     color:#64748b;
-
     text-align:center;
 }
 
@@ -942,11 +729,8 @@ body{
 
 .footer{
     text-align:center;
-
     color:#94a3b8;
-
     font-size:11px;
-
     padding:20px 0;
 }
 
@@ -989,7 +773,7 @@ body{
 
 
 /* =========================================================
-   LAPTOP & DESKTOP SCREENS
+   LAPTOP & DESKTOP
 ========================================================= */
 
 @media(min-width:768px){
@@ -1027,7 +811,7 @@ body{
 
 
 /* =========================================================
-   MOBILE SCREENS
+   MOBILE
 ========================================================= */
 
 @media(max-width:600px){
@@ -1088,7 +872,6 @@ body{
 </style>
 </head>
 
-
 <body>
 
 
@@ -1111,7 +894,6 @@ body{
     class="nav-menu"
     id="navMenu">
 
-
     <div class="menu-top">
 
         <div class="menu-title">
@@ -1121,9 +903,7 @@ body{
         <button
             class="close-menu"
             onclick="closeMenu()">
-
             ✕
-
         </button>
 
     </div>
@@ -1144,17 +924,13 @@ body{
             <div
                 class="menu-profile-name"
                 id="menuProfileName">
-
                 Member
-
             </div>
 
             <div
                 class="menu-profile-id"
                 id="menuProfileId">
-
                 ID: Loading...
-
             </div>
 
         </div>
@@ -1164,160 +940,75 @@ body{
 
     <div class="menu-links">
 
-
-        <a
-            href="dashboard.html"
-            class="menu-link active">
-
+        <a href="dashboard.html" class="menu-link active">
             <span class="menu-icon">⌂</span>
-
             <span>Affiliate Dashboard</span>
-
         </a>
 
-
-        <a
-            href="my-course.html"
-            class="menu-link">
-
+        <a href="my-course.html" class="menu-link">
             <span class="menu-icon">📚</span>
-
             <span>My Course</span>
-
         </a>
 
-
-        <a
-            href="profile.html"
-            class="menu-link">
-
+        <a href="profile.html" class="menu-link">
             <span class="menu-icon">👤</span>
-
             <span>My Profile</span>
-
         </a>
 
-
-        <a
-            href="affiliate-link.html"
-            class="menu-link">
-
+        <a href="affiliate-link.html" class="menu-link">
             <span class="menu-icon">🔗</span>
-
             <span>Affiliate Link</span>
-
         </a>
 
-
-        <a
-            href="kyc.html"
-            class="menu-link">
-
+        <a href="kyc.html" class="menu-link">
             <span class="menu-icon">🪪</span>
-
             <span>KYC</span>
-
         </a>
 
-
-        <a
-            href="leaderboard.html"
-            class="menu-link">
-
+        <a href="leaderboard.html" class="menu-link">
             <span class="menu-icon">🏆</span>
-
             <span>Leaderboard</span>
-
         </a>
 
-
-        <a
-            href="my-team.html"
-            class="menu-link">
-
+        <a href="my-team.html" class="menu-link">
             <span class="menu-icon">👥</span>
-
             <span>My Team</span>
-
         </a>
 
-
-        <a
-            href="registration-request.html"
-            class="menu-link">
-
+        <a href="registration-request.html" class="menu-link">
             <span class="menu-icon">📝</span>
-
             <span>Registration Request</span>
-
         </a>
 
-
-        <a
-            href="withdrawal-request.html"
-            class="menu-link">
-
+        <a href="withdrawal-request.html" class="menu-link">
             <span class="menu-icon">💸</span>
-
             <span>Withdrawal Request</span>
-
         </a>
 
-
-        <a
-            href="upgrade-request.html"
-            class="menu-link">
-
+        <a href="upgrade-request.html" class="menu-link">
             <span class="menu-icon">⬆️</span>
-
             <span>Upgrade Request</span>
-
         </a>
 
-
-        <a
-            href="qualification.html"
-            class="menu-link">
-
+        <a href="qualification.html" class="menu-link">
             <span class="menu-icon">🎯</span>
-
             <span>Qualification</span>
-
         </a>
 
-
-        <a
-            href="payout-transaction.html"
-            class="menu-link">
-
+        <a href="payout-transaction.html" class="menu-link">
             <span class="menu-icon">💳</span>
-
             <span>Payout Transaction</span>
-
         </a>
 
-
-        <a
-            href="training.html"
-            class="menu-link">
-
+        <a href="training.html" class="menu-link">
             <span class="menu-icon">🎓</span>
-
             <span>Training</span>
-
         </a>
 
-
-        <a
-            href="community-support.html"
-            class="menu-link">
-
+        <a href="community-support.html" class="menu-link">
             <span class="menu-icon">💬</span>
-
             <span>Community &amp; Support</span>
-
         </a>
-
 
         <a
             href="#"
@@ -1325,11 +1016,9 @@ body{
             onclick="logoutUser(event)">
 
             <span class="menu-icon">↪</span>
-
             <span>Logout</span>
 
         </a>
-
 
     </div>
 
@@ -1337,12 +1026,10 @@ body{
 
 
 <!-- =======================================================
-     NAVBAR (FIXED FULL WIDTH ON LAPTOP & DESKTOP)
+     NAVBAR
 ======================================================= -->
 
 <nav class="sm-navbar">
-
-    <!-- LEFT BRAND -->
 
     <a
         href="dashboard.html"
@@ -1358,11 +1045,8 @@ body{
 
     </a>
 
-    <!-- RIGHT -->
 
     <div class="sm-nav-right">
-
-        <!-- PROFILE -->
 
         <div class="profile-dropdown-wrap">
 
@@ -1385,7 +1069,6 @@ body{
                     class="profile-dropdown-item">
 
                     <span>👤</span>
-
                     <span>My Profile</span>
 
                 </a>
@@ -1396,7 +1079,6 @@ body{
                     onclick="closeProfileDropdown()">
 
                     <span>⚙️</span>
-
                     <span>Account Settings</span>
 
                 </a>
@@ -1407,7 +1089,6 @@ body{
                     onclick="logoutUser(event)">
 
                     <span>🚪</span>
-
                     <span>Logout</span>
 
                 </button>
@@ -1416,7 +1097,6 @@ body{
 
         </div>
 
-        <!-- MENU -->
 
         <button
             class="menu-btn"
@@ -1433,7 +1113,7 @@ body{
 
 
 <!-- =======================================================
-     DASHBOARD CONTAINER
+     DASHBOARD
 ======================================================= -->
 
 <div class="dashboard">
@@ -1452,33 +1132,35 @@ body{
     <div
         class="package-badge"
         id="packageBadge">
-
         PACKAGE
-
     </div>
 
     <div class="profile-content">
 
         <div class="profile-avatar">
 
+            <!-- PROFILE IMAGE -->
+            <img
+                id="profileAvatarImage"
+                src=""
+                alt="Profile">
+
+            <!-- FALLBACK LETTER -->
             <div
                 class="avatar-fallback"
                 id="avatarFallback">
-
                 M
-
             </div>
 
         </div>
+
 
         <div class="profile-details">
 
             <div
                 class="profile-name"
                 id="profileName">
-
                 Member
-
             </div>
 
             <div class="id-row">
@@ -1510,9 +1192,7 @@ body{
 
     <div class="revenue-card purple">
 
-        <div class="card-icon">
-            💳
-        </div>
+        <div class="card-icon">💳</div>
 
         <div class="revenue-amount">
             ₹ 0
@@ -1523,11 +1203,13 @@ body{
         </div>
 
         <div class="revenue-footer">
+
             <a
                 href="#"
                 class="view-details">
                 Click here to view detail(s)
             </a>
+
         </div>
 
     </div>
@@ -1535,9 +1217,7 @@ body{
 
     <div class="revenue-card indigo">
 
-        <div class="card-icon">
-            📊
-        </div>
+        <div class="card-icon">📊</div>
 
         <div class="revenue-amount">
             ₹ 0
@@ -1548,11 +1228,13 @@ body{
         </div>
 
         <div class="revenue-footer">
+
             <a
                 href="#"
                 class="view-details">
                 Click here to view detail(s)
             </a>
+
         </div>
 
     </div>
@@ -1560,9 +1242,7 @@ body{
 
     <div class="revenue-card pink">
 
-        <div class="card-icon">
-            🎓
-        </div>
+        <div class="card-icon">🎓</div>
 
         <div class="revenue-amount">
             ₹ 0
@@ -1573,11 +1253,13 @@ body{
         </div>
 
         <div class="revenue-footer">
+
             <a
                 href="#"
                 class="view-details">
                 Click here to view detail(s)
             </a>
+
         </div>
 
     </div>
@@ -1585,9 +1267,7 @@ body{
 
     <div class="revenue-card blue">
 
-        <div class="card-icon">
-            🏆
-        </div>
+        <div class="card-icon">🏆</div>
 
         <div class="revenue-amount">
             ₹ 0
@@ -1598,11 +1278,13 @@ body{
         </div>
 
         <div class="revenue-footer">
+
             <a
                 href="#"
                 class="view-details">
                 Click here to view detail(s)
             </a>
+
         </div>
 
     </div>
@@ -1610,9 +1292,7 @@ body{
 
     <div class="revenue-card gold full-width">
 
-        <div class="card-icon">
-            💰
-        </div>
+        <div class="card-icon">💰</div>
 
         <div class="revenue-amount">
             ₹ 0
@@ -1623,11 +1303,13 @@ body{
         </div>
 
         <div class="revenue-footer">
+
             <a
                 href="#"
                 class="view-details">
                 Click here to view detail(s)
             </a>
+
         </div>
 
     </div>
@@ -1653,9 +1335,11 @@ body{
 
     </div>
 
+
     <div class="graph-wrapper">
 
         <div class="y-axis">
+
             <span>1.0</span>
             <span>0.8</span>
             <span>0.6</span>
@@ -1667,15 +1351,21 @@ body{
             <span>-0.6</span>
             <span>-0.8</span>
             <span>-1.0</span>
+
         </div>
 
+
         <div class="graph">
+
             <div class="zero-line"></div>
+
         </div>
 
     </div>
 
+
     <div class="graph-dates">
+
         <span></span>
         <span></span>
         <span></span>
@@ -1683,6 +1373,7 @@ body{
         <span></span>
         <span></span>
         <span></span>
+
     </div>
 
 </section>
@@ -1780,6 +1471,120 @@ document.addEventListener(
 
 
 /* =========================================================
+   PROFILE IMAGE
+========================================================= */
+
+function setAvatarImage(
+    imageUrl,
+    firstLetter
+){
+
+    const profileAvatarImage =
+        document.getElementById(
+            "profileAvatarImage"
+        );
+
+    const avatarFallback =
+        document.getElementById(
+            "avatarFallback"
+        );
+
+    const profileMini =
+        document.getElementById(
+            "profileMini"
+        );
+
+    const menuAvatar =
+        document.getElementById(
+            "menuAvatar"
+        );
+
+
+    /* -----------------------------------------
+       DASHBOARD PROFILE CARD
+    ----------------------------------------- */
+
+    if(
+        profileAvatarImage &&
+        avatarFallback
+    ){
+
+        if(imageUrl){
+
+            profileAvatarImage.src =
+                imageUrl;
+
+            profileAvatarImage.style.display =
+                "block";
+
+            avatarFallback.style.display =
+                "none";
+
+        }else{
+
+            profileAvatarImage.src =
+                "";
+
+            profileAvatarImage.style.display =
+                "none";
+
+            avatarFallback.style.display =
+                "flex";
+
+        }
+
+    }
+
+
+    /* -----------------------------------------
+       NAVBAR PROFILE
+    ----------------------------------------- */
+
+    if(profileMini){
+
+        if(imageUrl){
+
+            profileMini.innerHTML =
+                '<img src="' +
+                imageUrl +
+                '" alt="Profile">';
+
+        }else{
+
+            profileMini.textContent =
+                firstLetter;
+
+        }
+
+    }
+
+
+    /* -----------------------------------------
+       SIDE MENU PROFILE
+    ----------------------------------------- */
+
+    if(menuAvatar){
+
+        if(imageUrl){
+
+            menuAvatar.innerHTML =
+                '<img src="' +
+                imageUrl +
+                '" alt="Profile">';
+
+        }else{
+
+            menuAvatar.textContent =
+                firstLetter;
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
    DASHBOARD PROFILE
 ========================================================= */
 
@@ -1789,7 +1594,8 @@ let currentMemberID = "";
 function applyProfileToScreen(
     fullName,
     memberID,
-    packageName
+    packageName,
+    avatarUrl
 ){
 
     currentMemberID =
@@ -1827,16 +1633,10 @@ function applyProfileToScreen(
         firstLetter;
 
 
-    document.getElementById(
-        "profileMini"
-    ).textContent =
-        firstLetter;
-
-
-    document.getElementById(
-        "menuAvatar"
-    ).textContent =
-        firstLetter;
+    setAvatarImage(
+        avatarUrl || "",
+        firstLetter
+    );
 
 
     document.getElementById(
@@ -1891,7 +1691,10 @@ function loadCachedProfile(){
                 profile.memberID,
 
                 profile.packageName ||
-                "Package Not Assigned"
+                "Package Not Assigned",
+
+                profile.avatarUrl ||
+                ""
 
             );
 
@@ -1995,16 +1798,31 @@ async function loadDashboard(){
             "Package Not Assigned";
 
 
+        /* -----------------------------------------
+           GET PROFILE IMAGE FROM SUPABASE AUTH
+        ----------------------------------------- */
+
+        const avatarUrl =
+            user.user_metadata?.avatar_url ||
+            "";
+
+
         applyProfileToScreen(
 
             fullName,
 
             memberID,
 
-            packageName
+            packageName,
+
+            avatarUrl
 
         );
 
+
+        /* -----------------------------------------
+           CACHE PROFILE
+        ----------------------------------------- */
 
         sessionStorage.setItem(
 
@@ -2022,7 +1840,10 @@ async function loadDashboard(){
                     memberID,
 
                 packageName:
-                    packageName
+                    packageName,
+
+                avatarUrl:
+                    avatarUrl
 
             })
 
@@ -2049,16 +1870,13 @@ function openMenu(){
 
     closeProfileDropdown();
 
-
     document
         .getElementById("navMenu")
         .classList.add("active");
 
-
     document
         .getElementById("menuOverlay")
         .classList.add("active");
-
 
     document.body.style.overflow =
         "hidden";
@@ -2072,11 +1890,9 @@ function closeMenu(){
         .getElementById("navMenu")
         .classList.remove("active");
 
-
     document
         .getElementById("menuOverlay")
         .classList.remove("active");
-
 
     document.body.style.overflow =
         "";
@@ -2107,7 +1923,6 @@ function copyProfileID(){
                     document.querySelector(
                         ".copy-btn"
                     );
-
 
                 button.textContent =
                     "✓";
