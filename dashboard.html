@@ -439,7 +439,22 @@ body{
     transform:translateY(-1px);
 }
 
-/* ================= REVENUE ================= */
+/* ================= REVENUE GRID ================= */
+
+.revenue-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+@media(min-width: 768px) {
+    .revenue-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ================= REVENUE CARDS ================= */
 
 .revenue-card{
     position:relative;
@@ -447,7 +462,6 @@ body{
     border-radius:15px;
     padding:15px 16px;
     color:white;
-    margin-bottom:12px;
     box-shadow:0 5px 15px rgba(0,0,0,.08);
     transition:transform .2s ease;
 }
@@ -982,127 +996,131 @@ body{
 </section>
 
 
-<!-- ================= REVENUE ================= -->
+<!-- ================= REVENUE GRID CONTAINER ================= -->
 
-<div class="revenue-card purple">
+<div class="revenue-grid">
 
-    <div class="revenue-amount">
-        ₹ 0
-    </div>
+    <div class="revenue-card purple">
 
-    <div class="revenue-title">
-        Today's Revenue
-    </div>
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
 
-    <div class="revenue-footer">
+        <div class="revenue-title">
+            Today's Revenue
+        </div>
 
-        <a href="#" class="view-details">
-            View details
-        </a>
+        <div class="revenue-footer">
 
-        <span class="arrow">
-            ›
-        </span>
+            <a href="#" class="view-details">
+                View details
+            </a>
 
-    </div>
+            <span class="arrow">
+                ›
+            </span>
 
-</div>
-
-
-<div class="revenue-card indigo">
-
-    <div class="revenue-amount">
-        ₹ 0
-    </div>
-
-    <div class="revenue-title">
-        7 Days Revenue
-    </div>
-
-    <div class="revenue-footer">
-
-        <a href="#" class="view-details">
-            View details
-        </a>
-
-        <span class="arrow">
-            ›
-        </span>
+        </div>
 
     </div>
 
-</div>
 
+    <div class="revenue-card indigo">
 
-<div class="revenue-card pink">
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
 
-    <div class="revenue-amount">
-        ₹ 0
-    </div>
+        <div class="revenue-title">
+            7 Days Revenue
+        </div>
 
-    <div class="revenue-title">
-        30 Days Revenue
-    </div>
+        <div class="revenue-footer">
 
-    <div class="revenue-footer">
+            <a href="#" class="view-details">
+                View details
+            </a>
 
-        <a href="#" class="view-details">
-            View details
-        </a>
+            <span class="arrow">
+                ›
+            </span>
 
-        <span class="arrow">
-            ›
-        </span>
-
-    </div>
-
-</div>
-
-
-<div class="revenue-card blue">
-
-    <div class="revenue-amount">
-        ₹ 0
-    </div>
-
-    <div class="revenue-title">
-        All Time Revenue
-    </div>
-
-    <div class="revenue-footer">
-
-        <a href="#" class="view-details">
-            View details
-        </a>
-
-        <span class="arrow">
-            ›
-        </span>
+        </div>
 
     </div>
 
-</div>
 
+    <div class="revenue-card pink">
 
-<div class="revenue-card gold">
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
 
-    <div class="revenue-amount">
-        ₹ 0
+        <div class="revenue-title">
+            30 Days Revenue
+        </div>
+
+        <div class="revenue-footer">
+
+            <a href="#" class="view-details">
+                View details
+            </a>
+
+            <span class="arrow">
+                ›
+            </span>
+
+        </div>
+
     </div>
 
-    <div class="revenue-title">
-        Passive Income
+
+    <div class="revenue-card blue">
+
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            All Time Revenue
+        </div>
+
+        <div class="revenue-footer">
+
+            <a href="#" class="view-details">
+                View details
+            </a>
+
+            <span class="arrow">
+                ›
+            </span>
+
+        </div>
+
     </div>
 
-    <div class="revenue-footer">
 
-        <a href="#" class="view-details">
-            View details
-        </a>
+    <div class="revenue-card gold">
 
-        <span class="arrow">
-            ›
-        </span>
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            Passive Income
+        </div>
+
+        <div class="revenue-footer">
+
+            <a href="#" class="view-details">
+                View details
+            </a>
+
+            <span class="arrow">
+                ›
+            </span>
+
+        </div>
 
     </div>
 
