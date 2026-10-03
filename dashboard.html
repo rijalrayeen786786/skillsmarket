@@ -24,7 +24,7 @@ body{
 
 .dashboard{
     width:100%;
-    max-width:100%;
+    max-width:1200px;
     margin:auto;
 }
 
@@ -105,20 +105,21 @@ body{
     box-shadow:0 3px 10px rgba(0,0,0,.05);
 }
 
-/* ================= NAV MENU ================= */
+/* ================= SIDE MENU ================= */
 
 .nav-menu{
     position:fixed;
     top:0;
-    right:-310px;
-    width:290px;
-    max-width:85%;
+    right:-320px;
+    width:300px;
+    max-width:86%;
     height:100vh;
     background:#fff;
     z-index:9999;
-    padding:20px;
+    padding:20px 16px;
     box-shadow:-8px 0 30px rgba(15,23,42,.14);
     transition:right .3s ease;
+    overflow-y:auto;
 }
 
 .nav-menu.active{
@@ -154,7 +155,7 @@ body{
     display:flex;
     align-items:center;
     gap:12px;
-    padding:18px 0;
+    padding:18px 4px;
     border-bottom:1px solid #eef2f7;
 }
 
@@ -192,12 +193,12 @@ body{
     display:flex;
     align-items:center;
     gap:12px;
-    padding:13px 12px;
-    margin-bottom:5px;
+    padding:12px 12px;
+    margin-bottom:4px;
     border-radius:10px;
     text-decoration:none;
     color:#334155;
-    font-size:13px;
+    font-size:12.5px;
     font-weight:700;
     transition:.2s;
 }
@@ -208,18 +209,24 @@ body{
 }
 
 .menu-link.active{
-    background:#f3e8ff;
+    background:linear-gradient(
+        135deg,
+        #f3e8ff,
+        #ede9fe
+    );
     color:#6d28d9;
 }
 
 .menu-icon{
     width:25px;
     text-align:center;
-    font-size:16px;
+    font-size:15px;
+    flex-shrink:0;
 }
 
 .logout-link{
     color:#dc2626;
+    margin-top:8px;
 }
 
 .logout-link:hover{
@@ -634,13 +641,6 @@ body{
     text-align:center;
 }
 
-.graph-note{
-    text-align:center;
-    margin-top:13px;
-    color:#94a3b8;
-    font-size:10px;
-}
-
 /* ================= FOOTER ================= */
 
 .footer{
@@ -675,10 +675,14 @@ body{
 
 /* ================= MOBILE ================= */
 
-@media(max-width:380px){
+@media(max-width:600px){
 
     body{
-        padding:9px;
+        padding:10px;
+    }
+
+    .dashboard{
+        max-width:100%;
     }
 
     .brand-name{
@@ -686,8 +690,8 @@ body{
     }
 
     .brand-logo{
-        width:31px;
-        height:31px;
+        width:32px;
+        height:32px;
     }
 
     .profile-card{
@@ -720,98 +724,301 @@ body{
         font-size:7px;
     }
 }
+
+/* ================= LAPTOP ================= */
+
+@media(min-width:900px){
+
+    body{
+        padding:24px;
+    }
+
+    .dashboard{
+        max-width:1180px;
+    }
+
+    .navbar{
+        margin-bottom:18px;
+    }
+
+    .profile-card{
+        padding:24px 22px 19px;
+    }
+
+    .profile-avatar{
+        width:78px;
+        height:78px;
+    }
+
+    .profile-name{
+        font-size:20px;
+    }
+
+    .revenue-card{
+        min-height:145px;
+    }
+
+    .revenue-amount{
+        font-size:25px;
+    }
+
+    .graph-card{
+        padding:20px;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+<!-- ================= MENU OVERLAY ================= -->
+
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+    onclick="closeMenu()">
+</div>
+
+
+<!-- ================= SIDE MENU ================= -->
 
 <div class="nav-menu" id="navMenu">
 
     <div class="menu-top">
-        <div class="menu-title">Skills Market</div>
 
-        <button class="close-menu" onclick="closeMenu()">
+        <div class="menu-title">
+            Skills Market
+        </div>
+
+        <button
+            class="close-menu"
+            onclick="closeMenu()">
             ✕
         </button>
+
     </div>
+
 
     <div class="menu-profile">
 
-        <div class="menu-avatar" id="menuAvatar">
+        <div
+            class="menu-avatar"
+            id="menuAvatar">
             R
         </div>
 
         <div>
 
-            <div class="menu-profile-name" id="menuProfileName">
+            <div
+                class="menu-profile-name"
+                id="menuProfileName">
             </div>
 
-            <div class="menu-profile-id" id="menuProfileId">
+            <div
+                class="menu-profile-id"
+                id="menuProfileId">
             </div>
 
         </div>
 
     </div>
 
+
+    <!-- ================= FINAL MENU OPTIONS ================= -->
+
     <div class="menu-links">
 
-        <a href="dashboard.html" class="menu-link active">
+        <a href="dashboard.html"
+           class="menu-link active">
+
             <span class="menu-icon">⌂</span>
-            <span>Dashboard</span>
+
+            <span>
+                Affiliate Dashboard
+            </span>
+
         </a>
 
-        <a href="#" class="menu-link">
-            <span class="menu-icon">👤</span>
-            <span>My Profile</span>
-        </a>
 
-        <a href="#" class="menu-link">
-            <span class="menu-icon">🔗</span>
-            <span>Affiliate Link</span>
-        </a>
+        <a href="my-course.html"
+           class="menu-link">
 
-        <a href="#" class="menu-link">
             <span class="menu-icon">📚</span>
-            <span>My Courses</span>
+
+            <span>
+                My Course
+            </span>
+
         </a>
 
-        <a href="#" class="menu-link">
-            <span class="menu-icon">💰</span>
-            <span>Wallet</span>
+
+        <a href="profile.html"
+           class="menu-link">
+
+            <span class="menu-icon">👤</span>
+
+            <span>
+                My Profile
+            </span>
+
         </a>
 
-        <a href="#" class="menu-link">
-            <span class="menu-icon">👥</span>
-            <span>My Team</span>
+
+        <a href="affiliate-link.html"
+           class="menu-link">
+
+            <span class="menu-icon">🔗</span>
+
+            <span>
+                Affiliate Link
+            </span>
+
         </a>
 
-        <a href="#" class="menu-link">
+
+        <a href="kyc.html"
+           class="menu-link">
+
+            <span class="menu-icon">🪪</span>
+
+            <span>
+                KYC
+            </span>
+
+        </a>
+
+
+        <a href="leaderboard.html"
+           class="menu-link">
+
             <span class="menu-icon">🏆</span>
-            <span>Leaderboard</span>
+
+            <span>
+                Leaderboard
+            </span>
+
         </a>
 
-        <a href="#" class="menu-link">
-            <span class="menu-icon">📊</span>
-            <span>Reports</span>
+
+        <a href="my-team.html"
+           class="menu-link">
+
+            <span class="menu-icon">👥</span>
+
+            <span>
+                My Team
+            </span>
+
         </a>
 
-        <a href="#" class="menu-link">
+
+        <a href="registration-request.html"
+           class="menu-link">
+
+            <span class="menu-icon">📝</span>
+
+            <span>
+                Registration Request
+            </span>
+
+        </a>
+
+
+        <a href="withdrawal-request.html"
+           class="menu-link">
+
+            <span class="menu-icon">💸</span>
+
+            <span>
+                Withdrawal Request
+            </span>
+
+        </a>
+
+
+        <a href="upgrade-request.html"
+           class="menu-link">
+
+            <span class="menu-icon">⬆️</span>
+
+            <span>
+                Upgrade Request
+            </span>
+
+        </a>
+
+
+        <a href="qualification.html"
+           class="menu-link">
+
+            <span class="menu-icon">🎯</span>
+
+            <span>
+                Qualification
+            </span>
+
+        </a>
+
+
+        <a href="payout-transaction.html"
+           class="menu-link">
+
+            <span class="menu-icon">💳</span>
+
+            <span>
+                Payout Transaction
+            </span>
+
+        </a>
+
+
+        <a href="training.html"
+           class="menu-link">
+
             <span class="menu-icon">🎓</span>
-            <span>Training</span>
+
+            <span>
+                Training
+            </span>
+
         </a>
 
-        <a href="#" class="menu-link logout-link" onclick="logoutUser(event)">
+
+        <a href="community-support.html"
+           class="menu-link">
+
+            <span class="menu-icon">💬</span>
+
+            <span>
+                Community &amp; Support
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="menu-link logout-link"
+           onclick="logoutUser(event)">
+
             <span class="menu-icon">↪</span>
-            <span>Logout</span>
+
+            <span>
+                Logout
+            </span>
+
         </a>
 
     </div>
 
 </div>
 
+
+<!-- ================= DASHBOARD ================= -->
+
 <div class="dashboard">
+
+
+<!-- ================= NAVBAR ================= -->
 
 <header class="navbar">
 
@@ -827,11 +1034,15 @@ body{
 
     </div>
 
+
     <div class="nav-right">
 
-        <div class="profile-mini" id="profileMini">
+        <div
+            class="profile-mini"
+            id="profileMini">
             R
         </div>
+
 
         <button
             class="menu-btn"
@@ -846,14 +1057,23 @@ body{
 
 </header>
 
+
+<!-- ================= PROFILE CARD ================= -->
+
 <section class="profile-card">
 
     <div class="profile-circle circle-one"></div>
+
     <div class="profile-circle circle-two"></div>
+
     <div class="profile-circle circle-three"></div>
 
-    <div class="package-badge" id="packageBadge">
+
+    <div
+        class="package-badge"
+        id="packageBadge">
     </div>
+
 
     <div class="profile-content">
 
@@ -861,7 +1081,9 @@ body{
 
             <div class="profile-avatar">
 
-                <div class="avatar-fallback" id="avatarFallback">
+                <div
+                    class="avatar-fallback"
+                    id="avatarFallback">
                     R
                 </div>
 
@@ -869,15 +1091,20 @@ body{
 
         </div>
 
+
         <div class="profile-details">
 
-            <div class="profile-name" id="profileName">
+            <div
+                class="profile-name"
+                id="profileName">
             </div>
+
 
             <div class="id-row">
 
                 <span id="profileId">
                 </span>
+
 
                 <button
                     class="copy-btn"
@@ -895,54 +1122,160 @@ body{
 
 </section>
 
+
+<!-- ================= REVENUE ================= -->
+
 <div class="revenue-grid">
 
+
     <div class="revenue-card purple">
-        <div class="card-icon">💳</div>
-        <div class="revenue-amount">₹ 0</div>
-        <div class="revenue-title">Today's Revenue</div>
-        <div class="revenue-footer">
-            <a href="#" class="view-details">Click here to view detail(s)</a>
+
+        <div class="card-icon">
+            💳
         </div>
+
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            Today's Revenue
+        </div>
+
+        <div class="revenue-footer">
+
+            <a
+                href="#"
+                class="view-details">
+
+                Click here to view detail(s)
+
+            </a>
+
+        </div>
+
     </div>
+
 
     <div class="revenue-card indigo">
-        <div class="card-icon">📊</div>
-        <div class="revenue-amount">₹ 0</div>
-        <div class="revenue-title">Last 7 Days Revenue</div>
-        <div class="revenue-footer">
-            <a href="#" class="view-details">Click here to view detail(s)</a>
+
+        <div class="card-icon">
+            📊
         </div>
+
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            Last 7 Days Revenue
+        </div>
+
+        <div class="revenue-footer">
+
+            <a
+                href="#"
+                class="view-details">
+
+                Click here to view detail(s)
+
+            </a>
+
+        </div>
+
     </div>
+
 
     <div class="revenue-card pink">
-        <div class="card-icon">🎓</div>
-        <div class="revenue-amount">₹ 0</div>
-        <div class="revenue-title">Last 30 Days Revenue</div>
-        <div class="revenue-footer">
-            <a href="#" class="view-details">Click here to view detail(s)</a>
+
+        <div class="card-icon">
+            🎓
         </div>
+
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            Last 30 Days Revenue
+        </div>
+
+        <div class="revenue-footer">
+
+            <a
+                href="#"
+                class="view-details">
+
+                Click here to view detail(s)
+
+            </a>
+
+        </div>
+
     </div>
+
 
     <div class="revenue-card blue">
-        <div class="card-icon">🏆</div>
-        <div class="revenue-amount">₹ 0</div>
-        <div class="revenue-title">All Time Revenue</div>
-        <div class="revenue-footer">
-            <a href="#" class="view-details">Click here to view detail(s)</a>
+
+        <div class="card-icon">
+            🏆
         </div>
+
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            All Time Revenue
+        </div>
+
+        <div class="revenue-footer">
+
+            <a
+                href="#"
+                class="view-details">
+
+                Click here to view detail(s)
+
+            </a>
+
+        </div>
+
     </div>
 
+
     <div class="revenue-card gold full-width">
-        <div class="card-icon">🏆</div>
-        <div class="revenue-amount">₹ 0</div>
-        <div class="revenue-title">Passive Income</div>
-        <div class="revenue-footer">
-            <a href="#" class="view-details">Click here to view detail(s)</a>
+
+        <div class="card-icon">
+            🏆
         </div>
+
+        <div class="revenue-amount">
+            ₹ 0
+        </div>
+
+        <div class="revenue-title">
+            Passive Income
+        </div>
+
+        <div class="revenue-footer">
+
+            <a
+                href="#"
+                class="view-details">
+
+                Click here to view detail(s)
+
+            </a>
+
+        </div>
+
     </div>
 
 </div>
+
+
+<!-- ================= GRAPH ================= -->
 
 <section class="graph-card">
 
@@ -957,6 +1290,7 @@ body{
         </div>
 
     </div>
+
 
     <div class="graph-wrapper">
 
@@ -976,6 +1310,7 @@ body{
 
         </div>
 
+
         <div class="graph">
 
             <div class="zero-line"></div>
@@ -984,7 +1319,9 @@ body{
 
     </div>
 
+
     <div class="graph-dates">
+
         <span></span>
         <span></span>
         <span></span>
@@ -992,15 +1329,21 @@ body{
         <span></span>
         <span></span>
         <span></span>
+
     </div>
 
 </section>
 
+
 <div class="footer">
+
     © 2026 Skills Market · All Rights Reserved
-</div>
 
 </div>
+
+
+</div>
+
 
 <script>
 
@@ -1035,20 +1378,18 @@ function applyProfileToScreen(
     currentMemberID = memberID;
 
 
-    /* Main profile */
-
     document.getElementById("profileName")
         .textContent = fullName;
 
+
     document.getElementById("profileId")
         .textContent = "ID: " + memberID;
+
 
     document.getElementById("packageBadge")
         .textContent =
             packageName.toUpperCase();
 
-
-    /* Avatar */
 
     const firstLetter =
         fullName.trim().charAt(0).toUpperCase() || "M";
@@ -1057,17 +1398,18 @@ function applyProfileToScreen(
     document.getElementById("avatarFallback")
         .textContent = firstLetter;
 
+
     document.getElementById("profileMini")
         .textContent = firstLetter;
 
 
-    /* Menu profile */
-
     document.getElementById("menuAvatar")
         .textContent = firstLetter;
 
+
     document.getElementById("menuProfileName")
         .textContent = fullName;
+
 
     document.getElementById("menuProfileId")
         .textContent = "ID: " + memberID;
@@ -1075,7 +1417,7 @@ function applyProfileToScreen(
 }
 
 
-/* ================= LOAD CACHE INSTANTLY ================= */
+/* ================= CACHE ================= */
 
 function loadCachedProfile(){
 
@@ -1088,9 +1430,7 @@ function loadCachedProfile(){
 
 
         if(!cached){
-
             return;
-
         }
 
 
@@ -1129,15 +1469,15 @@ function loadCachedProfile(){
 }
 
 
-/* ================= DASHBOARD LOAD ================= */
+/* ================= LOAD DASHBOARD ================= */
 
 async function loadDashboard(){
 
     try{
 
         const {
-            data: { user },
-            error: authError
+            data:{user},
+            error:authError
         } =
         await supabaseClient.auth.getUser();
 
@@ -1157,13 +1497,13 @@ async function loadDashboard(){
 
 
         const {
-            data: profile,
+            data:profile,
             error
         } =
         await supabaseClient
             .from("profiles")
             .select("*")
-            .eq("id", user.id)
+            .eq("id",user.id)
             .maybeSingle();
 
 
@@ -1174,10 +1514,6 @@ async function loadDashboard(){
                 error
             );
 
-            alert(
-                "Profile data load nahi ho pa raha. Supabase table/column connection check karein."
-            );
-
             return;
 
         }
@@ -1185,8 +1521,8 @@ async function loadDashboard(){
 
         if(!profile){
 
-            alert(
-                "Is login account ke liye profile record nahi mila."
+            console.warn(
+                "Profile record not found."
             );
 
             return;
@@ -1194,29 +1530,21 @@ async function loadDashboard(){
         }
 
 
-        /* ================= NAME ================= */
-
         const fullName =
             profile.full_name ||
             user.user_metadata?.full_name ||
             "Member";
 
 
-        /* ================= MEMBER ID ================= */
-
         const memberID =
             profile.member_id ||
             "Not Assigned";
 
 
-        /* ================= PACKAGE ================= */
-
         const packageName =
             profile.package_name ||
             "Package Not Assigned";
 
-
-        /* ================= UPDATE SCREEN ================= */
 
         applyProfileToScreen(
 
@@ -1228,8 +1556,6 @@ async function loadDashboard(){
 
         );
 
-
-        /* ================= SAVE CACHE ================= */
 
         sessionStorage.setItem(
 
@@ -1250,21 +1576,11 @@ async function loadDashboard(){
         );
 
 
-        console.log(
-            "Dashboard loaded successfully:",
-            {
-                name:fullName,
-                memberID:memberID,
-                package:packageName
-            }
-        );
-
     }catch(error){
 
-        console.error(error);
-
-        alert(
-            "Dashboard load karte waqt error aaya."
+        console.error(
+            "Dashboard error:",
+            error
         );
 
     }
@@ -1280,9 +1596,11 @@ function openMenu(){
         .getElementById("navMenu")
         .classList.add("active");
 
+
     document
         .getElementById("menuOverlay")
         .classList.add("active");
+
 
     document.body.style.overflow =
         "hidden";
@@ -1298,9 +1616,11 @@ function closeMenu(){
         .getElementById("navMenu")
         .classList.remove("active");
 
+
     document
         .getElementById("menuOverlay")
         .classList.remove("active");
+
 
     document.body.style.overflow =
         "";
@@ -1313,9 +1633,7 @@ function closeMenu(){
 function copyProfileID(){
 
     if(!currentMemberID){
-
         return;
-
     }
 
 
@@ -1330,12 +1648,15 @@ function copyProfileID(){
                         ".copy-btn"
                     );
 
-                button.textContent = "✓";
+
+                button.textContent =
+                    "✓";
 
 
                 setTimeout(function(){
 
-                    button.textContent = "📋";
+                    button.textContent =
+                        "📋";
 
                 },1200);
 
@@ -1360,16 +1681,12 @@ async function logoutUser(event){
 
 
     if(!confirmLogout){
-
         return;
-
     }
 
 
-    const {
-        error
-    } =
-    await supabaseClient.auth.signOut();
+    const {error} =
+        await supabaseClient.auth.signOut();
 
 
     if(error){
@@ -1395,13 +1712,6 @@ async function logoutUser(event){
 
 
 /* ================= START ================= */
-
-/*
-   IMPORTANT:
-   Cache pehle load hoga,
-   isliye refresh par naam immediately dikhega.
-   Uske baad Supabase latest data update karega.
-*/
 
 loadCachedProfile();
 
