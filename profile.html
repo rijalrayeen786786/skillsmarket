@@ -7,10 +7,278 @@
     <title>My Profile | Skills Market</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+        *{
+            box-sizing:border-box;
+        }
+
+        body{
+            margin:0;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .sm-navbar{
+            height:68px;
+            background:#ffffff;
+            border-bottom:1px solid #e5e7eb;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 22px;
+            position:sticky;
+            top:0;
+            z-index:100;
+        }
+
+        .sm-brand{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            text-decoration:none;
+        }
+
+        .sm-logo{
+            width:38px;
+            height:38px;
+            border-radius:11px;
+            background:linear-gradient(135deg,#9333ea,#4f46e5);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#ffffff;
+            font-size:16px;
+            font-weight:800;
+            box-shadow:0 4px 12px rgba(124,58,237,.18);
+        }
+
+        .sm-brand-name{
+            font-size:19px;
+            font-weight:800;
+            color:#111827;
+        }
+
+        .sm-nav-right{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            position:relative;
+        }
+
+        .profile-dropdown-wrap{
+            position:relative;
+        }
+
+        .profile-mini{
+            width:40px;
+            height:40px;
+            border:0;
+            border-radius:50%;
+            background:linear-gradient(135deg,#9333ea,#4f46e5);
+            color:#ffffff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:16px;
+            font-weight:800;
+            cursor:pointer;
+            box-shadow:0 4px 12px rgba(124,58,237,.20);
+        }
+
+        .profile-dropdown{
+            position:absolute;
+            top:50px;
+            right:0;
+            width:190px;
+            background:#ffffff;
+            border:1px solid #e5e7eb;
+            border-radius:14px;
+            box-shadow:0 12px 30px rgba(15,23,42,.14);
+            padding:7px;
+            display:none;
+            z-index:300;
+        }
+
+        .profile-dropdown.active{
+            display:block;
+        }
+
+        .profile-dropdown-item{
+            width:100%;
+            min-height:42px;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:10px 12px;
+            border:0;
+            border-radius:9px;
+            background:transparent;
+            color:#334155;
+            text-decoration:none;
+            font-size:14px;
+            font-weight:600;
+            cursor:pointer;
+            text-align:left;
+        }
+
+        .profile-dropdown-item:hover{
+            background:#f5f3ff;
+            color:#7e22ce;
+        }
+
+        .logout-dropdown:hover{
+            background:#fff1f2;
+            color:#dc2626;
+        }
+
+        .menu-btn{
+            width:40px;
+            height:40px;
+            border:1px solid #e5e7eb;
+            border-radius:10px;
+            background:#ffffff;
+            color:#334155;
+            font-size:21px;
+            cursor:pointer;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .menu-btn:hover{
+            background:#f8fafc;
+        }
+
+        /* =========================
+           SIDE MENU
+        ========================= */
+
+        .menu-overlay{
+            position:fixed;
+            inset:0;
+            background:rgba(15,23,42,.35);
+            opacity:0;
+            visibility:hidden;
+            transition:.25s ease;
+            z-index:500;
+        }
+
+        .menu-overlay.active{
+            opacity:1;
+            visibility:visible;
+        }
+
+        .nav-menu{
+            position:fixed;
+            top:0;
+            right:-330px;
+            width:310px;
+            max-width:88%;
+            height:100vh;
+            background:#ffffff;
+            z-index:600;
+            box-shadow:-12px 0 35px rgba(15,23,42,.15);
+            transition:right .28s ease;
+            overflow-y:auto;
+        }
+
+        .nav-menu.active{
+            right:0;
+        }
+
+        .menu-header{
+            padding:20px;
+            border-bottom:1px solid #e5e7eb;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .menu-profile{
+            display:flex;
+            align-items:center;
+            gap:11px;
+        }
+
+        .menu-avatar{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#9333ea,#4f46e5);
+            color:#ffffff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:800;
+        }
+
+        .menu-profile-name{
+            font-size:14px;
+            font-weight:800;
+            color:#111827;
+        }
+
+        .menu-profile-id{
+            font-size:11px;
+            color:#64748b;
+            margin-top:2px;
+        }
+
+        .menu-close{
+            width:34px;
+            height:34px;
+            border:0;
+            border-radius:9px;
+            background:#f1f5f9;
+            color:#475569;
+            font-size:19px;
+            cursor:pointer;
+        }
+
+        .menu-links{
+            padding:12px;
+        }
+
+        .menu-link{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            text-decoration:none;
+            color:#334155;
+            font-size:14px;
+            font-weight:600;
+            padding:12px 13px;
+            border-radius:10px;
+            margin-bottom:3px;
+            transition:.18s ease;
+        }
+
+        .menu-link:hover,
+        .menu-link.active{
+            background:#f5f3ff;
+            color:#7e22ce;
+        }
+
+        .menu-icon{
+            width:25px;
+            text-align:center;
+            font-size:17px;
+        }
+
+        .menu-divider{
+            height:1px;
+            background:#e5e7eb;
+            margin:10px 5px;
+        }
+
+        /* =========================
+           PROFILE FORM
+        ========================= */
+
         .form-input {
             border: 1px solid #e2e8f0;
             border-radius: 0.5rem;
@@ -32,16 +300,346 @@
             opacity: 0.6;
             pointer-events: none;
         }
+
+        @media(max-width:640px){
+
+            .sm-navbar{
+                height:62px;
+                padding:0 14px;
+            }
+
+            .sm-logo{
+                width:35px;
+                height:35px;
+            }
+
+            .sm-brand-name{
+                font-size:17px;
+            }
+
+            .profile-mini,
+            .menu-btn{
+                width:37px;
+                height:37px;
+            }
+
+            .sm-nav-right{
+                gap:7px;
+            }
+
+            .nav-menu{
+                width:300px;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gradient-to-b from-purple-50/40 to-pink-50/20 font-sans antialiased text-slate-800">
 
-    <!-- Main Container -->
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="sm-navbar">
+
+        <a href="dashboard.html" class="sm-brand">
+
+            <div class="sm-logo">
+                SM
+            </div>
+
+            <span class="sm-brand-name">
+                Skills Market
+            </span>
+
+        </a>
+
+
+        <div class="sm-nav-right">
+
+            <!-- Profile -->
+            <div class="profile-dropdown-wrap">
+
+                <button
+                    class="profile-mini"
+                    id="profileMini"
+                    onclick="toggleProfileDropdown(event)"
+                    aria-label="Open profile menu"
+                >
+                    M
+                </button>
+
+
+                <div
+                    class="profile-dropdown"
+                    id="profileDropdown"
+                >
+
+                    <a
+                        href="profile.html"
+                        class="profile-dropdown-item"
+                    >
+                        👤
+                        <span>My Profile</span>
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="profile-dropdown-item"
+                        onclick="closeProfileDropdown()"
+                    >
+                        ⚙️
+                        <span>Account Settings</span>
+                    </a>
+
+
+                    <button
+                        type="button"
+                        class="profile-dropdown-item logout-dropdown"
+                        onclick="logoutUser(event)"
+                    >
+                        🚪
+                        <span>Logout</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Menu -->
+            <button
+                class="menu-btn"
+                onclick="openMenu()"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MENU OVERLAY
+    ====================================================== -->
+
+    <div
+        class="menu-overlay"
+        id="menuOverlay"
+        onclick="closeMenu()"
+    ></div>
+
+
+    <!-- =====================================================
+         SIDE MENU
+    ====================================================== -->
+
+    <aside
+        class="nav-menu"
+        id="navMenu"
+    >
+
+        <div class="menu-header">
+
+            <div class="menu-profile">
+
+                <div
+                    class="menu-avatar"
+                    id="menuAvatar"
+                >
+                    M
+                </div>
+
+                <div>
+
+                    <div
+                        class="menu-profile-name"
+                        id="menuProfileName"
+                    >
+                        Member
+                    </div>
+
+                    <div
+                        class="menu-profile-id"
+                        id="menuProfileId"
+                    >
+                        ID: Loading...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="menu-close"
+                onclick="closeMenu()"
+                aria-label="Close menu"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="menu-links">
+
+            <a
+                href="dashboard.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">⌂</span>
+                <span>Affiliate Dashboard</span>
+            </a>
+
+
+            <a
+                href="my-course.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">🎓</span>
+                <span>My Course</span>
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="menu-link active"
+            >
+                <span class="menu-icon">👤</span>
+                <span>My Profile</span>
+            </a>
+
+
+            <a
+                href="affiliate-link.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">🔗</span>
+                <span>Affiliate Link</span>
+            </a>
+
+
+            <a
+                href="kyc.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">📄</span>
+                <span>KYC</span>
+            </a>
+
+
+            <a
+                href="leaderboard.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">🏆</span>
+                <span>Leaderboard</span>
+            </a>
+
+
+            <a
+                href="my-team.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">👥</span>
+                <span>My Team</span>
+            </a>
+
+
+            <a
+                href="registration-request.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">📝</span>
+                <span>Registration Request</span>
+            </a>
+
+
+            <a
+                href="withdrawal-request.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">💸</span>
+                <span>Withdrawal Request</span>
+            </a>
+
+
+            <a
+                href="upgrade-request.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">⬆️</span>
+                <span>Upgrade Request</span>
+            </a>
+
+
+            <a
+                href="qualification.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">⭐</span>
+                <span>Qualification</span>
+            </a>
+
+
+            <a
+                href="payout-transaction.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">💳</span>
+                <span>Payout Transaction</span>
+            </a>
+
+
+            <a
+                href="training.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">📚</span>
+                <span>Training</span>
+            </a>
+
+
+            <a
+                href="community.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">💬</span>
+                <span>Community & Support</span>
+            </a>
+
+
+            <div class="menu-divider"></div>
+
+
+            <a
+                href="#"
+                class="menu-link logout-link"
+                onclick="logoutUser(event)"
+            >
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN PROFILE CONTAINER
+    ====================================================== -->
+
     <div class="max-w-3xl mx-auto px-4 py-8">
 
         <!-- Header -->
+
         <div class="mb-6">
+
             <h1 class="text-2xl font-bold text-purple-900">
                 My Profile
             </h1>
@@ -49,22 +647,26 @@
             <p class="text-sm text-slate-500 mt-1">
                 Manage your personal information
             </p>
+
         </div>
 
+
         <!-- Card -->
+
         <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-purple-100 space-y-6">
 
-            <!-- ========================= -->
+
             <!-- SPONSOR INFORMATION -->
-            <!-- ========================= -->
 
             <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm">
                 Sponsor Information
             </div>
 
+
             <div class="space-y-4">
 
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         Name
                     </label>
@@ -76,9 +678,12 @@
                         readonly
                         class="form-input bg-slate-50/50"
                     >
+
                 </div>
 
+
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         Phone
                     </label>
@@ -90,24 +695,25 @@
                         readonly
                         class="form-input bg-slate-50/50"
                     >
+
                 </div>
 
             </div>
 
 
-            <!-- ========================= -->
             <!-- PERSONAL INFORMATION -->
-            <!-- ========================= -->
 
             <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm mt-8">
                 Personal Information
             </div>
+
 
             <form id="profileForm" class="space-y-4">
 
                 <!-- Name -->
 
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         Name <span class="text-red-500">*</span>
                     </label>
@@ -118,12 +724,14 @@
                         class="form-input"
                         required
                     >
+
                 </div>
 
 
                 <!-- Email -->
 
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         Email <span class="text-red-500">*</span>
                     </label>
@@ -134,12 +742,14 @@
                         class="form-input bg-slate-50/50"
                         readonly
                     >
+
                 </div>
 
 
                 <!-- Phone -->
 
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         Phone <span class="text-red-500">*</span>
                     </label>
@@ -150,12 +760,14 @@
                         class="form-input"
                         required
                     >
+
                 </div>
 
 
                 <!-- Gender -->
 
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         Gender <span class="text-red-500">*</span>
                     </label>
@@ -196,12 +808,14 @@
                         </label>
 
                     </div>
+
                 </div>
 
 
                 <!-- Address -->
 
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         Address <span class="text-red-500">*</span>
                     </label>
@@ -211,12 +825,14 @@
                         type="text"
                         class="form-input"
                     >
+
                 </div>
 
 
                 <!-- City -->
 
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         City <span class="text-red-500">*</span>
                     </label>
@@ -226,12 +842,14 @@
                         type="text"
                         class="form-input"
                     >
+
                 </div>
 
 
                 <!-- State -->
 
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         State <span class="text-red-500">*</span>
                     </label>
@@ -294,12 +912,14 @@
                         </span>
 
                     </div>
+
                 </div>
 
 
                 <!-- Pincode -->
 
                 <div>
+
                     <label class="block text-sm text-slate-700 mb-1.5">
                         Pincode <span class="text-red-500">*</span>
                     </label>
@@ -311,6 +931,7 @@
                         maxlength="6"
                         class="form-input"
                     >
+
                 </div>
 
 
@@ -403,6 +1024,92 @@ const supabaseClient =
 
 
 /* =====================================================
+   NAVBAR PROFILE DROPDOWN
+===================================================== */
+
+function toggleProfileDropdown(event){
+
+    event.stopPropagation();
+
+    const dropdown =
+        document.getElementById("profileDropdown");
+
+    dropdown.classList.toggle("active");
+}
+
+
+function closeProfileDropdown(){
+
+    const dropdown =
+        document.getElementById("profileDropdown");
+
+    if(dropdown){
+
+        dropdown.classList.remove("active");
+
+    }
+
+}
+
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const wrap =
+            document.querySelector(
+                ".profile-dropdown-wrap"
+            );
+
+        if(
+            wrap &&
+            !wrap.contains(event.target)
+        ){
+
+            closeProfileDropdown();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SIDE MENU
+===================================================== */
+
+function openMenu(){
+
+    document
+        .getElementById("navMenu")
+        .classList.add("active");
+
+    document
+        .getElementById("menuOverlay")
+        .classList.add("active");
+
+    document.body.style.overflow =
+        "hidden";
+}
+
+
+function closeMenu(){
+
+    document
+        .getElementById("navMenu")
+        .classList.remove("active");
+
+    document
+        .getElementById("menuOverlay")
+        .classList.remove("active");
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =====================================================
    ELEMENTS
 ===================================================== */
 
@@ -470,8 +1177,6 @@ async function loadProfile(){
         await supabaseClient.auth.getUser();
 
 
-        /* No login */
-
         if(authError || !user){
 
             window.location.href =
@@ -480,13 +1185,6 @@ async function loadProfile(){
             return;
         }
 
-
-        console.log("Logged in user:", user);
-
-
-        /* =========================================
-           GET PROFILE
-        ========================================= */
 
         const {
             data:profile,
@@ -524,10 +1222,6 @@ async function loadProfile(){
         }
 
 
-        /* =========================================
-           PERSONAL DATA
-        ========================================= */
-
         const metadata =
             user.user_metadata || {};
 
@@ -554,11 +1248,6 @@ async function loadProfile(){
         phoneInput.value =
             phone;
 
-
-        /* =========================================
-           EXTRA PERSONAL DATA
-           Stored in Supabase Auth metadata
-        ========================================= */
 
         addressInput.value =
             metadata.address || "";
@@ -594,10 +1283,6 @@ async function loadProfile(){
         }
 
 
-        /* =========================================
-           AVATAR
-        ========================================= */
-
         const avatar =
             metadata.avatar_url || "";
 
@@ -622,9 +1307,15 @@ async function loadProfile(){
         }
 
 
-        /* =========================================
-           SPONSOR
-        ========================================= */
+        /* Navbar profile */
+
+        updateNavbarProfile(
+            name,
+            profile.member_id
+        );
+
+
+        /* Sponsor */
 
         sponsorNameInput.value =
             "Not Available";
@@ -676,6 +1367,51 @@ async function loadProfile(){
         );
 
     }
+
+}
+
+
+/* =====================================================
+   UPDATE NAVBAR PROFILE
+===================================================== */
+
+function updateNavbarProfile(
+    name,
+    memberID
+){
+
+    const firstLetter =
+        name &&
+        name.trim()
+            ? name.trim()
+                .charAt(0)
+                .toUpperCase()
+            : "M";
+
+
+    document.getElementById(
+        "profileMini"
+    ).textContent =
+        firstLetter;
+
+
+    document.getElementById(
+        "menuAvatar"
+    ).textContent =
+        firstLetter;
+
+
+    document.getElementById(
+        "menuProfileName"
+    ).textContent =
+        name || "Member";
+
+
+    document.getElementById(
+        "menuProfileId"
+    ).textContent =
+        "ID: " +
+        (memberID || "Not Assigned");
 
 }
 
@@ -784,10 +1520,6 @@ profileForm.addEventListener(
             }
 
 
-            /* =====================================
-               GENDER
-            ===================================== */
-
             let gender = "";
 
 
@@ -802,9 +1534,7 @@ profileForm.addEventListener(
             }
 
 
-            /* =====================================
-               UPDATE PROFILE TABLE
-            ===================================== */
+            /* UPDATE PROFILE */
 
             const {
                 error:profileUpdateError
@@ -836,29 +1566,15 @@ profileForm.addEventListener(
             }
 
 
-            /* =====================================
-               UPDATE AUTH METADATA
-            ===================================== */
+            /* UPDATE AUTH METADATA */
 
             const currentMetadata =
                 user.user_metadata || {};
 
 
-            const avatarFile =
-                avatarInput.files[0];
-
-
             let avatarUrl =
                 currentMetadata.avatar_url ||
                 "";
-
-
-            /*
-              Avatar file preview works immediately.
-              Permanent Storage upload will be added
-              after the Skills Market storage bucket
-              is configured.
-            */
 
 
             const {
@@ -904,9 +1620,13 @@ profileForm.addEventListener(
             }
 
 
-            /* =====================================
-               SUCCESS
-            ===================================== */
+            /* Update navbar immediately */
+
+            updateNavbarProfile(
+                fullNameInput.value.trim(),
+                null
+            );
+
 
             saveButton.textContent =
                 "Saved ✓";
@@ -949,6 +1669,61 @@ profileForm.addEventListener(
 
     }
 );
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logoutUser(event){
+
+    if(event){
+
+        event.preventDefault();
+
+    }
+
+
+    const confirmLogout =
+        confirm(
+            "Are you sure you want to logout?"
+        );
+
+
+    if(!confirmLogout){
+
+        return;
+
+    }
+
+
+    const {
+        error
+    } =
+    await supabaseClient.auth.signOut();
+
+
+    if(error){
+
+        alert(
+            "Logout failed. Please try again."
+        );
+
+        console.error(error);
+
+        return;
+    }
+
+
+    sessionStorage.removeItem(
+        "sm_profile_cache"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
 
 
 /* =====================================================
