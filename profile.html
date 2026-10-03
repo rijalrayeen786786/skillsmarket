@@ -13,563 +13,758 @@
     <style>
         .form-input {
             border: 1px solid #e2e8f0;
-            border-radius: 0.75rem;
-            padding: 0.85rem 1rem;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
             width: 100%;
             font-size: 0.9rem;
             color: #334155;
             background-color: #ffffff;
-            transition: all 0.3s ease;
+            outline: none;
+            transition: all 0.2s ease;
         }
 
         .form-input:focus {
-            outline: none;
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+            border-color: #9333ea;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.15);
         }
 
-        .form-input-readonly {
-            background-color: #f8fafc;
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
         }
     </style>
 </head>
 
-<body class="bg-[#fcf8f5] font-sans antialiased text-slate-800">
+<body class="bg-gradient-to-b from-purple-50/40 to-pink-50/20 font-sans antialiased text-slate-800">
 
-    <div class="max-w-7xl mx-auto px-4 py-8 md:p-8">
+    <!-- Main Container -->
+    <div class="max-w-3xl mx-auto px-4 py-8">
 
-        <!-- HEADER -->
-        <div class="mb-8">
-            <span class="text-orange-600 text-xs uppercase font-bold tracking-wider">
-                Account
-            </span>
-
-            <h1 class="text-3xl font-extrabold text-slate-900 mt-1">
+        <!-- Header -->
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-purple-900">
                 My Profile
             </h1>
+
+            <p class="text-sm text-slate-500 mt-1">
+                Manage your personal information
+            </p>
         </div>
 
+        <!-- Card -->
+        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-purple-100 space-y-6">
 
-        <!-- ERROR -->
-        <div id="errorBox"
-             class="hidden mb-6 bg-red-50 border border-red-200 text-red-700 rounded-2xl p-4 text-sm">
-        </div>
+            <!-- ========================= -->
+            <!-- SPONSOR INFORMATION -->
+            <!-- ========================= -->
 
+            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm">
+                Sponsor Information
+            </div>
 
-        <!-- LOADING -->
-        <div id="loadingBox"
-             class="bg-white rounded-3xl shadow-sm border border-orange-100 p-10 text-center text-slate-500">
-            Loading your profile...
-        </div>
+            <div class="space-y-4">
 
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        Name
+                    </label>
 
-        <!-- PROFILE -->
-        <div id="profileContent"
-             class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-
-
-            <!-- LEFT SIDE -->
-            <div class="lg:col-span-2 space-y-8">
-
-
-                <!-- SPONSOR INFORMATION -->
-                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-orange-100">
-
-                    <div class="flex items-center gap-4 mb-6 pb-4 border-b border-slate-100">
-
-                        <div class="p-3 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-400 text-white shadow-md">
-
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="h-6 w-6"
-                                 fill="none"
-                                 viewBox="0 0 24 24"
-                                 stroke="currentColor">
-
-                                <path stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      stroke-width="2"
-                                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-
-                            </svg>
-
-                        </div>
-
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-900">
-                            Sponsor Information
-                        </h2>
-
-                    </div>
-
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-
-                        <!-- SPONSOR MEMBER ID -->
-                        <div>
-
-                            <label class="block text-xs font-semibold text-slate-400 tracking-wider mb-2">
-                                SPONSOR MEMBER ID
-                            </label>
-
-                            <div class="relative">
-
-                                <input id="sponsorId"
-                                       type="text"
-                                       value="Loading..."
-                                       readonly
-                                       class="form-input form-input-readonly pl-4 pr-10">
-
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                                    🔒
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- REFERRAL CODE -->
-                        <div>
-
-                            <label class="block text-xs font-semibold text-slate-400 tracking-wider mb-2">
-                                REFERRAL CODE
-                            </label>
-
-                            <div class="relative">
-
-                                <input id="referralCode"
-                                       type="text"
-                                       value="Loading..."
-                                       readonly
-                                       class="form-input form-input-readonly pl-4 pr-10">
-
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                                    🔒
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                    <input
+                        id="sponsorName"
+                        type="text"
+                        value="Loading..."
+                        readonly
+                        class="form-input bg-slate-50/50"
+                    >
                 </div>
 
-
-
-                <!-- PERSONAL INFORMATION -->
-                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100">
-
-                    <div class="flex items-center gap-4 mb-6 pb-4 border-b border-slate-100">
-
-                        <div class="p-3 rounded-2xl bg-orange-100 text-orange-600">
-
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="h-6 w-6"
-                                 fill="none"
-                                 viewBox="0 0 24 24"
-                                 stroke="currentColor">
-
-                                <path stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      stroke-width="2"
-                                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-
-                            </svg>
-
-                        </div>
-
-                        <h2 class="text-xl font-bold text-slate-900">
-                            Personal Information
-                        </h2>
-
-                    </div>
-
-
-                    <form id="profileForm" class="space-y-5">
-
-
-                        <!-- NAME + EMAIL -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-
-                            <div>
-
-                                <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">
-                                    Name *
-                                </label>
-
-                                <div class="relative">
-
-                                    <input id="fullName"
-                                           type="text"
-                                           value="Loading..."
-                                           readonly
-                                           class="form-input bg-slate-50 pl-4 pr-10">
-
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
-                                        🔒
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-                            <div>
-
-                                <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">
-                                    Email *
-                                </label>
-
-                                <div class="relative">
-
-                                    <input id="email"
-                                           type="email"
-                                           value="Loading..."
-                                           readonly
-                                           class="form-input bg-slate-50 pl-4 pr-10">
-
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
-                                        🔒
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- PHONE + PACKAGE -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-
-                            <div>
-
-                                <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">
-                                    Phone *
-                                </label>
-
-                                <input id="phone"
-                                       type="text"
-                                       class="form-input"
-                                       placeholder="Phone number">
-
-                            </div>
-
-
-                            <div>
-
-                                <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">
-                                    Package
-                                </label>
-
-                                <div class="relative">
-
-                                    <input id="packageName"
-                                           type="text"
-                                           value="Loading..."
-                                           readonly
-                                           class="form-input bg-slate-50 pl-4 pr-10">
-
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
-                                        🔒
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- PACKAGE PRICE + STATUS -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-
-                            <div>
-
-                                <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">
-                                    Package Price
-                                </label>
-
-                                <input id="packagePrice"
-                                       type="text"
-                                       value="Loading..."
-                                       readonly
-                                       class="form-input bg-slate-50">
-
-                            </div>
-
-
-                            <div>
-
-                                <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">
-                                    Account Status
-                                </label>
-
-                                <input id="accountStatus"
-                                       type="text"
-                                       value="Loading..."
-                                       readonly
-                                       class="form-input bg-slate-50">
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- MEMBER ID + JOINING DATE -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-
-                            <div>
-
-                                <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">
-                                    Member ID
-                                </label>
-
-                                <input id="memberId"
-                                       type="text"
-                                       value="Loading..."
-                                       readonly
-                                       class="form-input bg-slate-50">
-
-                            </div>
-
-
-                            <div>
-
-                                <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">
-                                    Joining Date
-                                </label>
-
-                                <input id="joiningDate"
-                                       type="text"
-                                       value="Loading..."
-                                       readonly
-                                       class="form-input bg-slate-50">
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="text-xs text-slate-400 pt-2 flex items-center gap-1">
-
-                            <span>🛡️</span>
-
-                            Your name, email and account details cannot be changed.
-
-                        </div>
-
-
-                        <div class="pt-4">
-
-                            <button type="submit"
-                                    class="w-full md:w-auto bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg shadow-orange-500/25 hover:opacity-95 transition-all flex items-center justify-center gap-2">
-
-                                Save Changes
-                                <span>→</span>
-
-                            </button>
-
-                        </div>
-
-                    </form>
-
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        Phone
+                    </label>
+
+                    <input
+                        id="sponsorPhone"
+                        type="text"
+                        value="Loading..."
+                        readonly
+                        class="form-input bg-slate-50/50"
+                    >
                 </div>
 
             </div>
 
 
+            <!-- ========================= -->
+            <!-- PERSONAL INFORMATION -->
+            <!-- ========================= -->
 
-            <!-- RIGHT COLUMN -->
-            <div class="space-y-6">
+            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm mt-8">
+                Personal Information
+            </div>
+
+            <form id="profileForm" class="space-y-4">
+
+                <!-- Name -->
+
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        Name <span class="text-red-500">*</span>
+                    </label>
+
+                    <input
+                        id="fullName"
+                        type="text"
+                        class="form-input"
+                        required
+                    >
+                </div>
 
 
-                <!-- PROFILE CARD -->
-                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 text-center">
+                <!-- Email -->
+
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        Email <span class="text-red-500">*</span>
+                    </label>
+
+                    <input
+                        id="email"
+                        type="email"
+                        class="form-input bg-slate-50/50"
+                        readonly
+                    >
+                </div>
 
 
-                    <!-- AVATAR -->
-                    <div class="relative w-36 h-36 mx-auto mb-4 p-1 rounded-full bg-gradient-to-tr from-orange-500 to-pink-500">
+                <!-- Phone -->
 
-                        <div id="avatar"
-                             class="w-full h-full rounded-full border-4 border-white bg-slate-200 flex items-center justify-center text-4xl font-bold text-orange-600">
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        Phone <span class="text-red-500">*</span>
+                    </label>
 
+                    <input
+                        id="phone"
+                        type="text"
+                        class="form-input"
+                        required
+                    >
+                </div>
+
+
+                <!-- Gender -->
+
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        Gender <span class="text-red-500">*</span>
+                    </label>
+
+                    <div class="flex gap-6 pt-1">
+
+                        <label class="flex items-center gap-2 cursor-pointer">
+
+                            <input
+                                id="genderMale"
+                                type="radio"
+                                name="gender"
+                                value="Male"
+                                class="text-purple-600 focus:ring-purple-500 h-4 w-4"
+                            >
+
+                            <span class="text-sm">
+                                Male
+                            </span>
+
+                        </label>
+
+
+                        <label class="flex items-center gap-2 cursor-pointer">
+
+                            <input
+                                id="genderFemale"
+                                type="radio"
+                                name="gender"
+                                value="Female"
+                                class="text-purple-600 focus:ring-purple-500 h-4 w-4"
+                            >
+
+                            <span class="text-sm">
+                                Female
+                            </span>
+
+                        </label>
+
+                    </div>
+                </div>
+
+
+                <!-- Address -->
+
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        Address <span class="text-red-500">*</span>
+                    </label>
+
+                    <input
+                        id="address"
+                        type="text"
+                        class="form-input"
+                    >
+                </div>
+
+
+                <!-- City -->
+
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        City <span class="text-red-500">*</span>
+                    </label>
+
+                    <input
+                        id="city"
+                        type="text"
+                        class="form-input"
+                    >
+                </div>
+
+
+                <!-- State -->
+
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        State <span class="text-red-500">*</span>
+                    </label>
+
+                    <div class="relative">
+
+                        <select
+                            id="state"
+                            class="form-input appearance-none bg-white"
+                        >
+
+                            <option value="">
+                                Select State
+                            </option>
+
+                            <option value="Madhya Pradesh">
+                                Madhya Pradesh
+                            </option>
+
+                            <option value="Uttar Pradesh">
+                                Uttar Pradesh
+                            </option>
+
+                            <option value="Bihar">
+                                Bihar
+                            </option>
+
+                            <option value="Delhi">
+                                Delhi
+                            </option>
+
+                            <option value="Rajasthan">
+                                Rajasthan
+                            </option>
+
+                            <option value="Maharashtra">
+                                Maharashtra
+                            </option>
+
+                            <option value="Gujarat">
+                                Gujarat
+                            </option>
+
+                            <option value="Haryana">
+                                Haryana
+                            </option>
+
+                            <option value="Punjab">
+                                Punjab
+                            </option>
+
+                            <option value="West Bengal">
+                                West Bengal
+                            </option>
+
+                        </select>
+
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-purple-600">
+                            ⌄
+                        </span>
+
+                    </div>
+                </div>
+
+
+                <!-- Pincode -->
+
+                <div>
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        Pincode <span class="text-red-500">*</span>
+                    </label>
+
+                    <input
+                        id="pincode"
+                        type="text"
+                        inputmode="numeric"
+                        maxlength="6"
+                        class="form-input"
+                    >
+                </div>
+
+
+                <!-- Avatar -->
+
+                <div>
+
+                    <label class="block text-sm text-slate-700 mb-1.5">
+                        Avatar
+                    </label>
+
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+
+                        <input
+                            id="avatarInput"
+                            type="file"
+                            accept="image/*"
+                            class="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 border border-slate-200 rounded-lg p-1"
+                        >
+
+                    </div>
+
+
+                    <div class="mt-3 w-20 h-20 border border-slate-200 rounded-lg p-1 bg-slate-50 flex items-center justify-center">
+
+                        <img
+                            id="avatarPreview"
+                            src=""
+                            alt="Avatar Preview"
+                            class="max-h-full max-w-full object-contain rounded hidden"
+                        >
+
+                        <div
+                            id="avatarLetter"
+                            class="w-full h-full rounded flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-2xl font-bold"
+                        >
                             M
-
-                        </div>
-
-                    </div>
-
-
-                    <h3 id="profileName"
-                        class="text-lg font-bold text-slate-900">
-
-                        Loading...
-
-                    </h3>
-
-
-                    <p id="profileEmail"
-                       class="text-xs text-slate-400 mb-6">
-
-                        Loading...
-
-                    </p>
-
-
-                    <!-- PACKAGE BADGE -->
-                    <div class="mb-5">
-
-                        <span id="profilePackage"
-                              class="inline-flex items-center px-4 py-2 rounded-full bg-orange-100 text-orange-700 text-xs font-bold">
-
-                            Loading...
-
-                        </span>
-
-                    </div>
-
-
-                    <!-- MEMBER ID -->
-                    <div class="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center">
-
-                        <span class="text-xs text-slate-400 block mb-1">
-                            MEMBER ID
-                        </span>
-
-                        <span id="profileMemberId"
-                              class="text-sm text-slate-700 font-bold">
-
-                            Loading...
-
-                        </span>
-
-                    </div>
-
-
-                    <!-- SECURITY -->
-                    <div class="mt-6 bg-slate-50 p-4 rounded-2xl text-left border border-slate-100 flex items-start gap-3">
-
-                        <span class="text-orange-600 text-lg">
-                            🔒
-                        </span>
-
-                        <div>
-
-                            <h4 class="text-xs font-bold text-slate-800">
-                                Profile Security
-                            </h4>
-
-                            <p class="text-[11px] text-slate-500 mt-0.5">
-                                Your account information is protected and connected to your Skills Market member account.
-                            </p>
-
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
 
+                <!-- Save -->
+
+                <div class="pt-4">
+
+                    <button
+                        id="saveButton"
+                        type="submit"
+                        class="bg-gradient-to-r from-pink-500 to-purple-600 text-white font-medium px-8 py-3 rounded-full shadow-md hover:opacity-90 transition-all text-sm"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="text-center mt-8 text-xs text-slate-400">
+            © 2026 Skills Market. All rights reserved.
         </div>
 
     </div>
 
 
-
 <script>
 
-    /* =========================================
-       SUPABASE CONNECTION
-    ========================================= */
+/* =====================================================
+   SUPABASE CONNECTION
+===================================================== */
 
-    const SUPABASE_URL =
-        "https://hmlonjwqeqedakzhucix.supabase.co";
+const SUPABASE_URL =
+    "https://hmlonjwqeqedakzhucix.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-    const SUPABASE_KEY =
-        "YOUR_PUBLISHABLE_KEY";
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const fullNameInput =
+    document.getElementById("fullName");
+
+const emailInput =
+    document.getElementById("email");
+
+const phoneInput =
+    document.getElementById("phone");
+
+const addressInput =
+    document.getElementById("address");
+
+const cityInput =
+    document.getElementById("city");
+
+const stateInput =
+    document.getElementById("state");
+
+const pincodeInput =
+    document.getElementById("pincode");
+
+const sponsorNameInput =
+    document.getElementById("sponsorName");
+
+const sponsorPhoneInput =
+    document.getElementById("sponsorPhone");
+
+const genderMale =
+    document.getElementById("genderMale");
+
+const genderFemale =
+    document.getElementById("genderFemale");
+
+const avatarInput =
+    document.getElementById("avatarInput");
+
+const avatarPreview =
+    document.getElementById("avatarPreview");
+
+const avatarLetter =
+    document.getElementById("avatarLetter");
+
+const profileForm =
+    document.getElementById("profileForm");
+
+const saveButton =
+    document.getElementById("saveButton");
 
 
-    const supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
+
+async function loadProfile(){
+
+    try{
+
+        const {
+            data:{user},
+            error:authError
+        } =
+        await supabaseClient.auth.getUser();
+
+
+        /* No login */
+
+        if(authError || !user){
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        console.log("Logged in user:", user);
+
+
+        /* =========================================
+           GET PROFILE
+        ========================================= */
+
+        const {
+            data:profile,
+            error:profileError
+        } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id",user.id)
+            .maybeSingle();
+
+
+        if(profileError){
+
+            console.error(
+                "Profile error:",
+                profileError
+            );
+
+            alert(
+                "Unable to load profile."
+            );
+
+            return;
+        }
+
+
+        if(!profile){
+
+            alert(
+                "Profile record not found."
+            );
+
+            return;
+        }
+
+
+        /* =========================================
+           PERSONAL DATA
+        ========================================= */
+
+        const metadata =
+            user.user_metadata || {};
+
+
+        const name =
+            profile.full_name ||
+            metadata.full_name ||
+            "";
+
+
+        const phone =
+            profile.phone ||
+            "";
+
+
+        fullNameInput.value =
+            name;
+
+
+        emailInput.value =
+            user.email || "";
+
+
+        phoneInput.value =
+            phone;
+
+
+        /* =========================================
+           EXTRA PERSONAL DATA
+           Stored in Supabase Auth metadata
+        ========================================= */
+
+        addressInput.value =
+            metadata.address || "";
+
+
+        cityInput.value =
+            metadata.city || "";
+
+
+        stateInput.value =
+            metadata.state || "";
+
+
+        pincodeInput.value =
+            metadata.pincode || "";
+
+
+        const gender =
+            metadata.gender || "";
+
+
+        if(gender === "Male"){
+
+            genderMale.checked = true;
+
+        }
+
+
+        if(gender === "Female"){
+
+            genderFemale.checked = true;
+
+        }
+
+
+        /* =========================================
+           AVATAR
+        ========================================= */
+
+        const avatar =
+            metadata.avatar_url || "";
+
+
+        if(avatar){
+
+            avatarPreview.src =
+                avatar;
+
+            avatarPreview.classList.remove(
+                "hidden"
+            );
+
+            avatarLetter.classList.add(
+                "hidden"
+            );
+
+        }else{
+
+            setAvatarLetter(name);
+
+        }
+
+
+        /* =========================================
+           SPONSOR
+        ========================================= */
+
+        sponsorNameInput.value =
+            "Not Available";
+
+        sponsorPhoneInput.value =
+            "Not Available";
+
+
+        if(profile.referrer_member_id){
+
+            const {
+                data:sponsor,
+                error:sponsorError
+            } =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "full_name, phone, member_id"
+                )
+                .eq(
+                    "member_id",
+                    profile.referrer_member_id
+                )
+                .maybeSingle();
+
+
+            if(
+                !sponsorError &&
+                sponsor
+            ){
+
+                sponsorNameInput.value =
+                    sponsor.full_name ||
+                    "Not Available";
+
+                sponsorPhoneInput.value =
+                    sponsor.phone ||
+                    "Not Available";
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "Profile loading error:",
+            error
         );
 
+    }
+
+}
 
 
-    /* =========================================
-       HELPER
-    ========================================= */
+/* =====================================================
+   AVATAR LETTER
+===================================================== */
 
-    function setValue(id, value){
+function setAvatarLetter(name){
 
-        const element =
-            document.getElementById(id);
+    if(!name){
 
-        if(element){
+        avatarLetter.textContent =
+            "M";
 
-            element.value =
-                value ?? "";
+        return;
+    }
 
+
+    avatarLetter.textContent =
+        name
+            .trim()
+            .charAt(0)
+            .toUpperCase();
+
+}
+
+
+/* =====================================================
+   AVATAR PREVIEW
+===================================================== */
+
+avatarInput.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files[0];
+
+        if(!file){
+
+            return;
         }
 
-    }
+
+        const reader =
+            new FileReader();
 
 
-    function setText(id, value){
+        reader.onload =
+            function(event){
 
-        const element =
-            document.getElementById(id);
+                avatarPreview.src =
+                    event.target.result;
 
-        if(element){
+                avatarPreview.classList.remove(
+                    "hidden"
+                );
 
-            element.textContent =
-                value ?? "-";
+                avatarLetter.classList.add(
+                    "hidden"
+                );
 
-        }
-
-    }
-
+            };
 
 
-    /* =========================================
-       SHOW ERROR
-    ========================================= */
-
-    function showError(message){
-
-        const errorBox =
-            document.getElementById("errorBox");
-
-        errorBox.textContent =
-            message;
-
-        errorBox.classList.remove("hidden");
-
-        document.getElementById(
-            "loadingBox"
-        ).classList.add("hidden");
+        reader.readAsDataURL(file);
 
     }
+);
 
 
+/* =====================================================
+   SAVE PROFILE
+===================================================== */
 
-    /* =========================================
-       LOAD PROFILE
-    ========================================= */
+profileForm.addEventListener(
+    "submit",
+    async function(event){
 
-    async function loadProfile(){
+        event.preventDefault();
+
+
+        saveButton.disabled =
+            true;
+
+        saveButton.textContent =
+            "Saving...";
+
 
         try{
 
@@ -580,387 +775,187 @@
             await supabaseClient.auth.getUser();
 
 
-            if(authError){
-
-                console.error(
-                    "Auth Error:",
-                    authError
-                );
-
-                showError(
-                    "Login session check failed."
-                );
-
-                return;
-
-            }
-
-
-            if(!user){
+            if(authError || !user){
 
                 window.location.href =
                     "login.html";
 
                 return;
+            }
+
+
+            /* =====================================
+               GENDER
+            ===================================== */
+
+            let gender = "";
+
+
+            if(genderMale.checked){
+
+                gender = "Male";
+
+            }else if(genderFemale.checked){
+
+                gender = "Female";
 
             }
 
 
-
-            /* =================================
-               GET PROFILE
-            ================================= */
+            /* =====================================
+               UPDATE PROFILE TABLE
+            ===================================== */
 
             const {
-                data:profile,
-                error
+                error:profileUpdateError
             } =
             await supabaseClient
                 .from("profiles")
-                .select("*")
-                .eq("id", user.id)
-                .maybeSingle();
+                .update({
+
+                    full_name:
+                        fullNameInput.value.trim(),
+
+                    phone:
+                        phoneInput.value.trim()
+
+                })
+                .eq(
+                    "id",
+                    user.id
+                );
 
 
-            if(error){
+            if(profileUpdateError){
 
                 console.error(
-                    "Profile Error:",
-                    error
+                    profileUpdateError
                 );
 
-                showError(
-                    "Profile data load nahi ho pa raha."
-                );
-
-                return;
-
+                throw profileUpdateError;
             }
 
 
-            if(!profile){
+            /* =====================================
+               UPDATE AUTH METADATA
+            ===================================== */
 
-                showError(
-                    "Is account ke liye profile record nahi mila."
-                );
-
-                return;
-
-            }
+            const currentMetadata =
+                user.user_metadata || {};
 
 
-
-            /* =================================
-               DATA
-            ================================= */
-
-            const fullName =
-                profile.full_name ||
-                user.user_metadata?.full_name ||
-                "Member";
+            const avatarFile =
+                avatarInput.files[0];
 
 
-            const memberId =
-                profile.member_id ||
-                "Not Assigned";
-
-
-            const phone =
-                profile.phone ||
+            let avatarUrl =
+                currentMetadata.avatar_url ||
                 "";
 
 
-            const packageName =
-                profile.package_name ||
-                "Package Not Assigned";
+            /*
+              Avatar file preview works immediately.
+              Permanent Storage upload will be added
+              after the Skills Market storage bucket
+              is configured.
+            */
 
 
-            const packagePrice =
-                profile.package_price !== null &&
-                profile.package_price !== undefined
-                    ? "₹" + profile.package_price
-                    : "Not Available";
+            const {
+                error:metadataError
+            } =
+            await supabaseClient.auth.updateUser({
+
+                data:{
+
+                    full_name:
+                        fullNameInput.value.trim(),
+
+                    gender:
+                        gender,
+
+                    address:
+                        addressInput.value.trim(),
+
+                    city:
+                        cityInput.value.trim(),
+
+                    state:
+                        stateInput.value,
+
+                    pincode:
+                        pincodeInput.value.trim(),
+
+                    avatar_url:
+                        avatarUrl
+
+                }
+
+            });
 
 
-            const referralCode =
-                profile.referral_code ||
-                "Not Assigned";
+            if(metadataError){
 
+                console.error(
+                    metadataError
+                );
 
-            const sponsorId =
-                profile.referrer_member_id ||
-                "No Sponsor";
-
-
-            const accountStatus =
-                profile.account_status ||
-                "Active";
-
-
-            let joiningDate =
-                "Not Available";
-
-
-            if(profile.created_at){
-
-                joiningDate =
-                    new Date(
-                        profile.created_at
-                    ).toLocaleDateString(
-                        "en-IN",
-                        {
-                            day:"2-digit",
-                            month:"short",
-                            year:"numeric"
-                        }
-                    );
-
+                throw metadataError;
             }
 
 
+            /* =====================================
+               SUCCESS
+            ===================================== */
 
-            /* =================================
-               PUT DATA
-            ================================= */
+            saveButton.textContent =
+                "Saved ✓";
 
-            setValue(
-                "sponsorId",
-                sponsorId
+
+            setTimeout(
+                function(){
+
+                    saveButton.textContent =
+                        "Save Changes";
+
+                    saveButton.disabled =
+                        false;
+
+                },
+                1500
             );
 
 
-            setValue(
-                "referralCode",
-                referralCode
-            );
-
-
-            setValue(
-                "fullName",
-                fullName
-            );
-
-
-            setValue(
-                "email",
-                user.email || "Not Available"
-            );
-
-
-            setValue(
-                "phone",
-                phone
-            );
-
-
-            setValue(
-                "packageName",
-                packageName
-            );
-
-
-            setValue(
-                "packagePrice",
-                packagePrice
-            );
-
-
-            setValue(
-                "accountStatus",
-                accountStatus
-            );
-
-
-            setValue(
-                "memberId",
-                memberId
-            );
-
-
-            setValue(
-                "joiningDate",
-                joiningDate
-            );
-
-
-
-            /* =================================
-               RIGHT PROFILE CARD
-            ================================= */
-
-            setText(
-                "profileName",
-                fullName
-            );
-
-
-            setText(
-                "profileEmail",
-                user.email || "Not Available"
-            );
-
-
-            setText(
-                "profilePackage",
-                packageName
-            );
-
-
-            setText(
-                "profileMemberId",
-                memberId
-            );
-
-
-
-            /* =================================
-               AVATAR
-            ================================= */
-
-            const firstLetter =
-                fullName
-                    .trim()
-                    .charAt(0)
-                    .toUpperCase() || "M";
-
-
-            setText(
-                "avatar",
-                firstLetter
-            );
-
-
-
-            /* =================================
-               SHOW PAGE
-            ================================= */
-
-            document.getElementById(
-                "loadingBox"
-            ).classList.add("hidden");
-
-
-            document.getElementById(
-                "profileContent"
-            ).classList.remove("hidden");
-
-        }
-
-
-        catch(error){
+        }catch(error){
 
             console.error(
-                "Profile Loading Error:",
+                "Save error:",
                 error
             );
 
-            showError(
-                "Something went wrong. Please try again."
+
+            alert(
+                "Profile update failed. Please try again."
             );
+
+
+            saveButton.textContent =
+                "Save Changes";
+
+            saveButton.disabled =
+                false;
 
         }
 
     }
+);
 
 
+/* =====================================================
+   START
+===================================================== */
 
-    /* =========================================
-       SAVE PHONE
-    ========================================= */
-
-    document
-        .getElementById("profileForm")
-        .addEventListener(
-            "submit",
-            async function(event){
-
-                event.preventDefault();
-
-
-                try{
-
-                    const {
-                        data:{user},
-                        error:authError
-                    } =
-                    await supabaseClient.auth.getUser();
-
-
-                    if(authError || !user){
-
-                        window.location.href =
-                            "login.html";
-
-                        return;
-
-                    }
-
-
-                    const phone =
-                        document
-                            .getElementById("phone")
-                            .value
-                            .trim();
-
-
-                    const {
-                        error
-                    } =
-                    await supabaseClient
-                        .from("profiles")
-                        .update({
-                            phone:phone
-                        })
-                        .eq(
-                            "id",
-                            user.id
-                        );
-
-
-                    if(error){
-
-                        console.error(
-                            "Update Error:",
-                            error
-                        );
-
-                        alert(
-                            "Phone update nahi ho paaya."
-                        );
-
-                        return;
-
-                    }
-
-
-                    alert(
-                        "Profile updated successfully."
-                    );
-
-                }
-
-                catch(error){
-
-                    console.error(
-                        error
-                    );
-
-                    alert(
-                        "Something went wrong."
-                    );
-
-                }
-
-            }
-        );
-
-
-
-    /* =========================================
-       START
-    ========================================= */
-
-    loadProfile();
+loadProfile();
 
 </script>
 
