@@ -13,13 +13,13 @@
 }
 
 body{
-    background:#f6f7fb;
+    background:#f4f5f9;
     color:#111827;
     display:flex;
     min-height:100vh;
 }
 
-/* ================= COLLAPSIBLE SIDEBAR ================= */
+/* ================= SIDEBAR ================= */
 .sidebar{
     width: 260px;
     background: #fff;
@@ -121,12 +121,12 @@ body{
     color: #dc2626;
 }
 
-/* ================= MAIN CONTENT AREA ================= */
+/* ================= MAIN CONTENT ================= */
 .main-content{
     margin-left: 260px;
     flex-grow: 1;
     padding: 24px;
-    max-width: 1250px;
+    max-width: 1200px;
     transition: margin-left 0.3s ease;
 }
 
@@ -134,6 +134,7 @@ body{
     margin-left: 75px;
 }
 
+/* Top Navbar */
 .top-navbar{
     display: flex;
     align-items: center;
@@ -141,7 +142,7 @@ body{
     margin-bottom: 20px;
     background: #fff;
     padding: 12px 20px;
-    border-radius: 12px;
+    border-radius: 14px;
     border: 1px solid #e2e8f0;
     box-shadow: 0 2px 10px rgba(0,0,0,.02);
 }
@@ -155,8 +156,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     border-radius: 8px;
     transition: 0.2s;
 }
@@ -168,13 +169,13 @@ body{
 /* ================= PROFILE CARD ================= */
 .profile-card{
     position:relative;
-    background:linear-gradient(135deg, #ffffff 0%, #faf8ff 48%, #f1f5ff 100%);
-    border:1px solid rgba(99,102,241,.13);
-    border-radius:18px;
-    padding:24px 20px 20px;
+    background:linear-gradient(135deg, #ffffff 0%, #faf8ff 50%, #f3f4ff 100%);
+    border:1px solid rgba(99,102,241,.15);
+    border-radius:20px;
+    padding:22px;
     margin-bottom:20px;
     overflow:hidden;
-    box-shadow: 0 8px 25px rgba(30,41,59,.07);
+    box-shadow: 0 6px 20px rgba(30,41,59,.06);
 }
 
 .package-badge{
@@ -183,25 +184,25 @@ body{
     right:20px;
     background:linear-gradient(135deg,#7c3aed,#6d28d9);
     color:#fff;
-    font-size:9.5px;
+    font-size:10px;
     font-weight:800;
-    letter-spacing:.55px;
+    letter-spacing:.5px;
     padding:6px 14px;
-    border-radius:0 0 9px 9px;
+    border-radius:0 0 10px 10px;
 }
 
 .profile-content{
     display:flex;
     align-items:center;
-    gap:18px;
+    gap:16px;
 }
 
 .profile-avatar{
-    width:75px;
-    height:75px;
+    width:68px;
+    height:68px;
     border-radius:50%;
     padding:3px;
-    background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+    background:linear-gradient(135deg,#7c3aed,#ec4899,#06b6d4);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -224,16 +225,16 @@ body{
     background:#fff;
     align-items:center;
     justify-content:center;
-    font-size:26px;
+    font-size:24px;
     font-weight:900;
     color:#4f46e5;
 }
 
 .profile-name{
-    font-size:19px;
-    font-weight:850;
+    font-size:17px;
+    font-weight:900;
     color:#111827;
-    margin-bottom:5px;
+    margin-bottom:4px;
 }
 
 .id-row{
@@ -249,7 +250,7 @@ body{
     width:24px;
     height:24px;
     border:0;
-    border-radius:7px;
+    border-radius:6px;
     background:#f1eaff;
     color:#6d28d9;
     display:flex;
@@ -259,51 +260,79 @@ body{
     cursor:pointer;
 }
 
-/* ================= REVENUE GRID ================= */
+/* ================= REVENUE GRID (EXACT RICH GURUKUL STYLE) ================= */
 .revenue-grid{
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    gap: 16px;
     margin-bottom: 20px;
 }
 
 .revenue-card{
-    border-radius:14px;
-    padding:18px;
-    color:white;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    position: relative;
+    border-radius: 16px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    overflow: hidden;
 }
 
-.purple{ background:linear-gradient(135deg,#6b21a8,#581c87); }
-.indigo{ background:linear-gradient(135deg,#4f46e5,#3730a3); }
-.pink{ background:linear-gradient(135deg,#db2777,#9d174d); }
-.blue{ background:linear-gradient(135deg,#0284c7,#0369a1); }
-.gold{ background:linear-gradient(135deg,#ca8a04,#854d0e); }
+/* Gradients matching Rich Gurukul */
+.card-purple { background: linear-gradient(135deg, #7c3aed 0%, #581c87 100%); }
+.card-red    { background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%); }
+.card-blue   { background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); }
+.card-dark   { background: linear-gradient(135deg, #334155 0%, #0f172a 100%); }
+.card-orange { background: linear-gradient(135deg, #f97316 0%, #c2410c 100%); }
+.card-pink   { background: linear-gradient(135deg, #ec4899 0%, #9d174d 100%); }
 
-.revenue-amount{
-    font-size:22px;
-    font-weight:850;
-    margin-bottom:4px;
+.revenue-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
 }
 
 .revenue-title{
-    font-size:12px;
-    opacity:.95;
-    margin-bottom:12px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-bottom: 6px;
+}
+
+.revenue-amount{
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.card-icon-box {
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    backdrop-filter: blur(4px);
 }
 
 .revenue-footer{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-top:1px solid rgba(255,255,255,.25);
-    padding-top:8px;
-    font-size:11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
 }
 
 .view-details{
-    color:white;
-    text-decoration:none;
+    color: white;
+    text-decoration: none;
 }
 
 /* ================= GRAPH ================= */
@@ -392,7 +421,7 @@ body{
     padding:15px 0;
 }
 
-/* ================= MOBILE RESPONSIVE (FIXED SIZES) ================= */
+/* ================= MOBILE RESPONSIVE ================= */
 @media(max-width: 900px){
     body {
         display: block;
@@ -410,42 +439,11 @@ body{
     }
     .top-navbar{
         padding: 10px 14px;
-        margin-bottom: 12px;
-    }
-    .profile-card{
-        padding: 16px 14px;
-        border-radius: 14px;
-        margin-bottom: 12px;
-    }
-    .profile-avatar{
-        width: 55px;
-        height: 55px;
-    }
-    .profile-name{
-        font-size: 15px;
-    }
-    .package-badge{
-        font-size: 8px;
-        padding: 4px 10px;
+        margin-bottom: 14px;
     }
     .revenue-grid{
         grid-template-columns: 1fr;
-        gap: 12px;
-        margin-bottom: 12px;
-    }
-    .revenue-card{
-        padding: 14px;
-        border-radius: 12px;
-    }
-    .revenue-amount{
-        font-size: 18px;
-    }
-    .graph-card{
-        padding: 14px;
-        border-radius: 14px;
-    }
-    .graph{
-        height: 140px;
+        gap: 14px;
     }
 }
 </style>
@@ -464,7 +462,7 @@ body{
         <a href="#" class="menu-link"><span class="menu-icon">📚</span> <span class="menu-text">My Course</span></a>
         <a href="#" class="menu-link"><span class="menu-icon">👤</span> <span class="menu-text">My Profile</span></a>
         <a href="#" class="menu-link"><span class="menu-icon">🔗</span> <span class="menu-text">Affiliate Link</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">🛡️️</span> <span class="menu-text">KYC</span></a>
+        <a href="#" class="menu-link"><span class="menu-icon">🛡</span> <span class="menu-text">KYC</span></a>
         <a href="#" class="menu-link"><span class="menu-icon">⭐</span> <span class="menu-text">My Plan</span></a>
         <a href="#" class="menu-link"><span class="menu-icon">📝</span> <span class="menu-text">Registration Request</span></a>
         <a href="#" class="menu-link"><span class="menu-icon">💸</span> <span class="menu-text">Withdrawal Request</span></a>
@@ -480,56 +478,119 @@ body{
     <div class="top-navbar">
         <div style="display:flex; align-items:center; gap:10px;">
             <button class="menu-toggle-btn" onclick="toggleSidebar()">☰</button>
-            <div style="font-weight:800; font-size:14px;">Skills Market</div>
+            <div style="font-weight:900; font-size:16px; color:#1e293b;">Skills Market</div>
         </div>
-        <div style="width:30px; height:30px; background:#f1f5f9; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; color:#4f46e5;">R</div>
+        <div style="width:36px; height:36px; background:linear-gradient(135deg,#7c3aed,#2563eb); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; color:#fff;">R</div>
     </div>
 
     <!-- PROFILE CARD -->
     <section class="profile-card">
-        <div class="package-badge">INTERMEDIATE PACKAGE</div>
+        <div class="package-badge">LEGACY PACKAGE</div>
         <div class="profile-content">
             <div class="profile-avatar">
                 <img src="YOUR_PROFILE_IMAGE_URL" alt="Profile" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="avatar-fallback">R</div>
             </div>
             <div>
-                <div style="font-size:8px; font-weight:800; color:#7c3aed; letter-spacing:1px; margin-bottom:2px;">MEMBER PROFILE</div>
-                <div class="profile-name">RIJAL RAYEEN</div>
+                <div class="profile-name">RIJAL CHOUDHARY (TM)</div>
                 <div class="id-row">
-                    <span>ID: SM000001</span>
+                    <span>ID: RG6281</span>
                     <button class="copy-btn" onclick="copyProfileID()">📋</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- REVENUE GRID CARDS -->
+    <!-- REVENUE GRID CARDS (Rich Gurukul Exact Layout & Icons) -->
     <div class="revenue-grid">
-        <div class="revenue-card purple">
-            <div class="revenue-amount">₹ 0</div>
-            <div class="revenue-title">Today's Revenue</div>
-            <div class="revenue-footer"><a href="#" class="view-details">View Details</a><span>›</span></div>
+        <!-- Today's Revenue -->
+        <div class="revenue-card card-purple">
+            <div class="revenue-inner">
+                <div>
+                    <div class="revenue-title">Today's Revenue</div>
+                    <div class="revenue-amount">₹ 0</div>
+                </div>
+                <div class="card-icon-box">₹</div>
+            </div>
+            <div class="revenue-footer">
+                <a href="#" class="view-details">View Details</a>
+                <span>›</span>
+            </div>
         </div>
-        <div class="revenue-card indigo">
-            <div class="revenue-amount">₹ 0</div>
-            <div class="revenue-title">7 Days Revenue</div>
-            <div class="revenue-footer"><a href="#" class="view-details">View Details</a><span>›</span></div>
+
+        <!-- 7 Days Revenue -->
+        <div class="revenue-card card-red">
+            <div class="revenue-inner">
+                <div>
+                    <div class="revenue-title">7 Days Revenue</div>
+                    <div class="revenue-amount">₹ 120</div>
+                </div>
+                <div class="card-icon-box">📅</div>
+            </div>
+            <div class="revenue-footer">
+                <a href="#" class="view-details">View Details</a>
+                <span>›</span>
+            </div>
         </div>
-        <div class="revenue-card pink">
-            <div class="revenue-amount">₹ 0</div>
-            <div class="revenue-title">30 Days Revenue</div>
-            <div class="revenue-footer"><a href="#" class="view-details">View Details</a><span>›</span></div>
+
+        <!-- 30 Days Revenue -->
+        <div class="revenue-card card-purple">
+            <div class="revenue-inner">
+                <div>
+                    <div class="revenue-title">30 Days Revenue</div>
+                    <div class="revenue-amount">₹ 3,870</div>
+                </div>
+                <div class="card-icon-box">📊</div>
+            </div>
+            <div class="revenue-footer">
+                <a href="#" class="view-details">View Details</a>
+                <span>›</span>
+            </div>
         </div>
-        <div class="revenue-card blue">
-            <div class="revenue-amount">₹ 0</div>
-            <div class="revenue-title">All Time Revenue</div>
-            <div class="revenue-footer"><a href="#" class="view-details">View Details</a><span>›</span></div>
+
+        <!-- All Time Revenue -->
+        <div class="revenue-card card-dark">
+            <div class="revenue-inner">
+                <div>
+                    <div class="revenue-title">All Time Revenue</div>
+                    <div class="revenue-amount">₹ 11,840</div>
+                </div>
+                <div class="card-icon-box">💼</div>
+            </div>
+            <div class="revenue-footer">
+                <a href="#" class="view-details">View Details</a>
+                <span>›</span>
+            </div>
         </div>
-        <div class="revenue-card gold">
-            <div class="revenue-amount">₹ 0</div>
-            <div class="revenue-title">Passive Income</div>
-            <div class="revenue-footer"><a href="#" class="view-details">View Details</a><span>›</span></div>
+
+        <!-- Industry Income -->
+        <div class="revenue-card card-orange">
+            <div class="revenue-inner">
+                <div>
+                    <div class="revenue-title">Industry Income</div>
+                    <div class="revenue-amount">₹ 166,240</div>
+                </div>
+                <div class="card-icon-box">🏢</div>
+            </div>
+            <div class="revenue-footer">
+                <a href="#" class="view-details">View Details</a>
+                <span>›</span>
+            </div>
+        </div>
+
+        <!-- Passive Income -->
+        <div class="revenue-card card-pink">
+            <div class="revenue-inner">
+                <div>
+                    <div class="revenue-title">Passive Income</div>
+                    <div class="revenue-amount">₹ 2,000</div>
+                </div>
+                <div class="card-icon-box">📈</div>
+            </div>
+            <div class="revenue-footer">
+                <a href="#" class="view-details">View Details</a>
+                <span>›</span>
+            </div>
         </div>
     </div>
 
@@ -573,7 +634,7 @@ function toggleSidebar(){
 }
 
 function copyProfileID(){
-    navigator.clipboard.writeText("SM000001").then(function(){
+    navigator.clipboard.writeText("RG6281").then(function(){
         const btn = document.querySelector(".copy-btn");
         btn.textContent = "✓";
         setTimeout(() => btn.textContent = "📋", 1200);
