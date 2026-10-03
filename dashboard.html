@@ -384,14 +384,6 @@ body{
     min-width:0;
 }
 
-.member-label{
-    font-size:8px;
-    font-weight:800;
-    letter-spacing:1px;
-    color:#7c3aed;
-    margin-bottom:3px;
-}
-
 .profile-name{
     font-size:17px;
     font-weight:850;
@@ -882,10 +874,6 @@ body{
 
         <div class="profile-details">
 
-            <div class="member-label">
-                MEMBER PROFILE
-            </div>
-
             <div class="profile-name" id="profileName">
                 Loading...
             </div>
@@ -1059,12 +1047,6 @@ async function loadDashboard(){
         }
 
 
-        /*
-         * IMPORTANT:
-         * profiles.id ko logged-in Auth user's ID
-         * ke saath match kiya ja raha hai.
-         */
-
         const {
             data: profile,
             error
@@ -1102,7 +1084,7 @@ async function loadDashboard(){
         /* ================= NAME ================= */
 
         const fullName =
-            profile["full_name"] ||
+            profile.full_name ||
             user.user_metadata?.full_name ||
             "Member";
 
@@ -1110,7 +1092,7 @@ async function loadDashboard(){
         /* ================= MEMBER ID ================= */
 
         const memberID =
-            profile["member_id"] ||
+            profile.member_id ||
             "Not Assigned";
 
 
@@ -1120,7 +1102,7 @@ async function loadDashboard(){
         /* ================= PACKAGE ================= */
 
         const packageName =
-            profile["Package name"] ||
+            profile.package_name ||
             "Package Not Assigned";
 
 
