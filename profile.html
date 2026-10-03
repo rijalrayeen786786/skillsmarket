@@ -87,6 +87,15 @@
             font-weight:800;
             cursor:pointer;
             box-shadow:0 4px 12px rgba(124,58,237,.20);
+            overflow:hidden;
+            padding:0;
+        }
+
+        .profile-mini img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:block;
         }
 
         .profile-dropdown{
@@ -214,6 +223,15 @@
             align-items:center;
             justify-content:center;
             font-weight:800;
+            overflow:hidden;
+            flex-shrink:0;
+        }
+
+        .menu-avatar img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:block;
         }
 
         .menu-profile-name{
@@ -954,6 +972,170 @@ let currentAvatarUrl = "";
 
 
 /* =====================================================
+   PROFILE CACHE
+===================================================== */
+
+const PROFILE_CACHE_KEY =
+    "sm_profile_page_cache";
+
+
+function saveProfileCache(data){
+
+    try{
+
+        sessionStorage.setItem(
+            PROFILE_CACHE_KEY,
+            JSON.stringify(data)
+        );
+
+        localStorage.setItem(
+            PROFILE_CACHE_KEY,
+            JSON.stringify(data)
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Unable to save profile cache:",
+            error
+        );
+
+    }
+
+}
+
+
+function getProfileCache(){
+
+    try{
+
+        const sessionData =
+            sessionStorage.getItem(
+                PROFILE_CACHE_KEY
+            );
+
+        if(sessionData){
+
+            return JSON.parse(
+                sessionData
+            );
+
+        }
+
+
+        const localData =
+            localStorage.getItem(
+                PROFILE_CACHE_KEY
+            );
+
+        if(localData){
+
+            return JSON.parse(
+                localData
+            );
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "Unable to read profile cache:",
+            error
+        );
+
+    }
+
+    return null;
+
+}
+
+
+/* =====================================================
+   APPLY CACHED PROFILE
+===================================================== */
+
+function applyCachedProfile(){
+
+    const cached =
+        getProfileCache();
+
+    if(!cached){
+
+        return;
+
+    }
+
+
+    currentMemberID =
+        cached.memberID || "";
+
+    currentAvatarUrl =
+        cached.avatarUrl || "";
+
+
+    fullNameInput.value =
+        cached.name || "";
+
+    emailInput.value =
+        cached.email || "";
+
+    phoneInput.value =
+        cached.phone || "";
+
+    addressInput.value =
+        cached.address || "";
+
+    cityInput.value =
+        cached.city || "";
+
+    stateInput.value =
+        cached.state || "";
+
+    pincodeInput.value =
+        cached.pincode || "";
+
+
+    genderMale.checked =
+        cached.gender === "Male";
+
+    genderFemale.checked =
+        cached.gender === "Female";
+
+
+    if(currentAvatarUrl){
+
+        showAvatar(
+            currentAvatarUrl
+        );
+
+    }else{
+
+        setAvatarLetter(
+            cached.name || ""
+        );
+
+    }
+
+
+    updateNavbarProfile(
+        cached.name || "",
+        cached.memberID || "",
+        cached.avatarUrl || ""
+    );
+
+
+    sponsorNameInput.value =
+        cached.sponsorName ||
+        "";
+
+    sponsorPhoneInput.value =
+        cached.sponsorPhone ||
+        "";
+
+}
+
+
+/* =====================================================
    NAVBAR PROFILE DROPDOWN
 ===================================================== */
 
@@ -1046,7 +1228,8 @@ function closeMenu(){
 
 function updateNavbarProfile(
     name,
-    memberID
+    memberID,
+    avatarUrl
 ){
 
     const firstLetter =
@@ -1058,16 +1241,62 @@ function updateNavbarProfile(
             : "M";
 
 
-    document.getElementById(
-        "profileMini"
-    ).textContent =
-        firstLetter;
+    const profileMini =
+        document.getElementById(
+            "profileMini"
+        );
 
 
-    document.getElementById(
-        "menuAvatar"
-    ).textContent =
-        firstLetter;
+    const menuAvatar =
+        document.getElementById(
+            "menuAvatar"
+        );
+
+
+    /* =========================
+       NAVBAR IMAGE
+    ========================= */
+
+    if(profileMini){
+
+        if(avatarUrl){
+
+            profileMini.innerHTML =
+                '<img src="' +
+                avatarUrl +
+                '" alt="Profile">';
+
+        }else{
+
+            profileMini.textContent =
+                firstLetter;
+
+        }
+
+    }
+
+
+    /* =========================
+       SIDE MENU IMAGE
+    ========================= */
+
+    if(menuAvatar){
+
+        if(avatarUrl){
+
+            menuAvatar.innerHTML =
+                '<img src="' +
+                avatarUrl +
+                '" alt="Profile">';
+
+        }else{
+
+            menuAvatar.textContent =
+                firstLetter;
+
+        }
+
+    }
 
 
     document.getElementById(
@@ -1220,6 +1449,14 @@ async function loadProfile(){
 
         if(authError || !user){
 
+            sessionStorage.removeItem(
+                PROFILE_CACHE_KEY
+            );
+
+            localStorage.removeItem(
+                PROFILE_CACHE_KEY
+            );
+
             window.location.href =
                 "login.html";
 
@@ -1244,10 +1481,6 @@ async function loadProfile(){
             console.error(
                 "Profile error:",
                 profileError
-            );
-
-            alert(
-                "Unable to load profile."
             );
 
             return;
@@ -1291,7 +1524,9 @@ async function loadProfile(){
             "";
 
 
-        /* PERSONAL DATA */
+        /* =========================
+           PERSONAL DATA
+        ========================= */
 
         fullNameInput.value =
             name;
@@ -1321,7 +1556,9 @@ async function loadProfile(){
             metadata.pincode || "";
 
 
-        /* GENDER */
+        /* =========================
+           GENDER
+        ========================= */
 
         genderMale.checked =
             metadata.gender === "Male";
@@ -1331,7 +1568,9 @@ async function loadProfile(){
             metadata.gender === "Female";
 
 
-        /* AVATAR */
+        /* =========================
+           AVATAR
+        ========================= */
 
         if(currentAvatarUrl){
 
@@ -1341,20 +1580,27 @@ async function loadProfile(){
 
         }else{
 
-            setAvatarLetter(name);
+            setAvatarLetter(
+                name
+            );
 
         }
 
 
-        /* NAVBAR */
+        /* =========================
+           NAVBAR
+        ========================= */
 
         updateNavbarProfile(
             name,
-            currentMemberID
+            currentMemberID,
+            currentAvatarUrl
         );
 
 
-        /* SPONSOR */
+        /* =========================
+           SPONSOR
+        ========================= */
 
         sponsorNameInput.value =
             "";
@@ -1414,6 +1660,54 @@ async function loadProfile(){
                 "Not Available";
 
         }
+
+
+        /* =========================
+           SAVE CACHE
+        ========================= */
+
+        saveProfileCache({
+
+            userId:
+                user.id,
+
+            email:
+                user.email || "",
+
+            name:
+                name,
+
+            phone:
+                phone,
+
+            memberID:
+                currentMemberID,
+
+            address:
+                metadata.address || "",
+
+            city:
+                metadata.city || "",
+
+            state:
+                metadata.state || "",
+
+            pincode:
+                metadata.pincode || "",
+
+            gender:
+                metadata.gender || "",
+
+            avatarUrl:
+                currentAvatarUrl,
+
+            sponsorName:
+                sponsorNameInput.value || "",
+
+            sponsorPhone:
+                sponsorPhoneInput.value || ""
+
+        });
 
 
     }catch(error){
@@ -1687,14 +1981,10 @@ profileForm.addEventListener(
                 avatarUrl;
 
 
-            currentMemberID =
-                currentMemberID ||
-                "";
-
-
             updateNavbarProfile(
                 fullNameInput.value.trim(),
-                currentMemberID
+                currentMemberID,
+                avatarUrl
             );
 
 
@@ -1711,6 +2001,54 @@ profileForm.addEventListener(
                 );
 
             }
+
+
+            /* =========================
+               UPDATE CACHE
+            ========================= */
+
+            saveProfileCache({
+
+                userId:
+                    user.id,
+
+                email:
+                    user.email || "",
+
+                name:
+                    fullNameInput.value.trim(),
+
+                phone:
+                    phoneInput.value.trim(),
+
+                memberID:
+                    currentMemberID,
+
+                address:
+                    addressInput.value.trim(),
+
+                city:
+                    cityInput.value.trim(),
+
+                state:
+                    stateInput.value,
+
+                pincode:
+                    pincodeInput.value.trim(),
+
+                gender:
+                    gender,
+
+                avatarUrl:
+                    avatarUrl,
+
+                sponsorName:
+                    sponsorNameInput.value || "",
+
+                sponsorPhone:
+                    sponsorPhoneInput.value || ""
+
+            });
 
 
             /* =========================
@@ -1810,7 +2148,11 @@ async function logoutUser(event){
 
 
     sessionStorage.removeItem(
-        "sm_profile_cache"
+        PROFILE_CACHE_KEY
+    );
+
+    localStorage.removeItem(
+        PROFILE_CACHE_KEY
     );
 
 
@@ -1823,6 +2165,13 @@ async function logoutUser(event){
 /* =====================================================
    START
 ===================================================== */
+
+/*
+   Pehle cached information immediately show hogi.
+   Uske baad Supabase se latest information load hogi.
+*/
+
+applyCachedProfile();
 
 loadProfile();
 
