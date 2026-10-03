@@ -746,11 +746,9 @@ body{
         <div>
 
             <div class="menu-profile-name" id="menuProfileName">
-                Loading...
             </div>
 
             <div class="menu-profile-id" id="menuProfileId">
-                ID: Loading...
             </div>
 
         </div>
@@ -873,7 +871,7 @@ body{
 
         <div class="profile-details">
 
-            <div class="profile-name" id="profileName">    
+            <div class="profile-name" id="profileName">
             </div>
 
             <div class="id-row">
@@ -1021,10 +1019,117 @@ const supabaseClient =
     );
 
 
-/* ================= DASHBOARD LOAD ================= */
+/* ================= DASHBOARD ================= */
 
 let currentMemberID = "";
 
+
+/* ================= APPLY PROFILE ================= */
+
+function applyProfileToScreen(
+    fullName,
+    memberID,
+    packageName
+){
+
+    currentMemberID = memberID;
+
+
+    /* Main profile */
+
+    document.getElementById("profileName")
+        .textContent = fullName;
+
+    document.getElementById("profileId")
+        .textContent = "ID: " + memberID;
+
+    document.getElementById("packageBadge")
+        .textContent =
+            packageName.toUpperCase();
+
+
+    /* Avatar */
+
+    const firstLetter =
+        fullName.trim().charAt(0).toUpperCase() || "M";
+
+
+    document.getElementById("avatarFallback")
+        .textContent = firstLetter;
+
+    document.getElementById("profileMini")
+        .textContent = firstLetter;
+
+
+    /* Menu profile */
+
+    document.getElementById("menuAvatar")
+        .textContent = firstLetter;
+
+    document.getElementById("menuProfileName")
+        .textContent = fullName;
+
+    document.getElementById("menuProfileId")
+        .textContent = "ID: " + memberID;
+
+}
+
+
+/* ================= LOAD CACHE INSTANTLY ================= */
+
+function loadCachedProfile(){
+
+    try{
+
+        const cached =
+            sessionStorage.getItem(
+                "sm_profile_cache"
+            );
+
+
+        if(!cached){
+
+            return;
+
+        }
+
+
+        const profile =
+            JSON.parse(cached);
+
+
+        if(
+            profile &&
+            profile.fullName &&
+            profile.memberID
+        ){
+
+            applyProfileToScreen(
+
+                profile.fullName,
+
+                profile.memberID,
+
+                profile.packageName ||
+                "Package Not Assigned"
+
+            );
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "Profile cache error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ================= DASHBOARD LOAD ================= */
 
 async function loadDashboard(){
 
@@ -1033,12 +1138,19 @@ async function loadDashboard(){
         const {
             data: { user },
             error: authError
-        } = await supabaseClient.auth.getUser();
+        } =
+        await supabaseClient.auth.getUser();
 
 
         if(authError || !user){
 
-            window.location.href = "login.html";
+            sessionStorage.removeItem(
+                "sm_profile_cache"
+            );
+
+            window.location.href =
+                "login.html";
+
             return;
 
         }
@@ -1047,7 +1159,8 @@ async function loadDashboard(){
         const {
             data: profile,
             error
-        } = await supabaseClient
+        } =
+        await supabaseClient
             .from("profiles")
             .select("*")
             .eq("id", user.id)
@@ -1056,7 +1169,10 @@ async function loadDashboard(){
 
         if(error){
 
-            console.error("Profile error:", error);
+            console.error(
+                "Profile error:",
+                error
+            );
 
             alert(
                 "Profile data load nahi ho pa raha. Supabase table/column connection check karein."
@@ -1093,9 +1209,6 @@ async function loadDashboard(){
             "Not Assigned";
 
 
-        currentMemberID = memberID;
-
-
         /* ================= PACKAGE ================= */
 
         const packageName =
@@ -1103,46 +1216,38 @@ async function loadDashboard(){
             "Package Not Assigned";
 
 
-        /* ================= UPDATE MAIN PROFILE ================= */
+        /* ================= UPDATE SCREEN ================= */
 
-        document.getElementById("profileName")
-            .textContent = fullName;
+        applyProfileToScreen(
 
+            fullName,
 
-        document.getElementById("profileId")
-            .textContent = "ID: " + memberID;
+            memberID,
 
+            packageName
 
-        document.getElementById("packageBadge")
-            .textContent = packageName.toUpperCase();
-
-
-        /* ================= AVATAR INITIAL ================= */
-
-        const firstLetter =
-            fullName.trim().charAt(0).toUpperCase() || "M";
+        );
 
 
-        document.getElementById("avatarFallback")
-            .textContent = firstLetter;
+        /* ================= SAVE CACHE ================= */
 
+        sessionStorage.setItem(
 
-        document.getElementById("profileMini")
-            .textContent = firstLetter;
+            "sm_profile_cache",
 
+            JSON.stringify({
 
-        /* ================= MENU PROFILE ================= */
+                userId:user.id,
 
-        document.getElementById("menuAvatar")
-            .textContent = firstLetter;
+                fullName:fullName,
 
+                memberID:memberID,
 
-        document.getElementById("menuProfileName")
-            .textContent = fullName;
+                packageName:packageName
 
+            })
 
-        document.getElementById("menuProfileId")
-            .textContent = "ID: " + memberID;
+        );
 
 
         console.log(
@@ -1179,7 +1284,8 @@ function openMenu(){
         .getElementById("menuOverlay")
         .classList.add("active");
 
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow =
+        "hidden";
 
 }
 
@@ -1196,7 +1302,8 @@ function closeMenu(){
         .getElementById("menuOverlay")
         .classList.remove("active");
 
-    document.body.style.overflow = "";
+    document.body.style.overflow =
+        "";
 
 }
 
@@ -1219,7 +1326,9 @@ function copyProfileID(){
             .then(function(){
 
                 const button =
-                    document.querySelector(".copy-btn");
+                    document.querySelector(
+                        ".copy-btn"
+                    );
 
                 button.textContent = "✓";
 
@@ -1245,7 +1354,9 @@ async function logoutUser(event){
 
 
     const confirmLogout =
-        confirm("Are you sure you want to logout?");
+        confirm(
+            "Are you sure you want to logout?"
+        );
 
 
     if(!confirmLogout){
@@ -1257,7 +1368,8 @@ async function logoutUser(event){
 
     const {
         error
-    } = await supabaseClient.auth.signOut();
+    } =
+    await supabaseClient.auth.signOut();
 
 
     if(error){
@@ -1271,12 +1383,27 @@ async function logoutUser(event){
     }
 
 
-    window.location.href = "login.html";
+    sessionStorage.removeItem(
+        "sm_profile_cache"
+    );
+
+
+    window.location.href =
+        "login.html";
 
 }
 
 
 /* ================= START ================= */
+
+/*
+   IMPORTANT:
+   Cache pehle load hoga,
+   isliye refresh par naam immediately dikhega.
+   Uske baad Supabase latest data update karega.
+*/
+
+loadCachedProfile();
 
 loadDashboard();
 
