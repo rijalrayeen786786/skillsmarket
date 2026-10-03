@@ -16,343 +16,374 @@
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
+:root{
+    --purple:#6d28d9;
+    --purple2:#7c3aed;
+    --bg:#f6f7fb;
+    --text:#111827;
+    --muted:#64748b;
+    --border:#e5e7eb;
+    --sidebar:76px;
+    --sidebar-open:245px;
+}
+
 body{
     background:#f6f7fb;
-    color:#111827;
-    padding:16px;
+    color:var(--text);
+    min-height:100vh;
 }
 
-.dashboard{
-    width:100%;
-    max-width:1200px;
-    margin:auto;
-}
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
-/* ================= NAVBAR ================= */
-
-.navbar{
-    height:54px;
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:var(--sidebar);
+    background:#fff;
+    border-right:1px solid #e8ebf0;
+    z-index:1000;
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:14px;
+    flex-direction:column;
+    transition:width .28s ease;
+    overflow:hidden;
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:9px;
+.sidebar.open{
+    width:var(--sidebar-open);
 }
 
-.brand-logo{
-    width:34px;
-    height:34px;
-    border-radius:10px;
-    background:linear-gradient(135deg,#7c3aed,#2563eb);
-    color:white;
+.sidebar-logo{
+    height:76px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:14px;
-    font-weight:900;
-    box-shadow:0 5px 15px rgba(79,70,229,.22);
+    border-bottom:1px solid #eef1f5;
+    flex-shrink:0;
 }
 
-.brand-name{
+.sidebar-logo-box{
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:900;
+    box-shadow:0 5px 15px rgba(79,70,229,.2);
+    flex-shrink:0;
+}
+
+.sidebar.open .sidebar-logo{
+    justify-content:flex-start;
+    padding-left:19px;
+    gap:10px;
+}
+
+.sidebar-brand{
+    white-space:nowrap;
+    font-size:17px;
+    font-weight:900;
+    opacity:0;
+    transform:translateX(-10px);
+    transition:.2s;
+}
+
+.sidebar.open .sidebar-brand{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.sidebar-brand span{
+    color:#6d28d9;
+}
+
+/* sidebar menu */
+
+.sidebar-menu{
+    padding:14px 10px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+.sidebar-link{
+    width:100%;
+    min-width:0;
+    height:46px;
+    margin-bottom:5px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+    color:#475569;
+    font-size:12px;
+    font-weight:750;
+    transition:.2s;
+    position:relative;
+}
+
+.sidebar-link:hover{
+    background:#f5f3ff;
+    color:#6d28d9;
+}
+
+.sidebar-link.active{
+    background:linear-gradient(135deg,#7c3aed,#6d28d9);
+    color:#fff;
+    box-shadow:0 5px 13px rgba(109,40,217,.2);
+}
+
+.sidebar-icon{
+    width:54px;
+    min-width:54px;
+    text-align:center;
+    font-size:17px;
+    line-height:1;
+}
+
+.sidebar-text{
+    white-space:nowrap;
+    opacity:0;
+    transform:translateX(-7px);
+    transition:.2s;
+}
+
+.sidebar.open .sidebar-text{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.sidebar-divider{
+    height:1px;
+    background:#eef2f7;
+    margin:10px 4px;
+}
+
+.sidebar-bottom{
+    margin-top:auto;
+    padding:10px;
+    border-top:1px solid #eef1f5;
+}
+
+/* logout */
+
+.sidebar-link.logout{
+    color:#dc2626;
+}
+
+.sidebar-link.logout:hover{
+    background:#fef2f2;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+    margin-left:var(--sidebar);
+    min-height:100vh;
+    transition:margin-left .28s ease;
+}
+
+.main.sidebar-open{
+    margin-left:var(--sidebar-open);
+}
+
+/* =========================================================
+   TOP NAVBAR
+========================================================= */
+
+.navbar{
+    height:76px;
+    background:#fff;
+    border-bottom:1px solid #e9edf2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:900;
+}
+
+.nav-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.menu-btn{
+    width:38px;
+    height:38px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    background:#fff;
+    color:#334155;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-size:19px;
-    font-weight:900;
-    letter-spacing:-.4px;
-    color:#111827;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.brand-name span{
+.menu-btn:hover{
+    background:#f5f3ff;
+    color:#6d28d9;
+}
+
+.mobile-brand{
+    display:none;
+    align-items:center;
+    gap:8px;
+}
+
+.mobile-logo{
+    width:34px;
+    height:34px;
+    border-radius:9px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:900;
+}
+
+.mobile-brand-name{
+    font-size:17px;
+    font-weight:900;
+}
+
+.mobile-brand-name span{
     color:#6d28d9;
 }
 
 .nav-right{
     display:flex;
     align-items:center;
-    gap:9px;
+    gap:12px;
 }
 
 .profile-mini{
-    width:35px;
-    height:35px;
+    width:37px;
+    height:37px;
     border-radius:50%;
     background:#fff;
-    border:1px solid #e5e7eb;
+    border:1px solid #dddff0;
+    color:#6d28d9;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:15px;
-    font-weight:800;
-    color:#4f46e5;
-    box-shadow:0 3px 10px rgba(0,0,0,.05);
-}
-
-.menu-btn{
-    width:35px;
-    height:35px;
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-    background:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    font-size:19px;
-    color:#334155;
-    box-shadow:0 3px 10px rgba(0,0,0,.05);
-}
-
-/* ================= SIDE MENU ================= */
-
-.nav-menu{
-    position:fixed;
-    top:0;
-    right:-320px;
-    width:300px;
-    max-width:86%;
-    height:100vh;
-    background:#fff;
-    z-index:9999;
-    padding:20px 16px;
-    box-shadow:-8px 0 30px rgba(15,23,42,.14);
-    transition:right .3s ease;
-    overflow-y:auto;
-}
-
-.nav-menu.active{
-    right:0;
-}
-
-.menu-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding-bottom:18px;
-    border-bottom:1px solid #eef2f7;
-}
-
-.menu-title{
-    font-size:18px;
-    font-weight:900;
-    color:#111827;
-}
-
-.close-menu{
-    width:34px;
-    height:34px;
-    border:0;
-    border-radius:9px;
-    background:#f1f5f9;
-    color:#334155;
-    font-size:18px;
-    cursor:pointer;
-}
-
-.menu-profile{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:18px 4px;
-    border-bottom:1px solid #eef2f7;
-}
-
-.menu-avatar{
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#7c3aed,#2563eb);
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:17px;
-    font-weight:900;
-}
-
-.menu-profile-name{
     font-size:14px;
-    font-weight:850;
-    color:#111827;
+    font-weight:900;
 }
 
-.menu-profile-id{
-    font-size:10px;
-    color:#64748b;
-    margin-top:3px;
-}
+/* =========================================================
+   PAGE
+========================================================= */
 
-.menu-links{
-    padding-top:14px;
-}
-
-.menu-link{
+.page{
     width:100%;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:12px 12px;
-    margin-bottom:4px;
-    border-radius:10px;
-    text-decoration:none;
-    color:#334155;
-    font-size:12.5px;
-    font-weight:700;
-    transition:.2s;
+    max-width:1400px;
+    margin:auto;
+    padding:25px;
 }
 
-.menu-link:hover{
-    background:#f5f3ff;
-    color:#6d28d9;
-}
-
-.menu-link.active{
-    background:linear-gradient(
-        135deg,
-        #f3e8ff,
-        #ede9fe
-    );
-    color:#6d28d9;
-}
-
-.menu-icon{
-    width:25px;
-    text-align:center;
-    font-size:15px;
-    flex-shrink:0;
-}
-
-.logout-link{
-    color:#dc2626;
-    margin-top:8px;
-}
-
-.logout-link:hover{
-    background:#fef2f2;
-    color:#dc2626;
-}
-
-.menu-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(15,23,42,.35);
-    z-index:9998;
-    opacity:0;
-    visibility:hidden;
-    transition:.3s;
-}
-
-.menu-overlay.active{
-    opacity:1;
-    visibility:visible;
-}
-
-/* ================= PROFILE CARD ================= */
+/* =========================================================
+   PROFILE CARD
+========================================================= */
 
 .profile-card{
     position:relative;
     background:linear-gradient(
         135deg,
-        #ffffff 0%,
-        #faf8ff 48%,
+        #fff 0%,
+        #faf8ff 50%,
         #f1f5ff 100%
     );
     border:1px solid rgba(99,102,241,.13);
     border-radius:18px;
-    padding:22px 16px 17px;
-    margin-bottom:15px;
+    padding:25px 24px;
+    margin-bottom:16px;
     overflow:hidden;
     box-shadow:
         0 8px 25px rgba(30,41,59,.07),
         inset 0 1px 0 rgba(255,255,255,.9);
-    isolation:isolate;
+    min-height:112px;
 }
 
-.profile-card::before{
+.profile-card:before{
     content:"";
     position:absolute;
-    width:190px;
-    height:190px;
-    right:-85px;
-    top:-105px;
+    width:230px;
+    height:230px;
+    right:-100px;
+    top:-130px;
     border-radius:50%;
-    background:rgba(124,58,237,.09);
-    z-index:-1;
+    background:rgba(124,58,237,.08);
 }
 
-.profile-card::after{
+.profile-card:after{
     content:"";
     position:absolute;
-    width:150px;
-    height:150px;
-    left:-80px;
-    bottom:-90px;
+    width:180px;
+    height:180px;
+    left:-100px;
+    bottom:-120px;
     border-radius:50%;
-    background:rgba(37,99,235,.07);
-    z-index:-1;
+    background:rgba(37,99,235,.06);
 }
 
 .profile-circle{
     position:absolute;
     border-radius:50%;
     pointer-events:none;
-    z-index:-1;
 }
 
 .circle-one{
-    width:92px;
-    height:92px;
-    right:22px;
-    bottom:-55px;
-    border:1px solid rgba(124,58,237,.14);
-    animation:floatOne 5s ease-in-out infinite;
+    width:100px;
+    height:100px;
+    right:30px;
+    bottom:-65px;
+    border:1px solid rgba(124,58,237,.12);
 }
 
 .circle-two{
-    width:58px;
-    height:58px;
-    right:76px;
-    top:20px;
-    border:1px solid rgba(37,99,235,.12);
-    animation:floatTwo 4s ease-in-out infinite;
-}
-
-.circle-three{
-    width:25px;
-    height:25px;
-    left:105px;
-    top:18px;
-    background:rgba(124,58,237,.07);
-    animation:pulseCircle 3s ease-in-out infinite;
+    width:60px;
+    height:60px;
+    right:130px;
+    top:15px;
+    border:1px solid rgba(37,99,235,.1);
 }
 
 .package-badge{
     position:absolute;
     top:0;
-    right:16px;
+    right:22px;
     background:linear-gradient(135deg,#7c3aed,#6d28d9);
     color:#fff;
-    font-size:8.5px;
+    font-size:9px;
     font-weight:800;
-    letter-spacing:.55px;
-    padding:6px 11px;
+    letter-spacing:.4px;
+    padding:7px 12px;
     border-radius:0 0 9px 9px;
-    box-shadow:0 4px 10px rgba(109,40,217,.22);
+    z-index:5;
 }
 
 .profile-content{
     position:relative;
-    z-index:2;
+    z-index:3;
     display:flex;
     align-items:center;
-    gap:15px;
-    padding-top:5px;
-}
-
-.profile-avatar-wrap{
-    flex-shrink:0;
+    gap:17px;
 }
 
 .profile-avatar{
@@ -360,14 +391,8 @@ body{
     height:72px;
     border-radius:50%;
     padding:3px;
-    background:linear-gradient(
-        135deg,
-        #7c3aed,
-        #2563eb,
-        #06b6d4
-    );
-    box-shadow:0 6px 18px rgba(79,70,229,.22);
-    overflow:hidden;
+    background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+    box-shadow:0 6px 18px rgba(79,70,229,.2);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -378,25 +403,20 @@ body{
     height:100%;
     border-radius:50%;
     background:#fff;
+    border:2px solid #fff;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:25px;
+    font-size:24px;
     font-weight:900;
     color:#4f46e5;
-    border:2px solid #fff;
-}
-
-.profile-details{
-    min-width:0;
 }
 
 .profile-name{
-    font-size:17px;
+    font-size:21px;
     font-weight:850;
     color:#111827;
-    letter-spacing:.2px;
-    margin-bottom:5px;
+    margin-bottom:6px;
 }
 
 .id-row{
@@ -405,7 +425,7 @@ body{
     gap:7px;
     font-size:11px;
     font-weight:700;
-    color:#475569;
+    color:#64748b;
 }
 
 .copy-btn{
@@ -415,93 +435,55 @@ body{
     border-radius:7px;
     background:#f1eaff;
     color:#6d28d9;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:11px;
     cursor:pointer;
-    transition:.2s;
 }
 
-.copy-btn:hover{
-    background:#e9d5ff;
-    transform:translateY(-1px);
-}
-
-/* ================= REVENUE GRID ================= */
+/* =========================================================
+   REVENUE GRID
+========================================================= */
 
 .revenue-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:12px;
-    margin-bottom:12px;
+    margin-bottom:16px;
 }
-
-.revenue-card.full-width{
-    grid-column:span 2;
-}
-
-@media(min-width:768px){
-    .revenue-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .revenue-card.full-width{
-        grid-column:span 1;
-    }
-}
-
-/* ================= REVENUE CARDS ================= */
 
 .revenue-card{
     position:relative;
+    min-height:126px;
     overflow:hidden;
     border-radius:15px;
-    padding:15px 16px;
-    color:white;
+    padding:16px 17px;
+    color:#fff;
     box-shadow:0 5px 15px rgba(0,0,0,.08);
-    transition:transform .2s ease;
+    transition:.2s;
 }
 
 .revenue-card:hover{
     transform:translateY(-2px);
 }
 
-.revenue-card::before{
+.revenue-card:before{
     content:"";
     position:absolute;
-    width:105px;
-    height:105px;
+    width:115px;
+    height:115px;
+    right:-48px;
+    top:-52px;
     border:1px solid rgba(255,255,255,.13);
     border-radius:50%;
-    right:-45px;
-    top:-48px;
 }
 
-.revenue-card::after{
+.revenue-card:after{
     content:"";
     position:absolute;
-    width:55px;
-    height:55px;
+    width:65px;
+    height:65px;
+    right:12px;
+    bottom:-37px;
     border:1px solid rgba(255,255,255,.08);
     border-radius:50%;
-    right:12px;
-    bottom:-30px;
-}
-
-.card-icon{
-    position:absolute;
-    top:14px;
-    right:14px;
-    width:28px;
-    height:28px;
-    background:rgba(255,255,255,.15);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:13px;
-    z-index:2;
 }
 
 .purple{
@@ -524,6 +506,24 @@ body{
     background:linear-gradient(135deg,#ca8a04,#854d0e);
 }
 
+.red{
+    background:linear-gradient(135deg,#dc2626,#991b1b);
+}
+
+.card-icon{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:31px;
+    height:31px;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2;
+}
+
 .revenue-amount{
     position:relative;
     z-index:2;
@@ -535,36 +535,36 @@ body{
 .revenue-title{
     position:relative;
     z-index:2;
-    font-size:12px;
-    font-weight:500;
+    font-size:11px;
     opacity:.95;
-    margin-bottom:12px;
+    margin-bottom:15px;
 }
 
 .revenue-footer{
-    position:relative;
-    z-index:2;
-    display:flex;
-    justify-content:flex-start;
-    align-items:center;
+    position:absolute;
+    left:17px;
+    right:17px;
+    bottom:12px;
     border-top:1px solid rgba(255,255,255,.25);
-    padding-top:8px;
-    font-size:11px;
+    padding-top:7px;
+    z-index:2;
 }
 
 .view-details{
-    color:white;
+    color:#fff;
     text-decoration:none;
+    font-size:10px;
 }
 
-/* ================= GRAPH ================= */
+/* =========================================================
+   GRAPH
+========================================================= */
 
 .graph-card{
     background:#fff;
     border:1px solid #e2e8f0;
     border-radius:17px;
-    padding:16px;
-    margin-top:4px;
+    padding:20px;
     box-shadow:0 3px 12px rgba(0,0,0,.045);
 }
 
@@ -572,13 +572,18 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:16px;
+    margin-bottom:18px;
 }
 
 .graph-title{
-    font-size:15px;
+    font-size:16px;
     font-weight:850;
-    color:#0f172a;
+}
+
+.graph-subtitle{
+    font-size:9px;
+    color:#94a3b8;
+    margin-top:3px;
 }
 
 .graph-badge{
@@ -586,33 +591,32 @@ body{
     font-weight:700;
     color:#6d28d9;
     background:#f3e8ff;
-    padding:5px 8px;
+    padding:6px 9px;
     border-radius:7px;
 }
 
 .graph-wrapper{
     position:relative;
-    margin-left:31px;
+    margin-left:38px;
 }
 
 .graph{
-    height:185px;
+    height:205px;
     position:relative;
     border-left:1px solid #cbd5e1;
     border-bottom:1px solid #cbd5e1;
-
     background:
         repeating-linear-gradient(
             to bottom,
             transparent 0,
-            transparent 36px,
-            #eef2f7 37px
+            transparent 40px,
+            #eef2f7 41px
         );
 }
 
 .y-axis{
     position:absolute;
-    left:-31px;
+    left:-38px;
     top:0;
     bottom:0;
     display:flex;
@@ -634,68 +638,129 @@ body{
 .graph-dates{
     display:grid;
     grid-template-columns:repeat(7,1fr);
-    margin-left:31px;
-    margin-top:8px;
+    margin-left:38px;
+    margin-top:9px;
     font-size:8px;
     color:#64748b;
     text-align:center;
 }
 
-/* ================= FOOTER ================= */
+.graph-note{
+    text-align:center;
+    color:#94a3b8;
+    font-size:10px;
+    margin-top:13px;
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.sidebar-overlay{
+    display:none;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
 
 .footer{
     text-align:center;
     color:#94a3b8;
     font-size:10px;
-    padding:15px 0 20px;
+    padding:18px 0 25px;
 }
 
-/* ================= ANIMATION ================= */
+/* =========================================================
+   TABLET
+========================================================= */
 
-@keyframes floatOne{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(-5px,-5px);}
-}
+@media(max-width:900px){
 
-@keyframes floatTwo{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(5px,4px);}
-}
-
-@keyframes pulseCircle{
-    0%,100%{
-        transform:scale(1);
-        opacity:.45;
+    .revenue-grid{
+        grid-template-columns:repeat(2,1fr);
     }
-    50%{
-        transform:scale(1.25);
-        opacity:1;
+
+    .page{
+        padding:18px;
     }
+
 }
 
-/* ================= MOBILE ================= */
+/* =========================================================
+   MOBILE
+========================================================= */
 
-@media(max-width:600px){
+@media(max-width:700px){
 
     body{
-        padding:10px;
+        background:#f6f7fb;
     }
 
-    .dashboard{
-        max-width:100%;
+    .sidebar{
+        width:260px;
+        left:-260px;
+        transition:left .28s ease;
+        box-shadow:8px 0 30px rgba(15,23,42,.15);
     }
 
-    .brand-name{
-        font-size:17px;
+    .sidebar.open{
+        width:260px;
+        left:0;
     }
 
-    .brand-logo{
-        width:32px;
-        height:32px;
+    .sidebar-logo{
+        justify-content:flex-start;
+        padding-left:19px;
+        gap:10px;
+    }
+
+    .sidebar-brand{
+        opacity:1;
+        transform:none;
+    }
+
+    .sidebar-text{
+        opacity:1;
+        transform:none;
+    }
+
+    .main,
+    .main.sidebar-open{
+        margin-left:0;
+    }
+
+    .sidebar-overlay.active{
+        display:block;
+        position:fixed;
+        inset:0;
+        background:rgba(15,23,42,.35);
+        z-index:999;
+    }
+
+    .navbar{
+        height:62px;
+        padding:0 14px;
+    }
+
+    .mobile-brand{
+        display:flex;
+    }
+
+    .nav-left{
+        gap:8px;
+    }
+
+    .page{
+        padding:12px;
     }
 
     .profile-card{
-        padding:20px 13px 15px;
+        padding:21px 15px;
+    }
+
+    .profile-name{
+        font-size:17px;
     }
 
     .profile-avatar{
@@ -703,388 +768,381 @@ body{
         height:66px;
     }
 
+    .package-badge{
+        right:15px;
+        font-size:7px;
+    }
+
+    .revenue-grid{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+    .revenue-card{
+        min-height:118px;
+    }
+
+    .graph-card{
+        padding:14px;
+    }
+
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:380px){
+
+    .mobile-brand-name{
+        font-size:15px;
+    }
+
+    .profile-content{
+        gap:11px;
+    }
+
     .profile-name{
         font-size:15px;
     }
 
-    .package-badge{
-        font-size:7.5px;
-        padding:5px 8px;
-    }
-
-    .revenue-card{
-        padding:14px;
+    .profile-avatar{
+        width:60px;
+        height:60px;
     }
 
     .revenue-amount{
         font-size:21px;
     }
 
-    .graph-dates{
-        font-size:7px;
-    }
-}
-
-/* ================= LAPTOP ================= */
-
-@media(min-width:900px){
-
-    body{
-        padding:24px;
-    }
-
-    .dashboard{
-        max-width:1180px;
-    }
-
-    .navbar{
-        margin-bottom:18px;
-    }
-
-    .profile-card{
-        padding:24px 22px 19px;
-    }
-
-    .profile-avatar{
-        width:78px;
-        height:78px;
-    }
-
-    .profile-name{
-        font-size:20px;
-    }
-
-    .revenue-card{
-        min-height:145px;
-    }
-
-    .revenue-amount{
-        font-size:25px;
-    }
-
-    .graph-card{
-        padding:20px;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= MENU OVERLAY ================= -->
+<!-- =======================================================
+     SIDEBAR
+======================================================= -->
 
-<div
-    class="menu-overlay"
-    id="menuOverlay"
-    onclick="closeMenu()">
-</div>
+<aside class="sidebar" id="sidebar">
 
+    <div class="sidebar-logo">
 
-<!-- ================= SIDE MENU ================= -->
-
-<div class="nav-menu" id="navMenu">
-
-    <div class="menu-top">
-
-        <div class="menu-title">
-            Skills Market
-        </div>
-
-        <button
-            class="close-menu"
-            onclick="closeMenu()">
-            ✕
-        </button>
-
-    </div>
-
-
-    <div class="menu-profile">
-
-        <div
-            class="menu-avatar"
-            id="menuAvatar">
-            R
-        </div>
-
-        <div>
-
-            <div
-                class="menu-profile-name"
-                id="menuProfileName">
-            </div>
-
-            <div
-                class="menu-profile-id"
-                id="menuProfileId">
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= FINAL MENU OPTIONS ================= -->
-
-    <div class="menu-links">
-
-        <a href="dashboard.html"
-           class="menu-link active">
-
-            <span class="menu-icon">⌂</span>
-
-            <span>
-                Affiliate Dashboard
-            </span>
-
-        </a>
-
-
-        <a href="my-course.html"
-           class="menu-link">
-
-            <span class="menu-icon">📚</span>
-
-            <span>
-                My Course
-            </span>
-
-        </a>
-
-
-        <a href="profile.html"
-           class="menu-link">
-
-            <span class="menu-icon">👤</span>
-
-            <span>
-                My Profile
-            </span>
-
-        </a>
-
-
-        <a href="affiliate-link.html"
-           class="menu-link">
-
-            <span class="menu-icon">🔗</span>
-
-            <span>
-                Affiliate Link
-            </span>
-
-        </a>
-
-
-        <a href="kyc.html"
-           class="menu-link">
-
-            <span class="menu-icon">🪪</span>
-
-            <span>
-                KYC
-            </span>
-
-        </a>
-
-
-        <a href="leaderboard.html"
-           class="menu-link">
-
-            <span class="menu-icon">🏆</span>
-
-            <span>
-                Leaderboard
-            </span>
-
-        </a>
-
-
-        <a href="my-team.html"
-           class="menu-link">
-
-            <span class="menu-icon">👥</span>
-
-            <span>
-                My Team
-            </span>
-
-        </a>
-
-
-        <a href="registration-request.html"
-           class="menu-link">
-
-            <span class="menu-icon">📝</span>
-
-            <span>
-                Registration Request
-            </span>
-
-        </a>
-
-
-        <a href="withdrawal-request.html"
-           class="menu-link">
-
-            <span class="menu-icon">💸</span>
-
-            <span>
-                Withdrawal Request
-            </span>
-
-        </a>
-
-
-        <a href="upgrade-request.html"
-           class="menu-link">
-
-            <span class="menu-icon">⬆️</span>
-
-            <span>
-                Upgrade Request
-            </span>
-
-        </a>
-
-
-        <a href="qualification.html"
-           class="menu-link">
-
-            <span class="menu-icon">🎯</span>
-
-            <span>
-                Qualification
-            </span>
-
-        </a>
-
-
-        <a href="payout-transaction.html"
-           class="menu-link">
-
-            <span class="menu-icon">💳</span>
-
-            <span>
-                Payout Transaction
-            </span>
-
-        </a>
-
-
-        <a href="training.html"
-           class="menu-link">
-
-            <span class="menu-icon">🎓</span>
-
-            <span>
-                Training
-            </span>
-
-        </a>
-
-
-        <a href="community-support.html"
-           class="menu-link">
-
-            <span class="menu-icon">💬</span>
-
-            <span>
-                Community &amp; Support
-            </span>
-
-        </a>
-
-
-        <a href="#"
-           class="menu-link logout-link"
-           onclick="logoutUser(event)">
-
-            <span class="menu-icon">↪</span>
-
-            <span>
-                Logout
-            </span>
-
-        </a>
-
-    </div>
-
-</div>
-
-
-<!-- ================= DASHBOARD ================= -->
-
-<div class="dashboard">
-
-
-<!-- ================= NAVBAR ================= -->
-
-<header class="navbar">
-
-    <div class="brand">
-
-        <div class="brand-logo">
+        <div class="sidebar-logo-box">
             SM
         </div>
 
-        <div class="brand-name">
+        <div class="sidebar-brand">
             Skills <span>Market</span>
         </div>
 
     </div>
 
+    <div class="sidebar-menu">
 
-    <div class="nav-right">
+        <a href="dashboard.html" class="sidebar-link active">
+            <span class="sidebar-icon">⌂</span>
+            <span class="sidebar-text">Affiliate Dashboard</span>
+        </a>
 
-        <div
-            class="profile-mini"
-            id="profileMini">
-            R
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">▦</span>
+            <span class="sidebar-text">My Course</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">♙</span>
+            <span class="sidebar-text">My Profile</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">🔗</span>
+            <span class="sidebar-text">Affiliate Link</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">▣</span>
+            <span class="sidebar-text">KYC</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">🏆</span>
+            <span class="sidebar-text">Leaderboard</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">♧</span>
+            <span class="sidebar-text">My Team</span>
+        </a>
+
+        <div class="sidebar-divider"></div>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">▤</span>
+            <span class="sidebar-text">Registration Request</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">⇩</span>
+            <span class="sidebar-text">Withdrawal Request</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">↗</span>
+            <span class="sidebar-text">Upgrade Request</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">★</span>
+            <span class="sidebar-text">Qualification</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">▤</span>
+            <span class="sidebar-text">Payout Transaction</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">🎓</span>
+            <span class="sidebar-text">Training</span>
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span class="sidebar-icon">💬</span>
+            <span class="sidebar-text">Community & Support</span>
+        </a>
+
+    </div>
+
+    <div class="sidebar-bottom">
+
+        <a href="#" class="sidebar-link logout"
+           onclick="logoutUser(event)">
+
+            <span class="sidebar-icon">↪</span>
+            <span class="sidebar-text">Logout</span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+<div class="sidebar-overlay"
+     id="sidebarOverlay"
+     onclick="toggleSidebar()">
+</div>
+
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
+
+<main class="main" id="main">
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="nav-left">
+
+            <button
+                class="menu-btn"
+                onclick="toggleSidebar()"
+                aria-label="Open dashboard menu">
+
+                ☰
+
+            </button>
+
+            <div class="mobile-brand">
+
+                <div class="mobile-logo">
+                    SM
+                </div>
+
+                <div class="mobile-brand-name">
+                    Skills <span>Market</span>
+                </div>
+
+            </div>
+
         </div>
 
+        <div class="nav-right">
 
-        <button
-            class="menu-btn"
-            onclick="openMenu()"
-            aria-label="Open menu">
+            <div class="profile-mini"
+                 id="profileMini">
+                R
+            </div>
 
-            ☰
+        </div>
 
-        </button>
-
-    </div>
-
-</header>
+    </header>
 
 
-<!-- ================= PROFILE CARD ================= -->
+    <!-- PAGE -->
 
-<section class="profile-card">
-
-    <div class="profile-circle circle-one"></div>
-
-    <div class="profile-circle circle-two"></div>
-
-    <div class="profile-circle circle-three"></div>
+    <div class="page">
 
 
-    <div
-        class="package-badge"
-        id="packageBadge">
-    </div>
+        <!-- PROFILE -->
+
+        <section class="profile-card">
+
+            <div class="profile-circle circle-one"></div>
+            <div class="profile-circle circle-two"></div>
+
+            <div
+                class="package-badge"
+                id="packageBadge">
+            </div>
+
+            <div class="profile-content">
+
+                <div class="profile-avatar">
+
+                    <div
+                        class="avatar-fallback"
+                        id="avatarFallback">
+                        R
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div
+                        class="profile-name"
+                        id="profileName">
+                    </div>
+
+                    <div class="id-row">
+
+                        <span id="profileId"></span>
+
+                        <button
+                            class="copy-btn"
+                            onclick="copyProfileID()">
+
+                            📋
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
 
 
-    <div class="profile-content">
+        <!-- REVENUE -->
 
-        <div class="profile-avatar-wrap">
+        <div class="revenue-grid">
 
-            <div class="profile-avatar">
+            <div class="revenue-card purple">
 
-                <div
-                    class="avatar-fallback"
-                    id="avatarFallback">
-                    R
+                <div class="card-icon">₹</div>
+
+                <div class="revenue-amount">
+                    ₹ 0
+                </div>
+
+                <div class="revenue-title">
+                    Today's Revenue
+                </div>
+
+                <div class="revenue-footer">
+                    <a href="#" class="view-details">
+                        Click here to view detail(s)
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="revenue-card indigo">
+
+                <div class="card-icon">▣</div>
+
+                <div class="revenue-amount">
+                    ₹ 0
+                </div>
+
+                <div class="revenue-title">
+                    Last 7 Days Revenue
+                </div>
+
+                <div class="revenue-footer">
+                    <a href="#" class="view-details">
+                        Click here to view detail(s)
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="revenue-card pink">
+
+                <div class="card-icon">⌁</div>
+
+                <div class="revenue-amount">
+                    ₹ 0
+                </div>
+
+                <div class="revenue-title">
+                    Last 30 Days Revenue
+                </div>
+
+                <div class="revenue-footer">
+                    <a href="#" class="view-details">
+                        Click here to view detail(s)
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="revenue-card blue">
+
+                <div class="card-icon">▣</div>
+
+                <div class="revenue-amount">
+                    ₹ 0
+                </div>
+
+                <div class="revenue-title">
+                    All Time Revenue
+                </div>
+
+                <div class="revenue-footer">
+                    <a href="#" class="view-details">
+                        Click here to view detail(s)
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="revenue-card gold">
+
+                <div class="card-icon">↗</div>
+
+                <div class="revenue-amount">
+                    ₹ 0
+                </div>
+
+                <div class="revenue-title">
+                    Passive Income
+                </div>
+
+                <div class="revenue-footer">
+                    <a href="#" class="view-details">
+                        Click here to view detail(s)
+                    </a>
                 </div>
 
             </div>
@@ -1092,262 +1150,88 @@ body{
         </div>
 
 
-        <div class="profile-details">
+        <!-- GRAPH -->
 
-            <div
-                class="profile-name"
-                id="profileName">
+        <section class="graph-card">
+
+            <div class="graph-header">
+
+                <div>
+
+                    <div class="graph-title">
+                        Commission Performance
+                    </div>
+
+                    <div class="graph-subtitle">
+                        Sales Last 7 Days
+                    </div>
+
+                </div>
+
+                <div class="graph-badge">
+                    7 DAYS
+                </div>
+
             </div>
 
 
-            <div class="id-row">
+            <div class="graph-wrapper">
 
-                <span id="profileId">
-                </span>
+                <div class="y-axis">
+
+                    <span>1.0</span>
+                    <span>0.8</span>
+                    <span>0.6</span>
+                    <span>0.4</span>
+                    <span>0.2</span>
+                    <span>0</span>
+
+                </div>
 
 
-                <button
-                    class="copy-btn"
-                    onclick="copyProfileID()">
+                <div class="graph">
 
-                    📋
+                    <div class="zero-line"></div>
 
-                </button>
+                </div>
 
             </div>
 
+
+            <div class="graph-dates">
+
+                <span>Day 1</span>
+                <span>Day 2</span>
+                <span>Day 3</span>
+                <span>Day 4</span>
+                <span>Day 5</span>
+                <span>Day 6</span>
+                <span>Today</span>
+
+            </div>
+
+
+            <div class="graph-note">
+                No commission recorded yet
+            </div>
+
+        </section>
+
+
+        <div class="footer">
+            © 2026 Skills Market · All Rights Reserved
         </div>
 
     </div>
 
-</section>
-
-
-<!-- ================= REVENUE ================= -->
-
-<div class="revenue-grid">
-
-
-    <div class="revenue-card purple">
-
-        <div class="card-icon">
-            💳
-        </div>
-
-        <div class="revenue-amount">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Today's Revenue
-        </div>
-
-        <div class="revenue-footer">
-
-            <a
-                href="#"
-                class="view-details">
-
-                Click here to view detail(s)
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="revenue-card indigo">
-
-        <div class="card-icon">
-            📊
-        </div>
-
-        <div class="revenue-amount">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Last 7 Days Revenue
-        </div>
-
-        <div class="revenue-footer">
-
-            <a
-                href="#"
-                class="view-details">
-
-                Click here to view detail(s)
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="revenue-card pink">
-
-        <div class="card-icon">
-            🎓
-        </div>
-
-        <div class="revenue-amount">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Last 30 Days Revenue
-        </div>
-
-        <div class="revenue-footer">
-
-            <a
-                href="#"
-                class="view-details">
-
-                Click here to view detail(s)
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="revenue-card blue">
-
-        <div class="card-icon">
-            🏆
-        </div>
-
-        <div class="revenue-amount">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            All Time Revenue
-        </div>
-
-        <div class="revenue-footer">
-
-            <a
-                href="#"
-                class="view-details">
-
-                Click here to view detail(s)
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="revenue-card gold full-width">
-
-        <div class="card-icon">
-            🏆
-        </div>
-
-        <div class="revenue-amount">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Passive Income
-        </div>
-
-        <div class="revenue-footer">
-
-            <a
-                href="#"
-                class="view-details">
-
-                Click here to view detail(s)
-
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ================= GRAPH ================= -->
-
-<section class="graph-card">
-
-    <div class="graph-header">
-
-        <div class="graph-title">
-            Sales Last 7 Days
-        </div>
-
-        <div class="graph-badge">
-            7 DAYS
-        </div>
-
-    </div>
-
-
-    <div class="graph-wrapper">
-
-        <div class="y-axis">
-
-            <span>1.0</span>
-            <span>0.8</span>
-            <span>0.6</span>
-            <span>0.4</span>
-            <span>0.2</span>
-            <span>0</span>
-            <span>-0.2</span>
-            <span>-0.4</span>
-            <span>-0.6</span>
-            <span>-0.8</span>
-            <span>-1.0</span>
-
-        </div>
-
-
-        <div class="graph">
-
-            <div class="zero-line"></div>
-
-        </div>
-
-    </div>
-
-
-    <div class="graph-dates">
-
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-
-    </div>
-
-</section>
-
-
-<div class="footer">
-
-    © 2026 Skills Market · All Rights Reserved
-
-</div>
-
-
-</div>
+</main>
 
 
 <script>
 
-/* ================= SUPABASE ================= */
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
     "https://hmlonjwqeqedakzhucix.supabase.co";
@@ -1362,12 +1246,59 @@ const supabaseClient =
     );
 
 
-/* ================= DASHBOARD ================= */
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar(){
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const main =
+        document.getElementById("main");
+
+    const overlay =
+        document.getElementById("sidebarOverlay");
+
+
+    /*
+       Desktop:
+       collapsed <-> expanded
+
+       Mobile:
+       closed <-> open
+    */
+
+    if(window.innerWidth <= 700){
+
+        sidebar.classList.toggle("open");
+
+        overlay.classList.toggle("active");
+
+        document.body.style.overflow =
+            sidebar.classList.contains("open")
+            ? "hidden"
+            : "";
+
+        return;
+
+    }
+
+
+    sidebar.classList.toggle("open");
+
+    main.classList.toggle("sidebar-open");
+
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
 
 let currentMemberID = "";
 
-
-/* ================= APPLY PROFILE ================= */
 
 function applyProfileToScreen(
     fullName,
@@ -1375,49 +1306,53 @@ function applyProfileToScreen(
     packageName
 ){
 
-    currentMemberID = memberID;
+    currentMemberID =
+        memberID || "";
 
 
-    document.getElementById("profileName")
-        .textContent = fullName;
+    document.getElementById(
+        "profileName"
+    ).textContent =
+        fullName || "Member";
 
 
-    document.getElementById("profileId")
-        .textContent = "ID: " + memberID;
+    document.getElementById(
+        "profileId"
+    ).textContent =
+        "ID: " + (memberID || "Not Assigned");
 
 
-    document.getElementById("packageBadge")
-        .textContent =
-            packageName.toUpperCase();
+    document.getElementById(
+        "packageBadge"
+    ).textContent =
+        (packageName || "Package Not Assigned")
+        .toUpperCase();
 
 
     const firstLetter =
-        fullName.trim().charAt(0).toUpperCase() || "M";
+        (fullName || "Member")
+        .trim()
+        .charAt(0)
+        .toUpperCase();
 
 
-    document.getElementById("avatarFallback")
-        .textContent = firstLetter;
+    document.getElementById(
+        "avatarFallback"
+    ).textContent =
+        firstLetter || "M";
 
 
-    document.getElementById("profileMini")
-        .textContent = firstLetter;
-
-
-    document.getElementById("menuAvatar")
-        .textContent = firstLetter;
-
-
-    document.getElementById("menuProfileName")
-        .textContent = fullName;
-
-
-    document.getElementById("menuProfileId")
-        .textContent = "ID: " + memberID;
+    document.getElementById(
+        "profileMini"
+    ).textContent =
+        firstLetter || "M";
 
 }
 
 
-/* ================= CACHE ================= */
+/* =========================================================
+   CACHE
+========================================================= */
 
 function loadCachedProfile(){
 
@@ -1469,7 +1404,9 @@ function loadCachedProfile(){
 }
 
 
-/* ================= LOAD DASHBOARD ================= */
+/* =========================================================
+   LOAD DASHBOARD
+========================================================= */
 
 async function loadDashboard(){
 
@@ -1521,7 +1458,7 @@ async function loadDashboard(){
 
         if(!profile){
 
-            console.warn(
+            console.error(
                 "Profile record not found."
             );
 
@@ -1588,47 +1525,9 @@ async function loadDashboard(){
 }
 
 
-/* ================= OPEN MENU ================= */
-
-function openMenu(){
-
-    document
-        .getElementById("navMenu")
-        .classList.add("active");
-
-
-    document
-        .getElementById("menuOverlay")
-        .classList.add("active");
-
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-/* ================= CLOSE MENU ================= */
-
-function closeMenu(){
-
-    document
-        .getElementById("navMenu")
-        .classList.remove("active");
-
-
-    document
-        .getElementById("menuOverlay")
-        .classList.remove("active");
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* ================= COPY ID ================= */
+/* =========================================================
+   COPY MEMBER ID
+========================================================= */
 
 function copyProfileID(){
 
@@ -1648,15 +1547,12 @@ function copyProfileID(){
                         ".copy-btn"
                     );
 
-
-                button.textContent =
-                    "✓";
+                button.textContent = "✓";
 
 
                 setTimeout(function(){
 
-                    button.textContent =
-                        "📋";
+                    button.textContent = "📋";
 
                 },1200);
 
@@ -1667,7 +1563,9 @@ function copyProfileID(){
 }
 
 
-/* ================= LOGOUT ================= */
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 async function logoutUser(event){
 
@@ -1685,8 +1583,10 @@ async function logoutUser(event){
     }
 
 
-    const {error} =
-        await supabaseClient.auth.signOut();
+    const {
+        error
+    } =
+    await supabaseClient.auth.signOut();
 
 
     if(error){
@@ -1711,11 +1611,53 @@ async function logoutUser(event){
 }
 
 
-/* ================= START ================= */
+/* =========================================================
+   START
+========================================================= */
 
 loadCachedProfile();
 
 loadDashboard();
+
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+        const main =
+            document.getElementById("main");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+
+        if(window.innerWidth > 700){
+
+            overlay.classList.remove("active");
+
+            document.body.style.overflow = "";
+
+            /*
+              Desktop par default collapsed.
+              Agar sidebar open nahi hai,
+              main normal collapsed position me rahega.
+            */
+
+            if(!sidebar.classList.contains("open")){
+                main.classList.remove("sidebar-open");
+            }
+
+        }
+
+    }
+);
 
 </script>
 
