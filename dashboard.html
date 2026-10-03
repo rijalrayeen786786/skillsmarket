@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Skills Market | Dashboard</title>
+
 <style>
 *{
     margin:0;
@@ -13,215 +15,352 @@
 }
 
 body{
-    background:#f4f5f9;
+    background:#f6f7fb;
     color:#111827;
+    padding:12px;
+}
+
+.dashboard{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    height:54px;
     display:flex;
-    min-height:100vh;
-    overflow-x: hidden;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
 }
 
-/* ================= ANIMATIONS ================= */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes floatBubble {
-    0% { transform: translate(0px, 0px) scale(1); }
-    50% { transform: translate(15px, -10px) scale(1.1); }
-    100% { transform: translate(0px, 0px) scale(1); }
-}
-
-.profile-card { animation: fadeInUp 0.4s ease-out forwards; }
-.revenue-card { animation: fadeInUp 0.4s ease-out forwards; opacity: 0; }
-.revenue-card:nth-child(1) { animation-delay: 0.1s; }
-.revenue-card:nth-child(2) { animation-delay: 0.15s; }
-.revenue-card:nth-child(3) { animation-delay: 0.2s; }
-.revenue-card:nth-child(4) { animation-delay: 0.25s; }
-.revenue-card:nth-child(5) { animation-delay: 0.3s; }
-.revenue-card:nth-child(6) { animation-delay: 0.35s; }
-
-/* ================= SIDEBAR ================= */
-.sidebar{
-    width: 260px;
-    background: #fff;
-    border-right: 1px solid #e2e8f0;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-    transition: width 0.3s ease;
-    overflow-x: hidden;
-}
-
-.sidebar.collapsed{
-    width: 75px;
-}
-
-.sidebar-header{
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid #eef2f7;
-    white-space: nowrap;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
 }
 
 .brand-logo{
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    border-radius: 10px;
-    background: linear-gradient(135deg,#7c3aed,#2563eb);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 900;
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    font-weight:900;
+    box-shadow:0 5px 15px rgba(79,70,229,.22);
 }
 
 .brand-name{
-    font-size: 18px;
-    font-weight: 900;
-    color: #111827;
+    font-size:19px;
+    font-weight:900;
+    letter-spacing:-.4px;
+    color:#111827;
 }
 
 .brand-name span{
-    color: #6d28d9;
+    color:#6d28d9;
 }
 
-.sidebar.collapsed .brand-name,
-.sidebar.collapsed .menu-text {
-    opacity: 0;
-    pointer-events: none;
-    display: none;
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:9px;
 }
 
-.sidebar-links{
-    padding: 15px 10px;
-    flex-grow: 1;
-    overflow-y: auto;
+.profile-mini{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:15px;
+    font-weight:800;
+    color:#4f46e5;
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+.menu-btn{
+    width:35px;
+    height:35px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:19px;
+    color:#334155;
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+/* ================= NAV MENU ================= */
+
+.nav-menu{
+    position:fixed;
+    top:0;
+    right:-310px;
+    width:290px;
+    max-width:85%;
+    height:100vh;
+    background:#fff;
+    z-index:9999;
+    padding:20px;
+    box-shadow:-8px 0 30px rgba(15,23,42,.14);
+    transition:right .3s ease;
+}
+
+.nav-menu.active{
+    right:0;
+}
+
+.menu-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:18px;
+    border-bottom:1px solid #eef2f7;
+}
+
+.menu-title{
+    font-size:18px;
+    font-weight:900;
+    color:#111827;
+}
+
+.close-menu{
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:9px;
+    background:#f1f5f9;
+    color:#334155;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.menu-profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:18px 0;
+    border-bottom:1px solid #eef2f7;
+}
+
+.menu-avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+    font-weight:900;
+}
+
+.menu-profile-name{
+    font-size:14px;
+    font-weight:850;
+    color:#111827;
+}
+
+.menu-profile-id{
+    font-size:10px;
+    color:#64748b;
+    margin-top:3px;
+}
+
+.menu-links{
+    padding-top:14px;
 }
 
 .menu-link{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
-    margin-bottom: 4px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #334155;
-    font-size: 13px;
-    font-weight: 700;
-    transition: 0.2s;
-    white-space: nowrap;
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 12px;
+    margin-bottom:5px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#334155;
+    font-size:13px;
+    font-weight:700;
+    transition:.2s;
 }
 
-.menu-link:hover, .menu-link.active{
-    background: #f3e8ff;
-    color: #6d28d9;
+.menu-link:hover{
+    background:#f5f3ff;
+    color:#6d28d9;
+}
+
+.menu-link.active{
+    background:#f3e8ff;
+    color:#6d28d9;
 }
 
 .menu-icon{
-    font-size: 16px;
-    min-width: 20px;
-    text-align: center;
+    width:25px;
+    text-align:center;
+    font-size:16px;
 }
 
 .logout-link{
-    color: #dc2626;
+    color:#dc2626;
 }
+
 .logout-link:hover{
-    background: #fef2f2;
-    color: #dc2626;
+    background:#fef2f2;
+    color:#dc2626;
 }
 
-/* ================= MAIN CONTENT ================= */
-.main-content{
-    margin-left: 260px;
-    flex-grow: 1;
-    padding: 24px;
-    max-width: 1200px;
-    transition: margin-left 0.3s ease;
+/* overlay */
+
+.menu-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.35);
+    z-index:9998;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
 }
 
-.sidebar.collapsed ~ .main-content{
-    margin-left: 75px;
-}
-
-/* Top Navbar */
-.top-navbar{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    background: #fff;
-    padding: 12px 20px;
-    border-radius: 14px;
-    border: 1px solid #e2e8f0;
-}
-
-.menu-toggle-btn{
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #334155;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-}
-
-.menu-toggle-btn:hover{
-    background: #f1f5f9;
+.menu-overlay.active{
+    opacity:1;
+    visibility:visible;
 }
 
 /* ================= PROFILE CARD ================= */
+
 .profile-card{
     position:relative;
-    background:linear-gradient(135deg, #ffffff 0%, #faf8ff 50%, #f3f4ff 100%);
-    border:1px solid rgba(99,102,241,.15);
-    border-radius:20px;
-    padding:22px;
-    margin-bottom:20px;
+    background:linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #faf8ff 48%,
+        #f1f5ff 100%
+    );
+    border:1px solid rgba(99,102,241,.13);
+    border-radius:18px;
+    padding:22px 16px 17px;
+    margin-bottom:15px;
     overflow:hidden;
-    box-shadow: 0 6px 20px rgba(30,41,59,.06);
+    box-shadow:
+        0 8px 25px rgba(30,41,59,.07),
+        inset 0 1px 0 rgba(255,255,255,.9);
+    isolation:isolate;
+}
+
+.profile-card::before{
+    content:"";
+    position:absolute;
+    width:190px;
+    height:190px;
+    right:-85px;
+    top:-105px;
+    border-radius:50%;
+    background:rgba(124,58,237,.09);
+    z-index:-1;
+}
+
+.profile-card::after{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    left:-80px;
+    bottom:-90px;
+    border-radius:50%;
+    background:rgba(37,99,235,.07);
+    z-index:-1;
+}
+
+.profile-circle{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.circle-one{
+    width:92px;
+    height:92px;
+    right:22px;
+    bottom:-55px;
+    border:1px solid rgba(124,58,237,.14);
+    animation:floatOne 5s ease-in-out infinite;
+}
+
+.circle-two{
+    width:58px;
+    height:58px;
+    right:76px;
+    top:20px;
+    border:1px solid rgba(37,99,235,.12);
+    animation:floatTwo 4s ease-in-out infinite;
+}
+
+.circle-three{
+    width:25px;
+    height:25px;
+    left:105px;
+    top:18px;
+    background:rgba(124,58,237,.07);
+    animation:pulseCircle 3s ease-in-out infinite;
 }
 
 .package-badge{
     position:absolute;
     top:0;
-    right:20px;
+    right:16px;
     background:linear-gradient(135deg,#7c3aed,#6d28d9);
     color:#fff;
-    font-size:10px;
+    font-size:8.5px;
     font-weight:800;
-    letter-spacing:.5px;
-    padding:6px 14px;
-    border-radius:0 0 10px 10px;
+    letter-spacing:.55px;
+    padding:6px 11px;
+    border-radius:0 0 9px 9px;
+    box-shadow:0 4px 10px rgba(109,40,217,.22);
 }
 
 .profile-content{
+    position:relative;
+    z-index:2;
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:15px;
+    padding-top:5px;
+}
+
+.profile-avatar-wrap{
+    flex-shrink:0;
 }
 
 .profile-avatar{
-    width:68px;
-    height:68px;
+    width:72px;
+    height:72px;
     border-radius:50%;
     padding:3px;
-    background:linear-gradient(135deg,#7c3aed,#ec4899,#06b6d4);
+    background:linear-gradient(
+        135deg,
+        #7c3aed,
+        #2563eb,
+        #06b6d4
+    );
+    box-shadow:0 6px 18px rgba(79,70,229,.22);
+    overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -234,6 +373,7 @@ body{
     object-fit:cover;
     background:#fff;
     border:2px solid #fff;
+    display:block;
 }
 
 .avatar-fallback{
@@ -244,23 +384,37 @@ body{
     background:#fff;
     align-items:center;
     justify-content:center;
-    font-size:24px;
+    font-size:25px;
     font-weight:900;
     color:#4f46e5;
+    border:2px solid #fff;
+}
+
+.profile-details{
+    min-width:0;
+}
+
+.member-label{
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:#7c3aed;
+    margin-bottom:3px;
 }
 
 .profile-name{
     font-size:17px;
-    font-weight:900;
+    font-weight:850;
     color:#111827;
-    margin-bottom:4px;
+    letter-spacing:.2px;
+    margin-bottom:5px;
 }
 
 .id-row{
     display:flex;
     align-items:center;
-    gap:8px;
-    font-size:12px;
+    gap:7px;
+    font-size:11px;
     font-weight:700;
     color:#475569;
 }
@@ -269,7 +423,7 @@ body{
     width:24px;
     height:24px;
     border:0;
-    border-radius:6px;
+    border-radius:7px;
     background:#f1eaff;
     color:#6d28d9;
     display:flex;
@@ -277,303 +431,834 @@ body{
     justify-content:center;
     font-size:11px;
     cursor:pointer;
+    transition:.2s;
 }
 
-/* ================= REVENUE GRID & BOX ANIMATIONS ================= */
-.revenue-grid{
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    margin-bottom: 20px;
+.copy-btn:hover{
+    background:#e9d5ff;
+    transform:translateY(-1px);
 }
+
+/* ================= REVENUE ================= */
 
 .revenue-card{
-    position: relative;
-    border-radius: 18px;
-    padding: 20px;
-    color: white;
-    box-shadow: 0 6px 18px rgba(0,0,0,.08);
-    overflow: hidden;
+    position:relative;
+    overflow:hidden;
+    border-radius:15px;
+    padding:15px 16px;
+    color:white;
+    margin-bottom:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:transform .2s ease;
 }
 
-/* Background Animated Floating Bubbles Inside Cards */
-.revenue-card::before {
-    content: '';
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    top: -30px;
-    right: -20px;
-    animation: floatBubble 6s ease-in-out infinite;
-    pointer-events: none;
+.revenue-card:hover{
+    transform:translateY(-2px);
 }
 
-.revenue-card::after {
-    content: '';
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-    bottom: -20px;
-    left: 40%;
-    animation: floatBubble 4s ease-in-out infinite reverse;
-    pointer-events: none;
+.revenue-card::before{
+    content:"";
+    position:absolute;
+    width:105px;
+    height:105px;
+    border:1px solid rgba(255,255,255,.13);
+    border-radius:50%;
+    right:-45px;
+    top:-48px;
 }
 
-/* Exact Rich Gurukul Gradients */
-.card-purple { background: linear-gradient(135deg, #7c3aed 0%, #581c87 100%); }
-.card-red    { background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%); }
-.card-blue   { background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); }
-.card-dark   { background: linear-gradient(135deg, #334155 0%, #0f172a 100%); }
-.card-orange { background: linear-gradient(135deg, #f97316 0%, #c2410c 100%); }
-.card-pink   { background: linear-gradient(135deg, #ec4899 0%, #9d174d 100%); }
-
-.revenue-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    position: relative;
-    z-index: 2;
+.revenue-card::after{
+    content:"";
+    position:absolute;
+    width:55px;
+    height:55px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
+    right:12px;
+    bottom:-30px;
 }
 
-.revenue-title{
-    font-size: 13px;
-    font-weight: 600;
-    opacity: 0.95;
-    margin-bottom: 6px;
+.purple{
+    background:linear-gradient(135deg,#6b21a8,#581c87);
+}
+
+.indigo{
+    background:linear-gradient(135deg,#4f46e5,#3730a3);
+}
+
+.pink{
+    background:linear-gradient(135deg,#db2777,#9d174d);
+}
+
+.blue{
+    background:linear-gradient(135deg,#0284c7,#0369a1);
+}
+
+.gold{
+    background:linear-gradient(135deg,#ca8a04,#854d0e);
 }
 
 .revenue-amount{
-    font-size: 24px;
-    font-weight: 900;
-    margin-bottom: 15px;
+    position:relative;
+    z-index:2;
+    font-size:23px;
+    font-weight:850;
+    margin-bottom:3px;
 }
 
-.card-icon-box {
-    width: 42px;
-    height: 42px;
-    background: rgba(255, 255, 255, 0.22);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    backdrop-filter: blur(4px);
+.revenue-title{
+    position:relative;
+    z-index:2;
+    font-size:12px;
+    font-weight:500;
+    opacity:.95;
+    margin-bottom:12px;
 }
 
 .revenue-footer{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(255,255,255,0.25);
-    padding-top: 10px;
-    font-size: 12px;
-    font-weight: 600;
-    position: relative;
-    z-index: 2;
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid rgba(255,255,255,.25);
+    padding-top:8px;
+    font-size:11px;
 }
 
 .view-details{
-    color: white;
-    text-decoration: none;
+    color:white;
+    text-decoration:none;
 }
 
-/* ================= MOBILE RESPONSIVE ================= */
-@media(max-width: 900px){
-    body { display: block; }
-    .sidebar{
-        transform: translateX(-100%);
-        width: 260px !important;
+.arrow{
+    font-size:18px;
+}
+
+/* ================= GRAPH ================= */
+
+.graph-card{
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:17px;
+    padding:16px;
+    margin-top:4px;
+    box-shadow:0 3px 12px rgba(0,0,0,.045);
+}
+
+.graph-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.graph-title{
+    font-size:15px;
+    font-weight:850;
+    color:#0f172a;
+}
+
+.graph-badge{
+    font-size:9px;
+    font-weight:700;
+    color:#6d28d9;
+    background:#f3e8ff;
+    padding:5px 8px;
+    border-radius:7px;
+}
+
+.graph-wrapper{
+    position:relative;
+    margin-left:31px;
+}
+
+.graph{
+    height:185px;
+    position:relative;
+    border-left:1px solid #cbd5e1;
+    border-bottom:1px solid #cbd5e1;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 36px,
+            #eef2f7 37px
+        );
+}
+
+.y-axis{
+    position:absolute;
+    left:-31px;
+    top:0;
+    bottom:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    font-size:9px;
+    color:#94a3b8;
+}
+
+.zero-line{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:2px;
+    background:#db2777;
+}
+
+.graph-dates{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    margin-left:31px;
+    margin-top:8px;
+    font-size:8px;
+    color:#64748b;
+    text-align:center;
+}
+
+.graph-note{
+    text-align:center;
+    margin-top:13px;
+    color:#94a3b8;
+    font-size:10px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    text-align:center;
+    color:#94a3b8;
+    font-size:10px;
+    padding:15px 0 20px;
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes floatOne{
+    0%,100%{
+        transform:translate(0,0);
     }
-    .sidebar.mobile-open{
-        transform: translateX(0);
+    50%{
+        transform:translate(-5px,-5px);
     }
-    .main-content{
-        margin-left: 0 !important;
-        padding: 12px;
+}
+
+@keyframes floatTwo{
+    0%,100%{
+        transform:translate(0,0);
     }
-    .revenue-grid{
-        grid-template-columns: 1fr;
-        gap: 14px;
+    50%{
+        transform:translate(5px,4px);
+    }
+}
+
+@keyframes pulseCircle{
+    0%,100%{
+        transform:scale(1);
+        opacity:.45;
+    }
+    50%{
+        transform:scale(1.25);
+        opacity:1;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:380px){
+
+    body{
+        padding:9px;
+    }
+
+    .brand-name{
+        font-size:17px;
+    }
+
+    .brand-logo{
+        width:31px;
+        height:31px;
+    }
+
+    .profile-card{
+        padding:20px 13px 15px;
+    }
+
+    .profile-avatar{
+        width:66px;
+        height:66px;
+    }
+
+    .profile-name{
+        font-size:15px;
+    }
+
+    .package-badge{
+        font-size:7.5px;
+        padding:5px 8px;
+    }
+
+    .revenue-card{
+        padding:14px;
+    }
+
+    .revenue-amount{
+        font-size:21px;
+    }
+
+    .graph-dates{
+        font-size:7px;
     }
 }
 </style>
 </head>
+
 <body>
 
-<!-- SIDEBAR MENU -->
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <div class="brand-logo">SM</div>
-        <div class="brand-name">Skills <span>Market</span></div>
-    </div>
-    <div class="sidebar-links">
-        <a href="#" class="menu-link"><span class="menu-icon">📂</span> <span class="menu-text">Course Panel</span></a>
-        <a href="#" class="menu-link active"><span class="menu-icon">🏠</span> <span class="menu-text">Affiliate Dashboard</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">📚</span> <span class="menu-text">My Course</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">👤</span> <span class="menu-text">My Profile</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">🔗</span> <span class="menu-text">Affiliate Link</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">🛡</span> <span class="menu-text">KYC</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">⭐</span> <span class="menu-text">My Plan</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">📝</span> <span class="menu-text">Registration Request</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">💸</span> <span class="menu-text">Withdrawal Request</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">⬆️</span> <span class="menu-text">Upgrade Request</span></a>
-        <a href="#" class="menu-link"><span class="menu-icon">👥</span> <span class="menu-text">My Team</span></a>
-        <a href="#" class="menu-link logout-link" onclick="logoutUser(event)"><span class="menu-icon">↪</span> <span class="menu-text">Logout</span></a>
-    </div>
+<!-- ================= MENU OVERLAY ================= -->
+
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+    onclick="closeMenu()">
 </div>
 
-<!-- MAIN DASHBOARD CONTENT -->
-<div class="main-content">
 
-    <div class="top-navbar">
-        <div style="display:flex; align-items:center; gap:10px;">
-            <button class="menu-toggle-btn" onclick="toggleSidebar()">☰</button>
-            <div style="font-weight:900; font-size:16px; color:#1e293b;">Skills Market</div>
+<!-- ================= SIDE MENU ================= -->
+
+<div class="nav-menu" id="navMenu">
+
+    <div class="menu-top">
+
+        <div class="menu-title">
+            Skills Market
         </div>
-        <div style="width:36px; height:36px; background:linear-gradient(135deg,#7c3aed,#2563eb); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; color:#fff;">R</div>
+
+        <button
+            class="close-menu"
+            onclick="closeMenu()">
+            ✕
+        </button>
+
     </div>
 
-    <!-- PROFILE CARD -->
-    <section class="profile-card">
-        <div class="package-badge">LEGACY PACKAGE</div>
-        <div class="profile-content">
+
+    <div class="menu-profile">
+
+        <div class="menu-avatar">
+            R
+        </div>
+
+        <div>
+
+            <div class="menu-profile-name">
+                RIJAL RAYEEN
+            </div>
+
+            <div class="menu-profile-id">
+                ID: SM000001
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu-links">
+
+        <a
+            href="dashboard.html"
+            class="menu-link active">
+
+            <span class="menu-icon">⌂</span>
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="menu-link">
+
+            <span class="menu-icon">👤</span>
+            <span>My Profile</span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="menu-link">
+
+            <span class="menu-icon">🔗</span>
+            <span>Affiliate Link</span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="menu-link">
+
+            <span class="menu-icon">📚</span>
+            <span>My Courses</span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="menu-link">
+
+            <span class="menu-icon">💰</span>
+            <span>Wallet</span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="menu-link">
+
+            <span class="menu-icon">👥</span>
+            <span>My Team</span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="menu-link">
+
+            <span class="menu-icon">🏆</span>
+            <span>Leaderboard</span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="menu-link">
+
+            <span class="menu-icon">📊</span>
+            <span>Reports</span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="menu-link">
+
+            <span class="menu-icon">🎓</span>
+            <span>Training</span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="menu-link logout-link"
+            onclick="logoutUser(event)">
+
+            <span class="menu-icon">↪</span>
+            <span>Logout</span>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="dashboard">
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            SM
+        </div>
+
+        <div class="brand-name">
+            Skills <span>Market</span>
+        </div>
+
+    </div>
+
+
+    <div class="nav-right">
+
+        <div class="profile-mini">
+            R
+        </div>
+
+        <button
+            class="menu-btn"
+            onclick="openMenu()"
+            aria-label="Open menu">
+
+            ☰
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= PROFILE CARD ================= -->
+
+<section class="profile-card">
+
+    <div class="profile-circle circle-one"></div>
+    <div class="profile-circle circle-two"></div>
+    <div class="profile-circle circle-three"></div>
+
+    <div class="package-badge">
+        INTERMEDIATE PACKAGE
+    </div>
+
+    <div class="profile-content">
+
+        <div class="profile-avatar-wrap">
+
             <div class="profile-avatar">
-                <img src="YOUR_PROFILE_IMAGE_URL" alt="Profile" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="avatar-fallback">R</div>
-            </div>
-            <div>
-                <div class="profile-name">RIJAL CHOUDHARY (TM)</div>
-                <div class="id-row">
-                    <span>ID: RG6281</span>
-                    <button class="copy-btn" onclick="copyProfileID()">📋</button>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- REVENUE GRID CARDS WITH MOVING ANIMATIONS -->
-    <div class="revenue-grid">
-        <!-- Today's Revenue -->
-        <div class="revenue-card card-purple">
-            <div class="revenue-inner">
-                <div>
-                    <div class="revenue-title">Today's Revenue</div>
-                    <div class="revenue-amount">₹ 0</div>
+                <img
+                    src="YOUR_PROFILE_IMAGE_URL"
+                    alt="Profile Photo"
+                    onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                    "
+                >
+
+                <div class="avatar-fallback">
+                    R
                 </div>
-                <div class="card-icon-box">₹</div>
+
             </div>
-            <div class="revenue-footer">
-                <a href="#" class="view-details">View Details</a>
-                <span>›</span>
-            </div>
+
         </div>
 
-        <!-- 7 Days Revenue -->
-        <div class="revenue-card card-red">
-            <div class="revenue-inner">
-                <div>
-                    <div class="revenue-title">7 Days Revenue</div>
-                    <div class="revenue-amount">₹ 120</div>
-                </div>
-                <div class="card-icon-box">📅</div>
+
+        <div class="profile-details">
+
+            <div class="member-label">
+                MEMBER PROFILE
             </div>
-            <div class="revenue-footer">
-                <a href="#" class="view-details">View Details</a>
-                <span>›</span>
+
+            <div class="profile-name">
+                RIJAL RAYEEN
             </div>
+
+            <div class="id-row">
+
+                <span>
+                    ID: SM000001
+                </span>
+
+                <button
+                    class="copy-btn"
+                    onclick="copyProfileID()">
+
+                    📋
+
+                </button>
+
+            </div>
+
         </div>
 
-        <!-- 30 Days Revenue -->
-        <div class="revenue-card card-purple">
-            <div class="revenue-inner">
-                <div>
-                    <div class="revenue-title">30 Days Revenue</div>
-                    <div class="revenue-amount">₹ 3,870</div>
-                </div>
-                <div class="card-icon-box">📊</div>
-            </div>
-            <div class="revenue-footer">
-                <a href="#" class="view-details">View Details</a>
-                <span>›</span>
-            </div>
-        </div>
+    </div>
 
-        <!-- All Time Revenue -->
-        <div class="revenue-card card-dark">
-            <div class="revenue-inner">
-                <div>
-                    <div class="revenue-title">All Time Revenue</div>
-                    <div class="revenue-amount">₹ 11,840</div>
-                </div>
-                <div class="card-icon-box">💼</div>
-            </div>
-            <div class="revenue-footer">
-                <a href="#" class="view-details">View Details</a>
-                <span>›</span>
-            </div>
-        </div>
+</section>
 
-        <!-- Industry Income -->
-        <div class="revenue-card card-orange">
-            <div class="revenue-inner">
-                <div>
-                    <div class="revenue-title">Industry Income</div>
-                    <div class="revenue-amount">₹ 166,240</div>
-                </div>
-                <div class="card-icon-box">🏢</div>
-            </div>
-            <div class="revenue-footer">
-                <a href="#" class="view-details">View Details</a>
-                <span>›</span>
-            </div>
-        </div>
 
-        <!-- Passive Income -->
-        <div class="revenue-card card-pink">
-            <div class="revenue-inner">
-                <div>
-                    <div class="revenue-title">Passive Income</div>
-                    <div class="revenue-amount">₹ 2,000</div>
-                </div>
-                <div class="card-icon-box">📈</div>
-            </div>
-            <div class="revenue-footer">
-                <a href="#" class="view-details">View Details</a>
-                <span>›</span>
-            </div>
-        </div>
+<!-- ================= REVENUE ================= -->
+
+<div class="revenue-card purple">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        Today's Revenue
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
     </div>
 
 </div>
+
+
+<div class="revenue-card indigo">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        7 Days Revenue
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="revenue-card pink">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        30 Days Revenue
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="revenue-card blue">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        All Time Revenue
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="revenue-card gold">
+
+    <div class="revenue-amount">
+        ₹ 0
+    </div>
+
+    <div class="revenue-title">
+        Passive Income
+    </div>
+
+    <div class="revenue-footer">
+
+        <a href="#" class="view-details">
+            View details
+        </a>
+
+        <span class="arrow">
+            ›
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- ================= GRAPH ================= -->
+
+<section class="graph-card">
+
+    <div class="graph-header">
+
+        <div class="graph-title">
+            Sales Last 30 Days
+        </div>
+
+        <div class="graph-badge">
+            30 DAYS
+        </div>
+
+    </div>
+
+
+    <div class="graph-wrapper">
+
+        <div class="y-axis">
+
+            <span>₹2</span>
+            <span>₹1.5</span>
+            <span>₹1</span>
+            <span>₹0.5</span>
+            <span>₹0</span>
+
+        </div>
+
+
+        <div class="graph">
+
+            <div class="zero-line"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="graph-dates">
+
+        <span>Sep 03</span>
+        <span>Sep 08</span>
+        <span>Sep 13</span>
+        <span>Sep 18</span>
+        <span>Sep 23</span>
+        <span>Sep 28</span>
+        <span>Oct 02</span>
+
+    </div>
+
+
+    <div class="graph-note">
+        No commission recorded yet
+    </div>
+
+</section>
+
+
+<div class="footer">
+    © 2026 Skills Market · All Rights Reserved
+</div>
+
+</div>
+
 
 <script>
-function toggleSidebar(){
-    const sidebar = document.getElementById("sidebar");
-    if(window.innerWidth <= 900){
-        sidebar.classList.toggle("mobile-open");
-    } else {
-        sidebar.classList.toggle("collapsed");
-    }
+
+/* ================= OPEN MENU ================= */
+
+function openMenu(){
+
+    document
+        .getElementById("navMenu")
+        .classList.add("active");
+
+    document
+        .getElementById("menuOverlay")
+        .classList.add("active");
+
+    document.body.style.overflow = "hidden";
 }
+
+
+/* ================= CLOSE MENU ================= */
+
+function closeMenu(){
+
+    document
+        .getElementById("navMenu")
+        .classList.remove("active");
+
+    document
+        .getElementById("menuOverlay")
+        .classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+
+/* ================= COPY ID ================= */
 
 function copyProfileID(){
-    navigator.clipboard.writeText("RG6281").then(function(){
-        const btn = document.querySelector(".copy-btn");
-        btn.textContent = "✓";
-        setTimeout(() => btn.textContent = "📋", 1200);
-    });
+
+    const id = "SM000001";
+
+    if(navigator.clipboard){
+
+        navigator.clipboard.writeText(id).then(function(){
+
+            const button =
+                document.querySelector(".copy-btn");
+
+            button.textContent = "✓";
+
+            setTimeout(function(){
+
+                button.textContent = "📋";
+
+            },1200);
+
+        });
+
+    }
+
 }
 
-function logoutUser(e){
-    e.preventDefault();
-    if(confirm("Are you sure you want to logout?")){
+
+/* ================= LOGOUT ================= */
+
+function logoutUser(event){
+
+    event.preventDefault();
+
+    const confirmLogout =
+        confirm("Are you sure you want to logout?");
+
+    if(confirmLogout){
+
+        /*
+        Supabase logout yaha connect hoga.
+        Abhi login page par redirect.
+        */
+
         window.location.href = "login.html";
+
     }
+
 }
+
 </script>
 
 </body>
