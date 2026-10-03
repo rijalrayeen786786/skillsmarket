@@ -8,6 +8,9 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 
 *{
@@ -586,7 +589,7 @@ body{
     font-weight:600;
 }
 
-/* VERIFICATION MODAL */
+/* MODAL */
 
 .success-overlay{
     position:fixed;
@@ -746,6 +749,7 @@ body{
     <div class="circle"></div>
 </div>
 
+
 <!-- NAVBAR -->
 
 <nav class="navbar">
@@ -772,6 +776,7 @@ body{
 
 </nav>
 
+
 <!-- HEADER -->
 
 <section class="header-section">
@@ -783,6 +788,7 @@ body{
     </div>
 
 </section>
+
 
 <!-- MAIN -->
 
@@ -796,6 +802,7 @@ body{
         Complete your details below to create your Skills Market
         account and continue with your selected package.
     </p>
+
 
     <!-- PACKAGE -->
 
@@ -840,6 +847,7 @@ body{
 
     </div>
 
+
     <!-- FORM -->
 
     <form id="checkoutForm">
@@ -867,6 +875,7 @@ body{
 
         </div>
 
+
         <!-- NAME -->
 
         <div class="form-group">
@@ -885,6 +894,7 @@ body{
             >
 
         </div>
+
 
         <!-- PHONE -->
 
@@ -907,6 +917,7 @@ body{
 
         </div>
 
+
         <!-- EMAIL -->
 
         <div class="form-group">
@@ -925,6 +936,7 @@ body{
             >
 
         </div>
+
 
         <!-- PASSWORD -->
 
@@ -959,6 +971,7 @@ body{
 
         </div>
 
+
         <!-- PAYMENT -->
 
         <div class="payment-title">
@@ -991,7 +1004,8 @@ body{
 
         </label>
 
-        <!-- QR PAYMENT -->
+
+        <!-- QR -->
 
         <div
             class="qr-payment-box"
@@ -1038,8 +1052,10 @@ body{
             </div>
 
             <div class="qr-note">
+
                 After completing the payment,
                 enter your UTR / Transaction ID below.
+
             </div>
 
             <div class="form-group">
@@ -1075,6 +1091,7 @@ body{
             </div>
 
         </div>
+
 
         <!-- SUMMARY -->
 
@@ -1125,6 +1142,7 @@ body{
 
         </div>
 
+
         <!-- TERMS -->
 
         <div class="checkbox-group">
@@ -1153,6 +1171,7 @@ body{
 
         </div>
 
+
         <!-- REGISTER -->
 
         <button
@@ -1162,6 +1181,7 @@ body{
         >
             Register & Pay →
         </button>
+
 
         <div class="footer-text">
 
@@ -1179,7 +1199,8 @@ body{
 
 </main>
 
-<!-- VERIFICATION MODAL -->
+
+<!-- SUCCESS MODAL -->
 
 <div
     class="success-overlay"
@@ -1214,7 +1235,7 @@ body{
             </small>
 
             <strong id="generatedId">
-                SM10001
+                —
             </strong>
 
         </div>
@@ -1231,11 +1252,29 @@ body{
 
 </div>
 
+
 <script>
 
-/* =========================
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://hmlonjwqeqedakzhucix.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================
    PACKAGE DATA
-========================= */
+========================================= */
 
 const packages = {
 
@@ -1259,21 +1298,22 @@ const packages = {
         price:2399
     },
 
-    premimum:{
-        name:"Skill Premimum Package",
+    premium:{
+        name:"Skill Premium Package",
         price:4999
     },
 
     legacy:{
-        name:"Skill Legacy package",
+        name:"Skill Legacy Package",
         price:9999
     }
 
 };
 
-/* =========================
-   GET PACKAGE
-========================= */
+
+/* =========================================
+   URL PACKAGE
+========================================= */
 
 const params =
     new URLSearchParams(
@@ -1284,6 +1324,7 @@ let packageCode =
     (params.get("package") || "")
     .trim()
     .toLowerCase();
+
 
 const fullNameMap = {
 
@@ -1299,13 +1340,17 @@ const fullNameMap = {
     "skill prime package":
         "prime",
 
+    "skill premium package":
+        "premium",
+
     "skill premimum package":
-        "premimum",
+        "premium",
 
     "skill legacy package":
         "legacy"
 
 };
+
 
 if(fullNameMap[packageCode]){
 
@@ -1314,50 +1359,75 @@ if(fullNameMap[packageCode]){
 
 }
 
-/* =========================
-   ELEMENTS
-========================= */
-
-const packageNameElement =
-    document.getElementById(
-        "packageName"
-    );
-
-const packagePriceElement =
-    document.getElementById(
-        "packagePrice"
-    );
-
-const summaryPackageElement =
-    document.getElementById(
-        "summaryPackage"
-    );
-
-const summaryPriceElement =
-    document.getElementById(
-        "summaryPrice"
-    );
-
-const summaryTotalElement =
-    document.getElementById(
-        "summaryTotal"
-    );
-
-const qrPaymentBox =
-    document.getElementById(
-        "qrPaymentBox"
-    );
-
-const qrAmount =
-    document.getElementById(
-        "qrAmount"
-    );
 
 let selectedPackage = null;
 
-/* =========================
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const packageNameElement =
+    document.getElementById("packageName");
+
+const packagePriceElement =
+    document.getElementById("packagePrice");
+
+const summaryPackageElement =
+    document.getElementById("summaryPackage");
+
+const summaryPriceElement =
+    document.getElementById("summaryPrice");
+
+const summaryTotalElement =
+    document.getElementById("summaryTotal");
+
+const qrPaymentBox =
+    document.getElementById("qrPaymentBox");
+
+const qrAmount =
+    document.getElementById("qrAmount");
+
+const referral =
+    document.getElementById("referral");
+
+const referralStatus =
+    document.getElementById("referralStatus");
+
+const password =
+    document.getElementById("password");
+
+const passwordToggle =
+    document.getElementById("passwordToggle");
+
+const paymentOption =
+    document.getElementById("paymentOption");
+
+const paymentRadio =
+    document.getElementById("onlinePayment");
+
+const form =
+    document.getElementById("checkoutForm");
+
+const paidButton =
+    document.getElementById("paidButton");
+
+const paymentStatus =
+    document.getElementById("paymentStatus");
+
+const transactionId =
+    document.getElementById("transactionId");
+
+const successOverlay =
+    document.getElementById("successOverlay");
+
+const generatedId =
+    document.getElementById("generatedId");
+
+
+/* =========================================
    DISPLAY PACKAGE
-========================= */
+========================================= */
 
 if(packages[packageCode]){
 
@@ -1406,9 +1476,10 @@ if(packages[packageCode]){
 
 }
 
-/* =========================
+
+/* =========================================
    REFERRAL
-========================= */
+========================================= */
 
 const referralUsers = {
 
@@ -1423,15 +1494,6 @@ const referralUsers = {
 
 };
 
-const referral =
-    document.getElementById(
-        "referral"
-    );
-
-const referralStatus =
-    document.getElementById(
-        "referralStatus"
-    );
 
 referral.addEventListener(
     "input",
@@ -1451,6 +1513,7 @@ referral.addEventListener(
                 "";
 
             return;
+
         }
 
         if(referralUsers[code]){
@@ -1475,28 +1538,16 @@ referral.addEventListener(
     }
 );
 
-/* =========================
+
+/* =========================================
    PASSWORD
-========================= */
-
-const password =
-    document.getElementById(
-        "password"
-    );
-
-const passwordToggle =
-    document.getElementById(
-        "passwordToggle"
-    );
+========================================= */
 
 passwordToggle.addEventListener(
     "click",
     function(){
 
-        if(
-            password.type ===
-            "password"
-        ){
+        if(password.type === "password"){
 
             password.type =
                 "text";
@@ -1527,19 +1578,10 @@ passwordToggle.addEventListener(
     }
 );
 
-/* =========================
+
+/* =========================================
    PAYMENT OPTION
-========================= */
-
-const paymentOption =
-    document.getElementById(
-        "paymentOption"
-    );
-
-const paymentRadio =
-    document.getElementById(
-        "onlinePayment"
-    );
+========================================= */
 
 paymentOption.addEventListener(
     "click",
@@ -1552,21 +1594,13 @@ paymentOption.addEventListener(
             "selected"
         );
 
-        if(selectedPackage){
-
-            qrAmount.textContent =
-                "₹" +
-                selectedPackage.price
-                .toLocaleString("en-IN");
-
-        }
-
         qrPaymentBox.classList.add(
             "show"
         );
 
     }
 );
+
 
 paymentRadio.addEventListener(
     "change",
@@ -1587,9 +1621,10 @@ paymentRadio.addEventListener(
     }
 );
 
-/* =========================
+
+/* =========================================
    PHONE
-========================= */
+========================================= */
 
 document
 .getElementById("phone")
@@ -1605,9 +1640,10 @@ document
     }
 );
 
-/* =========================
+
+/* =========================================
    MEMBER ID
-========================= */
+========================================= */
 
 function generateMemberId(){
 
@@ -1621,56 +1657,17 @@ function generateMemberId(){
 
 }
 
-/* =========================
-   FORM ELEMENTS
-========================= */
 
-const form =
-    document.getElementById(
-        "checkoutForm"
-    );
+/* =========================================
+   FORM SUBMIT
+========================================= */
 
-const registerButton =
-    document.getElementById(
-        "registerButton"
-    );
+form.addEventListener(
+    "submit",
+    function(event){
 
-const successOverlay =
-    document.getElementById(
-        "successOverlay"
-    );
+        event.preventDefault();
 
-const generatedId =
-    document.getElementById(
-        "generatedId"
-    );
-
-const transactionId =
-    document.getElementById(
-        "transactionId"
-    );
-
-const paidButton =
-    document.getElementById(
-        "paidButton"
-    );
-
-const paymentStatus =
-    document.getElementById(
-        "paymentStatus"
-    );
-
-/* =========================
-   I HAVE PAID
-========================= */
-
-paidButton.addEventListener(
-    "click",
-    function(){
-
-        const utr =
-            transactionId.value
-            .trim();
 
         if(!selectedPackage){
 
@@ -1681,6 +1678,7 @@ paidButton.addEventListener(
             return;
 
         }
+
 
         if(!paymentRadio.checked){
 
@@ -1692,106 +1690,12 @@ paidButton.addEventListener(
 
         }
 
-        if(utr === ""){
-
-            alert(
-                "Please enter your UTR / Transaction ID."
-            );
-
-            transactionId.focus();
-
-            return;
-
-        }
-
-        if(utr.length < 6){
-
-            alert(
-                "Please enter a valid UTR / Transaction ID."
-            );
-
-            transactionId.focus();
-
-            return;
-
-        }
-
-        paidButton.disabled =
-            true;
-
-        paidButton.textContent =
-            "Submitting...";
-
-        /*
-           TEMPORARY FRONTEND DEMO
-
-           Later this section will connect
-           to Supabase so the order,
-           transaction ID and user account
-           are stored in the database.
-        */
-
-        setTimeout(
-            function(){
-
-                paymentStatus.classList.add(
-                    "show"
-                );
-
-                paidButton.textContent =
-                    "Payment Submitted ✓";
-
-                const memberId =
-                    generateMemberId();
-
-                generatedId.textContent =
-                    memberId;
-
-                successOverlay.classList.add(
-                    "show"
-                );
-
-            },
-            1000
-        );
-
-    }
-);
-
-/* =========================
-   REGISTER & PAY
-========================= */
-
-form.addEventListener(
-    "submit",
-    function(event){
-
-        event.preventDefault();
-
-        if(!selectedPackage){
-
-            alert(
-                "Please select a package first."
-            );
-
-            return;
-
-        }
-
-        if(!paymentRadio.checked){
-
-            alert(
-                "Please select a payment method."
-            );
-
-            return;
-
-        }
 
         const referralCode =
             referral.value
             .trim()
             .toUpperCase();
+
 
         if(
             referralCode !== "" &&
@@ -1808,10 +1712,13 @@ form.addEventListener(
 
         }
 
+
         const phone =
             document
             .getElementById("phone")
-            .value;
+            .value
+            .trim();
+
 
         if(phone.length !== 10){
 
@@ -1823,18 +1730,31 @@ form.addEventListener(
 
         }
 
-        /*
-           Registration button does not
-           mark payment as successful.
 
-           User must complete payment
-           and submit UTR below.
-        */
+        if(
+            !document
+            .getElementById("terms")
+            .checked
+        ){
+
+            alert(
+                "Please accept the Terms & Conditions."
+            );
+
+            return;
+
+        }
+
+
+        qrPaymentBox.classList.add(
+            "show"
+        );
 
         qrPaymentBox.scrollIntoView({
             behavior:"smooth",
             block:"center"
         });
+
 
         alert(
             "Please complete the payment using the QR code and then enter your UTR / Transaction ID."
@@ -1843,9 +1763,485 @@ form.addEventListener(
     }
 );
 
-/* =========================
+
+/* =========================================
+   CREATE ACCOUNT
+========================================= */
+
+paidButton.addEventListener(
+    "click",
+    async function(){
+
+        const utr =
+            transactionId.value
+            .trim();
+
+
+        if(!selectedPackage){
+
+            alert(
+                "Please select a package first."
+            );
+
+            return;
+
+        }
+
+
+        if(!paymentRadio.checked){
+
+            alert(
+                "Please select the payment method."
+            );
+
+            return;
+
+        }
+
+
+        if(utr.length < 6){
+
+            alert(
+                "Please enter a valid UTR / Transaction ID."
+            );
+
+            transactionId.focus();
+
+            return;
+
+        }
+
+
+        const fullName =
+            document
+            .getElementById("name")
+            .value
+            .trim();
+
+
+        const phone =
+            document
+            .getElementById("phone")
+            .value
+            .trim();
+
+
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        const userPassword =
+            password.value;
+
+
+        const referralCode =
+            referral.value
+            .trim()
+            .toUpperCase();
+
+
+        /* VALIDATION */
+
+        if(fullName.length < 2){
+
+            alert(
+                "Please enter your full name."
+            );
+
+            return;
+
+        }
+
+
+        if(phone.length !== 10){
+
+            alert(
+                "Please enter a valid 10-digit phone number."
+            );
+
+            return;
+
+        }
+
+
+        if(!email){
+
+            alert(
+                "Please enter your email address."
+            );
+
+            return;
+
+        }
+
+
+        if(userPassword.length < 6){
+
+            alert(
+                "Password must contain at least 6 characters."
+            );
+
+            return;
+
+        }
+
+
+        if(
+            referralCode !== "" &&
+            !referralUsers[referralCode]
+        ){
+
+            alert(
+                "Please enter a valid Referral Code."
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !document
+            .getElementById("terms")
+            .checked
+        ){
+
+            alert(
+                "Please accept the Terms & Conditions."
+            );
+
+            return;
+
+        }
+
+
+        /* BUTTON */
+
+        paidButton.disabled =
+            true;
+
+        paidButton.textContent =
+            "Creating Account...";
+
+
+        try{
+
+            /* =================================
+               CHECK CURRENT SESSION
+            ================================= */
+
+            const {
+                data:sessionData
+            } =
+            await supabaseClient
+            .auth
+            .getSession();
+
+
+            let authUser =
+                sessionData?.session?.user || null;
+
+
+            /* =================================
+               SIGN UP
+            ================================= */
+
+            if(!authUser){
+
+                const {
+                    data,
+                    error
+                } =
+                await supabaseClient
+                .auth
+                .signUp({
+
+                    email:email,
+
+                    password:userPassword,
+
+                    options:{
+                        data:{
+                            full_name:fullName,
+                            phone:phone
+                        }
+                    }
+
+                });
+
+
+                if(error){
+
+                    throw error;
+
+                }
+
+
+                authUser =
+                    data.user;
+
+            }
+
+
+            if(!authUser){
+
+                throw new Error(
+                    "Account could not be created."
+                );
+
+            }
+
+
+            /* =================================
+               AUTH USER ID
+            ================================= */
+
+            const authUserId =
+                authUser.id;
+
+
+            /* =================================
+               MEMBER ID
+            ================================= */
+
+            let memberId =
+                generateMemberId();
+
+
+            /* =================================
+               CHECK EXISTING PROFILE
+            ================================= */
+
+            const {
+                data:existingProfile,
+                error:existingError
+            } =
+            await supabaseClient
+            .from("profiles")
+            .select("id,member_id")
+            .eq(
+                "id",
+                authUserId
+            )
+            .maybeSingle();
+
+
+            if(existingError){
+
+                console.warn(
+                    "Existing profile check:",
+                    existingError
+                );
+
+            }
+
+
+            if(existingProfile){
+
+                memberId =
+                    existingProfile.member_id ||
+                    memberId;
+
+            }else{
+
+                /* =================================
+                   REFERRER LOOKUP
+                ================================= */
+
+                let referrerMemberId =
+                    null;
+
+
+                if(referralCode){
+
+                    const {
+                        data:referrerData,
+                        error:referrerError
+                    } =
+                    await supabaseClient
+                    .from("profiles")
+                    .select("member_id")
+                    .eq(
+                        "referral_code",
+                        referralCode
+                    )
+                    .maybeSingle();
+
+
+                    if(
+                        !referrerError &&
+                        referrerData
+                    ){
+
+                        referrerMemberId =
+                            referrerData.member_id;
+
+                    }
+
+                }
+
+
+                /* =================================
+                   INSERT PROFILE
+                ================================= */
+
+                const profileData = {
+
+                    id:
+                        authUserId,
+
+                    member_id:
+                        memberId,
+
+                    full_name:
+                        fullName,
+
+                    phone:
+                        phone,
+
+                    package_name:
+                        selectedPackage.name,
+
+                    package_price:
+                        selectedPackage.price,
+
+                    referral_code:
+                        referralCode || null,
+
+                    referrer_member_id:
+                        referrerMemberId,
+
+                    account_status:
+                        "Pending Verification"
+
+                };
+
+
+                const {
+                    error:profileError
+                } =
+                await supabaseClient
+                .from("profiles")
+                .insert(
+                    profileData
+                );
+
+
+                if(profileError){
+
+                    throw profileError;
+
+                }
+
+            }
+
+
+            /* =================================
+               SUCCESS
+            ================================= */
+
+            paymentStatus.classList.add(
+                "show"
+            );
+
+            paymentStatus.textContent =
+                "✓ Registration submitted successfully. Your payment is pending verification.";
+
+
+            paidButton.textContent =
+                "Account Created ✓";
+
+
+            generatedId.textContent =
+                memberId;
+
+
+            successOverlay.classList.add(
+                "show"
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "REGISTRATION ERROR:",
+                error
+            );
+
+
+            paidButton.disabled =
+                false;
+
+            paidButton.textContent =
+                "I Have Paid →";
+
+
+            let message =
+                error?.message ||
+                "Something went wrong.";
+
+
+            const lowerMessage =
+                message.toLowerCase();
+
+
+            if(
+                lowerMessage.includes(
+                    "user already registered"
+                )
+            ){
+
+                message =
+                    "This email is already registered. Please Login instead.";
+
+            }
+
+
+            else if(
+                lowerMessage.includes(
+                    "duplicate key"
+                )
+            ){
+
+                message =
+                    "This account/profile already exists. Please Login.";
+
+            }
+
+
+            else if(
+                lowerMessage.includes(
+                    "row-level security"
+                ) ||
+                lowerMessage.includes(
+                    "violates row-level security"
+                )
+            ){
+
+                message =
+                    "Supabase RLS policy is blocking profile creation. The profiles table policy needs to be fixed.";
+
+            }
+
+
+            alert(
+                "Registration failed:\n\n" +
+                message
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
    LOGIN
-========================= */
+========================================= */
 
 function goToLogin(){
 
