@@ -448,7 +448,7 @@ body{
     margin-bottom: 12px;
 }
 
-/* Passive income card ko full width dene ke liye */
+/* Yeh sirf mobile ke liye full width rahega */
 .revenue-card.full-width {
     grid-column: span 2;
 }
@@ -457,8 +457,9 @@ body{
     .revenue-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+    /* Laptop par full width hata diya gaya hai taaki bada na ho */
     .revenue-card.full-width {
-        grid-column: span 3;
+        grid-column: span 1;
     }
 }
 
@@ -498,6 +499,22 @@ body{
     border-radius:50%;
     right:12px;
     bottom:-30px;
+}
+
+/* CARD ICON SYMBOL STYLE */
+.card-icon{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:28px;
+    height:28px;
+    background:rgba(255,255,255,.15);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    z-index:2;
 }
 
 .purple{
@@ -1005,97 +1022,52 @@ body{
 <div class="revenue-grid">
 
     <div class="revenue-card purple">
-
-        <div class="revenue-amount">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Today's Revenue
-        </div>
-
+        <div class="card-icon">💳</div>
+        <div class="revenue-amount">₹ 0</div>
+        <div class="revenue-title">Today's Revenue</div>
         <div class="revenue-footer">
-            <a href="#" class="view-details">
-                Click here to view detail(s)
-            </a>
+            <a href="#" class="view-details">Click here to view detail(s)</a>
         </div>
-
     </div>
 
 
     <div class="revenue-card indigo">
-
-        <div class="revenue-amount">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Last 7 Days Revenue
-        </div>
-
+        <div class="card-icon">📊</div>
+        <div class="revenue-amount">₹ 0</div>
+        <div class="revenue-title">Last 7 Days Revenue</div>
         <div class="revenue-footer">
-            <a href="#" class="view-details">
-                Click here to view detail(s)
-            </a>
+            <a href="#" class="view-details">Click here to view detail(s)</a>
         </div>
-
     </div>
 
 
     <div class="revenue-card pink">
-
-        <div class="revenue-amount">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Last 30 Days Revenue
-        </div>
-
+        <div class="card-icon">🎓</div>
+        <div class="revenue-amount">₹ 0</div>
+        <div class="revenue-title">Last 30 Days Revenue</div>
         <div class="revenue-footer">
-            <a href="#" class="view-details">
-                Click here to view detail(s)
-            </a>
+            <a href="#" class="view-details">Click here to view detail(s)</a>
         </div>
-
     </div>
 
 
     <div class="revenue-card blue">
-
-        <div class="revenue-amount">
-            ₹ 36,019
-        </div>
-
-        <div class="revenue-title">
-            All Time Revenue
-        </div>
-
+        <div class="card-icon">🏆</div>
+        <div class="revenue-amount">₹ 36,019</div>
+        <div class="revenue-title">All Time Revenue</div>
         <div class="revenue-footer">
-            <a href="#" class="view-details">
-                Click here to view detail(s)
-            </a>
+            <a href="#" class="view-details">Click here to view detail(s)</a>
         </div>
-
     </div>
 
 
     <div class="revenue-card gold full-width">
-
-        <div class="revenue-amount">
-            ₹ 4,519
-        </div>
-
-        <div class="revenue-title">
-            Passive Income
-        </div>
-
+        <div class="card-icon">🏆</div>
+        <div class="revenue-amount">₹ 4,519</div>
+        <div class="revenue-title">Passive Income</div>
         <div class="revenue-footer">
-            <a href="#" class="view-details">
-                Click here to view detail(s)
-            </a>
+            <a href="#" class="view-details">Click here to view detail(s)</a>
         </div>
-
     </div>
 
 </div>
