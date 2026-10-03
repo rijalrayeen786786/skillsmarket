@@ -21,17 +21,10 @@
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
-html,
-body{
-    width:100%;
-    min-height:100%;
-}
-
 body{
     background:#f6f7fb;
     color:#111827;
     min-height:100vh;
-    overflow-x:hidden;
 }
 
 
@@ -41,21 +34,21 @@ body{
 
 .dashboard{
     width:100%;
-    max-width:1220px;
+    max-width:1200px;
     margin:0 auto;
-    padding:0 28px 30px;
+    padding:0 16px 20px;
 }
 
 
 /* =========================================================
-   NAVBAR
+   EXACT PROFILE-STYLE NAVBAR
 ========================================================= */
 
 .sm-navbar{
     width:100%;
-    height:72px;
-
+    height:68px;
     background:#ffffff;
+
     border-bottom:1px solid #e5e7eb;
 
     display:flex;
@@ -64,13 +57,12 @@ body{
 
     position:sticky;
     top:0;
+
     z-index:5000;
 }
 
 
-/* =========================================================
-   BRAND
-========================================================= */
+/* Brand */
 
 .sm-brand{
     display:flex;
@@ -79,15 +71,11 @@ body{
 
     text-decoration:none;
     color:#111827;
-
-    min-width:0;
 }
 
 .sm-brand-logo{
-    width:40px;
-    height:40px;
-
-    flex-shrink:0;
+    width:38px;
+    height:38px;
 
     border-radius:11px;
 
@@ -103,7 +91,7 @@ body{
     align-items:center;
     justify-content:center;
 
-    font-size:14px;
+    font-size:13px;
     font-weight:900;
 
     box-shadow:
@@ -111,10 +99,9 @@ body{
 }
 
 .sm-brand-name{
-    font-size:19px;
+    font-size:18px;
     font-weight:900;
     letter-spacing:-.3px;
-    white-space:nowrap;
 }
 
 .sm-brand-name span{
@@ -122,16 +109,12 @@ body{
 }
 
 
-/* =========================================================
-   NAV RIGHT
-========================================================= */
+/* Navbar right */
 
 .sm-nav-right{
     display:flex;
     align-items:center;
-    gap:11px;
-
-    flex-shrink:0;
+    gap:10px;
 }
 
 
@@ -144,13 +127,14 @@ body{
 }
 
 
-/* Profile Circle */
+/* Profile circle */
 
 .profile-mini{
     width:40px;
     height:40px;
 
     border-radius:50%;
+
     border:0;
 
     background:linear-gradient(
@@ -180,7 +164,6 @@ body{
 
 .profile-mini:hover{
     transform:translateY(-1px);
-
     box-shadow:
         0 7px 18px rgba(79,70,229,.25);
 }
@@ -217,7 +200,7 @@ body{
 }
 
 
-/* Dropdown Item */
+/* Dropdown item */
 
 .profile-dropdown-item{
     width:100%;
@@ -324,7 +307,7 @@ body{
 }
 
 
-/* Menu Top */
+/* Menu top */
 
 .menu-top{
     height:48px;
@@ -359,7 +342,7 @@ body{
 }
 
 
-/* Menu Profile */
+/* Menu profile */
 
 .menu-profile{
     display:flex;
@@ -406,7 +389,7 @@ body{
 }
 
 
-/* Menu Links */
+/* Menu links */
 
 .menu-links{
     padding-top:14px;
@@ -505,12 +488,10 @@ body{
 
     border-radius:18px;
 
-    padding:24px;
+    padding:22px 16px 17px;
 
-    margin-top:18px;
-    margin-bottom:18px;
-
-    min-height:118px;
+    margin-top:15px;
+    margin-bottom:15px;
 
     overflow:hidden;
 
@@ -630,16 +611,14 @@ body{
     display:flex;
     align-items:center;
 
-    gap:18px;
+    gap:15px;
 
     padding-top:5px;
 }
 
 .profile-avatar{
-    width:76px;
-    height:76px;
-
-    flex-shrink:0;
+    width:72px;
+    height:72px;
 
     border-radius:50%;
 
@@ -669,7 +648,7 @@ body{
     align-items:center;
     justify-content:center;
 
-    font-size:27px;
+    font-size:25px;
     font-weight:900;
 
     color:#4f46e5;
@@ -682,12 +661,12 @@ body{
 }
 
 .profile-name{
-    font-size:20px;
+    font-size:17px;
     font-weight:850;
 
     color:#111827;
 
-    margin-bottom:6px;
+    margin-bottom:5px;
 }
 
 .id-row{
@@ -696,7 +675,7 @@ body{
 
     gap:7px;
 
-    font-size:12px;
+    font-size:11px;
     font-weight:700;
 
     color:#475569;
@@ -728,11 +707,15 @@ body{
 .revenue-grid{
     display:grid;
 
-    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-columns:repeat(2,1fr);
 
-    gap:15px;
+    gap:12px;
 
-    margin-bottom:15px;
+    margin-bottom:12px;
+}
+
+.revenue-card.full-width{
+    grid-column:span 2;
 }
 
 .revenue-card{
@@ -740,20 +723,14 @@ body{
 
     overflow:hidden;
 
-    border-radius:16px;
+    border-radius:15px;
 
-    padding:18px 19px;
-
-    min-height:155px;
+    padding:15px 16px;
 
     color:#fff;
 
     box-shadow:
         0 5px 15px rgba(0,0,0,.08);
-}
-
-.revenue-card.full-width{
-    grid-column:span 1;
 }
 
 .revenue-card::before{
@@ -775,11 +752,11 @@ body{
 .card-icon{
     position:absolute;
 
-    top:15px;
-    right:15px;
+    top:14px;
+    right:14px;
 
-    width:31px;
-    height:31px;
+    width:28px;
+    height:28px;
 
     background:rgba(255,255,255,.15);
 
@@ -815,10 +792,9 @@ body{
 .revenue-amount{
     position:relative;
 
-    font-size:25px;
+    font-size:23px;
     font-weight:850;
 
-    margin-top:2px;
     margin-bottom:3px;
 }
 
@@ -829,8 +805,7 @@ body{
 
     opacity:.95;
 
-    margin-top:3px;
-    margin-bottom:17px;
+    margin-bottom:12px;
 }
 
 .revenue-footer{
@@ -838,7 +813,7 @@ body{
 
     border-top:1px solid rgba(255,255,255,.25);
 
-    padding-top:9px;
+    padding-top:8px;
 
     font-size:11px;
 }
@@ -860,9 +835,7 @@ body{
 
     border-radius:17px;
 
-    padding:20px;
-
-    margin-top:2px;
+    padding:16px;
 
     box-shadow:
         0 3px 12px rgba(0,0,0,.045);
@@ -877,19 +850,19 @@ body{
 }
 
 .graph-title{
-    font-size:16px;
+    font-size:15px;
     font-weight:850;
 }
 
 .graph-badge{
-    font-size:10px;
+    font-size:9px;
     font-weight:700;
 
     color:#6d28d9;
 
     background:#f3e8ff;
 
-    padding:6px 9px;
+    padding:5px 8px;
 
     border-radius:7px;
 }
@@ -900,7 +873,7 @@ body{
 }
 
 .graph{
-    height:220px;
+    height:185px;
 
     position:relative;
 
@@ -971,9 +944,9 @@ body{
 
     color:#94a3b8;
 
-    font-size:11px;
+    font-size:10px;
 
-    padding:20px 0 25px;
+    padding:15px 0 20px;
 }
 
 
@@ -1015,113 +988,56 @@ body{
 
 
 /* =========================================================
-   TABLET
+   LAPTOP
 ========================================================= */
 
-@media (min-width:601px) and (max-width:900px){
+@media(min-width:768px){
 
     .dashboard{
-        max-width:100%;
-        padding:0 20px 25px;
-    }
-
-    .sm-navbar{
-        height:70px;
-    }
-
-    .sm-brand-logo{
-        width:40px;
-        height:40px;
-    }
-
-    .sm-brand-name{
-        font-size:18px;
-    }
-
-    .profile-card{
-        padding:22px;
+        padding:0 24px 25px;
     }
 
     .revenue-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:repeat(3,1fr);
     }
 
     .revenue-card.full-width{
-        grid-column:span 2;
+        grid-column:span 1;
     }
 
-    .graph{
-        height:200px;
+    .profile-card{
+        padding:24px 22px 19px;
     }
+
+    .profile-avatar{
+        width:78px;
+        height:78px;
+    }
+
+    .profile-name{
+        font-size:20px;
+    }
+
 }
 
 
 /* =========================================================
-   MOBILE — FULL WIDTH NAVBAR
+   MOBILE
 ========================================================= */
 
-@media (max-width:600px){
+@media(max-width:600px){
 
     .dashboard{
-        width:100%;
-        max-width:none;
-
-        margin:0;
-
         padding:0 10px 20px;
     }
 
-    /* FULL WIDTH NAVBAR */
-
-    .sm-navbar{
-        width:calc(100% + 20px);
-
-        height:68px;
-
-        margin-left:-10px;
-        margin-right:-10px;
-
-        padding:0 13px;
-
-        box-sizing:border-box;
-    }
-
-    .sm-brand{
-        flex:1;
-        min-width:0;
-
-        gap:8px;
+    .sm-brand-name{
+        font-size:17px;
     }
 
     .sm-brand-logo{
         width:36px;
         height:36px;
-
-        border-radius:10px;
-
-        font-size:12px;
-    }
-
-    .sm-brand-name{
-        font-size:17px;
-        white-space:nowrap;
-    }
-
-    .sm-nav-right{
-        gap:7px;
-        flex-shrink:0;
-    }
-
-    .profile-mini,
-    .menu-btn{
-        width:38px;
-        height:38px;
-
-        flex-shrink:0;
-    }
-
-    .menu-btn{
-        font-size:19px;
     }
 
     .profile-dropdown{
@@ -1130,15 +1046,6 @@ body{
 
     .profile-card{
         margin-top:12px;
-        margin-bottom:12px;
-
-        padding:20px 14px 16px;
-
-        min-height:0;
-    }
-
-    .profile-content{
-        gap:13px;
     }
 
     .profile-avatar{
@@ -1146,87 +1053,107 @@ body{
         height:66px;
     }
 
-    .avatar-fallback{
-        font-size:23px;
-    }
-
     .profile-name{
         font-size:15px;
-        margin-bottom:5px;
-    }
-
-    .id-row{
-        font-size:10px;
-    }
-
-    .revenue-grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:10px;
     }
 
     .revenue-card{
-        min-height:140px;
         padding:14px;
-        border-radius:15px;
-    }
-
-    .revenue-card.full-width{
-        grid-column:span 2;
     }
 
     .revenue-amount{
         font-size:21px;
     }
 
-    .revenue-title{
-        font-size:11px;
-        margin-bottom:13px;
-    }
-
-    .revenue-footer{
-        font-size:10px;
-    }
-
-    .card-icon{
-        width:27px;
-        height:27px;
-
-        top:12px;
-        right:12px;
-
-        font-size:12px;
-    }
-
-    .graph-card{
-        padding:14px;
-        border-radius:15px;
-    }
-
-    .graph-title{
-        font-size:14px;
-    }
-
-    .graph-badge{
-        font-size:8px;
-        padding:5px 7px;
-    }
-
-    .graph{
-        height:175px;
-    }
-
-    .footer{
-        padding:15px 0 20px;
-        font-size:10px;
-    }
 }
 
 
 /* =========================================================
-   VERY SMALL PHONES
+   ONLY NAVBAR RESPONSIVE FIX
 ========================================================= */
 
-@media (max-width:380px){
+/* Laptop */
+@media(min-width:768px){
+
+    .sm-navbar{
+        height:68px;
+        width:100%;
+    }
+
+    .sm-brand-logo{
+        width:38px;
+        height:38px;
+        font-size:13px;
+    }
+
+    .sm-brand-name{
+        font-size:18px;
+    }
+
+    .sm-nav-right{
+        gap:10px;
+    }
+
+    .profile-mini,
+    .menu-btn{
+        width:40px;
+        height:40px;
+    }
+
+}
+
+
+/* Mobile — FULL WIDTH NAVBAR */
+
+@media(max-width:600px){
+
+    .sm-navbar{
+        width:calc(100% + 20px);
+
+        margin-left:-10px;
+        margin-right:-10px;
+
+        height:68px;
+
+        padding-left:14px;
+        padding-right:14px;
+
+        box-sizing:border-box;
+    }
+
+    .sm-brand{
+        min-width:0;
+    }
+
+    .sm-brand-name{
+        font-size:17px;
+        white-space:nowrap;
+    }
+
+    .sm-brand-logo{
+        width:36px;
+        height:36px;
+        flex-shrink:0;
+    }
+
+    .sm-nav-right{
+        gap:8px;
+        flex-shrink:0;
+    }
+
+    .profile-mini,
+    .menu-btn{
+        width:40px;
+        height:40px;
+        flex-shrink:0;
+    }
+
+}
+
+
+/* Very small phones */
+
+@media(max-width:380px){
 
     .sm-navbar{
         padding-left:10px;
@@ -1256,19 +1183,6 @@ body{
         height:36px;
     }
 
-    .profile-card{
-        padding-left:12px;
-        padding-right:12px;
-    }
-
-    .profile-avatar{
-        width:60px;
-        height:60px;
-    }
-
-    .profile-name{
-        font-size:14px;
-    }
 }
 
 </style>
@@ -1296,6 +1210,7 @@ body{
 <div
     class="nav-menu"
     id="navMenu">
+
 
     <div class="menu-top">
 
@@ -1535,23 +1450,34 @@ body{
 <nav class="sm-navbar">
 
 
+    <!-- LEFT BRAND -->
+
     <a
         href="dashboard.html"
         class="sm-brand">
+
 
         <div class="sm-brand-logo">
             SM
         </div>
 
+
         <div class="sm-brand-name">
+
             Skills <span>Market</span>
+
         </div>
+
 
     </a>
 
 
+    <!-- RIGHT -->
+
     <div class="sm-nav-right">
 
+
+        <!-- PROFILE -->
 
         <div class="profile-dropdown-wrap">
 
@@ -1577,6 +1503,7 @@ body{
                     class="profile-dropdown-item">
 
                     <span>👤</span>
+
                     <span>My Profile</span>
 
                 </a>
@@ -1588,6 +1515,7 @@ body{
                     onclick="closeProfileDropdown()">
 
                     <span>⚙️</span>
+
                     <span>Account Settings</span>
 
                 </a>
@@ -1599,6 +1527,7 @@ body{
                     onclick="logoutUser(event)">
 
                     <span>🚪</span>
+
                     <span>Logout</span>
 
                 </button>
@@ -1606,8 +1535,11 @@ body{
 
             </div>
 
+
         </div>
 
+
+        <!-- MENU -->
 
         <button
             class="menu-btn"
@@ -1620,6 +1552,7 @@ body{
 
 
     </div>
+
 
 </nav>
 
@@ -1652,6 +1585,7 @@ body{
 
         <div class="profile-avatar">
 
+
             <div
                 class="avatar-fallback"
                 id="avatarFallback">
@@ -1659,6 +1593,7 @@ body{
                 M
 
             </div>
+
 
         </div>
 
@@ -1677,8 +1612,11 @@ body{
 
             <div class="id-row">
 
+
                 <span id="profileId">
+
                     ID: Loading...
+
                 </span>
 
 
@@ -1689,6 +1627,7 @@ body{
                     📋
 
                 </button>
+
 
             </div>
 
@@ -1711,17 +1650,21 @@ body{
 
     <div class="revenue-card purple">
 
+
         <div class="card-icon">
             💳
         </div>
+
 
         <div class="revenue-amount">
             ₹ 0
         </div>
 
+
         <div class="revenue-title">
             Today's Revenue
         </div>
+
 
         <div class="revenue-footer">
 
@@ -1734,23 +1677,28 @@ body{
             </a>
 
         </div>
+
 
     </div>
 
 
     <div class="revenue-card indigo">
 
+
         <div class="card-icon">
             📊
         </div>
+
 
         <div class="revenue-amount">
             ₹ 0
         </div>
 
+
         <div class="revenue-title">
             Last 7 Days Revenue
         </div>
+
 
         <div class="revenue-footer">
 
@@ -1763,23 +1711,28 @@ body{
             </a>
 
         </div>
+
 
     </div>
 
 
     <div class="revenue-card pink">
 
+
         <div class="card-icon">
             🎓
         </div>
+
 
         <div class="revenue-amount">
             ₹ 0
         </div>
 
+
         <div class="revenue-title">
             Last 30 Days Revenue
         </div>
+
 
         <div class="revenue-footer">
 
@@ -1792,23 +1745,28 @@ body{
             </a>
 
         </div>
+
 
     </div>
 
 
     <div class="revenue-card blue">
 
+
         <div class="card-icon">
             🏆
         </div>
+
 
         <div class="revenue-amount">
             ₹ 0
         </div>
 
+
         <div class="revenue-title">
             All Time Revenue
         </div>
+
 
         <div class="revenue-footer">
 
@@ -1821,23 +1779,28 @@ body{
             </a>
 
         </div>
+
 
     </div>
 
 
     <div class="revenue-card gold full-width">
 
+
         <div class="card-icon">
             💰
         </div>
+
 
         <div class="revenue-amount">
             ₹ 0
         </div>
 
+
         <div class="revenue-title">
             Passive Income
         </div>
+
 
         <div class="revenue-footer">
 
@@ -1850,6 +1813,7 @@ body{
             </a>
 
         </div>
+
 
     </div>
 
@@ -1866,13 +1830,16 @@ body{
 
     <div class="graph-header">
 
+
         <div class="graph-title">
             Sales Last 7 Days
         </div>
 
+
         <div class="graph-badge">
             7 DAYS
         </div>
+
 
     </div>
 
