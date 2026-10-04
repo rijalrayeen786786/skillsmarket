@@ -41,7 +41,7 @@ body{
 
 
 /* =========================================================
-   EXACT PROFILE-STYLE NAVBAR
+   NAVBAR
 ========================================================= */
 
 .sm-navbar{
@@ -639,6 +639,13 @@ body{
     text-decoration:none;
 }
 
+.revenue-count{
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    opacity:.95;
+}
+
 
 /* =========================================================
    GRAPH
@@ -689,6 +696,7 @@ body{
         transparent 36px,
         #eef2f7 37px
     );
+    overflow:hidden;
 }
 
 .y-axis{
@@ -710,6 +718,48 @@ body{
     bottom:0;
     height:2px;
     background:#db2777;
+}
+
+.graph-line{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    overflow:visible;
+}
+
+.graph-area{
+    fill:rgba(79,70,229,.08);
+    stroke:none;
+}
+
+.graph-path{
+    fill:none;
+    stroke:#4f46e5;
+    stroke-width:3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.graph-point{
+    fill:#ffffff;
+    stroke:#4f46e5;
+    stroke-width:3;
+}
+
+.graph-tooltip{
+    position:absolute;
+    display:none;
+    background:#111827;
+    color:#fff;
+    padding:6px 8px;
+    border-radius:7px;
+    font-size:10px;
+    white-space:nowrap;
+    pointer-events:none;
+    transform:translate(-50%,-120%);
+    z-index:10;
 }
 
 .graph-dates{
@@ -865,6 +915,35 @@ body{
 
     .revenue-amount{
         font-size:22px;
+    }
+
+    .revenue-title{
+        font-size:12px;
+    }
+
+    .revenue-footer{
+        font-size:10px;
+    }
+
+    .revenue-count{
+        font-size:10px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:380px){
+
+    .revenue-grid{
+        grid-template-columns:1fr;
+    }
+
+    .revenue-card.full-width{
+        grid-column:span 1;
     }
 
 }
@@ -1139,13 +1218,11 @@ body{
 
         <div class="profile-avatar">
 
-            <!-- PROFILE IMAGE -->
             <img
                 id="profileAvatarImage"
                 src=""
                 alt="Profile">
 
-            <!-- FALLBACK LETTER -->
             <div
                 class="avatar-fallback"
                 id="avatarFallback">
@@ -1190,11 +1267,15 @@ body{
 
 <div class="revenue-grid">
 
+
+    <!-- TODAY -->
     <div class="revenue-card purple">
 
         <div class="card-icon">💳</div>
 
-        <div class="revenue-amount">
+        <div
+            class="revenue-amount"
+            id="todayRevenue">
             ₹ 0
         </div>
 
@@ -1204,22 +1285,25 @@ body{
 
         <div class="revenue-footer">
 
-            <a
-                href="#"
-                class="view-details">
-                Click here to view detail(s)
-            </a>
+            <span
+                class="revenue-count"
+                id="todayCount">
+                0 Transactions
+            </span>
 
         </div>
 
     </div>
 
 
+    <!-- 7 DAYS -->
     <div class="revenue-card indigo">
 
         <div class="card-icon">📊</div>
 
-        <div class="revenue-amount">
+        <div
+            class="revenue-amount"
+            id="sevenDaysRevenue">
             ₹ 0
         </div>
 
@@ -1229,22 +1313,25 @@ body{
 
         <div class="revenue-footer">
 
-            <a
-                href="#"
-                class="view-details">
-                Click here to view detail(s)
-            </a>
+            <span
+                class="revenue-count"
+                id="sevenDaysCount">
+                0 Transactions
+            </span>
 
         </div>
 
     </div>
 
 
+    <!-- 30 DAYS -->
     <div class="revenue-card pink">
 
         <div class="card-icon">🎓</div>
 
-        <div class="revenue-amount">
+        <div
+            class="revenue-amount"
+            id="thirtyDaysRevenue">
             ₹ 0
         </div>
 
@@ -1254,22 +1341,25 @@ body{
 
         <div class="revenue-footer">
 
-            <a
-                href="#"
-                class="view-details">
-                Click here to view detail(s)
-            </a>
+            <span
+                class="revenue-count"
+                id="thirtyDaysCount">
+                0 Transactions
+            </span>
 
         </div>
 
     </div>
 
 
+    <!-- ALL TIME -->
     <div class="revenue-card blue">
 
         <div class="card-icon">🏆</div>
 
-        <div class="revenue-amount">
+        <div
+            class="revenue-amount"
+            id="allTimeRevenue">
             ₹ 0
         </div>
 
@@ -1279,22 +1369,25 @@ body{
 
         <div class="revenue-footer">
 
-            <a
-                href="#"
-                class="view-details">
-                Click here to view detail(s)
-            </a>
+            <span
+                class="revenue-count"
+                id="allTimeCount">
+                0 Transactions
+            </span>
 
         </div>
 
     </div>
 
 
+    <!-- PASSIVE -->
     <div class="revenue-card gold full-width">
 
         <div class="card-icon">💰</div>
 
-        <div class="revenue-amount">
+        <div
+            class="revenue-amount"
+            id="passiveIncome">
             ₹ 0
         </div>
 
@@ -1304,15 +1397,16 @@ body{
 
         <div class="revenue-footer">
 
-            <a
-                href="#"
-                class="view-details">
-                Click here to view detail(s)
-            </a>
+            <span
+                class="revenue-count"
+                id="passiveCount">
+                0 Transactions
+            </span>
 
         </div>
 
     </div>
+
 
 </div>
 
@@ -1329,8 +1423,10 @@ body{
             Sales Last 7 Days
         </div>
 
-        <div class="graph-badge">
-            7 DAYS
+        <div
+            class="graph-badge"
+            id="graphTotal">
+            ₹ 0
         </div>
 
     </div>
@@ -1340,39 +1436,65 @@ body{
 
         <div class="y-axis">
 
-            <span>1.0</span>
-            <span>0.8</span>
-            <span>0.6</span>
-            <span>0.4</span>
-            <span>0.2</span>
-            <span>0</span>
-            <span>-0.2</span>
-            <span>-0.4</span>
-            <span>-0.6</span>
-            <span>-0.8</span>
-            <span>-1.0</span>
+            <span id="yTop">₹ 0</span>
+            <span id="y80">₹ 0</span>
+            <span id="y60">₹ 0</span>
+            <span id="y40">₹ 0</span>
+            <span id="y20">₹ 0</span>
+            <span>₹ 0</span>
 
         </div>
 
 
-        <div class="graph">
+        <div
+            class="graph"
+            id="incomeGraph">
 
             <div class="zero-line"></div>
+
+            <svg
+                class="graph-line"
+                id="graphSvg"
+                viewBox="0 0 700 200"
+                preserveAspectRatio="none">
+
+                <polygon
+                    id="graphArea"
+                    class="graph-area"
+                    points="">
+                </polygon>
+
+                <polyline
+                    id="graphPath"
+                    class="graph-path"
+                    points="">
+                </polyline>
+
+                <g id="graphPoints"></g>
+
+            </svg>
+
+            <div
+                class="graph-tooltip"
+                id="graphTooltip">
+            </div>
 
         </div>
 
     </div>
 
 
-    <div class="graph-dates">
+    <div
+        class="graph-dates"
+        id="graphDates">
 
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span>-</span>
+        <span>-</span>
+        <span>-</span>
+        <span>-</span>
+        <span>-</span>
+        <span>-</span>
+        <span>-</span>
 
     </div>
 
@@ -1404,6 +1526,14 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_KEY
     );
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+let currentMemberID = "";
+let currentTransactions = [];
 
 
 /* =========================================================
@@ -1500,10 +1630,6 @@ function setAvatarImage(
         );
 
 
-    /* -----------------------------------------
-       DASHBOARD PROFILE CARD
-    ----------------------------------------- */
-
     if(
         profileAvatarImage &&
         avatarFallback
@@ -1536,10 +1662,6 @@ function setAvatarImage(
     }
 
 
-    /* -----------------------------------------
-       NAVBAR PROFILE
-    ----------------------------------------- */
-
     if(profileMini){
 
         if(imageUrl){
@@ -1558,10 +1680,6 @@ function setAvatarImage(
 
     }
 
-
-    /* -----------------------------------------
-       SIDE MENU PROFILE
-    ----------------------------------------- */
 
     if(menuAvatar){
 
@@ -1585,11 +1703,8 @@ function setAvatarImage(
 
 
 /* =========================================================
-   DASHBOARD PROFILE
+   APPLY PROFILE
 ========================================================= */
-
-let currentMemberID = "";
-
 
 function applyProfileToScreen(
     fullName,
@@ -1714,6 +1829,1003 @@ function loadCachedProfile(){
 
 
 /* =========================================================
+   MONEY FORMAT
+========================================================= */
+
+function formatMoney(amount){
+
+    const value =
+        Number(amount || 0);
+
+    return (
+        "₹ " +
+        value.toLocaleString(
+            "en-IN",
+            {
+                maximumFractionDigits:2
+            }
+        )
+    );
+
+}
+
+
+/* =========================================================
+   TRANSACTION HELPERS
+========================================================= */
+
+function startOfLocalDay(date = new Date()){
+
+    const d =
+        new Date(date);
+
+    d.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+    return d;
+
+}
+
+
+function getDateDaysAgo(days){
+
+    const d =
+        startOfLocalDay();
+
+    d.setDate(
+        d.getDate() - days
+    );
+
+    return d;
+
+}
+
+
+function transactionAmount(tx){
+
+    return Number(
+        tx.amount || 0
+    );
+
+}
+
+
+function isApproved(tx){
+
+    return (
+        String(tx.status || "")
+            .toLowerCase() ===
+        "approved"
+    );
+
+}
+
+
+function isPassive(tx){
+
+    return (
+        String(tx.income_type || "")
+            .toLowerCase() ===
+        "passive"
+    );
+
+}
+
+
+function isActive(tx){
+
+    return (
+        String(tx.income_type || "")
+            .toLowerCase() ===
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   SUM
+========================================================= */
+
+function calculateTotal(
+    transactions
+){
+
+    return transactions.reduce(
+        function(total,tx){
+
+            return (
+                total +
+                transactionAmount(tx)
+            );
+
+        },
+        0
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE REVENUE CARD
+========================================================= */
+
+function updateRevenueCard(
+    amountID,
+    countID,
+    transactions
+){
+
+    const amount =
+        calculateTotal(
+            transactions
+        );
+
+    const count =
+        transactions.length;
+
+
+    const amountElement =
+        document.getElementById(
+            amountID
+        );
+
+    const countElement =
+        document.getElementById(
+            countID
+        );
+
+
+    if(amountElement){
+
+        amountElement.textContent =
+            formatMoney(amount);
+
+    }
+
+
+    if(countElement){
+
+        countElement.textContent =
+            count +
+            (
+                count === 1
+                ? " Transaction"
+                : " Transactions"
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD INCOME
+========================================================= */
+
+async function loadIncomeData(
+    memberID
+){
+
+    if(
+        !memberID ||
+        memberID === "Not Assigned"
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("income_transactions")
+            .select(
+                "member_id,income_type,amount,status,created_at"
+            )
+            .eq(
+                "member_id",
+                memberID
+            )
+            .eq(
+                "status",
+                "approved"
+            )
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
+
+        if(error){
+
+            console.error(
+                "Income transaction error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        currentTransactions =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        updateAllRevenueCards(
+            currentTransactions
+        );
+
+
+        updateSevenDayGraph(
+            currentTransactions
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Income loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE ALL CARDS
+========================================================= */
+
+function updateAllRevenueCards(
+    transactions
+){
+
+    const now =
+        new Date();
+
+
+    const todayStart =
+        startOfLocalDay(
+            now
+        );
+
+
+    const sevenDaysStart =
+        getDateDaysAgo(6);
+
+
+    const thirtyDaysStart =
+        getDateDaysAgo(29);
+
+
+    /* -----------------------------------------
+       TODAY
+       ACTIVE + PASSIVE
+    ----------------------------------------- */
+
+    const todayTransactions =
+        transactions.filter(
+            function(tx){
+
+                const date =
+                    new Date(
+                        tx.created_at
+                    );
+
+                return (
+                    date >= todayStart
+                );
+
+            }
+        );
+
+
+    /* -----------------------------------------
+       LAST 7 DAYS
+       ACTIVE + PASSIVE
+    ----------------------------------------- */
+
+    const sevenDayTransactions =
+        transactions.filter(
+            function(tx){
+
+                const date =
+                    new Date(
+                        tx.created_at
+                    );
+
+                return (
+                    date >= sevenDaysStart
+                );
+
+            }
+        );
+
+
+    /* -----------------------------------------
+       LAST 30 DAYS
+       ACTIVE + PASSIVE
+    ----------------------------------------- */
+
+    const thirtyDayTransactions =
+        transactions.filter(
+            function(tx){
+
+                const date =
+                    new Date(
+                        tx.created_at
+                    );
+
+                return (
+                    date >= thirtyDaysStart
+                );
+
+            }
+        );
+
+
+    /* -----------------------------------------
+       ALL TIME
+       ACTIVE + PASSIVE
+    ----------------------------------------- */
+
+    const allTimeTransactions =
+        transactions;
+
+
+    /* -----------------------------------------
+       PASSIVE ONLY
+    ----------------------------------------- */
+
+    const passiveTransactions =
+        transactions.filter(
+            function(tx){
+
+                return isPassive(tx);
+
+            }
+        );
+
+
+    /* -----------------------------------------
+       APPLY CARDS
+    ----------------------------------------- */
+
+    updateRevenueCard(
+
+        "todayRevenue",
+
+        "todayCount",
+
+        todayTransactions
+
+    );
+
+
+    updateRevenueCard(
+
+        "sevenDaysRevenue",
+
+        "sevenDaysCount",
+
+        sevenDayTransactions
+
+    );
+
+
+    updateRevenueCard(
+
+        "thirtyDaysRevenue",
+
+        "thirtyDaysCount",
+
+        thirtyDayTransactions
+
+    );
+
+
+    updateRevenueCard(
+
+        "allTimeRevenue",
+
+        "allTimeCount",
+
+        allTimeTransactions
+
+    );
+
+
+    /* -----------------------------------------
+       PASSIVE CARD
+       ONLY PASSIVE
+    ----------------------------------------- */
+
+    updateRevenueCard(
+
+        "passiveIncome",
+
+        "passiveCount",
+
+        passiveTransactions
+
+    );
+
+}
+
+
+/* =========================================================
+   GRAPH - LAST 7 DAYS
+========================================================= */
+
+function updateSevenDayGraph(
+    transactions
+){
+
+    const days = [];
+
+
+    /*
+       Oldest → Newest
+       7 calendar days
+    */
+
+    for(
+        let i = 6;
+        i >= 0;
+        i--
+    ){
+
+        const date =
+            getDateDaysAgo(i);
+
+
+        days.push({
+
+            date:date,
+
+            label:
+                date.toLocaleDateString(
+                    "en-IN",
+                    {
+                        day:"2-digit",
+                        month:"short"
+                    }
+                ),
+
+            amount:0,
+
+            count:0
+
+        });
+
+    }
+
+
+    /* -----------------------------------------
+       ADD DAILY ACTIVE + PASSIVE
+    ----------------------------------------- */
+
+    transactions.forEach(
+        function(tx){
+
+            const txDate =
+                new Date(
+                    tx.created_at
+                );
+
+
+            for(
+                let i = 0;
+                i < days.length;
+                i++
+            ){
+
+                const day =
+                    days[i].date;
+
+
+                if(
+                    txDate.getFullYear() ===
+                        day.getFullYear() &&
+
+                    txDate.getMonth() ===
+                        day.getMonth() &&
+
+                    txDate.getDate() ===
+                        day.getDate()
+                ){
+
+                    days[i].amount +=
+                        transactionAmount(tx);
+
+                    days[i].count++;
+
+                    break;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    renderGraph(
+        days
+    );
+
+}
+
+
+/* =========================================================
+   RENDER GRAPH
+========================================================= */
+
+function renderGraph(
+    days
+){
+
+    const graph =
+        document.getElementById(
+            "incomeGraph"
+        );
+
+    const svg =
+        document.getElementById(
+            "graphSvg"
+        );
+
+    const path =
+        document.getElementById(
+            "graphPath"
+        );
+
+    const area =
+        document.getElementById(
+            "graphArea"
+        );
+
+    const pointsGroup =
+        document.getElementById(
+            "graphPoints"
+        );
+
+    const datesContainer =
+        document.getElementById(
+            "graphDates"
+        );
+
+    const tooltip =
+        document.getElementById(
+            "graphTooltip"
+        );
+
+
+    if(
+        !graph ||
+        !svg ||
+        !path ||
+        !area ||
+        !pointsGroup ||
+        !datesContainer
+    ){
+
+        return;
+
+    }
+
+
+    const width =
+        700;
+
+    const height =
+        200;
+
+
+    const amounts =
+        days.map(
+            function(day){
+
+                return day.amount;
+
+            }
+        );
+
+
+    const maxAmount =
+        Math.max(
+            ...amounts,
+            0
+        );
+
+
+    /*
+       Give the graph some breathing room
+    */
+
+    const graphMax =
+        maxAmount > 0
+            ? Math.ceil(
+                maxAmount * 1.15
+              )
+            : 1;
+
+
+    /* -----------------------------------------
+       Y AXIS
+    ----------------------------------------- */
+
+    const yValues = [
+
+        graphMax,
+
+        graphMax * .8,
+
+        graphMax * .6,
+
+        graphMax * .4,
+
+        graphMax * .2,
+
+        0
+
+    ];
+
+
+    const yIDs = [
+
+        "yTop",
+        "y80",
+        "y60",
+        "y40",
+        "y20"
+
+    ];
+
+
+    yIDs.forEach(
+        function(id,index){
+
+            const element =
+                document.getElementById(
+                    id
+                );
+
+            if(element){
+
+                element.textContent =
+                    formatMoney(
+                        yValues[index]
+                    );
+
+            }
+
+        }
+    );
+
+
+    /* -----------------------------------------
+       GRAPH TOTAL
+    ----------------------------------------- */
+
+    const graphTotal =
+        calculateTotal(
+            days.map(
+                function(day){
+
+                    return {
+                        amount:day.amount
+                    };
+
+                }
+            )
+        );
+
+
+    const graphTotalElement =
+        document.getElementById(
+            "graphTotal"
+        );
+
+
+    if(graphTotalElement){
+
+        graphTotalElement.textContent =
+            formatMoney(
+                graphTotal
+            );
+
+    }
+
+
+    /* -----------------------------------------
+       POINTS
+    ----------------------------------------- */
+
+    const pointPadding =
+        20;
+
+
+    const usableWidth =
+        width -
+        (
+            pointPadding * 2
+        );
+
+
+    const xStep =
+        days.length > 1
+            ? usableWidth /
+              (days.length - 1)
+            : 0;
+
+
+    const graphPoints =
+        days.map(
+            function(day,index){
+
+                const x =
+                    pointPadding +
+                    (
+                        xStep * index
+                    );
+
+
+                const y =
+                    height -
+                    (
+                        (
+                            day.amount /
+                            graphMax
+                        ) *
+                        (
+                            height - 20
+                        )
+                    );
+
+
+                return {
+
+                    x:x,
+
+                    y:y,
+
+                    amount:
+                        day.amount,
+
+                    count:
+                        day.count
+
+                };
+
+            }
+        );
+
+
+    /* -----------------------------------------
+       POLYLINE
+    ----------------------------------------- */
+
+    const pointString =
+        graphPoints
+            .map(
+                function(point){
+
+                    return (
+                        point.x +
+                        "," +
+                        point.y
+                    );
+
+                }
+            )
+            .join(" ");
+
+
+    path.setAttribute(
+        "points",
+        pointString
+    );
+
+
+    /* -----------------------------------------
+       AREA
+    ----------------------------------------- */
+
+    const areaPoints =
+        [
+            pointPadding + "," + height,
+
+            pointString,
+
+            (
+                pointPadding +
+                usableWidth
+            ) +
+            "," +
+            height
+        ].join(" ");
+
+
+    area.setAttribute(
+        "points",
+        areaPoints
+    );
+
+
+    /* -----------------------------------------
+       POINT CIRCLES
+    ----------------------------------------- */
+
+    pointsGroup.innerHTML =
+        "";
+
+
+    graphPoints.forEach(
+        function(point,index){
+
+            const circle =
+                document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "circle"
+                );
+
+
+            circle.setAttribute(
+                "cx",
+                point.x
+            );
+
+
+            circle.setAttribute(
+                "cy",
+                point.y
+            );
+
+
+            circle.setAttribute(
+                "r",
+                "4"
+            );
+
+
+            circle.setAttribute(
+                "class",
+                "graph-point"
+            );
+
+
+            circle.style.cursor =
+                "pointer";
+
+
+            circle.addEventListener(
+                "mouseenter",
+                function(){
+
+                    if(!tooltip){
+
+                        return;
+
+                    }
+
+
+                    tooltip.style.display =
+                        "block";
+
+
+                    tooltip.textContent =
+                        days[index].label +
+                        " • " +
+                        formatMoney(
+                            point.amount
+                        ) +
+                        " • " +
+                        point.count +
+                        (
+                            point.count === 1
+                            ? " transaction"
+                            : " transactions"
+                        );
+
+
+                    const graphWidth =
+                        graph.clientWidth;
+
+
+                    const leftPercent =
+                        (
+                            point.x /
+                            width
+                        ) * 100;
+
+
+                    tooltip.style.left =
+                        leftPercent +
+                        "%";
+
+
+                    tooltip.style.top =
+                        (
+                            point.y /
+                            height
+                        ) *
+                        100 +
+                        "%";
+
+                }
+            );
+
+
+            circle.addEventListener(
+                "mouseleave",
+                function(){
+
+                    if(tooltip){
+
+                        tooltip.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+
+            pointsGroup.appendChild(
+                circle
+            );
+
+        }
+    );
+
+
+    /* -----------------------------------------
+       DATES
+    ----------------------------------------- */
+
+    datesContainer.innerHTML =
+        "";
+
+
+    days.forEach(
+        function(day){
+
+            const span =
+                document.createElement(
+                    "span"
+                );
+
+            span.textContent =
+                day.label;
+
+            datesContainer.appendChild(
+                span
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
    LOAD DASHBOARD
 ========================================================= */
 
@@ -1798,10 +2910,6 @@ async function loadDashboard(){
             "Package Not Assigned";
 
 
-        /* -----------------------------------------
-           GET PROFILE IMAGE FROM SUPABASE AUTH
-        ----------------------------------------- */
-
         const avatarUrl =
             user.user_metadata?.avatar_url ||
             "";
@@ -1847,6 +2955,15 @@ async function loadDashboard(){
 
             })
 
+        );
+
+
+        /* -----------------------------------------
+           LOAD INCOME
+        ----------------------------------------- */
+
+        await loadIncomeData(
+            memberID
         );
 
 
@@ -1924,19 +3041,23 @@ function copyProfileID(){
                         ".copy-btn"
                     );
 
-                button.textContent =
-                    "✓";
+                if(button){
+
+                    button.textContent =
+                        "✓";
 
 
-                setTimeout(
-                    function(){
+                    setTimeout(
+                        function(){
 
-                        button.textContent =
-                            "📋";
+                            button.textContent =
+                                "📋";
 
-                    },
-                    1200
-                );
+                        },
+                        1200
+                    );
+
+                }
 
             });
 
