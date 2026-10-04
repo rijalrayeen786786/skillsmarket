@@ -8,11 +8,9 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -66,13 +64,8 @@ body{
 }
 
 @keyframes float{
-    0%,100%{
-        transform:translateY(0) scale(1);
-    }
-
-    50%{
-        transform:translateY(-30px) scale(1.06);
-    }
+    0%,100%{transform:translateY(0) scale(1);}
+    50%{transform:translateY(-30px) scale(1.06);}
 }
 
 /* NAVBAR */
@@ -95,7 +88,6 @@ body{
     text-decoration:none;
     font-size:25px;
     font-weight:800;
-    letter-spacing:-.5px;
 }
 
 .logo span{
@@ -137,11 +129,7 @@ body{
 
 .header-section{
     padding:42px 5%;
-    background:linear-gradient(
-        135deg,
-        rgba(20,20,20,.96),
-        rgba(8,8,8,.96)
-    );
+    background:linear-gradient(135deg,rgba(20,20,20,.96),rgba(8,8,8,.96));
     border-bottom:1px solid rgba(255,255,255,.06);
 }
 
@@ -220,7 +208,6 @@ body{
 .package-name{
     font-size:17px;
     font-weight:700;
-    color:#fff;
 }
 
 .package-description{
@@ -243,10 +230,6 @@ body{
     text-decoration:none;
     font-size:12px;
     font-weight:600;
-}
-
-.change-package:hover{
-    text-decoration:underline;
 }
 
 /* FORM */
@@ -303,6 +286,22 @@ body{
     color:#ff596b;
 }
 
+.referral-user{
+    display:none;
+    margin-top:8px;
+    padding:10px 12px;
+    background:rgba(53,217,130,.08);
+    border:1px solid rgba(53,217,130,.25);
+    border-radius:8px;
+    color:#35d982;
+    font-size:12px;
+    font-weight:600;
+}
+
+.referral-user.show{
+    display:block;
+}
+
 /* PASSWORD */
 
 .password-wrapper{
@@ -333,7 +332,7 @@ body{
     color:#fff;
 }
 
-/* PAYMENT OPTION */
+/* PAYMENT */
 
 .payment-title{
     color:#ddd;
@@ -363,14 +362,12 @@ body{
 .payment-option.selected{
     background:rgba(255,30,56,.08);
     border-color:#ff1e38;
-    box-shadow:0 0 0 2px rgba(255,30,56,.06);
 }
 
 .payment-option input{
     width:17px;
     height:17px;
     accent-color:#ff1e38;
-    cursor:pointer;
 }
 
 .payment-main{
@@ -385,7 +382,7 @@ body{
     margin-top:2px;
 }
 
-/* QR PAYMENT */
+/* QR */
 
 .qr-payment-box{
     display:none;
@@ -532,8 +529,6 @@ body{
     height:16px;
     margin-top:2px;
     accent-color:#ff1e38;
-    flex-shrink:0;
-    cursor:pointer;
 }
 
 .checkbox-group label{
@@ -615,7 +610,6 @@ body{
     border-radius:18px;
     padding:30px;
     text-align:center;
-    box-shadow:0 25px 80px rgba(0,0,0,.55);
 }
 
 .success-icon{
@@ -724,10 +718,6 @@ body{
         font-size:17px;
     }
 
-    .summary-row{
-        font-size:12px;
-    }
-
     .qr-image-wrapper{
         width:200px;
         height:200px;
@@ -737,7 +727,6 @@ body{
         padding:18px 14px;
     }
 }
-
 </style>
 </head>
 
@@ -748,7 +737,6 @@ body{
     <div class="circle"></div>
     <div class="circle"></div>
 </div>
-
 
 <!-- NAVBAR -->
 
@@ -776,7 +764,6 @@ body{
 
 </nav>
 
-
 <!-- HEADER -->
 
 <section class="header-section">
@@ -788,7 +775,6 @@ body{
     </div>
 
 </section>
-
 
 <!-- MAIN -->
 
@@ -802,7 +788,6 @@ body{
         Complete your details below to create your Skills Market
         account and continue with your selected package.
     </p>
-
 
     <!-- PACKAGE -->
 
@@ -847,7 +832,6 @@ body{
 
     </div>
 
-
     <!-- FORM -->
 
     <form id="checkoutForm">
@@ -873,8 +857,12 @@ body{
                 class="referral-status"
             ></div>
 
-        </div>
+            <div
+                id="referralUser"
+                class="referral-user"
+            ></div>
 
+        </div>
 
         <!-- NAME -->
 
@@ -894,7 +882,6 @@ body{
             >
 
         </div>
-
 
         <!-- PHONE -->
 
@@ -917,7 +904,6 @@ body{
 
         </div>
 
-
         <!-- EMAIL -->
 
         <div class="form-group">
@@ -936,7 +922,6 @@ body{
             >
 
         </div>
-
 
         <!-- PASSWORD -->
 
@@ -962,7 +947,6 @@ body{
                     type="button"
                     class="password-toggle"
                     id="passwordToggle"
-                    aria-label="Show password"
                 >
                     👁
                 </button>
@@ -970,7 +954,6 @@ body{
             </div>
 
         </div>
-
 
         <!-- PAYMENT -->
 
@@ -1003,7 +986,6 @@ body{
             </div>
 
         </label>
-
 
         <!-- QR -->
 
@@ -1085,13 +1067,9 @@ body{
             <div
                 class="payment-status"
                 id="paymentStatus"
-            >
-                Payment submitted successfully.
-                Your payment is pending verification.
-            </div>
+            ></div>
 
         </div>
-
 
         <!-- SUMMARY -->
 
@@ -1103,9 +1081,7 @@ body{
 
             <div class="summary-row">
 
-                <span>
-                    Package
-                </span>
+                <span>Package</span>
 
                 <strong id="summaryPackage">
                     —
@@ -1115,9 +1091,7 @@ body{
 
             <div class="summary-row">
 
-                <span>
-                    Price
-                </span>
+                <span>Price</span>
 
                 <strong id="summaryPrice">
                     —
@@ -1127,9 +1101,7 @@ body{
 
             <div class="summary-row total-row">
 
-                <strong>
-                    Total
-                </strong>
+                <strong>Total</strong>
 
                 <strong
                     class="total-price"
@@ -1141,7 +1113,6 @@ body{
             </div>
 
         </div>
-
 
         <!-- TERMS -->
 
@@ -1171,7 +1142,6 @@ body{
 
         </div>
 
-
         <!-- REGISTER -->
 
         <button
@@ -1181,7 +1151,6 @@ body{
         >
             Register & Pay →
         </button>
-
 
         <div class="footer-text">
 
@@ -1198,7 +1167,6 @@ body{
 </div>
 
 </main>
-
 
 <!-- SUCCESS MODAL -->
 
@@ -1251,7 +1219,6 @@ body{
     </div>
 
 </div>
-
 
 <script>
 
@@ -1328,35 +1295,20 @@ let packageCode =
 
 const fullNameMap = {
 
-    "skill starter package":
-        "starter",
-
-    "skill growth package":
-        "growth",
-
-    "skill elite package":
-        "elite",
-
-    "skill prime package":
-        "prime",
-
-    "skill premium package":
-        "premium",
-
-    "skill premimum package":
-        "premium",
-
-    "skill legacy package":
-        "legacy"
+    "skill starter package":"starter",
+    "skill growth package":"growth",
+    "skill elite package":"elite",
+    "skill prime package":"prime",
+    "skill premium package":"premium",
+    "skill premimum package":"premium",
+    "skill legacy package":"legacy"
 
 };
 
 
 if(fullNameMap[packageCode]){
-
     packageCode =
         fullNameMap[packageCode];
-
 }
 
 
@@ -1393,6 +1345,9 @@ const referral =
 
 const referralStatus =
     document.getElementById("referralStatus");
+
+const referralUser =
+    document.getElementById("referralUser");
 
 const password =
     document.getElementById("password");
@@ -1478,31 +1433,29 @@ if(packages[packageCode]){
 
 
 /* =========================================
-   REFERRAL
+   REFERRAL LOOKUP
 ========================================= */
 
-const referralUsers = {
-
-    "RIJAL123":
-        "Rijal Choudhary",
-
-    "SM10001":
-        "Rijal Choudhary",
-
-    "SKILLS10":
-        "Skills Market"
-
-};
-
+let referralValid = false;
+let referralTimer = null;
 
 referral.addEventListener(
     "input",
     function(){
 
+        clearTimeout(referralTimer);
+
         const code =
             this.value
             .trim()
             .toUpperCase();
+
+        this.value = code;
+
+        referralValid = false;
+
+        referralUser.classList.remove("show");
+        referralUser.textContent = "";
 
         if(code === ""){
 
@@ -1513,27 +1466,113 @@ referral.addEventListener(
                 "";
 
             return;
-
         }
 
-        if(referralUsers[code]){
+        referralStatus.className =
+            "referral-status success";
 
-            referralStatus.className =
-                "referral-status success";
+        referralStatus.textContent =
+            "Checking referral code...";
 
-            referralStatus.textContent =
-                "✓ Referral: " +
-                referralUsers[code];
 
-        }else{
+        referralTimer = setTimeout(
+            async function(){
 
-            referralStatus.className =
-                "referral-status error";
+                try{
 
-            referralStatus.textContent =
-                "✕ Invalid Referral Code";
+                    const {
+                        data,
+                        error
+                    } =
+                    await supabaseClient
+                    .from("profiles")
+                    .select(
+                        "full_name, member_id, referral_code"
+                    )
+                    .eq(
+                        "referral_code",
+                        code
+                    )
+                    .maybeSingle();
 
-        }
+
+                    if(error){
+
+                        console.error(
+                            "Referral lookup error:",
+                            error
+                        );
+
+                        referralValid = false;
+
+                        referralStatus.className =
+                            "referral-status error";
+
+                        referralStatus.textContent =
+                            "✕ Referral verification failed";
+
+                        return;
+                    }
+
+
+                    if(data){
+
+                        referralValid = true;
+
+                        referralStatus.className =
+                            "referral-status success";
+
+                        referralStatus.textContent =
+                            "✓ Valid Referral Code";
+
+
+                        referralUser.textContent =
+                            "👤 Referred by: " +
+                            (
+                                data.full_name ||
+                                "Member"
+                            );
+
+
+                        referralUser.classList.add(
+                            "show"
+                        );
+
+                    }else{
+
+                        referralValid = false;
+
+                        referralStatus.className =
+                            "referral-status error";
+
+                        referralStatus.textContent =
+                            "✕ Invalid Referral Code";
+
+                        referralUser.classList.remove(
+                            "show"
+                        );
+
+                    }
+
+                }catch(error){
+
+                    console.error(
+                        error
+                    );
+
+                    referralValid = false;
+
+                    referralStatus.className =
+                        "referral-status error";
+
+                    referralStatus.textContent =
+                        "✕ Unable to verify referral";
+
+                }
+
+            },
+            500
+        );
 
     }
 );
@@ -1555,11 +1594,6 @@ passwordToggle.addEventListener(
             passwordToggle.textContent =
                 "🙈";
 
-            passwordToggle.setAttribute(
-                "aria-label",
-                "Hide password"
-            );
-
         }else{
 
             password.type =
@@ -1568,11 +1602,6 @@ passwordToggle.addEventListener(
             passwordToggle.textContent =
                 "👁";
 
-            passwordToggle.setAttribute(
-                "aria-label",
-                "Show password"
-            );
-
         }
 
     }
@@ -1580,7 +1609,7 @@ passwordToggle.addEventListener(
 
 
 /* =========================================
-   PAYMENT OPTION
+   PAYMENT
 ========================================= */
 
 paymentOption.addEventListener(
@@ -1668,7 +1697,6 @@ form.addEventListener(
 
         event.preventDefault();
 
-
         if(!selectedPackage){
 
             alert(
@@ -1676,9 +1704,7 @@ form.addEventListener(
             );
 
             return;
-
         }
-
 
         if(!paymentRadio.checked){
 
@@ -1687,7 +1713,6 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1699,7 +1724,7 @@ form.addEventListener(
 
         if(
             referralCode !== "" &&
-            !referralUsers[referralCode]
+            !referralValid
         ){
 
             alert(
@@ -1709,7 +1734,6 @@ form.addEventListener(
             referral.focus();
 
             return;
-
         }
 
 
@@ -1727,7 +1751,6 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1742,7 +1765,6 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1754,7 +1776,6 @@ form.addEventListener(
             behavior:"smooth",
             block:"center"
         });
-
 
         alert(
             "Please complete the payment using the QR code and then enter your UTR / Transaction ID."
@@ -1784,7 +1805,6 @@ paidButton.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1795,7 +1815,6 @@ paidButton.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1808,7 +1827,6 @@ paidButton.addEventListener(
             transactionId.focus();
 
             return;
-
         }
 
 
@@ -1853,7 +1871,6 @@ paidButton.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1864,7 +1881,6 @@ paidButton.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1875,7 +1891,6 @@ paidButton.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1886,13 +1901,12 @@ paidButton.addEventListener(
             );
 
             return;
-
         }
 
 
         if(
             referralCode !== "" &&
-            !referralUsers[referralCode]
+            !referralValid
         ){
 
             alert(
@@ -1900,7 +1914,6 @@ paidButton.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1915,11 +1928,8 @@ paidButton.addEventListener(
             );
 
             return;
-
         }
 
-
-        /* BUTTON */
 
         paidButton.disabled =
             true;
@@ -1931,7 +1941,7 @@ paidButton.addEventListener(
         try{
 
             /* =================================
-               CHECK CURRENT SESSION
+               CURRENT SESSION
             ================================= */
 
             const {
@@ -1943,7 +1953,8 @@ paidButton.addEventListener(
 
 
             let authUser =
-                sessionData?.session?.user || null;
+                sessionData?.session?.user ||
+                null;
 
 
             /* =================================
@@ -1975,15 +1986,12 @@ paidButton.addEventListener(
 
 
                 if(error){
-
                     throw error;
-
                 }
 
 
                 authUser =
                     data.user;
-
             }
 
 
@@ -1995,10 +2003,6 @@ paidButton.addEventListener(
 
             }
 
-
-            /* =================================
-               AUTH USER ID
-            ================================= */
 
             const authUserId =
                 authUser.id;
@@ -2013,7 +2017,7 @@ paidButton.addEventListener(
 
 
             /* =================================
-               CHECK EXISTING PROFILE
+               EXISTING PROFILE
             ================================= */
 
             const {
@@ -2022,7 +2026,9 @@ paidButton.addEventListener(
             } =
             await supabaseClient
             .from("profiles")
-            .select("id,member_id")
+            .select(
+                "id,member_id"
+            )
             .eq(
                 "id",
                 authUserId
@@ -2033,7 +2039,7 @@ paidButton.addEventListener(
             if(existingError){
 
                 console.warn(
-                    "Existing profile check:",
+                    "Profile check:",
                     existingError
                 );
 
@@ -2064,7 +2070,9 @@ paidButton.addEventListener(
                     } =
                     await supabaseClient
                     .from("profiles")
-                    .select("member_id")
+                    .select(
+                        "member_id"
+                    )
                     .eq(
                         "referral_code",
                         referralCode
@@ -2086,7 +2094,19 @@ paidButton.addEventListener(
 
 
                 /* =================================
-                   INSERT PROFILE
+                   GENERATE NEW REFERRAL CODE
+                ================================= */
+
+                const ownReferralCode =
+                    "SM" +
+                    Math.floor(
+                        10000 +
+                        Math.random() * 90000
+                    );
+
+
+                /* =================================
+                   PROFILE
                 ================================= */
 
                 const profileData = {
@@ -2110,6 +2130,9 @@ paidButton.addEventListener(
                         selectedPackage.price,
 
                     referral_code:
+                        ownReferralCode,
+
+                    referred_by_code:
                         referralCode || null,
 
                     referrer_member_id:
@@ -2132,9 +2155,7 @@ paidButton.addEventListener(
 
 
                 if(profileError){
-
                     throw profileError;
-
                 }
 
             }
@@ -2200,7 +2221,6 @@ paidButton.addEventListener(
 
             }
 
-
             else if(
                 lowerMessage.includes(
                     "duplicate key"
@@ -2212,13 +2232,9 @@ paidButton.addEventListener(
 
             }
 
-
             else if(
                 lowerMessage.includes(
                     "row-level security"
-                ) ||
-                lowerMessage.includes(
-                    "violates row-level security"
                 )
             ){
 
