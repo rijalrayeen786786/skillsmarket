@@ -13,7 +13,6 @@
 /* =========================================================
    RESET
 ========================================================= */
-
 *{
     margin:0;
     padding:0;
@@ -27,11 +26,9 @@ body{
     min-height:100vh;
 }
 
-
 /* =========================================================
-   MAIN
+   MAIN DASHBOARD WRAPPER
 ========================================================= */
-
 .dashboard{
     width:100%;
     max-width:1200px;
@@ -39,11 +36,9 @@ body{
     padding:0 24px 24px;
 }
 
-
 /* =========================================================
-   EXACT DASHBOARD NAVBAR
+   NAVBAR
 ========================================================= */
-
 .sm-navbar{
     width:100%;
     height:68px;
@@ -96,11 +91,9 @@ body{
     gap:12px;
 }
 
-
 /* =========================================================
    PROFILE DROPDOWN
 ========================================================= */
-
 .profile-dropdown-wrap{
     position:relative;
 }
@@ -183,11 +176,9 @@ body{
     color:#dc2626;
 }
 
-
 /* =========================================================
-   MENU BUTTON
+   MENU BUTTON & SIDE MENU
 ========================================================= */
-
 .menu-btn{
     width:40px;
     height:40px;
@@ -201,11 +192,6 @@ body{
     font-size:20px;
     cursor:pointer;
 }
-
-
-/* =========================================================
-   SIDE MENU
-========================================================= */
 
 .nav-menu{
     position:fixed;
@@ -250,11 +236,6 @@ body{
     font-size:17px;
     cursor:pointer;
 }
-
-
-/* =========================================================
-   MENU PROFILE
-========================================================= */
 
 .menu-profile{
     display:flex;
@@ -360,11 +341,9 @@ body{
     visibility:visible;
 }
 
-
 /* =========================================================
-   KYC HEADER
+   PAGE HEADER & KYC CARD
 ========================================================= */
-
 .page-header{
     margin-top:22px;
     margin-bottom:18px;
@@ -381,11 +360,6 @@ body{
     font-size:13px;
     color:#64748b;
 }
-
-
-/* =========================================================
-   GUIDE
-========================================================= */
 
 .guide-row{
     display:flex;
@@ -408,11 +382,6 @@ body{
     background:#e9d5ff;
 }
 
-
-/* =========================================================
-   KYC CARD
-========================================================= */
-
 .kyc-card{
     background:#ffffff;
     border:1px solid #e2e8f0;
@@ -420,11 +389,6 @@ body{
     padding:24px;
     box-shadow:0 4px 15px rgba(15,23,42,.05);
 }
-
-
-/* =========================================================
-   SECTION
-========================================================= */
 
 .kyc-section{
     margin-bottom:28px;
@@ -466,11 +430,6 @@ body{
     margin-top:3px;
 }
 
-
-/* =========================================================
-   FORM
-========================================================= */
-
 .form-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -511,22 +470,12 @@ body{
     color:#94a3b8;
 }
 
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
 #message{
     min-height:20px;
     margin:5px 0 15px;
     font-size:12px;
     font-weight:700;
 }
-
-
-/* =========================================================
-   SUBMIT
-========================================================= */
 
 .submit-btn{
     width:100%;
@@ -553,11 +502,9 @@ body{
     transform:none;
 }
 
-
 /* =========================================================
-   OTP MODAL POPUP
+   OTP MODAL POPUP STYLES
 ========================================================= */
-
 .otp-modal-overlay {
     position: fixed;
     inset: 0;
@@ -607,7 +554,7 @@ body{
     letter-spacing: 8px;
     font-weight: 800;
     outline: none;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     color: #111827;
     transition: .2s;
 }
@@ -620,6 +567,7 @@ body{
 .otp-actions {
     display: flex;
     gap: 10px;
+    margin-top: 15px;
 }
 
 .otp-cancel-btn {
@@ -638,11 +586,6 @@ body{
     background: #f1f5f9;
 }
 
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
 .footer{
     text-align:center;
     color:#94a3b8;
@@ -650,69 +593,11 @@ body{
     padding:22px 0 5px;
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
 @media(max-width:600px){
-
-    .dashboard{
-        padding:0 12px 20px;
-    }
-
-    .sm-navbar{
-        padding:0 14px;
-        width:calc(100% + 24px);
-        margin-left:-12px;
-        margin-right:-12px;
-    }
-
-    .sm-brand-name{
-        font-size:17px;
-        white-space:nowrap;
-    }
-
-    .sm-brand-logo{
-        width:36px;
-        height:36px;
-    }
-
-    .profile-dropdown{
-        width:185px;
-    }
-
-    .page-header{
-        margin-top:17px;
-    }
-
-    .page-title{
-        font-size:21px;
-    }
-
-    .kyc-card{
-        padding:17px 14px;
-        border-radius:15px;
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-        gap:14px;
-    }
-
-    .section-heading{
-        gap:10px;
-    }
-
-    .section-icon{
-        width:38px;
-        height:38px;
-    }
-
-    .guide-row{
-        justify-content:flex-start;
-    }
-
+    .dashboard{ padding:0 12px 20px; }
+    .sm-navbar{ padding:0 14px; width:calc(100% + 24px); margin-left:-12px; margin-right:-12px; }
+    .form-grid{ grid-template-columns:1fr; gap:14px; }
+    .guide-row{ justify-content:flex-start; }
 }
 
 </style>
@@ -720,469 +605,142 @@ body{
 
 <body>
 
+<!-- SIDE MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
-<!-- =======================================================
-     SIDE MENU OVERLAY
-======================================================= -->
-
-<div
-    class="menu-overlay"
-    id="menuOverlay"
-    onclick="closeMenu()">
-</div>
-
-
-<!-- =======================================================
-     SIDE MENU
-======================================================= -->
-
-<div
-    class="nav-menu"
-    id="navMenu">
-
+<!-- SIDE MENU -->
+<div class="nav-menu" id="navMenu">
     <div class="menu-top">
-
-        <div class="menu-title">
-            Skills Market
-        </div>
-
-        <button
-            class="close-menu"
-            onclick="closeMenu()">
-            ✕
-        </button>
-
+        <div class="menu-title">Skills Market</div>
+        <button class="close-menu" onclick="closeMenu()">✕</button>
     </div>
-
 
     <div class="menu-profile">
-
-        <div
-            class="menu-avatar"
-            id="menuAvatar">
-            M
-        </div>
-
+        <div class="menu-avatar" id="menuAvatar">M</div>
         <div>
-
-            <div
-                class="menu-profile-name"
-                id="menuProfileName">
-                Member
-            </div>
-
-            <div
-                class="menu-profile-id"
-                id="menuProfileId">
-                ID: Loading...
-            </div>
-
+            <div class="menu-profile-name" id="menuProfileName">Member</div>
+            <div class="menu-profile-id" id="menuProfileId">ID: Loading...</div>
         </div>
-
     </div>
-
 
     <div class="menu-links">
-
-        <a href="dashboard.html" class="menu-link">
-            <span class="menu-icon">⌂</span>
-            <span>Affiliate Dashboard</span>
-        </a>
-
-        <a href="my-course.html" class="menu-link">
-            <span class="menu-icon">📚</span>
-            <span>My Course</span>
-        </a>
-
-        <a href="profile.html" class="menu-link">
-            <span class="menu-icon">👤</span>
-            <span>My Profile</span>
-        </a>
-
-        <a href="affiliate-link.html" class="menu-link">
-            <span class="menu-icon">🔗</span>
-            <span>Affiliate Link</span>
-        </a>
-
-        <a href="kyc.html" class="menu-link active">
-            <span class="menu-icon">🪪</span>
-            <span>KYC</span>
-        </a>
-
-        <a href="leaderboard.html" class="menu-link">
-            <span class="menu-icon">🏆</span>
-            <span>Leaderboard</span>
-        </a>
-
-        <a href="my-team.html" class="menu-link">
-            <span class="menu-icon">👥</span>
-            <span>My Team</span>
-        </a>
-
-        <a href="registration-request.html" class="menu-link">
-            <span class="menu-icon">📝</span>
-            <span>Registration Request</span>
-        </a>
-
-        <a href="withdrawal-request.html" class="menu-link">
-            <span class="menu-icon">💸</span>
-            <span>Withdrawal Request</span>
-        </a>
-
-        <a href="upgrade-request.html" class="menu-link">
-            <span class="menu-icon">⬆️</span>
-            <span>Upgrade Request</span>
-        </a>
-
-        <a href="qualification.html" class="menu-link">
-            <span class="menu-icon">🎯</span>
-            <span>Qualification</span>
-        </a>
-
-        <a href="payout-transaction.html" class="menu-link">
-            <span class="menu-icon">💳</span>
-            <span>Payout Transaction</span>
-        </a>
-
-        <a href="training.html" class="menu-link">
-            <span class="menu-icon">🎓</span>
-            <span>Training</span>
-        </a>
-
-        <a href="community-support.html" class="menu-link">
-            <span class="menu-icon">💬</span>
-            <span>Community &amp; Support</span>
-        </a>
-
-        <a
-            href="#"
-            class="menu-link logout-link"
-            onclick="logoutUser(event)">
-
-            <span class="menu-icon">↪</span>
-            <span>Logout</span>
-
-        </a>
-
+        <a href="dashboard.html" class="menu-link"><span class="menu-icon">⌂</span><span>Affiliate Dashboard</span></a>
+        <a href="my-course.html" class="menu-link"><span class="menu-icon">📚</span><span>My Course</span></a>
+        <a href="profile.html" class="menu-link"><span class="menu-icon">👤</span><span>My Profile</span></a>
+        <a href="affiliate-link.html" class="menu-link"><span class="menu-icon">🔗</span><span>Affiliate Link</span></a>
+        <a href="kyc.html" class="menu-link active"><span class="menu-icon">🪪</span><span>KYC</span></a>
+        <a href="leaderboard.html" class="menu-link"><span class="menu-icon">🏆</span><span>Leaderboard</span></a>
+        <a href="my-team.html" class="menu-link"><span class="menu-icon">👥</span><span>My Team</span></a>
+        <a href="registration-request.html" class="menu-link"><span class="menu-icon">📝</span><span>Registration Request</span></a>
+        <a href="withdrawal-request.html" class="menu-link"><span class="menu-icon">💸</span><span>Withdrawal Request</span></a>
+        <a href="upgrade-request.html" class="menu-link"><span class="menu-icon">⬆️</span><span>Upgrade Request</span></a>
+        <a href="qualification.html" class="menu-link"><span class="menu-icon">🎯</span><span>Qualification</span></a>
+        <a href="payout-transaction.html" class="menu-link"><span class="menu-icon">💳</span><span>Payout Transaction</span></a>
+        <a href="training.html" class="menu-link"><span class="menu-icon">🎓</span><span>Training</span></a>
+        <a href="community-support.html" class="menu-link"><span class="menu-icon">💬</span><span>Community &amp; Support</span></a>
+        <a href="#" class="menu-link logout-link" onclick="logoutUser(event)"><span class="menu-icon">↪</span><span>Logout</span></a>
     </div>
-
 </div>
 
-
-<!-- =======================================================
-     NAVBAR
-======================================================= -->
-
+<!-- NAVBAR -->
 <nav class="sm-navbar">
-
-    <a
-        href="dashboard.html"
-        class="sm-brand">
-
-        <div class="sm-brand-logo">
-            SM
-        </div>
-
-        <div class="sm-brand-name">
-            Skills <span>Market</span>
-        </div>
-
+    <a href="dashboard.html" class="sm-brand">
+        <div class="sm-brand-logo">SM</div>
+        <div class="sm-brand-name">Skills <span>Market</span></div>
     </a>
 
-
     <div class="sm-nav-right">
-
         <div class="profile-dropdown-wrap">
-
-            <button
-                type="button"
-                class="profile-mini"
-                id="profileMini"
-                onclick="toggleProfileDropdown(event)">
-                M
-            </button>
-
-            <div
-                class="profile-dropdown"
-                id="profileDropdown">
-
-                <a
-                    href="profile.html"
-                    class="profile-dropdown-item">
-
-                    <span>👤</span>
-                    <span>My Profile</span>
-
-                </a>
-
-                <a
-                    href="#"
-                    class="profile-dropdown-item"
-                    onclick="closeProfileDropdown()">
-
-                    <span>⚙️</span>
-                    <span>Account Settings</span>
-
-                </a>
-
-                <button
-                    type="button"
-                    class="profile-dropdown-item logout-dropdown"
-                    onclick="logoutUser(event)">
-
-                    <span>🚪</span>
-                    <span>Logout</span>
-
-                </button>
-
+            <button type="button" class="profile-mini" id="profileMini" onclick="toggleProfileDropdown(event)">M</button>
+            <div class="profile-dropdown" id="profileDropdown">
+                <a href="profile.html" class="profile-dropdown-item"><span>👤</span><span>My Profile</span></a>
+                <a href="#" class="profile-dropdown-item" onclick="closeProfileDropdown()"><span>⚙️</span><span>Account Settings</span></a>
+                <button type="button" class="profile-dropdown-item logout-dropdown" onclick="logoutUser(event)"><span>🚪</span><span>Logout</span></button>
             </div>
-
         </div>
-
-
-        <button
-            class="menu-btn"
-            onclick="openMenu()"
-            aria-label="Open menu">
-
-            ☰
-
-        </button>
-
+        <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
     </div>
-
 </nav>
 
-
-<!-- =======================================================
-     PAGE
-======================================================= -->
-
+<!-- MAIN PAGE -->
 <div class="dashboard">
-
-
     <div class="page-header">
-
-        <div class="page-title">
-            KYC Details
-        </div>
-
-        <div class="page-subtitle">
-            Add your bank and UPI details for secure payouts.
-        </div>
-
+        <div class="page-title">KYC Details</div>
+        <div class="page-subtitle">Add your bank and UPI details for secure payouts.</div>
     </div>
-
 
     <div class="guide-row">
-
-        <button
-            type="button"
-            class="guide-btn"
-            onclick="showGuide()">
-
-            🎥 Guide Video
-
-        </button>
-
+        <button type="button" class="guide-btn" onclick="showGuide()">🎥 Guide Video</button>
     </div>
 
-
-    <!-- ===================================================
-         KYC CARD
-    =================================================== -->
-
     <div class="kyc-card">
-
-
         <!-- BANK DETAILS -->
-
         <section class="kyc-section">
-
             <div class="section-heading">
-
-                <div class="section-icon">
-                    🏛️
-                </div>
-
+                <div class="section-icon">🏛️</div>
                 <div>
-
-                    <div class="section-title">
-                        Bank Details
-                    </div>
-
-                    <div class="section-subtitle">
-                        Enter your bank account information
-                    </div>
-
+                    <div class="section-title">Bank Details</div>
+                    <div class="section-subtitle">Enter your bank account information</div>
                 </div>
-
             </div>
-
 
             <div class="form-grid">
-
-
                 <div class="form-group">
-
-                    <label class="form-label">
-                        Account Holder Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="holderName"
-                        class="form-input"
-                        placeholder="Enter account holder name"
-                        autocomplete="name">
-
+                    <label class="form-label">Account Holder Name</label>
+                    <input type="text" id="holderName" class="form-input" placeholder="Enter account holder name" autocomplete="name">
                 </div>
-
-
                 <div class="form-group">
-
-                    <label class="form-label">
-                        Bank Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="bankName"
-                        class="form-input"
-                        placeholder="Enter bank name"
-                        autocomplete="organization">
-
+                    <label class="form-label">Bank Name</label>
+                    <input type="text" id="bankName" class="form-input" placeholder="Enter bank name" autocomplete="organization">
                 </div>
-
-
                 <div class="form-group">
-
-                    <label class="form-label">
-                        Account Number
-                    </label>
-
-                    <input
-                        type="text"
-                        id="accountNumber"
-                        class="form-input"
-                        placeholder="Enter account number"
-                        inputmode="numeric"
-                        maxlength="18">
-
+                    <label class="form-label">Account Number</label>
+                    <input type="text" id="accountNumber" class="form-input" placeholder="Enter account number" inputmode="numeric" maxlength="18">
                 </div>
-
-
                 <div class="form-group">
-
-                    <label class="form-label">
-                        IFSC Code
-                    </label>
-
-                    <input
-                        type="text"
-                        id="ifscCode"
-                        class="form-input"
-                        placeholder="Example: SBIN0001234"
-                        maxlength="11"
-                        style="text-transform:uppercase;">
-
+                    <label class="form-label">IFSC Code</label>
+                    <input type="text" id="ifscCode" class="form-input" placeholder="Example: SBIN0001234" maxlength="11" style="text-transform:uppercase;">
                 </div>
-
-
             </div>
-
         </section>
-
 
         <!-- UPI DETAILS -->
-
         <section class="kyc-section">
-
             <div class="section-heading">
-
-                <div class="section-icon">
-                    📱
-                </div>
-
+                <div class="section-icon">📱</div>
                 <div>
-
-                    <div class="section-title">
-                        UPI Details
-                    </div>
-
-                    <div class="section-subtitle">
-                        Add your UPI ID for payouts
-                    </div>
-
+                    <div class="section-title">UPI Details</div>
+                    <div class="section-subtitle">Add your UPI ID for payouts</div>
                 </div>
-
             </div>
-
 
             <div class="form-grid">
-
                 <div class="form-group">
-
-                    <label class="form-label">
-                        UPI ID
-                    </label>
-
-                    <input
-                        type="text"
-                        id="upiId"
-                        class="form-input"
-                        placeholder="example@upi"
-                        autocomplete="off">
-
+                    <label class="form-label">UPI ID</label>
+                    <input type="text" id="upiId" class="form-input" placeholder="example@upi" autocomplete="off">
                 </div>
-
             </div>
-
         </section>
-
 
         <div id="message"></div>
 
-
-        <button
-            type="button"
-            class="submit-btn"
-            id="submitBtn"
-            onclick="initiateKYC()">
-
+        <button type="button" class="submit-btn" id="submitBtn" onclick="initiateKYC()">
             Send OTP →
-
         </button>
-
-
     </div>
-
 
     <div class="footer">
         © 2026 Skills Market · All Rights Reserved
     </div>
-
-
 </div>
 
-
-<!-- =======================================================
-     OTP POPUP MODAL
-======================================================= -->
-
+<!-- OTP MODAL POPUP -->
 <div class="otp-modal-overlay" id="otpModalOverlay">
     <div class="otp-modal-box">
         <h3>Verify OTP</h3>
-        <p>Please enter the 6-digit verification code sent to your registered contact.</p>
+        <p>Please enter the 6-digit code sent to your registered email.</p>
         
-        <input 
-            type="text" 
-            id="otpInputCode" 
-            class="otp-input-field" 
-            placeholder="------" 
-            maxlength="6" 
-            inputmode="numeric">
-
+        <input type="text" id="otpInputCode" class="otp-input-field" placeholder="------" maxlength="6" inputmode="numeric">
         <div id="otpErrorMessage" style="color:#dc2626; font-size:12px; font-weight:700; margin-bottom:12px; min-height:18px;"></div>
 
         <div class="otp-actions">
@@ -1192,348 +750,130 @@ body{
     </div>
 </div>
 
-
 <script>
-
 /* =========================================================
-   SUPABASE
+   SUPABASE SETUP
 ========================================================= */
-
-const SUPABASE_URL =
-    "https://hmlonjwqeqedakzhucix.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+const SUPABASE_URL = "https://hmlonjwqeqedakzhucix.supabase.co";
+const SUPABASE_KEY = "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let cachedKYCData = null;
 
-
 /* =========================================================
-   PROFILE DROPDOWN
+   UI & DROPDOWN HANDLERS
 ========================================================= */
-
 function toggleProfileDropdown(event){
-
     event.stopPropagation();
-
-    const dropdown =
-        document.getElementById("profileDropdown");
-
-    if(dropdown){
-        dropdown.classList.toggle("active");
-    }
-
+    const dropdown = document.getElementById("profileDropdown");
+    if(dropdown){ dropdown.classList.toggle("active"); }
 }
-
 
 function closeProfileDropdown(){
-
-    const dropdown =
-        document.getElementById("profileDropdown");
-
-    if(dropdown){
-        dropdown.classList.remove("active");
-    }
-
+    const dropdown = document.getElementById("profileDropdown");
+    if(dropdown){ dropdown.classList.remove("active"); }
 }
 
-
-document.addEventListener(
-    "click",
-    function(event){
-
-        const wrap =
-            document.querySelector(".profile-dropdown-wrap");
-
-        if(
-            wrap &&
-            !wrap.contains(event.target)
-        ){
-            closeProfileDropdown();
-        }
-
+document.addEventListener("click", function(event){
+    const wrap = document.querySelector(".profile-dropdown-wrap");
+    if(wrap && !wrap.contains(event.target)){
+        closeProfileDropdown();
     }
-);
-
-
-/* =========================================================
-   PROFILE IMAGE
-========================================================= */
+});
 
 function setAvatarImage(imageUrl, firstLetter){
-
-    const profileMini =
-        document.getElementById("profileMini");
-
-    const menuAvatar =
-        document.getElementById("menuAvatar");
-
+    const profileMini = document.getElementById("profileMini");
+    const menuAvatar = document.getElementById("menuAvatar");
 
     if(profileMini){
-
         if(imageUrl){
-
-            profileMini.innerHTML =
-                '<img src="' +
-                imageUrl +
-                '" alt="Profile">';
-
+            profileMini.innerHTML = '<img src="' + imageUrl + '" alt="Profile">';
         }else{
-
-            profileMini.textContent =
-                firstLetter;
-
+            profileMini.textContent = firstLetter;
         }
-
     }
-
 
     if(menuAvatar){
-
         if(imageUrl){
-
-            menuAvatar.innerHTML =
-                '<img src="' +
-                imageUrl +
-                '" alt="Profile">';
-
+            menuAvatar.innerHTML = '<img src="' + imageUrl + '" alt="Profile">';
         }else{
-
-            menuAvatar.textContent =
-                firstLetter;
-
+            menuAvatar.textContent = firstLetter;
         }
-
     }
-
 }
-
-
-/* =========================================================
-   LOAD USER
-========================================================= */
 
 async function loadUser(){
-
     try{
-
-        const {
-            data:{user},
-            error:authError
-        } =
-        await supabaseClient.auth.getUser();
-
-
-        if(
-            authError ||
-            !user
-        ){
-
-            window.location.href =
-                "login.html";
-
+        const { data:{user}, error:authError } = await supabaseClient.auth.getUser();
+        if(authError || !user){
+            window.location.href = "login.html";
             return;
-
         }
 
-
-        const {
-            data:profile,
-            error
-        } =
-        await supabaseClient
+        const { data:profile } = await supabaseClient
             .from("profiles")
             .select("*")
-            .eq("id",user.id)
+            .eq("id", user.id)
             .maybeSingle();
 
+        const fullName = profile?.full_name || user.user_metadata?.full_name || user.email?.split("@")[0] || "Member";
+        const memberID = profile?.member_id || "Not Assigned";
+        const firstLetter = fullName.trim().charAt(0).toUpperCase() || "M";
+        const avatarUrl = user.user_metadata?.avatar_url || "";
 
-        if(error){
-
-            console.error(
-                "Profile error:",
-                error
-            );
-
-        }
-
-
-        const fullName =
-            profile?.full_name ||
-            user.user_metadata?.full_name ||
-            user.email?.split("@")[0] ||
-            "Member";
-
-
-        const memberID =
-            profile?.member_id ||
-            "Not Assigned";
-
-
-        const firstLetter =
-            fullName
-                .trim()
-                .charAt(0)
-                .toUpperCase() || "M";
-
-
-        const avatarUrl =
-            user.user_metadata?.avatar_url ||
-            "";
-
-
-        document.getElementById(
-            "menuProfileName"
-        ).textContent =
-            fullName;
-
-
-        document.getElementById(
-            "menuProfileId"
-        ).textContent =
-            "ID: " + memberID;
-
-
-        setAvatarImage(
-            avatarUrl,
-            firstLetter
-        );
-
-
+        document.getElementById("menuProfileName").textContent = fullName;
+        document.getElementById("menuProfileId").textContent = "ID: " + memberID;
+        setAvatarImage(avatarUrl, firstLetter);
     }catch(error){
-
-        console.error(
-            "User loading error:",
-            error
-        );
-
+        console.error("User loading error:", error);
     }
-
 }
-
-
-/* =========================================================
-   SIDE MENU
-========================================================= */
 
 function openMenu(){
-
     closeProfileDropdown();
-
-    document
-        .getElementById("navMenu")
-        .classList.add("active");
-
-    document
-        .getElementById("menuOverlay")
-        .classList.add("active");
-
-    document.body.style.overflow =
-        "hidden";
-
+    document.getElementById("navMenu").classList.add("active");
+    document.getElementById("menuOverlay").classList.add("active");
+    document.body.style.overflow = "hidden";
 }
-
 
 function closeMenu(){
-
-    document
-        .getElementById("navMenu")
-        .classList.remove("active");
-
-    document
-        .getElementById("menuOverlay")
-        .classList.remove("active");
-
-    document.body.style.overflow =
-        "";
-
+    document.getElementById("navMenu").classList.remove("active");
+    document.getElementById("menuOverlay").classList.remove("active");
+    document.body.style.overflow = "";
 }
-
-
-/* =========================================================
-   GUIDE
-========================================================= */
 
 function showGuide(){
-
-    alert(
-        "KYC Guide: Enter your correct bank account and UPI details. Make sure the details belong to your own account."
-    );
-
+    alert("KYC Guide: Enter your correct bank account and UPI details. Make sure the details belong to your own account.");
 }
 
-
 /* =========================================================
-   STEP 1: INITIATE KYC & OPEN OTP MODAL
+   STEP 1: INITIATE KYC & SEND EMAIL OTP
 ========================================================= */
-
-function initiateKYC(){
-
-    const message =
-        document.getElementById("message");
-
-    const holderName =
-        document.getElementById("holderName")
-            .value
-            .trim();
-
-    const bankName =
-        document.getElementById("bankName")
-            .value
-            .trim();
-
-    const accountNumber =
-        document.getElementById("accountNumber")
-            .value
-            .trim();
-
-    const ifscCode =
-        document.getElementById("ifscCode")
-            .value
-            .trim()
-            .toUpperCase();
-
-    const upiId =
-        document.getElementById("upiId")
-            .value
-            .trim();
+async function initiateKYC(){
+    const message = document.getElementById("message");
+    const holderName = document.getElementById("holderName").value.trim();
+    const bankName = document.getElementById("bankName").value.trim();
+    const accountNumber = document.getElementById("accountNumber").value.trim();
+    const ifscCode = document.getElementById("ifscCode").value.trim().toUpperCase();
+    const upiId = document.getElementById("upiId").value.trim();
 
     message.textContent = "";
     message.style.color = "#dc2626";
 
-    if(!holderName){
-        message.textContent = "Please enter account holder name.";
+    if(!holderName){ message.textContent = "Please enter account holder name."; return; }
+    if(!bankName){ message.textContent = "Please enter bank name."; return; }
+    if(!/^[0-9]{8,18}$/.test(accountNumber)){ message.textContent = "Please enter a valid account number."; return; }
+    if(!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifscCode)){ message.textContent = "Please enter a valid IFSC code."; return; }
+    if(!upiId || !/^[\w.-]+@[\w.-]+$/.test(upiId)){ message.textContent = "Please enter a valid UPI ID."; return; }
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    if(authError || !user){
+        window.location.href = "login.html";
         return;
     }
 
-    if(!bankName){
-        message.textContent = "Please enter bank name.";
-        return;
-    }
-
-    if(!/^[0-9]{8,18}$/.test(accountNumber)){
-        message.textContent = "Please enter a valid account number.";
-        return;
-    }
-
-    if(!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifscCode)){
-        message.textContent = "Please enter a valid IFSC code.";
-        return;
-    }
-
-    if(!upiId || !/^[\w.-]+@[\w.-]+$/.test(upiId)){
-        message.textContent = "Please enter a valid UPI ID.";
-        return;
-    }
-
-    // Cache valid data temporarily before verification
     cachedKYCData = {
+        user_id: user.id,
         holder_name: holderName,
         bank_name: bankName,
         account_number: accountNumber,
@@ -1541,32 +881,48 @@ function initiateKYC(){
         upi_id: upiId
     };
 
-    // Open OTP Modal Popup
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending OTP...";
+
+    // Supabase Email OTP Trigger
+    const { error: otpError } = await supabaseClient.auth.signInWithOtp({
+        email: user.email,
+    });
+
+    if(otpError){
+        console.error(otpError);
+        message.textContent = "Failed to send OTP. Please try again.";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send OTP →";
+        return;
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send OTP →";
     document.getElementById("otpModalOverlay").classList.add("active");
     document.getElementById("otpInputCode").value = "";
-    document.getElementById("otpErrorMessage").textContent = "";
+    document.getElementById("otpErrorMessage").textContent = "OTP sent to your email (" + user.email + ")";
+    document.getElementById("otpErrorMessage").style.color = "#16a34a";
 }
-
 
 function closeOtpModal(){
     document.getElementById("otpModalOverlay").classList.remove("active");
 }
 
-
 /* =========================================================
-   STEP 2: VERIFY OTP & SAVE TO SUPABASE
+   STEP 2: VERIFY OTP & SAVE DATA TO SUPABASE
 ========================================================= */
-
 async function verifyAndSubmitKYC(){
-
     const otpCode = document.getElementById("otpInputCode").value.trim();
     const otpError = document.getElementById("otpErrorMessage");
     const verifyBtn = document.getElementById("verifyOtpBtn");
 
     otpError.textContent = "";
 
-    if(otpCode.length < 4){
-        otpError.textContent = "Please enter a valid OTP code.";
+    if(otpCode.length < 6){
+        otpError.style.color = "#dc2626";
+        otpError.textContent = "Please enter a valid 6-digit OTP.";
         return;
     }
 
@@ -1574,26 +930,33 @@ async function verifyAndSubmitKYC(){
     verifyBtn.textContent = "Verifying...";
 
     try{
-
-        const {
-            data:{user},
-            error:authError
-        } =
-        await supabaseClient.auth.getUser();
-
+        const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
         if(authError || !user){
             window.location.href = "login.html";
             return;
         }
 
-        // Insert verified details into Supabase kyc_submissions table
-        const {
-            error: insertError
-        } =
-        await supabaseClient
+        // Verify Supabase OTP
+        const { error: verifyError } = await supabaseClient.auth.verifyOtp({
+            email: user.email,
+            token: otpCode,
+            type: 'email'
+        });
+
+        if(verifyError){
+            console.error(verifyError);
+            otpError.style.color = "#dc2626";
+            otpError.textContent = "Invalid or expired OTP. Try again.";
+            verifyBtn.disabled = false;
+            verifyBtn.textContent = "Verify & Submit";
+            return;
+        }
+
+        // Insert into database table after successful verification
+        const { error: insertError } = await supabaseClient
             .from("kyc_submissions")
             .insert({
-                user_id: user.id,
+                user_id: cachedKYCData.user_id,
                 holder_name: cachedKYCData.holder_name,
                 bank_name: cachedKYCData.bank_name,
                 ifsc_code: cachedKYCData.ifsc_code,
@@ -1604,18 +967,18 @@ async function verifyAndSubmitKYC(){
 
         if(insertError){
             console.error("KYC insertion error:", insertError);
-            otpError.textContent = "Database error. Please try again.";
+            otpError.style.color = "#dc2626";
+            otpError.textContent = "Database save error. Try again.";
             verifyBtn.disabled = false;
             verifyBtn.textContent = "Verify & Submit";
             return;
         }
 
-        // Success state
         closeOtpModal();
 
         const message = document.getElementById("message");
         message.style.color = "#16a34a";
-        message.textContent = "KYC details submitted & verified successfully!";
+        message.textContent = "KYC details verified and submitted successfully!";
 
         const submitBtn = document.getElementById("submitBtn");
         submitBtn.textContent = "Submitted ✓";
@@ -1623,76 +986,38 @@ async function verifyAndSubmitKYC(){
 
     }catch(error){
         console.error("OTP verification error:", error);
+        otpError.style.color = "#dc2626";
         otpError.textContent = "Something went wrong. Try again.";
         verifyBtn.disabled = false;
         verifyBtn.textContent = "Verify & Submit";
     }
-
 }
-
 
 /* =========================================================
    LOGOUT
 ========================================================= */
-
 async function logoutUser(event){
-
-    if(event){
-        event.preventDefault();
-    }
-
-
+    if(event){ event.preventDefault(); }
     closeProfileDropdown();
     closeMenu();
 
+    if(!confirm("Are you sure you want to logout?")){ return; }
 
-    const confirmLogout =
-        confirm(
-            "Are you sure you want to logout?"
-        );
-
-
-    if(!confirmLogout){
-        return;
-    }
-
-
-    const {
-        error
-    } =
-    await supabaseClient.auth.signOut();
-
-
+    const { error } = await supabaseClient.auth.signOut();
     if(error){
-
-        alert(
-            "Logout failed."
-        );
-
+        alert("Logout failed.");
         console.error(error);
-
         return;
-
     }
 
-
-    sessionStorage.removeItem(
-        "sm_profile_cache"
-    );
-
-
-    window.location.href =
-        "login.html";
-
+    sessionStorage.removeItem("sm_profile_cache");
+    window.location.href = "login.html";
 }
-
 
 /* =========================================================
    START
 ========================================================= */
-
 loadUser();
-
 </script>
 
 </body>
