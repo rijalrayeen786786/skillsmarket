@@ -16,6 +16,7 @@
 
         body{
             margin:0;
+            overflow-x: hidden;
         }
 
         /* =========================
@@ -169,11 +170,11 @@
         .menu-overlay{
             position:fixed;
             inset:0;
-            background:rgba(15,23,42,.35);
+            background:rgba(15,23,42,.4);
             opacity:0;
             visibility:hidden;
             transition:.25s ease;
-            z-index:500;
+            z-index:9998;
         }
 
         .menu-overlay.active{
@@ -189,7 +190,7 @@
             max-width:88%;
             height:100vh;
             background:#ffffff;
-            z-index:600;
+            z-index:9999;
             box-shadow:-12px 0 35px rgba(15,23,42,.15);
             transition:right .28s ease;
             overflow-y:auto;
@@ -199,8 +200,24 @@
             right:0;
         }
 
+        .sidebar-top-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:20px 20px 15px 20px;
+            border-bottom:1px solid #e5e7eb;
+            background:#ffffff;
+        }
+
+        .sidebar-top-header h3{
+            margin:0;
+            font-size:18px;
+            font-weight:800;
+            color:#111827;
+        }
+
         .menu-header{
-            padding:20px;
+            padding:15px 20px;
             border-bottom:1px solid #e5e7eb;
             display:flex;
             align-items:center;
@@ -255,6 +272,14 @@
             color:#475569;
             font-size:19px;
             cursor:pointer;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .menu-close:hover{
+            background:#e2e8f0;
+            color:#1e293b;
         }
 
         .menu-links{
@@ -315,7 +340,6 @@
         }
 
         @media(max-width:640px){
-
             .sm-navbar{
                 height:62px;
                 padding:0 14px;
@@ -441,6 +465,17 @@
         class="nav-menu"
         id="navMenu"
     >
+        <!-- Fixed Header with Skills Market Heading & Close Button -->
+        <div class="sidebar-top-header">
+            <h3>Skills Market</h3>
+            <button
+                class="menu-close"
+                onclick="closeMenu()"
+                aria-label="Close menu"
+            >
+                ×
+            </button>
+        </div>
 
         <div class="menu-header">
 
@@ -472,14 +507,6 @@
                 </div>
 
             </div>
-
-            <button
-                class="menu-close"
-                onclick="closeMenu()"
-                aria-label="Close menu"
-            >
-                ×
-            </button>
 
         </div>
 
@@ -2165,11 +2192,6 @@ async function logoutUser(event){
 /* =====================================================
    START
 ===================================================== */
-
-/*
-   Pehle cached information immediately show hogi.
-   Uske baad Supabase se latest information load hogi.
-*/
 
 applyCachedProfile();
 
