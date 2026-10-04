@@ -3,37 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Admin Panel - Create Member</title>
 
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             background: #0f172a;
             color: #fff;
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
             padding: 20px;
-            margin: 0;
         }
 
         .container {
             max-width: 500px;
-            margin: 30px auto;
+            margin: 0 auto;
             background: #1e293b;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        h2 {
-            margin-top: 0;
-            margin-bottom: 10px;
         }
 
         .form-group {
@@ -55,13 +43,7 @@
             color: #fff;
             border: 1px solid #334155;
             border-radius: 8px;
-            outline: none;
-            font-size: 14px;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #64748b;
+            box-sizing: border-box;
         }
 
         button {
@@ -80,55 +62,22 @@
             background: #b91c1c;
         }
 
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .sponsor-result {
-            display: none;
-            margin-top: 8px;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        .checking {
-            background: #334155;
-            color: #cbd5e1;
-        }
-
-        .valid {
-            background: #064e3b;
-            border: 1px solid #10b981;
-            color: #6ee7b7;
-        }
-
-        .invalid {
-            background: #450a0a;
-            border: 1px solid #ef4444;
-            color: #fca5a5;
-        }
-
-        .message {
+        .success-box {
             margin-top: 20px;
-            padding: 14px;
-            border-radius: 8px;
-            display: none;
-            line-height: 1.7;
-        }
-
-        .success {
+            padding: 15px;
             background: #064e3b;
             border: 1px solid #10b981;
-            color: #d1fae5;
+            border-radius: 8px;
+            display: none;
         }
 
-        .error {
+        .error-box {
+            margin-top: 20px;
+            padding: 15px;
             background: #450a0a;
             border: 1px solid #ef4444;
-            color: #fecaca;
+            border-radius: 8px;
+            display: none;
         }
     </style>
 </head>
@@ -145,10 +94,8 @@
 
     <form id="adminCreateMemberForm">
 
-        <!-- FULL NAME -->
         <div class="form-group">
             <label>Full Name *</label>
-
             <input
                 type="text"
                 id="adminFullName"
@@ -157,11 +104,8 @@
             >
         </div>
 
-
-        <!-- PHONE -->
         <div class="form-group">
             <label>Phone Number *</label>
-
             <input
                 type="text"
                 id="adminPhone"
@@ -170,11 +114,8 @@
             >
         </div>
 
-
-        <!-- EMAIL -->
         <div class="form-group">
             <label>Email Address *</label>
-
             <input
                 type="email"
                 id="adminEmail"
@@ -183,715 +124,147 @@
             >
         </div>
 
-
-        <!-- PASSWORD -->
         <div class="form-group">
             <label>Password *</label>
-
             <input
                 type="password"
                 id="adminPassword"
                 required
-                minlength="6"
-                placeholder="Enter login password"
+                placeholder="Enter login password for user"
             >
         </div>
 
-
-        <!-- PACKAGE -->
         <div class="form-group">
-
             <label>Package *</label>
 
             <select id="adminPackage" required>
-
-                <option value="">
-                    Select Package
-                </option>
-
-                <option value="Skill Starter Package">
-                    Skill Starter Package – ₹265
-                </option>
-
-                <option value="Skill Growth Package">
-                    Skill Growth Package – ₹520
-                </option>
-
-                <option value="Skill Elite Package">
-                    Skill Elite Package – ₹1,299
-                </option>
-
-                <option value="Skill Prime Package">
-                    Skill Prime Package – ₹2,399
-                </option>
-
-                <option value="Skill Premium Package">
-                    Skill Premium Package – ₹4,999
-                </option>
-
-                <option value="Skill Legacy Package">
-                    Skill Legacy Package – ₹9,999
-                </option>
-
+                <option value="">Select Package</option>
+                <option value="Skill Starter Package">Skill Starter Package – ₹265</option>
+                <option value="Skill Growth Package">Skill Growth Package – ₹520</option>
+                <option value="Skill Elite Package">Skill Elite Package – ₹1,299</option>
+                <option value="Skill Prime Package">Skill Prime Package – ₹2,399</option>
+                <option value="Skill Premium Package">Skill Premium Package – ₹4,999</option>
+                <option value="Skill Legacy Package">Skill Legacy Package – ₹9,999</option>
             </select>
-
         </div>
 
-
-        <!-- REFERRAL CODE -->
         <div class="form-group">
-
             <label>Sponsor Referral Code *</label>
-
             <input
                 type="text"
                 id="adminSponsorCode"
                 required
                 placeholder="Enter sponsor code (e.g. SM48594)"
-                autocomplete="off"
             >
-
-            <div
-                id="sponsorResult"
-                class="sponsor-result"
-            ></div>
-
         </div>
 
-
-        <!-- BUTTON -->
-        <button
-            type="submit"
-            id="createBtn"
-        >
+        <button type="submit">
             Create Member ID
         </button>
 
     </form>
 
-
-    <!-- MESSAGE -->
-    <div
-        id="message"
-        class="message"
-    ></div>
+    <div id="successBox" class="success-box"></div>
+    <div id="errorBox" class="error-box"></div>
 
 </div>
 
 
 <script>
+    const SUPABASE_URL = "https://furlonjuwqnndskuhcks.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtbG9uandxZXFlZGFremh1Y2l4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NzM3NTcsImV4cCI6MjEwNjQ0OTc1N30.6G8zhYVgG05NHG82PZiGkaXtqAOSAaKbqQDm1i8BEpQ";
 
-// =====================================================
-// SUPABASE CONFIG
-// =====================================================
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const SUPABASE_URL =
-"https://hmlonjwqeqedakzhucix.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
-
-const supabaseClient =
-supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
-
-// =====================================================
-// GLOBAL SPONSOR
-// =====================================================
-
-let selectedSponsor = null;
-
-let referralTimer = null;
-
-
-// =====================================================
-// HTML ESCAPE
-// =====================================================
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-
-// =====================================================
-// SHOW MESSAGE
-// =====================================================
-
-function showMessage(text, type) {
-
-    const message =
-        document.getElementById("message");
-
-    message.innerHTML = text;
-
-    message.className =
-        "message " + type;
-
-    message.style.display = "block";
-}
-
-
-// =====================================================
-// REFERRAL CODE INPUT
-// =====================================================
-
-document
-.getElementById("adminSponsorCode")
-.addEventListener("input", function() {
-
-    clearTimeout(referralTimer);
-
-    const code =
-        this.value
-        .trim()
-        .toUpperCase();
-
-    const result =
-        document.getElementById("sponsorResult");
-
-
-    // Reset sponsor
-    selectedSponsor = null;
-
-
-    result.style.display = "none";
-    result.innerHTML = "";
-    result.className =
-        "sponsor-result";
-
-
-    if (!code) {
-        return;
+    function generateMemberID() {
+        const number = Math.floor(10000 + Math.random() * 90000);
+        return "SM" + number;
     }
 
+    async function createMemberByAdmin(event) {
+        event.preventDefault();
 
-    result.style.display = "block";
-    result.className =
-        "sponsor-result checking";
+        const successBox = document.getElementById("successBox");
+        const errorBox = document.getElementById("errorBox");
 
-    result.innerHTML =
-        "Checking referral code...";
+        successBox.style.display = "none";
+        errorBox.style.display = "none";
 
+        const fullName = document.getElementById("adminFullName").value.trim();
+        const phone = document.getElementById("adminPhone").value.trim();
+        const email = document.getElementById("adminEmail").value.trim();
+        const password = document.getElementById("adminPassword").value;
+        const packageName = document.getElementById("adminPackage").value;
+        const sponsorCode = document.getElementById("adminSponsorCode").value.trim();
 
-    referralTimer =
-        setTimeout(
-            function() {
-                checkSponsor(code);
-            },
-            400
-        );
-
-});
-
-
-// =====================================================
-// CHECK SPONSOR
-// =====================================================
-
-async function checkSponsor(code) {
-
-    const result =
-        document.getElementById("sponsorResult");
-
-
-    try {
-
-        const {
-            data: sponsor,
-            error
-        } = await supabaseClient
-            .from("profiles")
-            .select(
-                "id, member_id, full_name, referral_code"
-            )
-            .eq(
-                "referral_code",
-                code
-            )
-            .maybeSingle();
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        // ---------------------------------------------
-        // INVALID
-        // ---------------------------------------------
-
-        if (!sponsor) {
-
-            selectedSponsor = null;
-
-            result.style.display = "block";
-
-            result.className =
-                "sponsor-result invalid";
-
-            result.innerHTML =
-                "✕ Invalid Referral Code";
-
+        if (!packageName) {
+            errorBox.innerHTML = "Please select a package.";
+            errorBox.style.display = "block";
             return;
         }
 
-
-        // ---------------------------------------------
-        // VALID
-        // ---------------------------------------------
-
-        selectedSponsor = sponsor;
-
-        result.style.display = "block";
-
-        result.className =
-            "sponsor-result valid";
-
-        result.innerHTML = `
-
-            ✓ Referred by:
-            <strong>
-                ${escapeHTML(sponsor.full_name)}
-            </strong>
-
-            <br>
-
-            Member ID:
-            <strong>
-                ${escapeHTML(sponsor.member_id)}
-            </strong>
-
-        `;
-
-
-    } catch (error) {
-
-        console.error(
-            "Referral lookup error:",
-            error
-        );
-
-        selectedSponsor = null;
-
-        result.style.display = "block";
-
-        result.className =
-            "sponsor-result invalid";
-
-        result.innerHTML =
-            "✕ Unable to verify referral code";
-
-    }
-}
-
-
-// =====================================================
-// GENERATE UNIQUE MEMBER ID
-// =====================================================
-
-async function generateUniqueMemberID() {
-
-    for (let attempt = 0; attempt < 20; attempt++) {
-
-        const randomNumber =
-            Math.floor(
-                10000 +
-                Math.random() * 90000
-            );
-
-        const memberID =
-            "SM" + randomNumber;
-
-
-        const {
-            data,
-            error
-        } = await supabaseClient
-            .from("profiles")
-            .select("id")
-            .eq(
-                "member_id",
-                memberID
-            )
-            .maybeSingle();
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        if (!data) {
-            return memberID;
-        }
-
-    }
-
-
-    throw new Error(
-        "Unique Member ID generate nahi ho paayi."
-    );
-}
-
-
-// =====================================================
-// CREATE MEMBER
-// =====================================================
-
-document
-.getElementById("adminCreateMemberForm")
-.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-
-        const button =
-            document.getElementById("createBtn");
-
-
-        const message =
-            document.getElementById("message");
-
-
-        message.style.display =
-            "none";
-
-
-        button.disabled = true;
-
-        button.textContent =
-            "Creating Member...";
-
-
         try {
+            // 1. Verify Sponsor
+            const { data: sponsor, error: sponsorError } = await supabaseClient
+                .from("profiles")
+                .select("id, member_id, full_name, referral_code")
+                .eq("referral_code", sponsorCode)
+                .maybeSingle();
 
-            // =========================================
-            // GET VALUES
-            // =========================================
+            if (sponsorError) throw sponsorError;
+            if (!sponsor) throw new Error("Invalid Sponsor Referral Code.");
 
-            const fullName =
-                document
-                .getElementById("adminFullName")
-                .value
-                .trim();
-
-
-            const phone =
-                document
-                .getElementById("adminPhone")
-                .value
-                .trim();
-
-
-            const email =
-                document
-                .getElementById("adminEmail")
-                .value
-                .trim();
-
-
-            const password =
-                document
-                .getElementById("adminPassword")
-                .value;
-
-
-            const packageName =
-                document
-                .getElementById("adminPackage")
-                .value;
-
-
-            const sponsorCode =
-                document
-                .getElementById("adminSponsorCode")
-                .value
-                .trim()
-                .toUpperCase();
-
-
-            // =========================================
-            // VALIDATION
-            // =========================================
-
-            if (!fullName) {
-                throw new Error(
-                    "Full Name required hai."
-                );
-            }
-
-
-            if (!phone) {
-                throw new Error(
-                    "Phone Number required hai."
-                );
-            }
-
-
-            if (!email) {
-                throw new Error(
-                    "Email required hai."
-                );
-            }
-
-
-            if (password.length < 6) {
-                throw new Error(
-                    "Password minimum 6 characters ka hona chahiye."
-                );
-            }
-
-
-            if (!packageName) {
-                throw new Error(
-                    "Please select a package."
-                );
-            }
-
-
-            if (!sponsorCode) {
-                throw new Error(
-                    "Sponsor Referral Code required hai."
-                );
-            }
-
-
-            // =========================================
-            // FINAL SPONSOR CHECK
-            // =========================================
-
-            if (
-                !selectedSponsor ||
-                selectedSponsor.referral_code !== sponsorCode
-            ) {
-
-                const {
-                    data: sponsor,
-                    error: sponsorError
-                } = await supabaseClient
-                    .from("profiles")
-                    .select(
-                        "id, member_id, full_name, referral_code"
-                    )
-                    .eq(
-                        "referral_code",
-                        sponsorCode
-                    )
-                    .maybeSingle();
-
-
-                if (sponsorError) {
-                    throw sponsorError;
-                }
-
-
-                if (!sponsor) {
-                    throw new Error(
-                        "Invalid Sponsor Referral Code."
-                    );
-                }
-
-
-                selectedSponsor =
-                    sponsor;
-            }
-
-
-            // =========================================
-            // GENERATE MEMBER ID
-            // =========================================
-
-            const memberID =
-                await generateUniqueMemberID();
-
-
-            // =========================================
-            // CREATE AUTH ACCOUNT
-            // =========================================
-
-            const {
-                data: authData,
-                error: authError
-            } = await supabaseClient.auth.signUp({
-
+            // 2. Create Auth User
+            const { data: authData, error: authError } = await supabaseClient.auth.signUp({
                 email: email,
-
                 password: password,
-
                 options: {
-
-                    data: {
-                        full_name: fullName
-                    }
-
+                    data: { full_name: fullName }
                 }
-
             });
 
+            if (authError) throw authError;
+            if (!authData.user) throw new Error("User account could not be created.");
 
-            if (authError) {
-                throw authError;
-            }
+            const userId = authData.user.id;
+            const memberID = generateMemberID();
 
-
-            if (!authData.user) {
-
-                throw new Error(
-                    "User account create nahi hua."
-                );
-            }
-
-
-            const userID =
-                authData.user.id;
-
-
-            // =========================================
-            // CREATE PROFILE
-            // =========================================
-
-            const {
-                error: profileError
-            } = await supabaseClient
+            // 3. Insert Profile (Safely mapped columns)
+            const { error: profileError } = await supabaseClient
                 .from("profiles")
-                .insert({
-
-                    id: userID,
-
+                .insert([{
+                    id: userId,
                     member_id: memberID,
-
                     full_name: fullName,
-
                     phone: phone,
-
                     package_name: packageName,
-
                     referral_code: memberID,
+                    referrer_member_id: sponsor.member_id,
+                    referrer_name: sponsor.full_name
+                }]);
 
-                    referrer_member_id:
-                        selectedSponsor.member_id,
+            if (profileError) throw profileError;
 
-                    referrer_name:
-                        selectedSponsor.full_name,
+            // Success Display
+            successBox.innerHTML = `
+                <strong>Member Successfully Created!</strong><br><br>
+                Member ID: <strong>${memberID}</strong><br>
+                Name: ${fullName}<br>
+                Package: ${packageName}<br>
+                Sponsor: ${sponsor.full_name} (${sponsor.member_id})
+            `;
+            successBox.style.display = "block";
 
-                    created_by_admin: true,
-
-                    active_income: 0,
-
-                    income_status:
-                        "Test / Unverified"
-
-                });
-
-
-            if (profileError) {
-                throw profileError;
-            }
-
-
-            // =========================================
-            // SUCCESS
-            // =========================================
-
-            showMessage(
-
-                `
-                <strong>✓ Member Successfully Created</strong>
-
-                <br><br>
-
-                <strong>Member ID:</strong>
-                ${escapeHTML(memberID)}
-
-                <br>
-
-                <strong>Name:</strong>
-                ${escapeHTML(fullName)}
-
-                <br>
-
-                <strong>Package:</strong>
-                ${escapeHTML(packageName)}
-
-                <br>
-
-                <strong>Sponsor:</strong>
-                ${escapeHTML(selectedSponsor.full_name)}
-
-                <br>
-
-                <strong>Sponsor ID:</strong>
-                ${escapeHTML(selectedSponsor.member_id)}
-
-                <br>
-
-                <strong>Referral Code:</strong>
-                ${escapeHTML(memberID)}
-                `,
-
-                "success"
-            );
-
-
-            // Clear form
-
-            document
-            .getElementById(
-                "adminCreateMemberForm"
-            )
-            .reset();
-
-
-            // Clear sponsor result
-
-            selectedSponsor = null;
-
-            document
-            .getElementById(
-                "sponsorResult"
-            ).style.display = "none";
-
+            document.getElementById("adminCreateMemberForm").reset();
 
         } catch (error) {
-
-            console.error(
-                "MEMBER CREATION ERROR:",
-                error
-            );
-
-
-            showMessage(
-
-                "❌ Member creation failed:<br>" +
-                escapeHTML(error.message),
-
-                "error"
-            );
-
-
-        } finally {
-
-            button.disabled = false;
-
-            button.textContent =
-                "Create Member ID";
-
+            console.error(error);
+            errorBox.innerHTML = "Member creation failed: " + error.message;
+            errorBox.style.display = "block";
         }
-
     }
-);
 
+    document.getElementById("adminCreateMemberForm").addEventListener("submit", createMemberByAdmin);
 </script>
 
 </body>
