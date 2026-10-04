@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills Market | Affiliate Dashboard</title>
 
-<title>Skills Market | Leaderboard</title>
-
+<!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -338,7 +338,7 @@ body{
 }
 
 /* =========================================================
-   LEADERBOARD SPECIFIC DESIGN
+   DASHBOARD SPECIFIC STYLES
 ========================================================= */
 .page-header-title{
     text-align:center;
@@ -348,245 +348,46 @@ body{
     letter-spacing:.5px;
 }
 
-/* Filter Tabs */
-.filter-tabs{
-    display:flex;
-    gap:6px;
-    overflow-x:auto;
-    padding-bottom:10px;
-    margin-bottom:15px;
-    scrollbar-width:none;
-}
-.filter-tabs::-webkit-scrollbar{ display:none; }
-
-.filter-btn{
-    flex:1;
-    min-width:90px;
-    padding:10px 8px;
-    background:#111827;
-    border:1px solid #1f2937;
-    border-radius:10px;
-    color:#94a3b8;
-    font-size:11.5px;
-    font-weight:800;
-    cursor:pointer;
-    text-align:center;
-    white-space:nowrap;
-    transition:.2s;
-}
-
-.filter-btn.active{
-    background:linear-gradient(135deg,#7c3aed,#4f46e5);
-    color:#ffffff;
-    border-color:transparent;
-    box-shadow:0 4px 12px rgba(124,58,237,.3);
-}
-
-/* Top 3 Podium Card Container */
-.podium-container{
-    background:#0d1322;
-    border:1px solid #1e293b;
-    border-radius:24px;
-    padding:25px 15px 20px;
-    margin-bottom:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.4);
-    text-align:center;
-}
-
-.podium-title{
-    font-size:16px;
-    font-weight:900;
-    letter-spacing:1px;
-    margin-bottom:20px;
-    color:#f8fafc;
-}
-
-.top3-grid{
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
+.earnings-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
     gap:12px;
+    margin-bottom:20px;
 }
 
-/* Individual Podium Items */
-.podium-item{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    flex:1;
-}
-
-.podium-item.first{
-    transform:translateY(-10px);
-}
-
-/* Crown for 1st Rank */
-.crown-icon{
-    font-size:24px;
-    margin-bottom:-8px;
-    z-index:2;
-    filter: drop-shadow(0 2px 4px rgba(234, 179, 8, 0.5));
-}
-
-/* Avatar Ranks Circles */
-.avatar-wrap{
-    position:relative;
-    width:70px;
-    height:70px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-}
-
-.podium-item.first .avatar-wrap{
-    width:85px;
-    height:85px;
-    border:3px solid #ef4444;
-}
-
-.podium-item.second .avatar-wrap{
-    border:3px solid #a855f7;
-}
-
-.podium-item.third .avatar-wrap{
-    border:3px solid #22c55e;
-}
-
-.avatar-wrap img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.avatar-placeholder{
-    width:100%;
-    height:100%;
-    background:#1e293b;
-    color:#fff;
-    font-size:20px;
-    font-weight:900;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-/* Rank Badge Pill */
-.rank-badge{
-    margin-top:-10px;
-    padding:3px 12px;
-    border-radius:20px;
-    font-size:10px;
-    font-weight:900;
-    z-index:2;
-    text-transform:uppercase;
-}
-
-.podium-item.first .rank-badge{ background:#ef4444; color:#fff; }
-.podium-item.second .rank-badge{ background:#a855f7; color:#fff; }
-.podium-item.third .rank-badge{ background:#22c55e; color:#fff; }
-
-.podium-name{
-    font-size:12.5px;
-    font-weight:800;
-    margin-top:8px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    max-width:100px;
-}
-
-.podium-amount{
-    font-size:13.5px;
-    font-weight:900;
-    margin-top:2px;
-}
-
-.podium-item.first .podium-amount{ color:#ef4444; }
-.podium-item.second .podium-amount{ color:#c084fc; }
-.podium-item.third .podium-amount{ color:#4ade80; }
-
-
-/* List Items (Rank 4 and below) */
-.leaderboard-list{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.list-item{
+.earnings-card{
     background:#0d1322;
     border:1px solid #1e293b;
-    border-radius:16px;
-    padding:12px 16px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    transition:.2s;
+    border-radius:20px;
+    padding:20px 15px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
 
-.list-item:hover{
-    border-color: #4f46e5;
+.earnings-card.full-width{
+    grid-column: span 2;
 }
 
-.list-left{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.list-rank{
-    width:28px;
-    height:28px;
-    background:#1e293b;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:11px;
-    font-weight:900;
-    color:#94a3b8;
-}
-
-.list-avatar{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    overflow:hidden;
-    background:#1e293b;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:900;
-    font-size:14px;
-}
-
-.list-avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.list-name{
-    font-size:13.5px;
+.earnings-label{
+    font-size:12px;
     font-weight:800;
-    color:#f8fafc;
+    color:#94a3b8;
+    margin-bottom:8px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
 }
 
-.list-amount{
-    font-size:14px;
+.earnings-value{
+    font-size:22px;
     font-weight:900;
     color:#ffffff;
 }
 
-.loading-text, .empty-text{
-    text-align:center;
-    padding:20px;
-    color:#64748b;
-    font-size:13px;
-    font-weight:700;
+.earnings-card.all-time .earnings-value{
+    color:#4ade80;
+}
+.earnings-card.today .earnings-value{
+    color:#c084fc;
 }
 </style>
 </head>
@@ -612,12 +413,12 @@ body{
     </div>
 
     <div class="menu-links">
-        <a href="dashboard.html" class="menu-link"><span class="menu-icon">⌂</span><span>Affiliate Dashboard</span></a>
+        <a href="dashboard.html" class="menu-link active"><span class="menu-icon">⌂</span><span>Affiliate Dashboard</span></a>
         <a href="my-course.html" class="menu-link"><span class="menu-icon">📚</span><span>My Course</span></a>
         <a href="profile.html" class="menu-link"><span class="menu-icon">👤</span><span>My Profile</span></a>
         <a href="affiliate-link.html" class="menu-link"><span class="menu-icon">🔗</span><span>Affiliate Link</span></a>
         <a href="kyc.html" class="menu-link"><span class="menu-icon">🪪</span><span>KYC</span></a>
-        <a href="leaderboard.html" class="menu-link active"><span class="menu-icon">🏆</span><span>Leaderboard</span></a>
+        <a href="leaderboard.html" class="menu-link"><span class="menu-icon">🏆</span><span>Leaderboard</span></a>
         <a href="my-team.html" class="menu-link"><span class="menu-icon">👥</span><span>My Team</span></a>
         <a href="registration-request.html" class="menu-link"><span class="menu-icon">📝</span><span>Registration Request</span></a>
         <a href="withdrawal-request.html" class="menu-link"><span class="menu-icon">💸</span><span>Withdrawal Request</span></a>
@@ -652,35 +453,33 @@ body{
 
 <!-- MAIN CONTENT -->
 <div class="dashboard">
-    <div class="page-header-title">Leaderboard</div>
+    <div class="page-header-title">Income Dashboard</div>
 
-    <!-- FILTER TABS -->
-    <div class="filter-tabs">
-        <button type="button" class="filter-btn active" onclick="switchTab('today', this)">Today</button>
-        <button type="button" class="filter-btn" onclick="switchTab('7days', this)">7 Days</button>
-        <button type="button" class="filter-btn" onclick="switchTab('30days', this)">30 Days</button>
-        <button type="button" class="filter-btn" onclick="switchTab('alltime', this)">All Time</button>
-    </div>
-
-    <!-- PODIUM CONTAINER (TOP 3) -->
-    <div class="podium-container">
-        <div class="podium-title" id="podiumHeaderTitle">TODAY'S LEADERBOARD</div>
-
-        <div class="top3-grid" id="top3Container">
-            <div class="loading-text">Loading Leaderboard...</div>
+    <!-- EARNINGS CARDS WITH LIVE IDs -->
+    <div class="earnings-grid">
+        <div class="earnings-card today">
+            <div class="earnings-label">Today's Earnings</div>
+            <div class="earnings-value" id="earningsToday">₹0</div>
+        </div>
+        <div class="earnings-card">
+            <div class="earnings-label">7 Days Earnings</div>
+            <div class="earnings-value" id="earnings7Days">₹0</div>
+        </div>
+        <div class="earnings-card">
+            <div class="earnings-label">30 Days Earnings</div>
+            <div class="earnings-value" id="earnings30Days">₹0</div>
+        </div>
+        <div class="earnings-card all-time">
+            <div class="earnings-label">All-Time Earnings</div>
+            <div class="earnings-value" id="earningsAllTime">₹0</div>
         </div>
     </div>
-
-    <!-- LIST CONTAINER (RANK 4 AND BELOW) -->
-    <div class="leaderboard-list" id="leaderboardList"></div>
 </div>
 
 <script>
 const SUPABASE_URL = "https://hmlonjwqeqedakzhucix.supabase.co";
 const SUPABASE_KEY = "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-let currentTab = 'today';
 
 function toggleProfileDropdown(event){
     event.stopPropagation();
@@ -714,33 +513,47 @@ function setAvatarImage(imageUrl, firstLetter){
     }
 }
 
-async function loadUser(){
+async function loadDashboardData(){
     try{
+        // 1. Check user session
         const { data:{user}, error } = await supabaseClient.auth.getUser();
         if(error || !user){
             window.location.href = "login.html";
             return;
         }
 
-        const { data:profile } = await supabaseClient
+        // 2. Fetch profile data including earnings columns
+        const { data:profile, error:profileError } = await supabaseClient
             .from("profiles")
             .select("*")
             .eq("id", user.id)
             .maybeSingle();
+
+        if(profileError){
+            console.error("Error loading profile:", profileError);
+            return;
+        }
 
         const fullName = profile?.full_name || user.user_metadata?.full_name || "Member";
         const memberID = profile?.member_id || "Not Assigned";
         const firstLetter = fullName.trim().charAt(0).toUpperCase() || "M";
         const avatarUrl = user.user_metadata?.avatar_url || "";
 
+        // Set Header details
         document.getElementById("menuProfileName").textContent = fullName;
         document.getElementById("menuProfileId").textContent = "ID: " + memberID;
         setAvatarImage(avatarUrl, firstLetter);
 
-        fetchLeaderboard('today');
+        // 3. Update Income Values dynamically from database
+        if(profile){
+            document.getElementById("earningsToday").textContent = "₹" + Number(profile.earnings_today || 0).toLocaleString('en-IN');
+            document.getElementById("earnings7Days").textContent = "₹" + Number(profile.earnings_7days || 0).toLocaleString('en-IN');
+            document.getElementById("earnings30Days").textContent = "₹" + Number(profile.earnings_30days || 0).toLocaleString('en-IN');
+            document.getElementById("earningsAllTime").textContent = "₹" + Number(profile.earnings_alltime || 0).toLocaleString('en-IN');
+        }
 
     }catch(err){
-        console.error("Auth error:", err);
+        console.error("Dashboard load error:", err);
     }
 }
 
@@ -757,131 +570,6 @@ function closeMenu(){
     document.body.style.overflow = "";
 }
 
-function switchTab(tabKey, btnElement){
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    btnElement.classList.add('active');
-    currentTab = tabKey;
-
-    const titles = {
-        'today': "TODAY'S LEADERBOARD",
-        '7days': "7 DAYS LEADERBOARD",
-        '30days': "30 DAYS LEADERBOARD",
-        'alltime': "ALL TIME LEADERBOARD"
-    };
-    document.getElementById("podiumHeaderTitle").textContent = titles[tabKey];
-    fetchLeaderboard(tabKey);
-}
-
-async function fetchLeaderboard(tab){
-    const top3Container = document.getElementById("top3Container");
-    const listContainer = document.getElementById("leaderboardList");
-
-    top3Container.innerHTML = '<div class="loading-text">Loading Leaderboard...</div>';
-    listContainer.innerHTML = '';
-
-    let columnMap = {
-        'today': 'earnings_today',
-        '7days': 'earnings_7days',
-        '30days': 'earnings_30days',
-        'alltime': 'earnings_alltime'
-    };
-    let sortColumn = columnMap[tab] || 'earnings_alltime';
-
-    try {
-        const { data: users, error } = await supabaseClient
-            .from("profiles")
-            .select("id, full_name, avatar_url, " + sortColumn)
-            .order(sortColumn, { ascending: false })
-            .limit(20);
-
-        if(error){
-            console.error(error);
-            top3Container.innerHTML = '<div class="empty-text">Error loading leaderboard data. (Make sure columns exist in Supabase)</div>';
-            return;
-        }
-
-        if(!users || users.length === 0){
-            top3Container.innerHTML = '<div class="empty-text">No leaderboard records found yet.</div>';
-            return;
-        }
-
-        let first = users[0] || null;
-        let second = users[1] || null;
-        let third = users[2] || null;
-        let rest = users.slice(3);
-
-        let podiumHTML = '';
-
-        if(second){
-            podiumHTML += `
-                <div class="podium-item second">
-                    <div class="avatar-wrap">
-                        ${second.avatar_url ? `<img src="${second.avatar_url}" alt="">` : `<div class="avatar-placeholder">${second.full_name ? second.full_name.charAt(0).toUpperCase() : 'M'}</div>`}
-                    </div>
-                    <div class="rank-badge">2nd</div>
-                    <div class="podium-name" title="${second.full_name || 'Member'}">${second.full_name || 'Member'}</div>
-                    <div class="podium-amount">₹${Number(second[sortColumn] || 0).toLocaleString('en-IN')}</div>
-                </div>
-            `;
-        }
-
-        if(first){
-            podiumHTML += `
-                <div class="podium-item first">
-                    <div class="crown-icon">👑</div>
-                    <div class="avatar-wrap">
-                        ${first.avatar_url ? `<img src="${first.avatar_url}" alt="">` : `<div class="avatar-placeholder">${first.full_name ? first.full_name.charAt(0).toUpperCase() : 'M'}</div>`}
-                    </div>
-                    <div class="rank-badge">1st</div>
-                    <div class="podium-name" title="${first.full_name || 'Member'}">${first.full_name || 'Member'}</div>
-                    <div class="podium-amount">₹${Number(first[sortColumn] || 0).toLocaleString('en-IN')}</div>
-                </div>
-            `;
-        }
-
-        if(third){
-            podiumHTML += `
-                <div class="podium-item third">
-                    <div class="avatar-wrap">
-                        ${third.avatar_url ? `<img src="${third.avatar_url}" alt="">` : `<div class="avatar-placeholder">${third.full_name ? third.full_name.charAt(0).toUpperCase() : 'M'}</div>`}
-                    </div>
-                    <div class="rank-badge">3rd</div>
-                    <div class="podium-name" title="${third.full_name || 'Member'}">${third.full_name || 'Member'}</div>
-                    <div class="podium-amount">₹${Number(third[sortColumn] || 0).toLocaleString('en-IN')}</div>
-                </div>
-            `;
-        }
-
-        top3Container.innerHTML = podiumHTML;
-
-        let listHTML = '';
-        rest.forEach((user, index) => {
-            let rankNum = index + 4;
-            let amount = Number(user[sortColumn] || 0).toLocaleString('en-IN');
-            let initial = user.full_name ? user.full_name.charAt(0).toUpperCase() : 'M';
-
-            listHTML += `
-                <div class="list-item">
-                    <div class="list-left">
-                        <div class="list-rank">${rankNum}</div>
-                        <div class="list-avatar">
-                            ${user.avatar_url ? `<img src="${user.avatar_url}" alt="">` : `<div>${initial}</div>`}
-                        </div>
-                        <div class="list-name">${user.full_name || 'Member'}</div>
-                    </div>
-                    <div class="list-amount">₹${amount}</div>
-                </div>
-            `;
-        });
-
-        listContainer.innerHTML = listHTML;
-
-    } catch(err){
-        console.error("Leaderboard fetch error:", err);
-        top3Container.innerHTML = '<div class="empty-text">Failed to fetch data.</div>';
-    }
-}
-
 async function logoutUser(event){
     if(event){ event.preventDefault(); }
     closeProfileDropdown();
@@ -894,7 +582,8 @@ async function logoutUser(event){
     window.location.href = "login.html";
 }
 
-loadUser();
+// Run on page load
+loadDashboardData();
 </script>
 
 </body>
