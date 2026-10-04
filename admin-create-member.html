@@ -45,7 +45,6 @@
 
             <div class="form-group">
                 <label>Package *</label>
-                <!-- Yeh dropdown database se automatic packages load karega -->
                 <select id="adminPackage" required>
                     <option value="">Loading packages...</option>
                 </select>
@@ -61,8 +60,14 @@
     </div>
 
     <script>
-        // Supabase Client Initialization (Agar aapke paas global file hai toh ise hata sakte hain)
-        // const supabaseClient = supabase.createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
+        // --- SUPABASE INITIALIZATION ---
+        // Agar aapke paas 'supabaseClient' pehle se kisi aur file me bana hai toh yeh line theek hai,
+        // warna yahan apni 'YOUR_SUPABASE_URL' aur 'YOUR_SUPABASE_ANON_KEY' daal dein.
+        const SUPABASE_URL = "YOUR_SUPABASE_URL"; 
+        const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+        
+        // Agar pehle se global variable hai toh use karega, nahi toh naya banayega
+        const supabaseClient = window.supabaseClient || supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // 1. Database se packages fetch karke dropdown me dikhane ka function
         async function loadPackagesDropdown() {
@@ -75,6 +80,11 @@
 
                 const selectDropdown = document.getElementById("adminPackage");
                 selectDropdown.innerHTML = ""; // Purana text clear karna
+
+                if (!packages || packages.length === 0) {
+                    selectDropdown.innerHTML = '<option value="">No packages found in database</option>';
+                    return;
+                }
 
                 packages.forEach(pkg => {
                     const option = document.createElement("option");
@@ -136,7 +146,7 @@
 
                 alert("Member successfully create ho gaya aur commission/hierarchy check apply ho gaya!");
                 document.getElementById("adminCreateMemberForm").reset();
-                loadPackagesDropdown(); // Dropdown ko dobara reload karna
+                loadPackagesDropdown();
 
             } catch (err) {
                 console.error("Error:", err.message);
