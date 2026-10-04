@@ -60,26 +60,24 @@
     </div>
 
     <script>
-        // --- SUPABASE INITIALIZATION ---
-        // Agar aapke paas 'supabaseClient' pehle se kisi aur file me bana hai toh yeh line theek hai,
-        // warna yahan apni 'YOUR_SUPABASE_URL' aur 'YOUR_SUPABASE_ANON_KEY' daal dein.
-        const SUPABASE_URL = "YOUR_SUPABASE_URL"; 
-        const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+        // --- SUPABASE CONFIGURATION ---
+        const SUPABASE_URL = "https://furlonjuwqnndskuhcks.supabase.co"; 
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtbG9uandxZXFlZGFremh1Y2l4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NzM3NTcsImV4cCI6MjEwNjQ0OTc1N30.6G8zhYVgG05NHG82PZiGkaXtqAOSAaKbqQDm1i8BEpQ"; 
         
-        // Agar pehle se global variable hai toh use karega, nahi toh naya banayega
-        const supabaseClient = window.supabaseClient || supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // 1. Database se packages fetch karke dropdown me dikhane ka function
+        // 1. Database se packages load karne ka function
         async function loadPackagesDropdown() {
             try {
+                const selectDropdown = document.getElementById("adminPackage");
+                
                 const { data: packages, error } = await supabaseClient
                     .from("packages")
                     .select("*");
 
                 if (error) throw error;
 
-                const selectDropdown = document.getElementById("adminPackage");
-                selectDropdown.innerHTML = ""; // Purana text clear karna
+                selectDropdown.innerHTML = ""; // Clear "Loading..."
 
                 if (!packages || packages.length === 0) {
                     selectDropdown.innerHTML = '<option value="">No packages found in database</option>';
@@ -88,23 +86,24 @@
 
                 packages.forEach(pkg => {
                     const option = document.createElement("option");
-                    option.value = pkg.name; // Database wala package name
+                    option.value = pkg.name; 
                     option.textContent = `${pkg.name} – ₹${pkg.price}`;
                     selectDropdown.appendChild(option);
                 });
 
             } catch (err) {
                 console.error("Error loading packages:", err.message);
-                document.getElementById("adminPackage").innerHTML = '<option value="">Error loading packages</option>';
+                const selectDropdown = document.getElementById("adminPackage");
+                selectDropdown.innerHTML = `<option value="">Error: ${err.message}</option>`;
             }
         }
 
-        // Page load hote hi packages load ho jayenge
+        // Page khulne par packages load honge
         window.addEventListener("DOMContentLoaded", () => {
             loadPackagesDropdown();
         });
 
-        // 2. Admin dwara member create karne ka function
+        // 2. Member Create karne ka function
         async function createMemberByAdmin(event) {
             event.preventDefault();
 
@@ -129,7 +128,7 @@
 
                 const userId = authData.user.id;
 
-                // Profiles table me insert karna ('full_name' column ke sath)
+                // Profiles table me insert karna
                 const { error: profileError } = await supabaseClient
                     .from("profiles")
                     .insert([
@@ -144,7 +143,7 @@
 
                 if (profileError) throw profileError;
 
-                alert("Member successfully create ho gaya aur commission/hierarchy check apply ho gaya!");
+                alert("Member successfully create ho gaya!");
                 document.getElementById("adminCreateMemberForm").reset();
                 loadPackagesDropdown();
 
