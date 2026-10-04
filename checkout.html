@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Checkout | Skills Market</title>
-<meta name="description" content="Skills Market secure checkout">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -14,349 +15,559 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-:root{
-    --red:#e50914;
-    --red2:#ff3131;
-    --black:#050505;
-    --dark:#0d0d0d;
-    --card:#141414;
-    --border:#292929;
-    --text:#fff;
-    --muted:#a5a5a5;
-    --green:#22c55e;
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:
-        radial-gradient(circle at 15% 10%,rgba(229,9,20,.12),transparent 30%),
-        radial-gradient(circle at 85% 80%,rgba(229,9,20,.08),transparent 30%),
-        #050505;
-    color:var(--text);
+    background:#090909;
+    color:#fff;
     min-height:100vh;
+    overflow-x:hidden;
 }
 
-/* NAVBAR */
+button,input{
+    font-family:inherit;
+}
+
+.bg-animations{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:-1;
+    pointer-events:none;
+}
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,30,56,.10);
+    filter:blur(3px);
+    animation:float 12s ease-in-out infinite;
+}
+
+.circle:nth-child(1){
+    width:280px;
+    height:280px;
+    top:-70px;
+    left:-70px;
+}
+
+.circle:nth-child(2){
+    width:350px;
+    height:350px;
+    right:-100px;
+    bottom:-120px;
+    animation-duration:15s;
+}
+
+.circle:nth-child(3){
+    width:170px;
+    height:170px;
+    right:10%;
+    top:45%;
+    animation-duration:10s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0) scale(1);
+    }
+    50%{
+        transform:translateY(-30px) scale(1.06);
+    }
+}
+
 .navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
     height:72px;
-    background:#fff;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 7%;
-    border-bottom:1px solid #ddd;
+    padding:0 5%;
+    background:#0b0b0b;
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .logo{
-    font-size:24px;
-    font-weight:900;
-    color:#111;
-    letter-spacing:-.5px;
+    color:#fff;
+    text-decoration:none;
+    font-size:25px;
+    font-weight:800;
 }
 
 .logo span{
-    color:var(--red);
+    color:#ff1e38;
 }
 
-.back-btn{
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.nav-link{
+    color:#ddd;
     text-decoration:none;
-    color:#111;
-    font-weight:700;
-    padding:10px 18px;
-    border:1px solid #ddd;
+    font-size:13px;
+    font-weight:500;
+    padding:9px 14px;
     border-radius:8px;
+    transition:.25s;
 }
 
-/* MAIN */
+.nav-link:hover{
+    color:#fff;
+    background:#191919;
+}
+
+.login-btn{
+    background:#ff1e38;
+    color:#fff;
+    font-weight:600;
+}
+
+.login-btn:hover{
+    background:#df1630;
+}
+
+.header-section{
+    padding:42px 5%;
+    background:linear-gradient(135deg,rgba(20,20,20,.96),rgba(8,8,8,.96));
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.header-section h1{
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.breadcrumb{
+    color:#888;
+    font-size:13px;
+}
+
+.breadcrumb span{
+    color:#ff1e38;
+}
+
 .container{
-    width:min(1150px,92%);
-    margin:45px auto;
+    width:100%;
+    max-width:680px;
+    margin:32px auto;
+    padding:0 18px 60px;
 }
 
-.heading{
-    text-align:center;
-    margin-bottom:35px;
-}
-
-.heading h1{
-    font-size:38px;
-    font-weight:900;
-    margin-bottom:10px;
-}
-
-.heading p{
-    color:var(--muted);
-}
-
-/* GRID */
-.checkout-grid{
-    display:grid;
-    grid-template-columns:420px 1fr;
-    gap:25px;
-    align-items:start;
-}
-
-/* CARDS */
 .card{
-    background:rgba(18,18,18,.96);
-    border:1px solid var(--border);
+    background:#141414;
+    border:1px solid rgba(255,255,255,.08);
     border-radius:18px;
-    padding:25px;
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
+    padding:30px;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
 }
 
-.card-title{
-    font-size:21px;
-    font-weight:800;
-    margin-bottom:20px;
+.card h2{
+    font-size:23px;
+    margin-bottom:7px;
 }
 
-/* PACKAGE */
-.package-box{
-    border:1px solid #333;
-    border-radius:14px;
-    padding:22px;
-    background:linear-gradient(145deg,#191919,#0e0e0e);
-}
-
-.package-label{
+.intro{
     color:#999;
     font-size:13px;
-    margin-bottom:8px;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.section-title{
+    color:#ddd;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:9px;
+}
+
+.package-box{
+    background:linear-gradient(135deg,rgba(255,30,56,.12),rgba(255,255,255,.025));
+    border:1px solid rgba(255,30,56,.38);
+    border-radius:13px;
+    padding:18px;
+    margin-bottom:25px;
+}
+
+.package-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
 }
 
 .package-name{
-    font-size:25px;
-    font-weight:900;
-    line-height:1.25;
+    font-size:17px;
+    font-weight:700;
+}
+
+.package-description{
+    color:#888;
+    font-size:11px;
+    margin-top:4px;
 }
 
 .package-price{
-    color:var(--red2);
-    font-size:32px;
-    font-weight:900;
+    color:#ff1e38;
+    font-size:18px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.change-package{
+    display:inline-block;
     margin-top:12px;
+    color:#ff1e38;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:600;
 }
 
-.secure{
-    display:flex;
-    gap:10px;
-    margin-top:20px;
-    color:#aaa;
-    font-size:13px;
-}
-
-/* FORM */
 .form-group{
-    margin-bottom:17px;
+    margin-bottom:19px;
 }
 
-label{
+.form-group label{
     display:block;
-    margin-bottom:7px;
-    font-size:14px;
-    font-weight:700;
+    color:#ddd;
+    font-size:13px;
+    font-weight:500;
+    margin-bottom:8px;
 }
 
-input,select{
+.form-control{
     width:100%;
     height:48px;
-    padding:0 14px;
+    background:#1a1a1a;
+    border:1px solid rgba(255,255,255,.1);
     border-radius:9px;
-    border:1px solid #333;
-    background:#090909;
     color:#fff;
+    padding:0 14px;
     outline:none;
     font-size:14px;
+    transition:.25s;
 }
 
-input:focus,select:focus{
-    border-color:var(--red);
-    box-shadow:0 0 0 2px rgba(229,9,20,.1);
+.form-control::placeholder{
+    color:#666;
 }
 
-.password-wrap{
-    position:relative;
-}
-
-.password-wrap input{
-    padding-right:55px;
-}
-
-.show-password{
-    position:absolute;
-    right:12px;
-    top:50%;
-    transform:translateY(-50%);
-    border:0;
-    background:transparent;
-    color:#aaa;
-    cursor:pointer;
-    font-size:13px;
-}
-
-/* REFERRAL */
-.referral-row{
-    display:flex;
-    gap:9px;
-}
-
-.referral-row input{
-    flex:1;
-}
-
-.verify-btn{
-    min-width:90px;
-    border:0;
-    border-radius:9px;
-    background:#292929;
-    color:#fff;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.verify-btn:hover{
-    background:#3a3a3a;
+.form-control:focus{
+    border-color:#ff1e38;
+    box-shadow:0 0 0 3px rgba(255,30,56,.08);
 }
 
 .referral-status{
     display:none;
     margin-top:7px;
-    font-size:13px;
+    font-size:12px;
 }
 
-.success-text{
-    color:var(--green);
+.referral-status.success{
+    display:block;
+    color:#35d982;
 }
 
-.error-text{
-    color:#ff5555;
+.referral-status.error{
+    display:block;
+    color:#ff596b;
 }
 
-/* PAYMENT */
-.payment-box{
-    margin-top:25px;
-    border-top:1px solid #292929;
-    padding-top:25px;
-}
-
-.payment-methods{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.method{
-    border:1px solid #333;
-    border-radius:10px;
-    padding:14px;
-    cursor:pointer;
-    text-align:center;
-    color:#aaa;
-}
-
-.method.active{
-    border-color:var(--red);
-    color:#fff;
-    background:rgba(229,9,20,.08);
-}
-
-.method input{
+.referral-user{
     display:none;
+    margin-top:8px;
+    padding:11px 12px;
+    background:rgba(53,217,130,.08);
+    border:1px solid rgba(53,217,130,.25);
+    border-radius:8px;
+    color:#35d982;
+    font-size:12px;
+    font-weight:600;
 }
 
-/* QR */
-.qr-area{
-    margin-top:20px;
-    text-align:center;
-    padding:20px;
+.referral-user.show{
+    display:block;
+}
+
+.password-wrapper{
+    position:relative;
+}
+
+.password-wrapper .form-control{
+    padding-right:52px;
+}
+
+.password-toggle{
+    position:absolute;
+    right:7px;
+    top:50%;
+    transform:translateY(-50%);
+    width:38px;
+    height:38px;
+    border:none;
+    background:transparent;
+    color:#aaa;
+    cursor:pointer;
+    border-radius:7px;
+    font-size:17px;
+}
+
+.password-toggle:hover{
+    background:#292929;
+    color:#fff;
+}
+
+.payment-title{
+    color:#ddd;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.payment-option{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    padding:15px;
+    background:#1a1a1a;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:11px;
+    cursor:pointer;
+    transition:.25s;
+    margin-bottom:22px;
+}
+
+.payment-option:hover{
+    border-color:rgba(255,30,56,.5);
+}
+
+.payment-option.selected{
+    background:rgba(255,30,56,.08);
+    border-color:#ff1e38;
+}
+
+.payment-option input{
+    width:17px;
+    height:17px;
+    accent-color:#ff1e38;
+}
+
+.payment-main{
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+}
+
+.payment-sub{
+    color:#888;
+    font-size:11px;
+    margin-top:2px;
+}
+
+.qr-payment-box{
+    display:none;
+    margin-top:5px;
+    margin-bottom:25px;
+    padding:22px;
+    background:#101010;
+    border:1px solid rgba(255,30,56,.35);
     border-radius:14px;
-    background:#0b0b0b;
-    border:1px solid #292929;
+    text-align:center;
 }
 
-.qr-area img{
-    width:210px;
-    height:210px;
-    object-fit:contain;
+.qr-payment-box.show{
+    display:block;
+}
+
+.qr-title{
+    font-size:19px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.qr-subtitle{
+    color:#888;
+    font-size:12px;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.qr-image-wrapper{
+    width:230px;
+    height:230px;
+    margin:0 auto 18px;
+    padding:10px;
     background:#fff;
-    padding:8px;
-    border-radius:10px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.qr-image{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:5px;
+}
+
+.pay-amount{
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.pay-amount strong{
+    color:#ff1e38;
+    font-size:20px;
 }
 
 .upi-id{
-    margin-top:13px;
-    font-size:14px;
-    color:#bbb;
+    color:#aaa;
+    font-size:12px;
+    margin-bottom:16px;
 }
 
 .upi-id strong{
     color:#fff;
 }
 
-.payment-note{
-    color:#888;
-    font-size:12px;
-    margin-top:10px;
-    line-height:1.5;
+.qr-note{
+    color:#777;
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:18px;
 }
 
-/* BUTTON */
-.submit-btn{
-    width:100%;
-    height:54px;
-    margin-top:20px;
-    border:0;
+.payment-status{
+    display:none;
+    margin-top:16px;
+    padding:14px;
     border-radius:10px;
-    background:linear-gradient(135deg,var(--red),var(--red2));
+    background:rgba(255,180,0,.08);
+    border:1px solid rgba(255,180,0,.25);
+    color:#ffc44d;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.payment-status.show{
+    display:block;
+}
+
+.order-summary{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding-top:20px;
+    margin-top:5px;
+}
+
+.summary-title{
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:14px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:9px;
+    color:#999;
+    font-size:13px;
+}
+
+.summary-row strong{
     color:#fff;
-    font-size:16px;
-    font-weight:900;
+    text-align:right;
+}
+
+.total-row{
+    border-top:1px solid rgba(255,255,255,.08);
+    margin-top:13px;
+    padding-top:14px;
+}
+
+.total-price{
+    color:#ff1e38 !important;
+    font-size:18px;
+    font-weight:800;
+}
+
+.checkbox-group{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    margin:22px 0;
+}
+
+.checkbox-group input{
+    width:16px;
+    height:16px;
+    margin-top:2px;
+    accent-color:#ff1e38;
+}
+
+.checkbox-group label{
+    color:#999;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.checkbox-group a{
+    color:#ff1e38;
+    text-decoration:none;
+}
+
+.btn-register{
+    width:100%;
+    min-height:52px;
+    border:none;
+    border-radius:10px;
+    background:#ff1e38;
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
     cursor:pointer;
-    transition:.2s;
+    transition:.25s;
+    box-shadow:0 8px 25px rgba(255,30,56,.25);
 }
 
-.submit-btn:hover{
-    transform:translateY(-1px);
-    box-shadow:0 10px 30px rgba(229,9,20,.25);
+.btn-register:hover{
+    background:#df1630;
+    transform:translateY(-2px);
 }
 
-.submit-btn:disabled{
+.btn-register:disabled{
     opacity:.55;
     cursor:not-allowed;
     transform:none;
 }
 
-/* LOADING */
-.loading{
-    display:none;
-    margin-top:12px;
+.footer-text{
     text-align:center;
-    color:#aaa;
-    font-size:13px;
+    color:#777;
+    font-size:12px;
+    margin-top:20px;
 }
 
-/* ALERT */
-.alert{
-    display:none;
-    padding:13px;
-    border-radius:9px;
-    margin-bottom:18px;
-    font-size:13px;
-    line-height:1.5;
+.footer-text a{
+    color:#ff1e38;
+    text-decoration:none;
+    font-weight:600;
 }
 
-.alert.error{
-    display:block;
-    background:rgba(255,0,0,.08);
-    border:1px solid rgba(255,0,0,.25);
-    color:#ff7777;
-}
-
-/* SUCCESS MODAL */
-.modal{
+.success-overlay{
     position:fixed;
     inset:0;
     background:rgba(0,0,0,.82);
@@ -364,137 +575,158 @@ input:focus,select:focus{
     display:none;
     align-items:center;
     justify-content:center;
+    z-index:3000;
     padding:20px;
-    z-index:9999;
 }
 
-.modal-box{
-    width:min(450px,100%);
-    background:#111;
-    border:1px solid #333;
-    border-radius:20px;
-    padding:35px 25px;
+.success-overlay.show{
+    display:flex;
+}
+
+.success-modal{
+    width:100%;
+    max-width:430px;
+    background:#151515;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    padding:30px;
     text-align:center;
-    box-shadow:0 30px 100px rgba(0,0,0,.6);
 }
 
 .success-icon{
-    width:65px;
-    height:65px;
-    border-radius:50%;
-    background:rgba(34,197,94,.12);
-    color:var(--green);
+    width:60px;
+    height:60px;
     display:flex;
     align-items:center;
     justify-content:center;
-    margin:0 auto 18px;
-    font-size:32px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    background:rgba(255,190,0,.12);
+    color:#ffc44d;
+    font-size:27px;
 }
 
-.modal-box h2{
-    font-size:26px;
-    margin-bottom:10px;
+.success-modal h2{
+    font-size:22px;
+    margin-bottom:8px;
 }
 
-.modal-box p{
-    color:#aaa;
-    line-height:1.6;
-}
-
-.member-id-box{
-    margin:22px 0;
-    background:#080808;
-    border:1px dashed var(--red);
-    border-radius:12px;
-    padding:18px;
-}
-
-.member-id-label{
-    color:#888;
-    font-size:12px;
-    margin-bottom:7px;
+.success-modal p{
+    color:#999;
+    font-size:13px;
+    line-height:1.7;
 }
 
 .member-id{
-    color:#fff;
-    font-size:28px;
-    font-weight:900;
+    background:#1d1d1d;
+    border:1px dashed rgba(255,30,56,.45);
+    border-radius:10px;
+    padding:14px;
+    margin:18px 0;
+}
+
+.member-id small{
+    display:block;
+    color:#777;
+    font-size:11px;
+    margin-bottom:4px;
+}
+
+.member-id strong{
+    color:#ff1e38;
+    font-size:19px;
     letter-spacing:1px;
 }
 
-.login-btn{
-    display:block;
-    width:100%;
-    text-decoration:none;
-    padding:14px;
-    border-radius:9px;
-    background:var(--red);
-    color:#fff;
-    font-weight:800;
+.pending-label{
+    display:inline-block;
+    padding:6px 11px;
+    border-radius:20px;
+    background:rgba(255,190,0,.1);
+    color:#ffc44d;
+    font-size:11px;
+    font-weight:600;
+    margin-bottom:15px;
 }
 
-/* FOOTER */
-.footer{
-    text-align:center;
-    color:#666;
+.system-message{
+    display:none;
+    margin-bottom:20px;
+    padding:13px 15px;
+    border-radius:10px;
     font-size:12px;
-    padding:20px;
+    line-height:1.6;
 }
 
-/* MOBILE */
-@media(max-width:850px){
-    .checkout-grid{
-        grid-template-columns:1fr;
-    }
-
-    .container{
-        margin:30px auto;
-    }
-
-    .heading h1{
-        font-size:30px;
-    }
+.system-message.show{
+    display:block;
 }
 
-@media(max-width:500px){
+.system-message.error{
+    color:#ff6878;
+    background:rgba(255,30,56,.08);
+    border:1px solid rgba(255,30,56,.25);
+}
+
+@media(max-width:600px){
+
     .navbar{
-        padding:0 5%;
         height:64px;
+        padding:0 17px;
     }
 
     .logo{
-        font-size:20px;
-    }
-
-    .back-btn{
-        padding:8px 12px;
-        font-size:13px;
-    }
-
-    .card{
-        padding:18px;
-        border-radius:14px;
-    }
-
-    .package-name{
         font-size:21px;
     }
 
-    .package-price{
+    .nav-link:not(.login-btn){
+        display:none;
+    }
+
+    .login-btn{
+        padding:8px 12px;
+        font-size:12px;
+    }
+
+    .header-section{
+        padding:30px 18px;
+    }
+
+    .header-section h1{
         font-size:27px;
     }
 
-    .payment-methods{
-        grid-template-columns:1fr;
+    .container{
+        margin-top:22px;
+        padding-left:12px;
+        padding-right:12px;
     }
 
-    .qr-area img{
-        width:180px;
-        height:180px;
+    .card{
+        padding:21px 17px;
     }
 
-    .member-id{
-        font-size:24px;
+    .package-content{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:6px;
+    }
+
+    .package-price{
+        font-size:17px;
+    }
+
+    .qr-image-wrapper{
+        width:200px;
+        height:200px;
+    }
+
+    .qr-payment-box{
+        padding:18px 14px;
+    }
+
+    .success-modal{
+        padding:23px 18px;
     }
 }
 </style>
@@ -502,1114 +734,1775 @@ input:focus,select:focus{
 
 <body>
 
-<!-- NAVBAR -->
+<div class="bg-animations">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+</div>
+
 <nav class="navbar">
-    <div class="logo">Skills <span>Market</span></div>
-    <a href="index.html" class="back-btn">← Back</a>
+
+    <a href="index.html" class="logo">
+        Skills<span>Market</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="courses.html" class="nav-link">Courses</a>
+        <a href="login.html" class="nav-link login-btn">Login</a>
+    </div>
+
 </nav>
 
+<section class="header-section">
+
+    <h1>Checkout</h1>
+
+    <div class="breadcrumb">
+        Home &gt; <span>Checkout</span>
+    </div>
+
+</section>
 
 <main class="container">
 
-    <div class="heading">
-        <h1>Complete Your Registration</h1>
-        <p>Enter your details and complete the payment to create your account.</p>
+<div class="card">
+
+    <h2>Create Your Account</h2>
+
+    <p class="intro">
+        Complete your details below to create your Skills Market
+        account and continue with your selected package.
+    </p>
+
+    <div id="systemMessage" class="system-message"></div>
+
+    <div class="section-title">
+        Selected Package
     </div>
 
+    <div class="package-box">
 
-    <div class="checkout-grid">
+        <div class="package-content">
 
-        <!-- LEFT -->
-        <div class="card">
-
-            <div class="card-title">Selected Package</div>
-
-            <div class="package-box">
-
-                <div class="package-label">
-                    YOUR SELECTED PACKAGE
-                </div>
-
+            <div>
                 <div class="package-name" id="packageName">
-                    Loading...
+                    Package Not Selected
                 </div>
 
-                <div class="package-price" id="packagePrice">
-                    ₹0
+                <div class="package-description">
+                    Your selected package
                 </div>
-
             </div>
 
-            <div class="secure">
-                🔒 Secure Registration
-            </div>
-
-            <div class="secure">
-                ⚡ Instant Account Creation
-            </div>
-
-            <div class="secure">
-                📱 Mobile & Laptop Supported
+            <div class="package-price" id="packagePrice">
+                —
             </div>
 
         </div>
 
+        <a href="index.html#packages" class="change-package">
+            Change Package
+        </a>
 
-        <!-- RIGHT -->
-        <div class="card">
+    </div>
 
-            <div class="card-title">Registration Details</div>
+    <form id="checkoutForm">
 
-            <div id="alertBox" class="alert"></div>
+        <div class="form-group">
 
+            <label for="referral">
+                Referral Code
+            </label>
 
-            <!-- NAME -->
-            <div class="form-group">
-                <label for="fullName">Full Name</label>
+            <input
+                type="text"
+                id="referral"
+                class="form-control"
+                placeholder="Enter referral code"
+                autocomplete="off"
+            >
+
+            <div id="referralStatus" class="referral-status"></div>
+
+            <div id="referralUser" class="referral-user"></div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                class="form-control"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="phone">
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                class="form-control"
+                placeholder="Enter 10-digit phone number"
+                maxlength="10"
+                inputmode="numeric"
+                autocomplete="tel"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="Enter email address"
+                autocomplete="email"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="password">
+                Create Password
+            </label>
+
+            <div class="password-wrapper">
+
                 <input
-                    type="text"
-                    id="fullName"
-                    placeholder="Enter your full name"
-                    autocomplete="name"
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Create your password"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
                 >
-            </div>
-
-
-            <!-- EMAIL -->
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    autocomplete="email"
-                >
-            </div>
-
-
-            <!-- PHONE -->
-            <div class="form-group">
-                <label for="phone">Mobile Number</label>
-                <input
-                    type="tel"
-                    id="phone"
-                    placeholder="Enter 10 digit mobile number"
-                    maxlength="10"
-                    inputmode="numeric"
-                >
-            </div>
-
-
-            <!-- PASSWORD -->
-            <div class="form-group">
-
-                <label for="password">Create Password</label>
-
-                <div class="password-wrap">
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Minimum 6 characters"
-                        autocomplete="new-password"
-                    >
-
-                    <button
-                        type="button"
-                        class="show-password"
-                        onclick="togglePassword()"
-                        id="passwordToggle"
-                    >
-                        Show
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- REFERRAL -->
-            <div class="form-group">
-
-                <label for="referralCode">
-                    Referral Code
-                </label>
-
-                <div class="referral-row">
-
-                    <input
-                        type="text"
-                        id="referralCode"
-                        placeholder="Enter referral code"
-                        autocomplete="off"
-                    >
-
-                    <button
-                        type="button"
-                        class="verify-btn"
-                        onclick="verifyReferral()"
-                        id="verifyReferralBtn"
-                    >
-                        Verify
-                    </button>
-
-                </div>
-
-                <div
-                    class="referral-status"
-                    id="referralStatus"
-                ></div>
-
-            </div>
-
-
-            <!-- PAYMENT -->
-            <div class="payment-box">
-
-                <div class="card-title">
-                    Payment Method
-                </div>
-
-                <div class="payment-methods">
-
-                    <label class="method active" id="upiMethod">
-
-                        <input
-                            type="radio"
-                            name="payment"
-                            value="UPI"
-                            checked
-                            onchange="selectPayment('UPI')"
-                        >
-
-                        UPI Payment
-
-                    </label>
-
-
-                    <label class="method" id="manualMethod">
-
-                        <input
-                            type="radio"
-                            name="payment"
-                            value="Manual"
-                            onchange="selectPayment('Manual')"
-                        >
-
-                        Other / Manual
-
-                    </label>
-
-                </div>
-
-
-                <!-- QR -->
-                <div id="upiArea" class="qr-area">
-
-                    <!--
-                    IMPORTANT:
-                    Replace qr-placeholder.png with your actual QR image.
-                    Example:
-                    <img src="upi-qr.png">
-                    -->
-
-                    <img
-                        src="qr-placeholder.png"
-                        alt="UPI QR Code"
-                        id="qrImage"
-                    >
-
-                    <div class="upi-id">
-                        UPI ID:
-                        <strong id="upiText">
-                            yourupi@upi
-                        </strong>
-                    </div>
-
-                    <div class="payment-note">
-                        Scan the QR code using any supported UPI app,
-                        pay the exact package amount, then enter your UTR below.
-                    </div>
-
-                </div>
-
-
-                <!-- UTR -->
-                <div class="form-group" style="margin-top:20px;">
-
-                    <label for="utr">
-                        UTR / Transaction ID
-                    </label>
-
-                    <input
-                        type="text"
-                        id="utr"
-                        placeholder="Enter payment UTR / transaction ID"
-                        autocomplete="off"
-                    >
-
-                </div>
-
 
                 <button
                     type="button"
-                    class="submit-btn"
-                    id="submitBtn"
-                    onclick="registerAccount()"
+                    class="password-toggle"
+                    id="passwordToggle"
+                    aria-label="Show password"
                 >
-                    Register & Pay
+                    👁
                 </button>
-
-                <div
-                    class="loading"
-                    id="loadingText"
-                >
-                    Creating your account, please wait...
-                </div>
 
             </div>
 
         </div>
 
-    </div>
+        <div class="payment-title">
+            Select Payment Method
+        </div>
+
+        <label class="payment-option" id="paymentOption">
+
+            <input
+                type="radio"
+                name="payment"
+                id="onlinePayment"
+                value="upi"
+            >
+
+            <div>
+
+                <div class="payment-main">
+                    UPI Payment
+                </div>
+
+                <div class="payment-sub">
+                    Scan QR and pay securely
+                </div>
+
+            </div>
+
+        </label>
+
+        <div class="qr-payment-box" id="qrPaymentBox">
+
+            <div class="qr-title">
+                Scan & Pay
+            </div>
+
+            <div class="qr-subtitle">
+                Scan the QR code below using your UPI app
+                and complete the payment.
+            </div>
+
+            <div class="qr-image-wrapper">
+
+                <img
+                    src="IMG-20261002-WA0000.jpg"
+                    alt="Skills Market Payment QR"
+                    class="qr-image"
+                    onerror="this.style.display='none';document.getElementById('qrError').style.display='block';"
+                >
+
+                <div id="qrError"
+                    style="display:none;color:#ff596b;font-size:12px;">
+                    QR image not found.<br>
+                    Please check the image filename.
+                </div>
+
+            </div>
+
+            <div class="pay-amount">
+                Pay Amount:
+                <strong id="qrAmount">—</strong>
+            </div>
+
+            <div class="upi-id">
+                UPI ID:
+                <strong>6265556234@fam</strong>
+            </div>
+
+            <div class="qr-note">
+                After completing the payment,
+                enter your UTR / Transaction ID below.
+            </div>
+
+            <div class="form-group">
+
+                <label for="transactionId">
+                    UTR / Transaction ID
+                </label>
+
+                <input
+                    type="text"
+                    id="transactionId"
+                    class="form-control"
+                    placeholder="Enter UTR / Transaction ID"
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <button
+                type="button"
+                class="btn-register"
+                id="paidButton"
+            >
+                I Have Paid →
+            </button>
+
+            <div
+                class="payment-status"
+                id="paymentStatus"
+            ></div>
+
+        </div>
+
+        <div class="order-summary">
+
+            <div class="summary-title">
+                Order Summary
+            </div>
+
+            <div class="summary-row">
+                <span>Package</span>
+                <strong id="summaryPackage">—</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Price</span>
+                <strong id="summaryPrice">—</strong>
+            </div>
+
+            <div class="summary-row total-row">
+                <strong>Total</strong>
+                <strong class="total-price" id="summaryTotal">—</strong>
+            </div>
+
+        </div>
+
+        <div class="checkbox-group">
+
+            <input
+                type="checkbox"
+                id="terms"
+                required
+            >
+
+            <label for="terms">
+
+                I agree to the
+                <a href="#">Privacy Policy</a>
+                and
+                <a href="#">Terms & Conditions</a>.
+
+            </label>
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn-register"
+            id="registerButton"
+        >
+            Continue to Payment →
+        </button>
+
+        <div class="footer-text">
+
+            Already have an account?
+
+            <a href="login.html">
+                Sign In
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
 
 </main>
 
+<div class="success-overlay" id="successOverlay">
 
-<div class="footer">
-    © 2026 Skills Market. All Rights Reserved.
-</div>
-
-
-<!-- SUCCESS MODAL -->
-<div class="modal" id="successModal">
-
-    <div class="modal-box">
+    <div class="success-modal">
 
         <div class="success-icon">
             ✓
         </div>
 
-        <h2>Registration Successful!</h2>
+        <div class="pending-label">
+            PAYMENT VERIFICATION PENDING
+        </div>
+
+        <h2>
+            Registration Submitted
+        </h2>
 
         <p>
-            Your Skills Market account has been created successfully.
+            Your registration details and payment information
+            have been submitted successfully. Your payment
+            will be verified before your account is activated.
         </p>
 
+        <div class="member-id">
 
-        <div class="member-id-box">
+            <small>
+                Your Member ID
+            </small>
 
-            <div class="member-id-label">
-                YOUR MEMBER ID
-            </div>
-
-            <div
-                class="member-id"
-                id="successMemberId"
-            >
-                SM00000
-            </div>
+            <strong id="generatedId">
+                —
+            </strong>
 
         </div>
 
-        <p style="font-size:13px;margin-bottom:20px;">
-            Please save your Member ID for future reference.
-        </p>
-
-        <a
-            href="login.html"
-            class="login-btn"
+        <button
+            type="button"
+            class="btn-register"
+            onclick="goToLogin()"
         >
-            Go To Login
-        </a>
+            Continue to Login →
+        </button>
 
     </div>
 
 </div>
 
-
 <script>
 
-/* =========================================================
-   SUPABASE CONFIGURATION
-   ========================================================= */
+/* =====================================================
+   SUPABASE
+===================================================== */
 
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_URL =
+    "https://hmlonjwqeqedakzhucix.supabase.co";
 
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_KEY =
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
 
-const { createClient } = supabase;
+let supabaseClient = null;
 
-const supabaseClient = createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+try{
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+}catch(error){
+
+    console.error(
+        "Supabase initialization error:",
+        error
+    );
+
+}
 
 
-/* =========================================================
-   UPI CONFIGURATION
-   ========================================================= */
-
-const UPI_ID = "yourupi@upi";
-
-document.getElementById("upiText").textContent = UPI_ID;
-
-
-/* =========================================================
+/* =====================================================
    PACKAGE DATA
-   ========================================================= */
+===================================================== */
 
 const packages = {
 
-    "Skill Starter Package": 265,
+    starter:{
+        name:"Skill Starter Package",
+        price:265
+    },
 
-    "Skill Growth Package": 520,
+    growth:{
+        name:"Skill Growth Package",
+        price:520
+    },
 
-    "Skill Elite Package": 1299,
+    elite:{
+        name:"Skill Elite Package",
+        price:1299
+    },
 
-    "Skill Prime Package": 2399,
+    prime:{
+        name:"Skill Prime Package",
+        price:2399
+    },
 
-    "Skill Premium Package": 4999,
+    premium:{
+        name:"Skill Premium Package",
+        price:4999
+    },
 
-    "Skill Legacy Package": 9999
+    legacy:{
+        name:"Skill Legacy Package",
+        price:9999
+    }
 
 };
 
 
-/* =========================================================
-   GET PACKAGE FROM URL
-   ========================================================= */
+/* =====================================================
+   PACKAGE ALIASES
+===================================================== */
 
-const urlParams = new URLSearchParams(window.location.search);
+const packageAliases = {
 
-let selectedPackage =
-    urlParams.get("package") || "";
+    "starter":"starter",
+    "growth":"growth",
+    "elite":"elite",
+    "prime":"prime",
+    "premium":"premium",
+    "legacy":"legacy",
 
-let selectedPrice =
-    Number(urlParams.get("price")) || 0;
+    "skill starter package":"starter",
+    "skill growth package":"growth",
+    "skill elite package":"elite",
+    "skill prime package":"prime",
+    "skill premium package":"premium",
+    "skill premimum package":"premium",
+    "skill legacy package":"legacy",
+
+    "skill-starter-package":"starter",
+    "skill-growth-package":"growth",
+    "skill-elite-package":"elite",
+    "skill-prime-package":"prime",
+    "skill-premium-package":"premium",
+    "skill-legacy-package":"legacy",
+
+    "skill_starter_package":"starter",
+    "skill_growth_package":"growth",
+    "skill_elite_package":"elite",
+    "skill_prime_package":"prime",
+    "skill_premium_package":"premium",
+    "skill_legacy_package":"legacy"
+
+};
 
 
-/* =========================================================
-   PACKAGE NORMALIZATION
-   ========================================================= */
+/* =====================================================
+   URL PACKAGE
+===================================================== */
 
-function normalizePackageName(name){
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
-    name = decodeURIComponent(name || "").trim();
+let rawPackage =
+    params.get("package");
 
-    if(packages[name]){
-        return name;
-    }
+let packageCode =
+    rawPackage
+    ? decodeURIComponent(rawPackage)
+        .trim()
+        .toLowerCase()
+    : "";
 
-    return "";
+if(packageAliases[packageCode]){
+
+    packageCode =
+        packageAliases[packageCode];
+
 }
 
 
-/* =========================================================
-   LOAD PACKAGE
-   ========================================================= */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
-function loadPackage(){
+const packageNameElement =
+    document.getElementById("packageName");
+
+const packagePriceElement =
+    document.getElementById("packagePrice");
+
+const summaryPackageElement =
+    document.getElementById("summaryPackage");
+
+const summaryPriceElement =
+    document.getElementById("summaryPrice");
+
+const summaryTotalElement =
+    document.getElementById("summaryTotal");
+
+const qrPaymentBox =
+    document.getElementById("qrPaymentBox");
+
+const qrAmount =
+    document.getElementById("qrAmount");
+
+const referral =
+    document.getElementById("referral");
+
+const referralStatus =
+    document.getElementById("referralStatus");
+
+const referralUser =
+    document.getElementById("referralUser");
+
+const password =
+    document.getElementById("password");
+
+const passwordToggle =
+    document.getElementById("passwordToggle");
+
+const paymentOption =
+    document.getElementById("paymentOption");
+
+const paymentRadio =
+    document.getElementById("onlinePayment");
+
+const form =
+    document.getElementById("checkoutForm");
+
+const paidButton =
+    document.getElementById("paidButton");
+
+const paymentStatus =
+    document.getElementById("paymentStatus");
+
+const transactionId =
+    document.getElementById("transactionId");
+
+const successOverlay =
+    document.getElementById("successOverlay");
+
+const generatedId =
+    document.getElementById("generatedId");
+
+const systemMessage =
+    document.getElementById("systemMessage");
+
+const registerButton =
+    document.getElementById("registerButton");
+
+const nameInput =
+    document.getElementById("name");
+
+const phoneInput =
+    document.getElementById("phone");
+
+const emailInput =
+    document.getElementById("email");
+
+const termsInput =
+    document.getElementById("terms");
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function formatPrice(price){
+
+    return "₹" +
+        Number(price).toLocaleString("en-IN");
+
+}
+
+function showSystemError(message){
+
+    systemMessage.className =
+        "system-message error show";
+
+    systemMessage.textContent =
+        message;
+
+    systemMessage.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+function hideSystemMessage(){
+
+    systemMessage.className =
+        "system-message";
+
+    systemMessage.textContent =
+        "";
+
+}
+
+
+/* =====================================================
+   SELECTED PACKAGE
+===================================================== */
+
+let selectedPackage = null;
+
+if(packages[packageCode]){
 
     selectedPackage =
-        normalizePackageName(selectedPackage);
+        packages[packageCode];
 
-    if(!selectedPackage){
-
-        showError(
-            "Invalid package selected. Please go back and select a package again."
+    const formattedPrice =
+        formatPrice(
+            selectedPackage.price
         );
 
-        document.getElementById("packageName")
-            .textContent = "Invalid Package";
+    packageNameElement.textContent =
+        selectedPackage.name;
 
-        document.getElementById("packagePrice")
-            .textContent = "₹0";
+    packagePriceElement.textContent =
+        formattedPrice;
 
-        document.getElementById("submitBtn")
-            .disabled = true;
+    summaryPackageElement.textContent =
+        selectedPackage.name;
 
-        return;
-    }
+    summaryPriceElement.textContent =
+        formattedPrice;
 
-    /*
-      Always use the internal package price.
-      This prevents someone from changing ?price=
-      manually in the URL.
-    */
+    summaryTotalElement.textContent =
+        formattedPrice;
 
-    selectedPrice =
-        packages[selectedPackage];
+    qrAmount.textContent =
+        formattedPrice;
 
-    document.getElementById("packageName")
-        .textContent = selectedPackage;
+}else{
 
-    document.getElementById("packagePrice")
-        .textContent =
-        "₹" + selectedPrice.toLocaleString("en-IN");
+    packageNameElement.textContent =
+        "Package Not Selected";
 
-}
+    showSystemError(
+        "No valid package was selected. Please go back and select a package."
+    );
 
-
-/* =========================================================
-   ERROR
-   ========================================================= */
-
-function showError(message){
-
-    const alertBox =
-        document.getElementById("alertBox");
-
-    alertBox.textContent = message;
-
-    alertBox.className = "alert error";
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-}
-
-
-function clearError(){
-
-    const alertBox =
-        document.getElementById("alertBox");
-
-    alertBox.textContent = "";
-
-    alertBox.className = "alert";
+    registerButton.disabled =
+        true;
 
 }
 
 
-/* =========================================================
-   PASSWORD SHOW / HIDE
-   ========================================================= */
+/* =====================================================
+   REFERRAL SYSTEM
+===================================================== */
 
-function togglePassword(){
+let referralValid = false;
 
-    const password =
-        document.getElementById("password");
+/*
+   This stores the actual Member ID of the
+   person who owns the entered referral code.
+*/
+let selectedReferrerMemberId = null;
 
-    const button =
-        document.getElementById("passwordToggle");
+let referralTimer = null;
 
-    if(password.type === "password"){
+referral.addEventListener(
+    "input",
+    function(){
 
-        password.type = "text";
+        clearTimeout(referralTimer);
 
-        button.textContent = "Hide";
+        const code =
+            this.value
+            .trim()
+            .toUpperCase();
 
-    }else{
+        this.value =
+            code;
 
-        password.type = "password";
+        referralValid =
+            false;
 
-        button.textContent = "Show";
+        selectedReferrerMemberId =
+            null;
 
-    }
+        referralUser.classList.remove(
+            "show"
+        );
 
-}
+        referralUser.textContent =
+            "";
 
+        if(code === ""){
 
-/* =========================================================
-   PAYMENT METHOD
-   ========================================================= */
+            referralStatus.className =
+                "referral-status";
 
-function selectPayment(method){
-
-    document
-        .querySelectorAll(".method")
-        .forEach(el => el.classList.remove("active"));
-
-    if(method === "UPI"){
-
-        document
-            .getElementById("upiMethod")
-            .classList.add("active");
-
-        document
-            .getElementById("upiArea")
-            .style.display = "block";
-
-    }else{
-
-        document
-            .getElementById("manualMethod")
-            .classList.add("active");
-
-        document
-            .getElementById("upiArea")
-            .style.display = "block";
-
-    }
-
-}
-
-
-/* =========================================================
-   REFERRAL VERIFICATION
-   ========================================================= */
-
-let referralVerified = false;
-
-let referralProfile = null;
-
-
-async function verifyReferral(){
-
-    clearError();
-
-    const input =
-        document.getElementById("referralCode");
-
-    const status =
-        document.getElementById("referralStatus");
-
-    const button =
-        document.getElementById("verifyReferralBtn");
-
-    const referralCode =
-        input.value.trim();
-
-    referralVerified = false;
-    referralProfile = null;
-
-    status.style.display = "none";
-
-    if(!referralCode){
-
-        showError("Please enter a referral code.");
-
-        return;
-
-    }
-
-    button.disabled = true;
-    button.textContent = "Checking...";
-
-    try{
-
-        /*
-          Referral code can be Member ID.
-          Example: SM48594
-        */
-
-        const { data, error } =
-            await supabaseClient
-                .from("profiles")
-                .select("id,member_id,full_name")
-                .eq("member_id", referralCode)
-                .maybeSingle();
-
-        if(error){
-
-            throw error;
-
-        }
-
-        if(!data){
-
-            status.textContent =
-                "❌ Referral code not found.";
-
-            status.className =
-                "referral-status error-text";
-
-            status.style.display = "block";
+            referralStatus.textContent =
+                "";
 
             return;
 
         }
 
-        referralVerified = true;
+        if(!supabaseClient){
 
-        referralProfile = data;
+            referralStatus.className =
+                "referral-status error";
 
-        status.textContent =
-            "✓ Referral verified: " +
-            (data.full_name || "Member");
+            referralStatus.textContent =
+                "✕ Referral system unavailable.";
 
-        status.className =
-            "referral-status success-text";
+            return;
 
-        status.style.display = "block";
+        }
 
-    }catch(error){
+        referralStatus.className =
+            "referral-status success";
 
-        console.error(error);
+        referralStatus.textContent =
+            "Checking referral code...";
 
-        showError(
-            "Referral verification failed. Please check your referral code."
-        );
+        referralTimer =
+            setTimeout(
+                async function(){
 
-    }finally{
+                    try{
 
-        button.disabled = false;
-        button.textContent = "Verify";
+                        /*
+                           Find the member who owns
+                           this referral code.
+                        */
+
+                        const {
+                            data,
+                            error
+                        } =
+                        await supabaseClient
+                        .from("profiles")
+                        .select(
+                            "full_name,member_id,referral_code"
+                        )
+                        .eq(
+                            "referral_code",
+                            code
+                        )
+                        .maybeSingle();
+
+                        if(error){
+
+                            console.error(
+                                "Referral lookup error:",
+                                error
+                            );
+
+                            referralValid =
+                                false;
+
+                            selectedReferrerMemberId =
+                                null;
+
+                            referralStatus.className =
+                                "referral-status error";
+
+                            referralStatus.textContent =
+                                "✕ Referral verification failed";
+
+                            referralUser.classList.remove(
+                                "show"
+                            );
+
+                            return;
+
+                        }
+
+                        if(!data){
+
+                            referralValid =
+                                false;
+
+                            selectedReferrerMemberId =
+                                null;
+
+                            referralStatus.className =
+                                "referral-status error";
+
+                            referralStatus.textContent =
+                                "✕ Invalid Referral Code";
+
+                            referralUser.classList.remove(
+                                "show"
+                            );
+
+                            return;
+
+                        }
+
+                        /*
+                           Referral is valid.
+                        */
+
+                        referralValid =
+                            true;
+
+                        selectedReferrerMemberId =
+                            data.member_id || null;
+
+                        referralStatus.className =
+                            "referral-status success";
+
+                        referralStatus.textContent =
+                            "✓ Valid Referral Code";
+
+                        referralUser.textContent =
+                            "👤 Referred by: " +
+                            (
+                                data.full_name ||
+                                "Member"
+                            );
+
+                        referralUser.classList.add(
+                            "show"
+                        );
+
+                    }catch(error){
+
+                        console.error(
+                            "Referral error:",
+                            error
+                        );
+
+                        referralValid =
+                            false;
+
+                        selectedReferrerMemberId =
+                            null;
+
+                        referralStatus.className =
+                            "referral-status error";
+
+                        referralStatus.textContent =
+                            "✕ Unable to verify referral";
+
+                    }
+
+                },
+                500
+            );
 
     }
+);
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+passwordToggle.addEventListener(
+    "click",
+    function(){
+
+        if(password.type === "password"){
+
+            password.type =
+                "text";
+
+            passwordToggle.textContent =
+                "🙈";
+
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
+        }else{
+
+            password.type =
+                "password";
+
+            passwordToggle.textContent =
+                "👁";
+
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+function openPayment(){
+
+    paymentRadio.checked =
+        true;
+
+    paymentOption.classList.add(
+        "selected"
+    );
+
+    qrPaymentBox.classList.add(
+        "show"
+    );
 
 }
 
+paymentOption.addEventListener(
+    "click",
+    openPayment
+);
 
-/* =========================================================
-   GENERATE MEMBER ID
-   ========================================================= */
+paymentRadio.addEventListener(
+    "change",
+    function(){
+
+        if(this.checked){
+            openPayment();
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PHONE
+===================================================== */
+
+phoneInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+            .replace(/\D/g,"")
+            .slice(0,10);
+
+    }
+);
+
+
+/* =====================================================
+   UNIQUE MEMBER ID
+===================================================== */
 
 function generateMemberId(){
 
     const number =
-        Math.floor(10000 + Math.random() * 90000);
+        Math.floor(
+            10000 +
+            Math.random() * 90000
+        );
 
     return "SM" + number;
 
 }
 
 
-/* =========================================================
-   UNIQUE MEMBER ID
-   ========================================================= */
+/*
+   Check whether Member ID already exists.
+*/
+
+async function memberIdExists(memberId){
+
+    const result =
+        await supabaseClient
+        .from("profiles")
+        .select("member_id")
+        .eq("member_id",memberId)
+        .maybeSingle();
+
+    if(result.error){
+
+        /*
+           PGRST116 means no row.
+        */
+        if(result.error.code === "PGRST116"){
+            return false;
+        }
+
+        throw result.error;
+    }
+
+    return !!result.data;
+
+}
+
+
+/*
+   Generate an unused Member ID.
+*/
 
 async function generateUniqueMemberId(){
 
-    /*
-      Try multiple times in case the generated ID already exists.
-    */
+    for(let attempt = 0; attempt < 15; attempt++){
 
-    for(let i = 0; i < 20; i++){
-
-        const memberId =
+        const candidate =
             generateMemberId();
 
-        const { data, error } =
-            await supabaseClient
-                .from("profiles")
-                .select("id")
-                .eq("member_id", memberId)
-                .maybeSingle();
+        const exists =
+            await memberIdExists(
+                candidate
+            );
 
-        if(error){
+        if(!exists){
 
-            throw error;
-
-        }
-
-        if(!data){
-
-            return memberId;
+            return candidate;
 
         }
 
     }
 
     throw new Error(
-        "Could not generate a unique Member ID. Please try again."
+        "Unable to generate a unique Member ID. Please try again."
     );
 
 }
 
 
-/* =========================================================
-   VALIDATION
-   ========================================================= */
+/* =====================================================
+   UNIQUE REFERRAL CODE
+===================================================== */
 
-function validateForm(){
+async function referralCodeExists(code){
 
-    const fullName =
-        document.getElementById("fullName")
-            .value.trim();
+    const result =
+        await supabaseClient
+        .from("profiles")
+        .select("referral_code")
+        .eq("referral_code",code)
+        .maybeSingle();
 
-    const email =
-        document.getElementById("email")
-            .value.trim();
+    if(result.error){
 
-    const phone =
-        document.getElementById("phone")
-            .value.trim();
+        if(result.error.code === "PGRST116"){
+            return false;
+        }
 
-    const password =
-        document.getElementById("password")
-            .value;
-
-    const referralCode =
-        document.getElementById("referralCode")
-            .value.trim();
-
-    const utr =
-        document.getElementById("utr")
-            .value.trim();
-
-
-    if(!fullName){
-
-        showError("Please enter your full name.");
-
-        return false;
-
+        throw result.error;
     }
 
-
-    if(!email){
-
-        showError("Please enter your email address.");
-
-        return false;
-
-    }
-
-
-    const emailPattern =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if(!emailPattern.test(email)){
-
-        showError("Please enter a valid email address.");
-
-        return false;
-
-    }
-
-
-    if(!/^\d{10}$/.test(phone)){
-
-        showError(
-            "Please enter a valid 10 digit mobile number."
-        );
-
-        return false;
-
-    }
-
-
-    if(password.length < 6){
-
-        showError(
-            "Password must contain at least 6 characters."
-        );
-
-        return false;
-
-    }
-
-
-    if(!referralCode){
-
-        showError("Please enter your referral code.");
-
-        return false;
-
-    }
-
-
-    if(!referralVerified){
-
-        showError(
-            "Please verify your referral code first."
-        );
-
-        return false;
-
-    }
-
-
-    if(!utr){
-
-        showError(
-            "Please enter your UTR / Transaction ID after payment."
-        );
-
-        return false;
-
-    }
-
-
-    return true;
+    return !!result.data;
 
 }
 
 
-/* =========================================================
-   REGISTER ACCOUNT
-   ========================================================= */
+async function generateUniqueReferralCode(){
 
-async function registerAccount(){
+    for(let attempt = 0; attempt < 15; attempt++){
 
-    clearError();
+        const candidate =
+            generateMemberId();
 
-    if(!validateForm()){
+        const exists =
+            await referralCodeExists(
+                candidate
+            );
 
-        return;
+        if(!exists){
+
+            return candidate;
+
+        }
 
     }
 
+    throw new Error(
+        "Unable to generate a unique referral code. Please try again."
+    );
 
-    const submitButton =
-        document.getElementById("submitBtn");
-
-    const loading =
-        document.getElementById("loadingText");
+}
 
 
-    const fullName =
-        document.getElementById("fullName")
-            .value.trim();
+/* =====================================================
+   FORM STEP 1
+===================================================== */
 
-    const email =
-        document.getElementById("email")
-            .value.trim()
+form.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+        hideSystemMessage();
+
+        if(!selectedPackage){
+
+            showSystemError(
+                "Please select a package first."
+            );
+
+            return;
+
+        }
+
+        const fullName =
+            nameInput.value.trim();
+
+        const phone =
+            phoneInput.value.trim();
+
+        const email =
+            emailInput.value
+            .trim()
             .toLowerCase();
 
-    const phone =
-        document.getElementById("phone")
-            .value.trim();
+        const userPassword =
+            password.value;
 
-    const password =
-        document.getElementById("password")
-            .value;
-
-    const referralCode =
-        document.getElementById("referralCode")
-            .value.trim();
-
-    const utr =
-        document.getElementById("utr")
-            .value.trim();
+        const referralCode =
+            referral.value
+            .trim()
+            .toUpperCase();
 
 
-    submitButton.disabled = true;
+        if(fullName.length < 2){
 
-    loading.style.display = "block";
-
-
-    try{
-
-        /* -----------------------------------------------
-           1. GENERATE UNIQUE MEMBER ID
-        ------------------------------------------------ */
-
-        const memberId =
-            await generateUniqueMemberId();
-
-
-        /* -----------------------------------------------
-           2. CREATE SUPABASE AUTH ACCOUNT
-        ------------------------------------------------ */
-
-        const {
-            data: authData,
-            error: authError
-        } =
-            await supabaseClient.auth.signUp({
-
-                email: email,
-
-                password: password,
-
-                options:{
-
-                    data:{
-                        full_name:fullName,
-                        phone:phone,
-                        member_id:memberId
-                    }
-
-                }
-
-            });
-
-
-        if(authError){
-
-            throw authError;
-
-        }
-
-
-        if(!authData.user){
-
-            throw new Error(
-                "Account creation failed. Please try again."
+            alert(
+                "Please enter your full name."
             );
 
+            nameInput.focus();
+
+            return;
+
         }
 
+        if(phone.length !== 10){
 
-        const userId =
-            authData.user.id;
-
-
-        /* -----------------------------------------------
-           3. SAVE PROFILE
-        ------------------------------------------------ */
-
-        const profileData = {
-
-            id:userId,
-
-            member_id:memberId,
-
-            full_name:fullName,
-
-            email:email,
-
-            phone:phone,
-
-            package:selectedPackage,
-
-            package_price:selectedPrice,
-
-            referral_code:referralCode,
-
-            referred_by:
-                referralProfile
-                    ? referralProfile.member_id
-                    : referralCode,
-
-            utr:utr,
-
-            payment_method:"UPI",
-
-            payment_status:"pending",
-
-            account_status:"active"
-
-        };
-
-
-        const {
-            error:profileError
-        } =
-            await supabaseClient
-                .from("profiles")
-                .insert(profileData);
-
-
-        if(profileError){
-
-            /*
-              If profile insertion fails, tell the user
-              instead of falsely showing success.
-            */
-
-            console.error(profileError);
-
-            throw new Error(
-                "Account was created, but profile setup failed. Please contact support."
+            alert(
+                "Please enter a valid 10-digit phone number."
             );
 
+            phoneInput.focus();
+
+            return;
+
         }
 
+        if(!email){
 
-        /* -----------------------------------------------
-           4. SUCCESS
-        ------------------------------------------------ */
+            alert(
+                "Please enter your email address."
+            );
 
-        document
-            .getElementById("successMemberId")
-            .textContent = memberId;
+            emailInput.focus();
 
-        document
-            .getElementById("successModal")
-            .style.display = "flex";
+            return;
 
+        }
 
-    }catch(error){
+        if(userPassword.length < 6){
 
-        console.error(
-            "Registration error:",
-            error
-        );
+            alert(
+                "Password must contain at least 6 characters."
+            );
 
-        let message =
-            error.message ||
-            "Registration failed. Please try again.";
+            password.focus();
+
+            return;
+
+        }
 
 
         /*
-          Friendly Supabase messages
+           Referral is optional.
+           If user enters it, it MUST be valid.
         */
 
         if(
-            message.toLowerCase()
-                .includes("user already registered")
+            referralCode !== "" &&
+            !referralValid
         ){
 
-            message =
-                "This email is already registered. Please use another email or login.";
+            alert(
+                "Please enter a valid Referral Code."
+            );
+
+            referral.focus();
+
+            return;
 
         }
 
 
-        if(
-            message.toLowerCase()
-                .includes("duplicate")
-        ){
+        if(!termsInput.checked){
 
-            message =
-                "This account already exists. Please try again with another email.";
+            alert(
+                "Please accept the Terms & Conditions."
+            );
+
+            return;
+
+        }
+
+        if(!paymentRadio.checked){
+
+            alert(
+                "Please select UPI Payment."
+            );
+
+            return;
 
         }
 
 
-        showError(message);
+        qrPaymentBox.classList.add(
+            "show"
+        );
 
-
-    }finally{
-
-        submitButton.disabled = false;
-
-        loading.style.display = "none";
+        qrPaymentBox.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
 
     }
+);
+
+
+/* =====================================================
+   STEP 2
+   UTR + ACCOUNT CREATION
+===================================================== */
+
+paidButton.addEventListener(
+    "click",
+    async function(){
+
+        hideSystemMessage();
+
+        const utr =
+            transactionId.value
+            .trim();
+
+        if(!selectedPackage){
+
+            alert(
+                "Please select a package first."
+            );
+
+            return;
+
+        }
+
+        if(!paymentRadio.checked){
+
+            alert(
+                "Please select UPI Payment."
+            );
+
+            return;
+
+        }
+
+        if(utr.length < 6){
+
+            alert(
+                "Please enter a valid UTR / Transaction ID."
+            );
+
+            transactionId.focus();
+
+            return;
+
+        }
+
+        const fullName =
+            nameInput.value.trim();
+
+        const phone =
+            phoneInput.value.trim();
+
+        const email =
+            emailInput.value
+            .trim()
+            .toLowerCase();
+
+        const userPassword =
+            password.value;
+
+        const referralCode =
+            referral.value
+            .trim()
+            .toUpperCase();
+
+
+        if(fullName.length < 2){
+
+            alert(
+                "Please enter your full name."
+            );
+
+            return;
+
+        }
+
+        if(phone.length !== 10){
+
+            alert(
+                "Please enter a valid 10-digit phone number."
+            );
+
+            return;
+
+        }
+
+        if(!email){
+
+            alert(
+                "Please enter your email address."
+            );
+
+            return;
+
+        }
+
+        if(userPassword.length < 6){
+
+            alert(
+                "Password must contain at least 6 characters."
+            );
+
+            return;
+
+        }
+
+
+        /*
+           Re-check referral before registration.
+           This prevents an old/changed referral value
+           from being saved incorrectly.
+        */
+
+        if(referralCode){
+
+            if(!referralValid){
+
+                alert(
+                    "Please enter a valid Referral Code."
+                );
+
+                referral.focus();
+
+                return;
+
+            }
+
+            if(!selectedReferrerMemberId){
+
+                alert(
+                    "Referral member could not be identified. Please verify the code again."
+                );
+
+                return;
+
+            }
+
+        }
+
+
+        if(!termsInput.checked){
+
+            alert(
+                "Please accept the Terms & Conditions."
+            );
+
+            return;
+
+        }
+
+        if(!supabaseClient){
+
+            alert(
+                "Database connection is not available. Please refresh the page."
+            );
+
+            return;
+
+        }
+
+
+        paidButton.disabled =
+            true;
+
+        paidButton.textContent =
+            "Creating Account...";
+
+
+        try{
+
+            /* =========================================
+               CHECK CURRENT SESSION
+            ========================================= */
+
+            const sessionResult =
+                await supabaseClient
+                .auth
+                .getSession();
+
+            if(sessionResult.error){
+
+                throw sessionResult.error;
+
+            }
+
+            let authUser =
+                sessionResult
+                .data
+                ?.session
+                ?.user ||
+                null;
+
+
+            /* =========================================
+               CREATE AUTH USER
+            ========================================= */
+
+            if(!authUser){
+
+                const signUpResult =
+                    await supabaseClient
+                    .auth
+                    .signUp({
+
+                        email:email,
+
+                        password:userPassword,
+
+                        options:{
+                            data:{
+                                full_name:
+                                    fullName,
+
+                                phone:
+                                    phone
+                            }
+                        }
+
+                    });
+
+
+                if(signUpResult.error){
+
+                    throw signUpResult.error;
+
+                }
+
+                authUser =
+                    signUpResult.data.user;
+
+                if(!authUser){
+
+                    throw new Error(
+                        "Account could not be created."
+                    );
+
+                }
+
+            }
+
+
+            const authUserId =
+                authUser.id;
+
+
+            /* =========================================
+               CHECK PROFILE
+            ========================================= */
+
+            const existingResult =
+                await supabaseClient
+                .from("profiles")
+                .select(
+                    "id,member_id"
+                )
+                .eq(
+                    "id",
+                    authUserId
+                )
+                .maybeSingle();
+
+
+            if(
+                existingResult.error &&
+                existingResult.error.code !==
+                "PGRST116"
+            ){
+
+                throw existingResult.error;
+
+            }
+
+
+            let memberId =
+                existingResult
+                .data
+                ?.member_id ||
+                null;
+
+
+            /* =========================================
+               CREATE PROFILE IF NEEDED
+            ========================================= */
+
+            if(!existingResult.data){
+
+                /*
+                   Generate unique Member ID.
+                */
+
+                memberId =
+                    await generateUniqueMemberId();
+
+
+                /*
+                   Generate unique personal referral code.
+                */
+
+                const ownReferralCode =
+                    await generateUniqueReferralCode();
+
+
+                /*
+                   IMPORTANT:
+                   selectedReferrerMemberId is the
+                   Member ID belonging to the referral
+                   code entered by the new member.
+                */
+
+                const profileData = {
+
+                    id:
+                        authUserId,
+
+                    member_id:
+                        memberId,
+
+                    full_name:
+                        fullName,
+
+                    phone:
+                        phone,
+
+                    package_name:
+                        selectedPackage.name,
+
+                    package_price:
+                        selectedPackage.price,
+
+                    referral_code:
+                        ownReferralCode,
+
+                    referrer_member_id:
+                        referralCode
+                        ? selectedReferrerMemberId
+                        : null,
+
+                    account_status:
+                        "Pending Verification"
+
+                };
+
+
+                /*
+                   Insert profile.
+                */
+
+                const profileInsert =
+                    await supabaseClient
+                    .from("profiles")
+                    .insert(
+                        profileData
+                    );
+
+
+                if(profileInsert.error){
+
+                    throw profileInsert.error;
+
+                }
+
+            }
+
+
+            /* =========================================
+               PAYMENT STATUS MESSAGE
+            ========================================= */
+
+            paymentStatus.classList.add(
+                "show"
+            );
+
+            paymentStatus.textContent =
+                "✓ Registration submitted successfully. Your payment is pending verification.";
+
+
+            paidButton.textContent =
+                "Account Created ✓";
+
+
+            generatedId.textContent =
+                memberId;
+
+
+            successOverlay.classList.add(
+                "show"
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "REGISTRATION ERROR:",
+                error
+            );
+
+            paidButton.disabled =
+                false;
+
+            paidButton.textContent =
+                "I Have Paid →";
+
+
+            let message =
+                error?.message ||
+                "Something went wrong.";
+
+            const lowerMessage =
+                message.toLowerCase();
+
+
+            if(
+                lowerMessage.includes(
+                    "user already registered"
+                )
+            ){
+
+                message =
+                    "This email is already registered. Please Login instead.";
+
+            }
+
+            else if(
+                lowerMessage.includes(
+                    "already registered"
+                )
+            ){
+
+                message =
+                    "This email is already registered. Please Login instead.";
+
+            }
+
+            else if(
+                lowerMessage.includes(
+                    "duplicate key"
+                )
+            ){
+
+                message =
+                    "A duplicate Member ID or Referral Code was generated. Please try again.";
+
+            }
+
+            else if(
+                lowerMessage.includes(
+                    "row-level security"
+                ) ||
+                lowerMessage.includes(
+                    "rls"
+                )
+            ){
+
+                message =
+                    "Supabase RLS is blocking profile creation. Your profiles INSERT policy needs to allow the logged-in user to create their own profile.";
+
+            }
+
+            showSystemError(
+                "Registration failed: " +
+                message
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function goToLogin(){
+
+    window.location.href =
+        "login.html";
 
 }
 
 
-/* =========================================================
-   PHONE INPUT
-   ========================================================= */
+/* =====================================================
+   DEBUG
+===================================================== */
 
-document
-    .getElementById("phone")
-    .addEventListener("input",function(){
+console.log(
+    "Skills Market Checkout Loaded"
+);
 
-        this.value =
-            this.value
-                .replace(/\D/g,"")
-                .slice(0,10);
+console.log(
+    "Package Code:",
+    packageCode
+);
 
-    });
-
-
-/* =========================================================
-   REFERRAL AUTO UPPERCASE
-   ========================================================= */
-
-document
-    .getElementById("referralCode")
-    .addEventListener("input",function(){
-
-        this.value =
-            this.value
-                .toUpperCase()
-                .replace(/\s/g,"");
-
-        referralVerified = false;
-
-        const status =
-            document.getElementById("referralStatus");
-
-        status.style.display = "none";
-
-    });
-
-
-/* =========================================================
-   INITIALIZE
-   ========================================================= */
-
-loadPackage();
+console.log(
+    "Selected Package:",
+    selectedPackage
+);
 
 </script>
 
