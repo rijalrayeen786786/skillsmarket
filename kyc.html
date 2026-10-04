@@ -3,41 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KYC Details | Skills Market</title>
+
+<title>Skills Market | KYC</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
 body{
-    font-family:'Inter',Arial,Helvetica,sans-serif;
-    background:#f8f9fc;
+    background:#f6f7fb;
     color:#111827;
     min-height:100vh;
-    overflow-x:hidden;
 }
 
-/* ========================= NAVBAR ========================= */
 
-.navbar{
-    height:72px;
+/* =========================================================
+   MAIN
+========================================================= */
+
+.dashboard{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 24px 24px;
+}
+
+
+/* =========================================================
+   EXACT DASHBOARD NAVBAR
+========================================================= */
+
+.sm-navbar{
+    width:100%;
+    height:68px;
     background:#ffffff;
     border-bottom:1px solid #e5e7eb;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 28px;
     position:sticky;
     top:0;
-    z-index:1000;
+    z-index:5000;
+    padding:0 24px;
 }
 
-.brand{
+.sm-brand{
     display:flex;
     align-items:center;
     gap:10px;
@@ -45,352 +66,415 @@ body{
     color:#111827;
 }
 
-.logo{
+.sm-brand-logo{
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+    color:#ffffff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:900;
+    box-shadow:0 5px 15px rgba(79,70,229,.18);
+}
+
+.sm-brand-name{
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:-.3px;
+}
+
+.sm-brand-name span{
+    color:#6d28d9;
+}
+
+.sm-nav-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+.profile-dropdown-wrap{
+    position:relative;
+}
+
+.profile-mini{
     width:40px;
     height:40px;
+    border-radius:50%;
+    border:0;
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+    color:#ffffff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(79,70,229,.20);
+    outline:none;
+    transition:.2s;
+    overflow:hidden;
+    padding:0;
+}
+
+.profile-mini:hover{
+    transform:translateY(-1px);
+}
+
+.profile-mini img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+}
+
+.profile-dropdown{
+    position:absolute;
+    top:50px;
+    right:0;
+    width:200px;
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:7px;
+    box-shadow:0 15px 35px rgba(15,23,42,.14);
+    display:none;
+    z-index:10000;
+}
+
+.profile-dropdown.active{
+    display:block;
+}
+
+.profile-dropdown-item{
+    width:100%;
+    min-height:43px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border:0;
+    border-radius:9px;
+    background:transparent;
+    color:#334155;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    text-align:left;
+}
+
+.profile-dropdown-item:hover{
+    background:#f5f3ff;
+    color:#6d28d9;
+}
+
+.profile-dropdown-item.logout-dropdown:hover{
+    background:#fef2f2;
+    color:#dc2626;
+}
+
+
+/* =========================================================
+   MENU BUTTON
+========================================================= */
+
+.menu-btn{
+    width:40px;
+    height:40px;
+    border:1px solid #e5e7eb;
     border-radius:11px;
+    background:#ffffff;
+    color:#334155;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   SIDE MENU
+========================================================= */
+
+.nav-menu{
+    position:fixed;
+    top:0;
+    right:-330px;
+    width:310px;
+    max-width:88%;
+    height:100vh;
+    background:#ffffff;
+    z-index:9999;
+    padding:20px 16px;
+    box-shadow:-10px 0 35px rgba(15,23,42,.15);
+    transition:right .3s ease;
+    overflow-y:auto;
+}
+
+.nav-menu.active{
+    right:0;
+}
+
+.menu-top{
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid #eef2f7;
+}
+
+.menu-title{
+    font-size:18px;
+    font-weight:900;
+    color:#111827;
+}
+
+.close-menu{
+    width:35px;
+    height:35px;
+    border:0;
+    border-radius:9px;
+    background:#f1f5f9;
+    color:#334155;
+    font-size:17px;
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   MENU PROFILE
+========================================================= */
+
+.menu-profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:18px 4px;
+    border-bottom:1px solid #eef2f7;
+}
+
+.menu-avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
     background:linear-gradient(135deg,#7c3aed,#4f46e5);
     color:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:16px;
-    font-weight:800;
-    box-shadow:0 4px 12px rgba(79,70,229,.25);
-}
-
-.brand-name{
-    font-size:20px;
-    font-weight:800;
-}
-
-.brand-name span{
-    color:#7c3aed;
-}
-
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.profile-btn{
-    border:1px solid #e5e7eb;
-    background:#fff;
-    padding:5px 10px 5px 5px;
-    border-radius:30px;
-    display:flex;
-    align-items:center;
-    gap:9px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.profile-btn:hover{
-    border-color:#7c3aed;
-}
-
-.profile-avatar{
-    width:34px;
-    height:34px;
-    min-width:34px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#7c3aed,#4f46e5);
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
+    font-weight:900;
     overflow:hidden;
+    flex-shrink:0;
 }
 
-.profile-avatar img{
-    width:34px;
-    height:34px;
+.menu-avatar img{
+    width:100%;
+    height:100%;
     object-fit:cover;
+    border-radius:50%;
     display:block;
 }
 
-.profile-name{
-    font-size:13px;
-    font-weight:700;
-    max-width:130px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+.menu-profile-name{
+    font-size:14px;
+    font-weight:850;
+    color:#111827;
 }
 
-.menu-btn{
-    width:42px;
-    height:42px;
-    border:1px solid #e5e7eb;
-    background:#fff;
-    border-radius:11px;
-    cursor:pointer;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:4px;
-    transition:.2s;
+.menu-profile-id{
+    font-size:10px;
+    color:#64748b;
+    margin-top:3px;
 }
 
-.menu-btn:hover{
-    background:#f5f3ff;
-    border-color:#c4b5fd;
-}
-
-.menu-btn span{
-    width:18px;
-    height:2px;
-    background:#4f46e5;
-    border-radius:3px;
-}
-
-/* ========================= SIDE MENU ========================= */
-
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(15,23,42,.4);
-    z-index:1090;
-    display:none;
-    backdrop-filter:blur(2px);
-}
-
-.overlay.show{
-    display:block;
-}
-
-.side-menu{
-    position:fixed;
-    top:0;
-    right:-330px;
-    width:310px;
-    height:100vh;
-    background:#fff;
-    z-index:1100;
-    box-shadow:-10px 0 35px rgba(0,0,0,.12);
-    transition:right .3s cubic-bezier(.4,0,.2,1);
-    overflow-y:auto;
-}
-
-.side-menu.open{
-    right:0;
-}
-
-.side-header{
-    height:72px;
-    padding:0 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid #e5e7eb;
-}
-
-.side-title{
-    font-size:18px;
-    font-weight:800;
-}
-
-.close-menu{
-    width:38px;
-    height:38px;
-    border:0;
-    border-radius:10px;
-    background:#f3f4f6;
-    cursor:pointer;
-    font-size:20px;
-}
-
-.close-menu:hover{
-    background:#e5e7eb;
-}
-
-.menu-list{
-    padding:14px;
+.menu-links{
+    padding-top:14px;
 }
 
 .menu-link{
+    width:100%;
     display:flex;
     align-items:center;
     gap:12px;
-    padding:13px 14px;
-    margin-bottom:5px;
-    border-radius:11px;
+    padding:12px;
+    margin-bottom:4px;
+    border-radius:10px;
     text-decoration:none;
-    color:#4b5563;
-    font-size:14px;
-    font-weight:600;
-    transition:all .2s ease;
+    color:#334155;
+    font-size:12.5px;
+    font-weight:700;
+    transition:.2s;
 }
 
 .menu-link:hover{
     background:#f5f3ff;
     color:#6d28d9;
-    transform:translateX(4px);
 }
 
 .menu-link.active{
-    background:linear-gradient(135deg,#ede9fe,#eef2ff);
+    background:#f3e8ff;
     color:#6d28d9;
 }
 
 .menu-icon{
-    width:30px;
+    width:25px;
     text-align:center;
-    font-size:17px;
+    font-size:15px;
+    flex-shrink:0;
 }
 
-.logout{
+.logout-link{
     color:#dc2626;
+    margin-top:8px;
 }
 
-.logout:hover{
+.logout-link:hover{
     background:#fef2f2;
     color:#dc2626;
 }
 
-/* ========================= MAIN ========================= */
-
-.main{
-    width:100%;
-    max-width:1000px;
-    margin:0 auto;
-    padding:45px 25px 60px;
-    animation:fadeInUp .5s ease-out;
-}
-
-@keyframes fadeInUp{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.page-heading{
-    margin-bottom:20px;
-}
-
-.page-heading h1{
-    font-size:28px;
-    font-weight:800;
-    margin-bottom:6px;
-    color:#111827;
-}
-
-.page-heading p{
-    color:#6b7280;
-    font-size:13px;
-}
-
-/* ========================= GUIDE BUTTON ========================= */
-
-.guide-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:linear-gradient(135deg,#7c3aed,#4f46e5);
-    color:#fff;
-    padding:10px 18px;
-    border-radius:30px;
-    font-size:13px;
-    font-weight:700;
-    text-decoration:none;
-    margin-bottom:25px;
-    box-shadow:0 4px 15px rgba(79,70,229,.25);
+.menu-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.35);
+    z-index:9998;
+    opacity:0;
+    visibility:hidden;
     transition:.3s;
 }
 
-.guide-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 6px 20px rgba(79,70,229,.35);
+.menu-overlay.active{
+    opacity:1;
+    visibility:visible;
 }
 
-.play-icon{
-    width:20px;
-    height:20px;
-    background:#fff;
-    color:#4f46e5;
-    border-radius:50%;
+
+/* =========================================================
+   KYC HEADER
+========================================================= */
+
+.page-header{
+    margin-top:22px;
+    margin-bottom:18px;
+}
+
+.page-title{
+    font-size:25px;
+    font-weight:900;
+    color:#111827;
+    margin-bottom:6px;
+}
+
+.page-subtitle{
+    font-size:13px;
+    color:#64748b;
+}
+
+
+/* =========================================================
+   GUIDE
+========================================================= */
+
+.guide-row{
     display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:10px;
-    padding-left:1px;
+    justify-content:flex-end;
+    margin-bottom:15px;
 }
 
-/* ========================= KYC CARD ========================= */
+.guide-btn{
+    border:0;
+    background:#f3e8ff;
+    color:#6d28d9;
+    padding:9px 14px;
+    border-radius:9px;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.guide-btn:hover{
+    background:#e9d5ff;
+}
+
+
+/* =========================================================
+   KYC CARD
+========================================================= */
 
 .kyc-card{
-    background:#fff;
-    border:1px solid #e5e7eb;
-    border-radius:24px;
-    padding:40px;
-    box-shadow:0 10px 40px rgba(31,41,55,.06);
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+    padding:24px;
+    box-shadow:0 4px 15px rgba(15,23,42,.05);
 }
 
-/* ========================= SECTIONS ========================= */
 
-.section-block{
+/* =========================================================
+   SECTION
+========================================================= */
+
+.kyc-section{
     margin-bottom:28px;
 }
 
-.section-header{
-    display:flex;
-    align-items:flex-start;
-    gap:14px;
+.kyc-section:last-of-type{
     margin-bottom:20px;
 }
 
-.section-icon-box{
-    width:48px;
-    height:48px;
-    border-radius:14px;
-    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+.section-heading{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding-bottom:15px;
+    border-bottom:1px solid #eef2f7;
+    margin-bottom:18px;
+}
+
+.section-icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#f3e8ff;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#fff;
-    font-size:22px;
-    flex-shrink:0;
-    box-shadow:0 6px 15px rgba(79,70,229,.22);
+    font-size:19px;
 }
 
-.section-title h3{
-    font-size:17px;
-    font-weight:800;
+.section-title{
+    font-size:16px;
+    font-weight:850;
     color:#111827;
-    margin-bottom:3px;
 }
 
-.section-title p{
-    font-size:12px;
-    color:#6b7280;
-    line-height:1.5;
+.section-subtitle{
+    font-size:11px;
+    color:#94a3b8;
+    margin-top:3px;
 }
 
-.divider{
-    height:1px;
-    background:#f1f3f7;
-    margin:25px 0;
-}
 
-/* ========================= FORM ========================= */
+/* =========================================================
+   FORM
+========================================================= */
 
 .form-grid{
     display:grid;
-    grid-template-columns:1fr;
-    gap:18px;
-}
-
-.form-grid.bank-grid{
-    grid-template-columns:1fr 1fr;
-    gap:20px;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
 }
 
 .form-group{
@@ -398,62 +482,69 @@ body{
     flex-direction:column;
 }
 
-.form-group label{
-    font-size:13px;
-    font-weight:700;
+.form-label{
+    font-size:12px;
+    font-weight:800;
+    color:#334155;
     margin-bottom:7px;
-    color:#374151;
 }
 
-.form-group input{
+.form-input{
     width:100%;
-    height:48px;
-    border:1px solid #e2e8f0;
-    border-radius:12px;
-    padding:0 16px;
-    font-size:14px;
+    height:46px;
+    border:1px solid #dbe2ea;
+    border-radius:10px;
+    padding:0 13px;
     outline:none;
-    background:#fff;
+    background:#ffffff;
     color:#111827;
-    transition:all .25s ease;
+    font-size:13px;
+    transition:.2s;
 }
 
-.form-group input:focus{
+.form-input:focus{
     border-color:#7c3aed;
-    box-shadow:0 0 0 4px rgba(124,58,237,.10);
+    box-shadow:0 0 0 3px rgba(124,58,237,.10);
 }
 
-.form-group input::placeholder{
-    color:#9ca3af;
+.form-input::placeholder{
+    color:#94a3b8;
 }
 
-/* ========================= SUBMIT ========================= */
 
-.submit-area{
-    margin-top:25px;
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+#message{
+    min-height:20px;
+    margin:5px 0 15px;
+    font-size:12px;
+    font-weight:700;
 }
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
 
 .submit-btn{
     width:100%;
+    height:48px;
     border:0;
+    border-radius:11px;
     background:linear-gradient(135deg,#7c3aed,#4f46e5);
-    color:#fff;
-    height:50px;
-    border-radius:14px;
-    font-size:15px;
-    font-weight:800;
+    color:#ffffff;
+    font-size:13px;
+    font-weight:850;
     cursor:pointer;
-    box-shadow:0 8px 22px rgba(79,70,229,.25);
-    transition:.25s;
+    box-shadow:0 7px 18px rgba(79,70,229,.18);
+    transition:.2s;
 }
 
 .submit-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 28px rgba(79,70,229,.35);
-}
-
-.submit-btn:active{
-    transform:translateY(0);
+    transform:translateY(-1px);
+    box-shadow:0 9px 22px rgba(79,70,229,.24);
 }
 
 .submit-btn:disabled{
@@ -462,195 +553,154 @@ body{
     transform:none;
 }
 
-/* ========================= MESSAGE ========================= */
 
-.message{
-    display:none;
-    margin-top:15px;
-    padding:13px 15px;
-    border-radius:10px;
-    font-size:13px;
-    font-weight:600;
-}
-
-.message.show{
-    display:block;
-}
-
-.message.success{
-    background:#ecfdf5;
-    color:#047857;
-    border:1px solid #a7f3d0;
-}
-
-.message.error{
-    background:#fef2f2;
-    color:#b91c1c;
-    border:1px solid #fecaca;
-}
-
-/* ========================= FOOTER ========================= */
+/* =========================================================
+   FOOTER
+========================================================= */
 
 .footer{
-    background:#fff;
-    border-top:1px solid #e5e7eb;
-    padding:28px 20px;
     text-align:center;
+    color:#94a3b8;
+    font-size:11px;
+    padding:22px 0 5px;
 }
 
-.footer-brand{
-    font-size:18px;
-    font-weight:800;
-    margin-bottom:7px;
-}
 
-.footer-brand span{
-    color:#7c3aed;
-}
+/* =========================================================
+   MOBILE
+========================================================= */
 
-.footer p{
-    color:#9ca3af;
-    font-size:12px;
-    line-height:1.6;
-}
+@media(max-width:600px){
 
-/* ========================= MOBILE ========================= */
-
-@media(max-width:768px){
-
-    .navbar{
-        height:66px;
-        padding:0 15px;
+    .dashboard{
+        padding:0 12px 20px;
     }
 
-    .brand-name{
+    .sm-navbar{
+        padding:0 14px;
+        width:calc(100% + 24px);
+        margin-left:-12px;
+        margin-right:-12px;
+    }
+
+    .sm-brand-name{
         font-size:17px;
+        white-space:nowrap;
     }
 
-    .logo{
-        width:37px;
-        height:37px;
+    .sm-brand-logo{
+        width:36px;
+        height:36px;
     }
 
-    .profile-name{
-        display:none;
+    .profile-dropdown{
+        width:185px;
     }
 
-    .profile-btn{
-        padding:4px;
-        border:0;
+    .page-header{
+        margin-top:17px;
     }
 
-    .main{
-        padding:25px 14px 40px;
-    }
-
-    .page-heading h1{
-        font-size:23px;
+    .page-title{
+        font-size:21px;
     }
 
     .kyc-card{
-        padding:22px 16px;
-        border-radius:18px;
+        padding:17px 14px;
+        border-radius:15px;
     }
 
-    .form-grid.bank-grid{
+    .form-grid{
         grid-template-columns:1fr;
-        gap:18px;
+        gap:14px;
     }
 
-    .side-menu{
-        width:290px;
+    .section-heading{
+        gap:10px;
     }
 
-    .section-icon-box{
-        width:44px;
-        height:44px;
-        border-radius:12px;
+    .section-icon{
+        width:38px;
+        height:38px;
     }
+
+    .guide-row{
+        justify-content:flex-start;
+    }
+
 }
 
-@media(max-width:400px){
-
-    .brand-name{
-        font-size:16px;
-    }
-
-    .page-heading h1{
-        font-size:22px;
-    }
-
-    .kyc-card{
-        padding:20px 14px;
-    }
-}
 </style>
 </head>
 
 <body>
 
-<!-- ========================= NAVBAR ========================= -->
 
-<header class="navbar">
+<!-- =======================================================
+     SIDE MENU OVERLAY
+======================================================= -->
 
-    <a href="dashboard.html" class="brand">
-        <div class="logo">SM</div>
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+    onclick="closeMenu()">
+</div>
 
-        <div class="brand-name">
-            Skills <span>Market</span>
+
+<!-- =======================================================
+     SIDE MENU
+======================================================= -->
+
+<div
+    class="nav-menu"
+    id="navMenu">
+
+    <div class="menu-top">
+
+        <div class="menu-title">
+            Skills Market
         </div>
-    </a>
 
-    <div class="nav-right">
-
-        <button class="profile-btn" id="profileBtn">
-
-            <div class="profile-avatar" id="navAvatar">
-                SM
-            </div>
-
-            <div class="profile-name" id="navName">
-                Loading...
-            </div>
-
-        </button>
-
-        <button class="menu-btn" id="menuBtn" aria-label="Open Menu">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button
+            class="close-menu"
+            onclick="closeMenu()">
+            ✕
         </button>
 
     </div>
 
-</header>
 
+    <div class="menu-profile">
 
-<!-- ========================= OVERLAY ========================= -->
-
-<div class="overlay" id="overlay"></div>
-
-
-<!-- ========================= SIDE MENU ========================= -->
-
-<aside class="side-menu" id="sideMenu">
-
-    <div class="side-header">
-
-        <div class="side-title">
-            Menu
+        <div
+            class="menu-avatar"
+            id="menuAvatar">
+            M
         </div>
 
-        <button class="close-menu" id="closeMenu">
-            ×
-        </button>
+        <div>
+
+            <div
+                class="menu-profile-name"
+                id="menuProfileName">
+                Member
+            </div>
+
+            <div
+                class="menu-profile-id"
+                id="menuProfileId">
+                ID: Loading...
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="menu-list">
+
+    <div class="menu-links">
 
         <a href="dashboard.html" class="menu-link">
-            <span class="menu-icon">📊</span>
+            <span class="menu-icon">⌂</span>
             <span>Affiliate Dashboard</span>
         </a>
 
@@ -664,9 +714,14 @@ body{
             <span>My Profile</span>
         </a>
 
+        <a href="affiliate-link.html" class="menu-link">
+            <span class="menu-icon">🔗</span>
+            <span>Affiliate Link</span>
+        </a>
+
         <a href="kyc.html" class="menu-link active">
             <span class="menu-icon">🪪</span>
-            <span>KYC Details</span>
+            <span>KYC</span>
         </a>
 
         <a href="leaderboard.html" class="menu-link">
@@ -674,414 +729,481 @@ body{
             <span>Leaderboard</span>
         </a>
 
+        <a href="my-team.html" class="menu-link">
+            <span class="menu-icon">👥</span>
+            <span>My Team</span>
+        </a>
+
+        <a href="registration-request.html" class="menu-link">
+            <span class="menu-icon">📝</span>
+            <span>Registration Request</span>
+        </a>
+
         <a href="withdrawal-request.html" class="menu-link">
             <span class="menu-icon">💸</span>
             <span>Withdrawal Request</span>
         </a>
 
-        <a href="#" class="menu-link logout" id="logoutBtn">
-            <span class="menu-icon">🚪</span>
+        <a href="upgrade-request.html" class="menu-link">
+            <span class="menu-icon">⬆️</span>
+            <span>Upgrade Request</span>
+        </a>
+
+        <a href="qualification.html" class="menu-link">
+            <span class="menu-icon">🎯</span>
+            <span>Qualification</span>
+        </a>
+
+        <a href="payout-transaction.html" class="menu-link">
+            <span class="menu-icon">💳</span>
+            <span>Payout Transaction</span>
+        </a>
+
+        <a href="training.html" class="menu-link">
+            <span class="menu-icon">🎓</span>
+            <span>Training</span>
+        </a>
+
+        <a href="community-support.html" class="menu-link">
+            <span class="menu-icon">💬</span>
+            <span>Community &amp; Support</span>
+        </a>
+
+        <a
+            href="#"
+            class="menu-link logout-link"
+            onclick="logoutUser(event)">
+
+            <span class="menu-icon">↪</span>
             <span>Logout</span>
+
         </a>
 
     </div>
 
-</aside>
+</div>
 
 
-<!-- ========================= MAIN CONTENT ========================= -->
+<!-- =======================================================
+     NAVBAR
+======================================================= -->
 
-<main class="main">
+<nav class="sm-navbar">
 
-    <div class="page-heading">
+    <a
+        href="dashboard.html"
+        class="sm-brand">
 
-        <h1>KYC Details</h1>
-
-        <p>
-            Add your bank and UPI details for secure payouts.
-        </p>
-
-    </div>
-
-
-    <!-- GUIDE BUTTON -->
-
-    <a href="#guide-video" class="guide-btn">
-
-        <div class="play-icon">
-            ▶
+        <div class="sm-brand-logo">
+            SM
         </div>
 
-        Guide Video
+        <div class="sm-brand-name">
+            Skills <span>Market</span>
+        </div>
 
     </a>
 
 
-    <!-- KYC FORM CARD -->
+    <div class="sm-nav-right">
 
-    <section class="kyc-card">
+        <div class="profile-dropdown-wrap">
 
-        <form id="kycForm">
+            <button
+                type="button"
+                class="profile-mini"
+                id="profileMini"
+                onclick="toggleProfileDropdown(event)">
+                M
+            </button>
 
+            <div
+                class="profile-dropdown"
+                id="profileDropdown">
 
-            <!-- BANK DETAILS -->
+                <a
+                    href="profile.html"
+                    class="profile-dropdown-item">
 
-            <div class="section-block">
+                    <span>👤</span>
+                    <span>My Profile</span>
 
-                <div class="section-header">
+                </a>
 
-                    <div class="section-icon-box">
-                        🏛️
-                    </div>
+                <a
+                    href="#"
+                    class="profile-dropdown-item"
+                    onclick="closeProfileDropdown()">
 
-                    <div class="section-title">
+                    <span>⚙️</span>
+                    <span>Account Settings</span>
 
-                        <h3>
-                            Bank Details
-                        </h3>
-
-                        <p>
-                            Enter the bank account details linked to your payouts.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-grid bank-grid">
-
-
-                    <!-- HOLDER NAME -->
-
-                    <div class="form-group">
-
-                        <label for="holderName">
-                            Account Holder Name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="holderName"
-                            name="holderName"
-                            placeholder="Enter account holder name"
-                            required
-                        >
-
-                    </div>
-
-
-                    <!-- BANK NAME -->
-
-                    <div class="form-group">
-
-                        <label for="bankName">
-                            Bank Name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="bankName"
-                            name="bankName"
-                            placeholder="Enter bank name"
-                            required
-                        >
-
-                    </div>
-
-
-                    <!-- ACCOUNT NUMBER -->
-
-                    <div class="form-group">
-
-                        <label for="accountNumber">
-                            Account Number
-                        </label>
-
-                        <input
-                            type="text"
-                            id="accountNumber"
-                            name="accountNumber"
-                            placeholder="Enter account number"
-                            inputmode="numeric"
-                            required
-                        >
-
-                    </div>
-
-
-                    <!-- IFSC -->
-
-                    <div class="form-group">
-
-                        <label for="ifsc">
-                            IFSC Code
-                        </label>
-
-                        <input
-                            type="text"
-                            id="ifsc"
-                            name="ifsc"
-                            placeholder="Enter IFSC code"
-                            maxlength="11"
-                            style="text-transform:uppercase;"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="divider"></div>
-
-
-            <!-- UPI DETAILS -->
-
-            <div class="section-block">
-
-                <div class="section-header">
-
-                    <div class="section-icon-box">
-                        📱
-                    </div>
-
-                    <div class="section-title">
-
-                        <h3>
-                            UPI Details
-                        </h3>
-
-                        <p>
-                            Add your UPI ID for receiving eligible payouts.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-grid">
-
-                    <div class="form-group">
-
-                        <label for="upi">
-                            UPI ID
-                        </label>
-
-                        <input
-                            type="text"
-                            id="upi"
-                            name="upi"
-                            placeholder="e.g. username@oksbi"
-                        >
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- MESSAGE -->
-
-            <div class="message" id="message"></div>
-
-
-            <!-- SUBMIT -->
-
-            <div class="submit-area">
+                </a>
 
                 <button
-                    type="submit"
-                    class="submit-btn"
-                    id="submitBtn"
-                >
-                    Send OTP →
+                    type="button"
+                    class="profile-dropdown-item logout-dropdown"
+                    onclick="logoutUser(event)">
+
+                    <span>🚪</span>
+                    <span>Logout</span>
+
                 </button>
 
             </div>
 
-
-        </form>
-
-    </section>
-
-</main>
+        </div>
 
 
-<!-- ========================= FOOTER ========================= -->
+        <button
+            class="menu-btn"
+            onclick="openMenu()"
+            aria-label="Open menu">
 
-<footer class="footer">
+            ☰
 
-    <div class="footer-brand">
-        Skills <span>Market</span>
+        </button>
+
     </div>
 
-    <p>
-        Learn practical skills. Build real opportunities.
-    </p>
+</nav>
 
-    <p>
-        © 2026 Skills Market. All rights reserved.
-    </p>
 
-</footer>
+<!-- =======================================================
+     PAGE
+======================================================= -->
+
+<div class="dashboard">
+
+
+    <div class="page-header">
+
+        <div class="page-title">
+            KYC Details
+        </div>
+
+        <div class="page-subtitle">
+            Add your bank and UPI details for secure payouts.
+        </div>
+
+    </div>
+
+
+    <div class="guide-row">
+
+        <button
+            type="button"
+            class="guide-btn"
+            onclick="showGuide()">
+
+            🎥 Guide Video
+
+        </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         KYC CARD
+    =================================================== -->
+
+    <div class="kyc-card">
+
+
+        <!-- BANK DETAILS -->
+
+        <section class="kyc-section">
+
+            <div class="section-heading">
+
+                <div class="section-icon">
+                    🏛️
+                </div>
+
+                <div>
+
+                    <div class="section-title">
+                        Bank Details
+                    </div>
+
+                    <div class="section-subtitle">
+                        Enter your bank account information
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Account Holder Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="holderName"
+                        class="form-input"
+                        placeholder="Enter account holder name"
+                        autocomplete="name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Bank Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="bankName"
+                        class="form-input"
+                        placeholder="Enter bank name"
+                        autocomplete="organization">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Account Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountNumber"
+                        class="form-input"
+                        placeholder="Enter account number"
+                        inputmode="numeric"
+                        maxlength="18">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        IFSC Code
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ifscCode"
+                        class="form-input"
+                        placeholder="Example: SBIN0001234"
+                        maxlength="11"
+                        style="text-transform:uppercase;">
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- UPI DETAILS -->
+
+        <section class="kyc-section">
+
+            <div class="section-heading">
+
+                <div class="section-icon">
+                    📱
+                </div>
+
+                <div>
+
+                    <div class="section-title">
+                        UPI Details
+                    </div>
+
+                    <div class="section-subtitle">
+                        Add your UPI ID for payouts
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        UPI ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="upiId"
+                        class="form-input"
+                        placeholder="example@upi"
+                        autocomplete="off">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div id="message"></div>
+
+
+        <button
+            type="button"
+            class="submit-btn"
+            id="submitBtn"
+            onclick="submitKYC()">
+
+            Send OTP →
+
+        </button>
+
+
+    </div>
+
+
+    <div class="footer">
+        © 2026 Skills Market · All Rights Reserved
+    </div>
+
+
+</div>
 
 
 <script>
 
-/* ========================= SUPABASE ========================= */
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
-"https://hmlonjwqeqedakzhucix.supabase.co";
+    "https://hmlonjwqeqedakzhucix.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
 
 const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-/* ========================= ELEMENTS ========================= */
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
 
-const menuBtn =
-document.getElementById("menuBtn");
+function toggleProfileDropdown(event){
 
-const closeMenu =
-document.getElementById("closeMenu");
+    event.stopPropagation();
 
-const sideMenu =
-document.getElementById("sideMenu");
+    const dropdown =
+        document.getElementById("profileDropdown");
 
-const overlay =
-document.getElementById("overlay");
-
-const logoutBtn =
-document.getElementById("logoutBtn");
-
-const navName =
-document.getElementById("navName");
-
-const navAvatar =
-document.getElementById("navAvatar");
-
-const kycForm =
-document.getElementById("kycForm");
-
-const submitBtn =
-document.getElementById("submitBtn");
-
-const message =
-document.getElementById("message");
-
-
-/* ========================= MENU ========================= */
-
-function openMenu(){
-
-    sideMenu.classList.add("open");
-
-    overlay.classList.add("show");
-
-}
-
-
-function closeSideMenu(){
-
-    sideMenu.classList.remove("open");
-
-    overlay.classList.remove("show");
-
-}
-
-
-menuBtn.addEventListener(
-    "click",
-    openMenu
-);
-
-closeMenu.addEventListener(
-    "click",
-    closeSideMenu
-);
-
-overlay.addEventListener(
-    "click",
-    closeSideMenu
-);
-
-
-/* ========================= PROFILE ========================= */
-
-function getInitials(name){
-
-    if(!name){
-        return "SM";
+    if(dropdown){
+        dropdown.classList.toggle("active");
     }
 
-    return name
-        .trim()
-        .split(/\s+/)
-        .slice(0,2)
-        .map(
-            word =>
-            word.charAt(0).toUpperCase()
-        )
-        .join("");
+}
+
+
+function closeProfileDropdown(){
+
+    const dropdown =
+        document.getElementById("profileDropdown");
+
+    if(dropdown){
+        dropdown.classList.remove("active");
+    }
 
 }
 
 
-function setAvatar(
-    element,
-    name,
-    avatarUrl
-){
+document.addEventListener(
+    "click",
+    function(event){
 
-    /*
-       IMPORTANT:
-       Avatar is restricted to the
-       small navbar circle only.
-    */
+        const wrap =
+            document.querySelector(".profile-dropdown-wrap");
 
-    if(avatarUrl){
+        if(
+            wrap &&
+            !wrap.contains(event.target)
+        ){
+            closeProfileDropdown();
+        }
 
-        element.innerHTML =
-        `<img src="${avatarUrl}" alt="Profile">`;
+    }
+);
 
-    }else{
 
-        element.textContent =
-        getInitials(name);
+/* =========================================================
+   PROFILE IMAGE
+========================================================= */
+
+function setAvatarImage(imageUrl, firstLetter){
+
+    const profileMini =
+        document.getElementById("profileMini");
+
+    const menuAvatar =
+        document.getElementById("menuAvatar");
+
+
+    if(profileMini){
+
+        if(imageUrl){
+
+            profileMini.innerHTML =
+                '<img src="' +
+                imageUrl +
+                '" alt="Profile">';
+
+        }else{
+
+            profileMini.textContent =
+                firstLetter;
+
+        }
+
+    }
+
+
+    if(menuAvatar){
+
+        if(imageUrl){
+
+            menuAvatar.innerHTML =
+                '<img src="' +
+                imageUrl +
+                '" alt="Profile">';
+
+        }else{
+
+            menuAvatar.textContent =
+                firstLetter;
+
+        }
 
     }
 
 }
 
 
-/* ========================= MESSAGE ========================= */
-
-function showMessage(
-    text,
-    type
-){
-
-    message.textContent =
-        text;
-
-    message.className =
-        "message show " + type;
-
-}
-
-
-/* ========================= LOAD USER ========================= */
+/* =========================================================
+   LOAD USER
+========================================================= */
 
 async function loadUser(){
 
@@ -1089,12 +1211,15 @@ async function loadUser(){
 
         const {
             data:{user},
-            error
+            error:authError
         } =
         await supabaseClient.auth.getUser();
 
 
-        if(error || !user){
+        if(
+            authError ||
+            !user
+        ){
 
             window.location.href =
                 "login.html";
@@ -1105,20 +1230,43 @@ async function loadUser(){
 
 
         const {
-            data:profile
+            data:profile,
+            error
         } =
         await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id",user.id)
-        .maybeSingle();
+            .from("profiles")
+            .select("*")
+            .eq("id",user.id)
+            .maybeSingle();
 
 
-        const name =
+        if(error){
+
+            console.error(
+                "Profile error:",
+                error
+            );
+
+        }
+
+
+        const fullName =
             profile?.full_name ||
             user.user_metadata?.full_name ||
             user.email?.split("@")[0] ||
-            "User";
+            "Member";
+
+
+        const memberID =
+            profile?.member_id ||
+            "Not Assigned";
+
+
+        const firstLetter =
+            fullName
+                .trim()
+                .charAt(0)
+                .toUpperCase() || "M";
 
 
         const avatarUrl =
@@ -1126,240 +1274,363 @@ async function loadUser(){
             "";
 
 
-        navName.textContent =
-            name;
+        document.getElementById(
+            "menuProfileName"
+        ).textContent =
+            fullName;
 
 
-        setAvatar(
-            navAvatar,
-            name,
-            avatarUrl
+        document.getElementById(
+            "menuProfileId"
+        ).textContent =
+            "ID: " + memberID;
+
+
+        setAvatarImage(
+            avatarUrl,
+            firstLetter
         );
 
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "User loading error:",
+            error
+        );
 
     }
 
 }
 
 
-/* ========================= LOGOUT ========================= */
+/* =========================================================
+   SIDE MENU
+========================================================= */
 
-logoutBtn.addEventListener(
-    "click",
-    async function(e){
+function openMenu(){
 
-        e.preventDefault();
+    closeProfileDropdown();
 
-        await supabaseClient
-            .auth
-            .signOut();
+    document
+        .getElementById("navMenu")
+        .classList.add("active");
 
-        window.location.href =
-            "login.html";
+    document
+        .getElementById("menuOverlay")
+        .classList.add("active");
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+function closeMenu(){
+
+    document
+        .getElementById("navMenu")
+        .classList.remove("active");
+
+    document
+        .getElementById("menuOverlay")
+        .classList.remove("active");
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================================================
+   GUIDE
+========================================================= */
+
+function showGuide(){
+
+    alert(
+        "KYC Guide: Enter your correct bank account and UPI details. Make sure the details belong to your own account."
+    );
+
+}
+
+
+/* =========================================================
+   KYC SUBMIT
+========================================================= */
+
+async function submitKYC(){
+
+    const submitBtn =
+        document.getElementById("submitBtn");
+
+    const message =
+        document.getElementById("message");
+
+
+    const holderName =
+        document.getElementById("holderName")
+            .value
+            .trim();
+
+
+    const bankName =
+        document.getElementById("bankName")
+            .value
+            .trim();
+
+
+    const accountNumber =
+        document.getElementById("accountNumber")
+            .value
+            .trim();
+
+
+    const ifscCode =
+        document.getElementById("ifscCode")
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    const upiId =
+        document.getElementById("upiId")
+            .value
+            .trim();
+
+
+    message.textContent = "";
+    message.style.color = "#dc2626";
+
+
+    if(!holderName){
+
+        message.textContent =
+            "Please enter account holder name.";
+
+        return;
 
     }
-);
 
 
-/* ========================= FORM SUBMISSION ========================= */
+    if(!bankName){
 
-kycForm.addEventListener(
-    "submit",
-    async function(e){
+        message.textContent =
+            "Please enter bank name.";
 
-        e.preventDefault();
+        return;
 
-
-        const holderName =
-        document
-        .getElementById("holderName")
-        .value
-        .trim();
+    }
 
 
-        const bankName =
-        document
-        .getElementById("bankName")
-        .value
-        .trim();
+    if(!/^[0-9]{8,18}$/.test(accountNumber)){
+
+        message.textContent =
+            "Please enter a valid account number.";
+
+        return;
+
+    }
 
 
-        const ifsc =
-        document
-        .getElementById("ifsc")
-        .value
-        .trim()
-        .toUpperCase();
+    if(!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifscCode)){
+
+        message.textContent =
+            "Please enter a valid IFSC code.";
+
+        return;
+
+    }
 
 
-        const accountNumber =
-        document
-        .getElementById("accountNumber")
-        .value
-        .trim();
+    if(
+        !upiId ||
+        !/^[\w.-]+@[\w.-]+$/.test(upiId)
+    ){
+
+        message.textContent =
+            "Please enter a valid UPI ID.";
+
+        return;
+
+    }
 
 
-        const upi =
-        document
-        .getElementById("upi")
-        .value
-        .trim();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
 
 
-        /* IFSC VALIDATION */
+    try{
 
-        const ifscPattern =
-        /^[A-Z]{4}0[A-Z0-9]{6}$/;
-
-
-        if(!ifscPattern.test(ifsc)){
-
-            showMessage(
-                "Please enter a valid IFSC Code.",
-                "error"
-            );
-
-            return;
-
-        }
+        const {
+            data:{user},
+            error:authError
+        } =
+        await supabaseClient.auth.getUser();
 
 
-        /* ACCOUNT VALIDATION */
+        if(
+            authError ||
+            !user
+        ){
 
-        const accountPattern =
-        /^[0-9]{8,18}$/;
-
-
-        if(!accountPattern.test(accountNumber)){
-
-            showMessage(
-                "Please enter a valid Account Number.",
-                "error"
-            );
+            window.location.href =
+                "login.html";
 
             return;
 
         }
 
 
-        submitBtn.disabled =
-            true;
-
-        submitBtn.textContent =
-            "Processing...";
-
-
-        try{
-
-            const {
-                data:{user},
-                error
-            } =
-            await supabaseClient
-            .auth
-            .getUser();
-
-
-            if(error || !user){
-
-                window.location.href =
-                    "login.html";
-
-                return;
-
-            }
-
-
-            /*
-              Requires Supabase table:
-
-              kyc_submissions
-
-              with RLS policies.
-            */
-
-            const {
-                error:insertError
-            } =
-            await supabaseClient
+        const {
+            error
+        } =
+        await supabaseClient
             .from("kyc_submissions")
             .insert({
 
-                user_id:user.id,
+                user_id:
+                    user.id,
 
-                holder_name:holderName,
+                holder_name:
+                    holderName,
 
-                bank_name:bankName,
+                bank_name:
+                    bankName,
 
-                ifsc_code:ifsc,
+                ifsc_code:
+                    ifscCode,
 
-                account_number:accountNumber,
+                account_number:
+                    accountNumber,
 
-                upi_id:upi || null,
+                upi_id:
+                    upiId,
 
-                status:"pending"
+                status:
+                    "pending"
 
             });
 
 
-            if(insertError){
+        if(error){
 
-                console.error(
-                    insertError
-                );
-
-                showMessage(
-                    "KYC submission failed. Check Supabase table/RLS setup.",
-                    "error"
-                );
-
-                submitBtn.disabled =
-                    false;
-
-                submitBtn.textContent =
-                    "Send OTP →";
-
-                return;
-
-            }
-
-
-            showMessage(
-                "OTP sent successfully! Please verify your details.",
-                "success"
+            console.error(
+                "KYC submission error:",
+                error
             );
 
+            message.textContent =
+                "KYC submission failed. Please try again.";
 
-            submitBtn.textContent =
-                "OTP Sent ✓";
-
-
-        }catch(error){
-
-            console.error(error);
-
-            showMessage(
-                "Something went wrong. Please try again.",
-                "error"
-            );
-
-            submitBtn.disabled =
-                false;
-
+            submitBtn.disabled = false;
             submitBtn.textContent =
                 "Send OTP →";
 
+            return;
+
         }
 
+
+        /*
+         * IMPORTANT:
+         * This page does not generate a real OTP.
+         * Real OTP verification requires a backend/OTP provider.
+         */
+
+        message.style.color =
+            "#16a34a";
+
+        message.textContent =
+            "KYC details submitted successfully. Verification is pending.";
+
+        submitBtn.textContent =
+            "Submitted ✓";
+
+        submitBtn.disabled =
+            true;
+
+
+    }catch(error){
+
+        console.error(
+            "KYC error:",
+            error
+        );
+
+        message.textContent =
+            "Something went wrong. Please try again.";
+
+        submitBtn.disabled =
+            false;
+
+        submitBtn.textContent =
+            "Send OTP →";
+
     }
-);
+
+}
 
 
-/* ========================= START ========================= */
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logoutUser(event){
+
+    if(event){
+        event.preventDefault();
+    }
+
+
+    closeProfileDropdown();
+    closeMenu();
+
+
+    const confirmLogout =
+        confirm(
+            "Are you sure you want to logout?"
+        );
+
+
+    if(!confirmLogout){
+        return;
+    }
+
+
+    const {
+        error
+    } =
+    await supabaseClient.auth.signOut();
+
+
+    if(error){
+
+        alert(
+            "Logout failed."
+        );
+
+        console.error(error);
+
+        return;
+
+    }
+
+
+    sessionStorage.removeItem(
+        "sm_profile_cache"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
 
 loadUser();
 
