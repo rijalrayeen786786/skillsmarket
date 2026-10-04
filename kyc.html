@@ -1,102 +1,479 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Account Information</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #fce4ec, #f3e5f5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .form-container {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 {
-            color: #6a1b9a;
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
-            box-sizing: border-box;
-            background-color: #fafafa;
-        }
-        input:focus {
-            border-color: #ab47bc;
-            outline: none;
-            background-color: #fff;
-        }
-        .btn-otp {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #e91e63, #9c27b0);
-            border: none;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: opacity 0.3s ease;
-        }
-        .btn-otp:hover {
-            opacity: 0.9;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KYC | Skills Market</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top left, rgba(229,9,20,.15), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(156,39,176,.12), transparent 35%),
+        linear-gradient(135deg,#050505,#160000,#050505);
+    color:#fff;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:40px 20px;
+}
+
+/* MAIN CONTAINER */
+.form-container{
+    width:100%;
+    max-width:560px;
+
+    background:#101010;
+    border:1px solid #2b2b2b;
+    border-radius:20px;
+
+    padding:35px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.55),
+        0 0 35px rgba(229,9,20,.06);
+}
+
+/* BRAND */
+.brand{
+    text-align:center;
+    margin-bottom:8px;
+}
+
+.brand h1{
+    font-size:30px;
+    font-weight:800;
+    letter-spacing:.3px;
+}
+
+.brand span{
+    color:#e50914;
+}
+
+.subtitle{
+    text-align:center;
+    color:#999;
+    font-size:14px;
+    line-height:1.5;
+    margin-bottom:30px;
+}
+
+/* HEADING */
+h2{
+    font-size:21px;
+    margin-bottom:6px;
+    color:#fff;
+}
+
+.heading-note{
+    color:#777;
+    font-size:12px;
+    margin-bottom:25px;
+}
+
+/* FORM */
+.form-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    color:#d8d8d8;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    height:48px;
+
+    padding:0 14px;
+
+    border:1px solid #353535;
+    border-radius:10px;
+
+    background:#181818;
+    color:#fff;
+
+    font-size:14px;
+
+    outline:none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+input::placeholder{
+    color:#6f6f6f;
+}
+
+input:focus{
+    background:#1b1b1b;
+    border-color:#e50914;
+    box-shadow:0 0 0 3px rgba(229,9,20,.10);
+}
+
+/* BUTTON */
+.btn-submit{
+    width:100%;
+    height:50px;
+
+    margin-top:7px;
+
+    border:0;
+    border-radius:28px;
+
+    background:linear-gradient(135deg,#e50914,#b00008);
+
+    color:#fff;
+
+    font-size:15px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        opacity .2s ease,
+        box-shadow .2s ease;
+}
+
+.btn-submit:hover{
+    transform:translateY(-2px);
+    opacity:.94;
+    box-shadow:0 8px 25px rgba(229,9,20,.22);
+}
+
+.btn-submit:active{
+    transform:translateY(0);
+}
+
+/* STATUS */
+.status{
+    display:none;
+
+    margin-top:18px;
+    padding:13px 15px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-size:13px;
+    line-height:1.5;
+}
+
+.status.success{
+    background:#102518;
+    border:1px solid #236b38;
+    color:#6be38c;
+}
+
+/* SECURITY NOTE */
+.note{
+    margin-top:22px;
+
+    color:#777;
+
+    font-size:11px;
+    line-height:1.6;
+
+    text-align:center;
+}
+
+/* BACK BUTTON */
+.back{
+    display:block;
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#e50914;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:600;
+}
+
+.back:hover{
+    text-decoration:underline;
+}
+
+/* LAPTOP */
+@media(min-width:900px){
+
+    body{
+        padding:60px 30px;
+    }
+
+    .form-container{
+        max-width:600px;
+        padding:40px;
+    }
+
+    .brand h1{
+        font-size:32px;
+    }
+
+    h2{
+        font-size:23px;
+    }
+
+    input{
+        height:50px;
+        font-size:15px;
+    }
+
+    .btn-submit{
+        height:52px;
+        font-size:16px;
+    }
+}
+
+/* TABLET */
+@media(max-width:700px){
+
+    body{
+        padding:25px 16px;
+    }
+
+    .form-container{
+        max-width:520px;
+        padding:28px 24px;
+    }
+}
+
+/* MOBILE */
+@media(max-width:480px){
+
+    body{
+        padding:18px 12px;
+        align-items:flex-start;
+        padding-top:25px;
+    }
+
+    .form-container{
+        padding:24px 18px;
+        border-radius:16px;
+    }
+
+    .brand h1{
+        font-size:25px;
+    }
+
+    .subtitle{
+        font-size:12px;
+        margin-bottom:25px;
+    }
+
+    h2{
+        font-size:19px;
+    }
+
+    .heading-note{
+        font-size:11px;
+    }
+
+    input{
+        height:47px;
+        font-size:14px;
+    }
+
+    .btn-submit{
+        height:49px;
+        font-size:14px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="form-container">
-        <h2>Bank Account Information</h2>
-        <form>
-            <div class="form-group">
-                <label>Holder Name</label>
-                <input type="text" placeholder="Apna Naam ya Company Name daalein">
-            </div>
-            <div class="form-group">
-                <label>IFSC Code</label>
-                <input type="text" placeholder="IFSC Code daalein">
-            </div>
-            <div class="form-group">
-                <label>Account Number</label>
-                <input type="text" placeholder="Account Number daalein">
-            </div>
-            <div class="form-group">
-                <label>Bank Name</label>
-                <input type="text" placeholder="Bank ka Naam daalein">
-            </div>
-            <div class="form-group">
-                <label>UPI ID</label>
-                <input type="text" placeholder="UPI ID daalein">
-            </div>
-            <button type="button" class="btn-otp">Send OTP</button>
-        </form>
+<div class="form-container">
+
+    <!-- BRAND -->
+    <div class="brand">
+        <h1>Skills <span>Market</span></h1>
     </div>
+
+    <div class="subtitle">
+        Secure KYC & Bank Account Verification
+    </div>
+
+    <!-- HEADING -->
+    <h2>Bank Account Information</h2>
+
+    <div class="heading-note">
+        Enter your bank details carefully for verification.
+    </div>
+
+    <!-- FORM -->
+    <form id="kycForm">
+
+        <div class="form-group">
+            <label for="holderName">Holder Name</label>
+
+            <input
+                type="text"
+                id="holderName"
+                placeholder="Apna Naam ya Company Name daalein"
+                autocomplete="name"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="ifsc">IFSC Code</label>
+
+            <input
+                type="text"
+                id="ifsc"
+                placeholder="Example: SBIN0001234"
+                maxlength="11"
+                style="text-transform:uppercase;"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="accountNumber">Account Number</label>
+
+            <input
+                type="text"
+                id="accountNumber"
+                placeholder="Account Number daalein"
+                inputmode="numeric"
+                autocomplete="off"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="bankName">Bank Name</label>
+
+            <input
+                type="text"
+                id="bankName"
+                placeholder="Bank ka Naam daalein"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="upi">UPI ID <span style="color:#777;">(Optional)</span></label>
+
+            <input
+                type="text"
+                id="upi"
+                placeholder="example@upi"
+                autocomplete="off">
+        </div>
+
+        <button
+            type="submit"
+            class="btn-submit">
+            Submit KYC
+        </button>
+
+        <div
+            id="status"
+            class="status success">
+            ✓ KYC details submitted successfully.
+        </div>
+
+    </form>
+
+    <!-- SECURITY NOTE -->
+    <div class="note">
+        Please make sure the information you enter belongs to your
+        own bank account. Your KYC information should only be submitted
+        through your authenticated Skills Market account.
+    </div>
+
+    <!-- BACK -->
+    <a href="dashboard.html" class="back">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+<script>
+
+const kycForm = document.getElementById("kycForm");
+
+kycForm.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    const holderName =
+        document.getElementById("holderName").value.trim();
+
+    const ifsc =
+        document.getElementById("ifsc").value.trim().toUpperCase();
+
+    const accountNumber =
+        document.getElementById("accountNumber").value.trim();
+
+    const bankName =
+        document.getElementById("bankName").value.trim();
+
+    const upi =
+        document.getElementById("upi").value.trim();
+
+    /* REQUIRED FIELD CHECK */
+    if(
+        !holderName ||
+        !ifsc ||
+        !accountNumber ||
+        !bankName
+    ){
+        alert("Please fill all required details.");
+        return;
+    }
+
+    /* BASIC IFSC CHECK */
+    const ifscPattern = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+
+    if(!ifscPattern.test(ifsc)){
+        alert("Please enter a valid IFSC Code.");
+        return;
+    }
+
+    /* ACCOUNT NUMBER CHECK */
+    if(!/^[0-9]{8,18}$/.test(accountNumber)){
+        alert("Please enter a valid account number.");
+        return;
+    }
+
+    /*
+        CURRENTLY DEMO SUBMISSION
+
+        Supabase KYC database connection will be added here.
+        Do not store sensitive bank information in localStorage.
+    */
+
+    document.getElementById("status").style.display = "block";
+
+    document.getElementById("status").scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+});
+
+</script>
 
 </body>
 </html>
