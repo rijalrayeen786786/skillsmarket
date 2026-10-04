@@ -960,8 +960,10 @@ button,input{
                     onerror="this.style.display='none';document.getElementById('qrError').style.display='block';"
                 >
 
-                <div id="qrError"
-                    style="display:none;color:#ff596b;font-size:12px;">
+                <div
+                    id="qrError"
+                    style="display:none;color:#ff596b;font-size:12px;"
+                >
                     QR image not found.<br>
                     Please check the image filename.
                 </div>
@@ -1046,12 +1048,10 @@ button,input{
             >
 
             <label for="terms">
-
                 I agree to the
                 <a href="#">Privacy Policy</a>
                 and
                 <a href="#">Terms & Conditions</a>.
-
             </label>
 
         </div>
@@ -1436,20 +1436,94 @@ if(packages[packageCode]){
 ===================================================== */
 
 let referralValid = false;
+let selectedReferrerMemberId = null;
+let referralTimer = null;
+
 
 /*
-   This stores the actual Member ID of the
-   person who owns the entered referral code.
+   Reset referral result.
 */
-let selectedReferrerMemberId = null;
 
-let referralTimer = null;
+function resetReferral(){
+
+    referralValid = false;
+
+    selectedReferrerMemberId = null;
+
+    referralStatus.className =
+        "referral-status";
+
+    referralStatus.textContent =
+        "";
+
+    referralUser.classList.remove(
+        "show"
+    );
+
+    referralUser.textContent =
+        "";
+
+}
+
+
+/*
+   Check referral code from Supabase.
+*/
+
+async function checkReferralCode(code){
+
+    if(!supabaseClient){
+
+        throw new Error(
+            "Supabase connection unavailable."
+        );
+
+    }
+
+    /*
+       We search by referral_code and fetch
+       both the member ID and full name.
+    */
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("profiles")
+    .select(
+        "full_name, member_id, referral_code"
+    )
+    .eq(
+        "referral_code",
+        code
+    )
+    .limit(1)
+    .maybeSingle();
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+    return data || null;
+
+}
+
+
+/*
+   Referral input.
+*/
 
 referral.addEventListener(
     "input",
     function(){
 
-        clearTimeout(referralTimer);
+        clearTimeout(
+            referralTimer
+        );
 
         const code =
             this.value
@@ -1459,26 +1533,9 @@ referral.addEventListener(
         this.value =
             code;
 
-        referralValid =
-            false;
-
-        selectedReferrerMemberId =
-            null;
-
-        referralUser.classList.remove(
-            "show"
-        );
-
-        referralUser.textContent =
-            "";
+        resetReferral();
 
         if(code === ""){
-
-            referralStatus.className =
-                "referral-status";
-
-            referralStatus.textContent =
-                "";
 
             return;
 
@@ -1502,58 +1559,36 @@ referral.addEventListener(
         referralStatus.textContent =
             "Checking referral code...";
 
+
         referralTimer =
             setTimeout(
                 async function(){
 
+                    /*
+                       Make sure we are checking
+                       the latest input value.
+                    */
+
+                    const latestCode =
+                        referral.value
+                        .trim()
+                        .toUpperCase();
+
+                    if(
+                        latestCode !== code
+                    ){
+
+                        return;
+
+                    }
+
                     try{
 
-                        /*
-                           Find the member who owns
-                           this referral code.
-                        */
-
-                        const {
-                            data,
-                            error
-                        } =
-                        await supabaseClient
-                        .from("profiles")
-                        .select(
-                            "full_name,member_id,referral_code"
-                        )
-                        .eq(
-                            "referral_code",
-                            code
-                        )
-                        .maybeSingle();
-
-                        if(error){
-
-                            console.error(
-                                "Referral lookup error:",
-                                error
+                        const data =
+                            await checkReferralCode(
+                                code
                             );
 
-                            referralValid =
-                                false;
-
-                            selectedReferrerMemberId =
-                                null;
-
-                            referralStatus.className =
-                                "referral-status error";
-
-                            referralStatus.textContent =
-                                "✕ Referral verification failed";
-
-                            referralUser.classList.remove(
-                                "show"
-                            );
-
-                            return;
-
-                        }
 
                         if(!data){
 
@@ -1577,21 +1612,45 @@ referral.addEventListener(
 
                         }
 
+
                         /*
-                           Referral is valid.
+                           Valid referral.
                         */
+
+                        if(
+                            !data.member_id
+                        ){
+
+                            referralValid =
+                                false;
+
+                            selectedReferrerMemberId =
+                                null;
+
+                            referralStatus.className =
+                                "referral-status error";
+
+                            referralStatus.textContent =
+                                "✕ Referral member ID not found";
+
+                            return;
+
+                        }
+
 
                         referralValid =
                             true;
 
                         selectedReferrerMemberId =
-                            data.member_id || null;
+                            data.member_id;
+
 
                         referralStatus.className =
                             "referral-status success";
 
                         referralStatus.textContent =
                             "✓ Valid Referral Code";
+
 
                         referralUser.textContent =
                             "👤 Referred by: " +
@@ -1600,14 +1659,16 @@ referral.addEventListener(
                                 "Member"
                             );
 
+
                         referralUser.classList.add(
                             "show"
                         );
 
+
                     }catch(error){
 
                         console.error(
-                            "Referral error:",
+                            "Referral lookup error:",
                             error
                         );
 
@@ -1621,7 +1682,11 @@ referral.addEventListener(
                             "referral-status error";
 
                         referralStatus.textContent =
-                            "✕ Unable to verify referral";
+                            "✕ Unable to verify referral code";
+
+                        referralUser.classList.remove(
+                            "show"
+                        );
 
                     }
 
@@ -1641,7 +1706,10 @@ passwordToggle.addEventListener(
     "click",
     function(){
 
-        if(password.type === "password"){
+        if(
+            password.type ===
+            "password"
+        ){
 
             password.type =
                 "text";
@@ -1702,7 +1770,9 @@ paymentRadio.addEventListener(
     function(){
 
         if(this.checked){
+
             openPayment();
+
         }
 
     }
@@ -1727,59 +1797,71 @@ phoneInput.addEventListener(
 
 
 /* =====================================================
-   UNIQUE MEMBER ID
+   MEMBER ID GENERATOR
 ===================================================== */
+
+function generateRandomCode(){
+
+    return Math.floor(
+        10000 +
+        Math.random() * 90000
+    );
+
+}
 
 function generateMemberId(){
 
-    const number =
-        Math.floor(
-            10000 +
-            Math.random() * 90000
-        );
-
-    return "SM" + number;
+    return "SM" +
+        generateRandomCode();
 
 }
 
 
-/*
-   Check whether Member ID already exists.
-*/
+/* =====================================================
+   CHECK MEMBER ID
+===================================================== */
 
-async function memberIdExists(memberId){
+async function memberIdExists(
+    memberId
+){
 
-    const result =
-        await supabaseClient
-        .from("profiles")
-        .select("member_id")
-        .eq("member_id",memberId)
-        .maybeSingle();
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("profiles")
+    .select("member_id")
+    .eq(
+        "member_id",
+        memberId
+    )
+    .limit(1)
+    .maybeSingle();
 
-    if(result.error){
 
-        /*
-           PGRST116 means no row.
-        */
-        if(result.error.code === "PGRST116"){
-            return false;
-        }
+    if(error){
 
-        throw result.error;
+        throw error;
+
     }
 
-    return !!result.data;
+    return !!data;
 
 }
 
 
-/*
-   Generate an unused Member ID.
-*/
+/* =====================================================
+   UNIQUE MEMBER ID
+===================================================== */
 
 async function generateUniqueMemberId(){
 
-    for(let attempt = 0; attempt < 15; attempt++){
+    for(
+        let attempt = 0;
+        attempt < 20;
+        attempt++
+    ){
 
         const candidate =
             generateMemberId();
@@ -1805,35 +1887,50 @@ async function generateUniqueMemberId(){
 
 
 /* =====================================================
-   UNIQUE REFERRAL CODE
+   CHECK REFERRAL CODE EXISTENCE
 ===================================================== */
 
-async function referralCodeExists(code){
+async function referralCodeExists(
+    code
+){
 
-    const result =
-        await supabaseClient
-        .from("profiles")
-        .select("referral_code")
-        .eq("referral_code",code)
-        .maybeSingle();
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("profiles")
+    .select("referral_code")
+    .eq(
+        "referral_code",
+        code
+    )
+    .limit(1)
+    .maybeSingle();
 
-    if(result.error){
 
-        if(result.error.code === "PGRST116"){
-            return false;
-        }
+    if(error){
 
-        throw result.error;
+        throw error;
+
     }
 
-    return !!result.data;
+    return !!data;
 
 }
 
 
+/* =====================================================
+   UNIQUE OWN REFERRAL CODE
+===================================================== */
+
 async function generateUniqueReferralCode(){
 
-    for(let attempt = 0; attempt < 15; attempt++){
+    for(
+        let attempt = 0;
+        attempt < 20;
+        attempt++
+    ){
 
         const candidate =
             generateMemberId();
@@ -1852,8 +1949,49 @@ async function generateUniqueReferralCode(){
     }
 
     throw new Error(
-        "Unable to generate a unique referral code. Please try again."
+        "Unable to generate a unique Referral Code. Please try again."
     );
+
+}
+
+
+/* =====================================================
+   RE-CHECK REFERRAL BEFORE ACCOUNT CREATION
+===================================================== */
+
+async function verifyReferralAgain(
+    code
+){
+
+    if(!code){
+
+        return null;
+
+    }
+
+    const data =
+        await checkReferralCode(
+            code
+        );
+
+
+    if(!data){
+
+        throw new Error(
+            "Invalid Referral Code."
+        );
+
+    }
+
+    if(!data.member_id){
+
+        throw new Error(
+            "Referral member ID could not be found."
+        );
+
+    }
+
+    return data;
 
 }
 
@@ -1879,6 +2017,7 @@ form.addEventListener(
             return;
 
         }
+
 
         const fullName =
             nameInput.value.trim();
@@ -1912,6 +2051,7 @@ form.addEventListener(
 
         }
 
+
         if(phone.length !== 10){
 
             alert(
@@ -1924,6 +2064,7 @@ form.addEventListener(
 
         }
 
+
         if(!email){
 
             alert(
@@ -1935,6 +2076,7 @@ form.addEventListener(
             return;
 
         }
+
 
         if(userPassword.length < 6){
 
@@ -1951,11 +2093,11 @@ form.addEventListener(
 
         /*
            Referral is optional.
-           If user enters it, it MUST be valid.
+           If entered, it must be valid.
         */
 
         if(
-            referralCode !== "" &&
+            referralCode &&
             !referralValid
         ){
 
@@ -1979,6 +2121,7 @@ form.addEventListener(
             return;
 
         }
+
 
         if(!paymentRadio.checked){
 
@@ -2029,6 +2172,7 @@ paidButton.addEventListener(
 
         }
 
+
         if(!paymentRadio.checked){
 
             alert(
@@ -2038,6 +2182,7 @@ paidButton.addEventListener(
             return;
 
         }
+
 
         if(utr.length < 6){
 
@@ -2050,6 +2195,7 @@ paidButton.addEventListener(
             return;
 
         }
+
 
         const fullName =
             nameInput.value.trim();
@@ -2077,9 +2223,12 @@ paidButton.addEventListener(
                 "Please enter your full name."
             );
 
+            nameInput.focus();
+
             return;
 
         }
+
 
         if(phone.length !== 10){
 
@@ -2087,9 +2236,12 @@ paidButton.addEventListener(
                 "Please enter a valid 10-digit phone number."
             );
 
+            phoneInput.focus();
+
             return;
 
         }
+
 
         if(!email){
 
@@ -2101,46 +2253,16 @@ paidButton.addEventListener(
 
         }
 
+
         if(userPassword.length < 6){
 
             alert(
                 "Password must contain at least 6 characters."
             );
 
+            password.focus();
+
             return;
-
-        }
-
-
-        /*
-           Re-check referral before registration.
-           This prevents an old/changed referral value
-           from being saved incorrectly.
-        */
-
-        if(referralCode){
-
-            if(!referralValid){
-
-                alert(
-                    "Please enter a valid Referral Code."
-                );
-
-                referral.focus();
-
-                return;
-
-            }
-
-            if(!selectedReferrerMemberId){
-
-                alert(
-                    "Referral member could not be identified. Please verify the code again."
-                );
-
-                return;
-
-            }
 
         }
 
@@ -2155,6 +2277,7 @@ paidButton.addEventListener(
 
         }
 
+
         if(!supabaseClient){
 
             alert(
@@ -2162,6 +2285,59 @@ paidButton.addEventListener(
             );
 
             return;
+
+        }
+
+
+        /*
+           Re-check referral directly from database.
+           This ensures the saved referrer is correct.
+        */
+
+        let verifiedReferral = null;
+
+        if(referralCode){
+
+            try{
+
+                verifiedReferral =
+                    await verifyReferralAgain(
+                        referralCode
+                    );
+
+                referralValid =
+                    true;
+
+                selectedReferrerMemberId =
+                    verifiedReferral.member_id;
+
+            }catch(error){
+
+                referralValid =
+                    false;
+
+                selectedReferrerMemberId =
+                    null;
+
+                referralStatus.className =
+                    "referral-status error";
+
+                referralStatus.textContent =
+                    "✕ Invalid Referral Code";
+
+                referralUser.classList.remove(
+                    "show"
+                );
+
+                alert(
+                    "Please enter a valid Referral Code."
+                );
+
+                referral.focus();
+
+                return;
+
+            }
 
         }
 
@@ -2176,7 +2352,7 @@ paidButton.addEventListener(
         try{
 
             /* =========================================
-               CHECK CURRENT SESSION
+               CURRENT SESSION
             ========================================= */
 
             const sessionResult =
@@ -2184,11 +2360,13 @@ paidButton.addEventListener(
                 .auth
                 .getSession();
 
+
             if(sessionResult.error){
 
                 throw sessionResult.error;
 
             }
+
 
             let authUser =
                 sessionResult
@@ -2199,7 +2377,7 @@ paidButton.addEventListener(
 
 
             /* =========================================
-               CREATE AUTH USER
+               CREATE AUTH ACCOUNT
             ========================================= */
 
             if(!authUser){
@@ -2232,8 +2410,12 @@ paidButton.addEventListener(
 
                 }
 
+
                 authUser =
-                    signUpResult.data.user;
+                    signUpResult
+                    .data
+                    ?.user;
+
 
                 if(!authUser){
 
@@ -2251,26 +2433,25 @@ paidButton.addEventListener(
 
 
             /* =========================================
-               CHECK PROFILE
+               CHECK EXISTING PROFILE
             ========================================= */
 
             const existingResult =
                 await supabaseClient
                 .from("profiles")
                 .select(
-                    "id,member_id"
+                    "id, member_id, referral_code"
                 )
                 .eq(
                     "id",
                     authUserId
                 )
+                .limit(1)
                 .maybeSingle();
 
 
             if(
-                existingResult.error &&
-                existingResult.error.code !==
-                "PGRST116"
+                existingResult.error
             ){
 
                 throw existingResult.error;
@@ -2286,13 +2467,13 @@ paidButton.addEventListener(
 
 
             /* =========================================
-               CREATE PROFILE IF NEEDED
+               CREATE PROFILE
             ========================================= */
 
             if(!existingResult.data){
 
                 /*
-                   Generate unique Member ID.
+                   Generate new Member ID.
                 */
 
                 memberId =
@@ -2300,7 +2481,8 @@ paidButton.addEventListener(
 
 
                 /*
-                   Generate unique personal referral code.
+                   Generate the new member's
+                   personal Referral Code.
                 */
 
                 const ownReferralCode =
@@ -2308,11 +2490,16 @@ paidButton.addEventListener(
 
 
                 /*
-                   IMPORTANT:
-                   selectedReferrerMemberId is the
-                   Member ID belonging to the referral
-                   code entered by the new member.
+                   Referrer Member ID:
+                   This is the Member ID of the person
+                   whose referral code was entered.
                 */
+
+                const referrerMemberId =
+                    verifiedReferral
+                    ?.member_id ||
+                    null;
+
 
                 const profileData = {
 
@@ -2338,19 +2525,13 @@ paidButton.addEventListener(
                         ownReferralCode,
 
                     referrer_member_id:
-                        referralCode
-                        ? selectedReferrerMemberId
-                        : null,
+                        referrerMemberId,
 
                     account_status:
                         "Pending Verification"
 
                 };
 
-
-                /*
-                   Insert profile.
-                */
 
                 const profileInsert =
                     await supabaseClient
@@ -2370,7 +2551,7 @@ paidButton.addEventListener(
 
 
             /* =========================================
-               PAYMENT STATUS MESSAGE
+               SUCCESS
             ========================================= */
 
             paymentStatus.classList.add(
@@ -2401,6 +2582,7 @@ paidButton.addEventListener(
                 error
             );
 
+
             paidButton.disabled =
                 false;
 
@@ -2412,6 +2594,7 @@ paidButton.addEventListener(
                 error?.message ||
                 "Something went wrong.";
 
+
             const lowerMessage =
                 message.toLowerCase();
 
@@ -2419,15 +2602,7 @@ paidButton.addEventListener(
             if(
                 lowerMessage.includes(
                     "user already registered"
-                )
-            ){
-
-                message =
-                    "This email is already registered. Please Login instead.";
-
-            }
-
-            else if(
+                ) ||
                 lowerMessage.includes(
                     "already registered"
                 )
@@ -2459,7 +2634,7 @@ paidButton.addEventListener(
             ){
 
                 message =
-                    "Supabase RLS is blocking profile creation. Your profiles INSERT policy needs to allow the logged-in user to create their own profile.";
+                    "Supabase RLS is blocking profile creation. Please check the profiles INSERT policy.";
 
             }
 
