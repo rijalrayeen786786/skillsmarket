@@ -831,7 +831,7 @@ async function loadUser(){
         document.getElementById("menuProfileId").textContent = "ID: " + memberID;
         setAvatarImage(avatarUrl, firstLetter);
 
-        // Check if KYC already submitted
+        // Check if KYC already submitted and synced with status
         await checkExistingKYC(user.id);
 
     }catch(error){
@@ -854,20 +854,44 @@ async function checkExistingKYC(userId){
             document.getElementById("ifscCode").value = kycData.ifsc_code || "";
             document.getElementById("upiId").value = kycData.upi_id || "";
 
-            // Disable all fields and submit button since already submitted
-            document.getElementById("holderName").disabled = true;
-            document.getElementById("bankName").disabled = true;
-            document.getElementById("accountNumber").disabled = true;
-            document.getElementById("ifscCode").disabled = true;
-            document.getElementById("upiId").disabled = true;
-
             const submitBtn = document.getElementById("submitBtn");
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Submitted ✓ (Pending Approval)";
-
             const message = document.getElementById("message");
-            message.style.color = "#16a34a";
-            message.textContent = "Your KYC details have been submitted and are currently pending approval.";
+
+            if(kycData.status === 'approved'){
+                // Disable all fields and submit button since approved
+                document.getElementById("holderName").disabled = true;
+                document.getElementById("bankName").disabled = true;
+                document.getElementById("accountNumber").disabled = true;
+                document.getElementById("ifscCode").disabled = true;
+                document.getElementById("upiId").disabled = true;
+
+                submitBtn.disabled = true;
+                submitBtn.style.background = "#16a34a";
+                submitBtn.textContent = "Approved ✓ (Verified)";
+
+                message.style.color = "#16a34a";
+                message.textContent = "Your KYC has been successfully verified and approved!";
+            } else if(kycData.status === 'rejected'){
+                // Allow user to re-edit if rejected
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Resubmit KYC →";
+
+                message.style.color = "#dc2626";
+                message.textContent = "Your previous KYC was rejected. Please correct your details and resubmit.";
+            } else {
+                // Pending status
+                document.getElementById("holderName").disabled = true;
+                document.getElementById("bankName").disabled = true;
+                document.getElementById("accountNumber").disabled = true;
+                document.getElementById("ifscCode").disabled = true;
+                document.getElementById("upiId").disabled = true;
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Submitted ✓ (Pending Approval)";
+
+                message.style.color = "#16a34a";
+                message.textContent = "Your KYC details have been submitted and are currently pending approval.";
+            }
         }
     }catch(err){
         console.error("Error fetching existing KYC:", err);
@@ -1000,10 +1024,10 @@ async function verifyAndSubmitKYC(){
         const { data: { user: freshUser } } = await supabaseClient.auth.getUser();
         const currentUserId = freshUser ? freshUser.id : cachedKYCData.user_id;
 
-        // Insert into database table after successful verification
-        const { error: insertError } = await supabaseClient
+        // Upsert into database table after successful verification (handles new insert or update on rejection)
+        const { error: upsertError } = await supabaseClient
             .from("kyc_submissions")
-            .insert({
+            .upsert({
                 user_id: currentUserId,
                 holder_name: cachedKYCData.holder_name,
                 bank_name: cachedKYCData.bank_name,
@@ -1011,10 +1035,10 @@ async function verifyAndSubmitKYC(){
                 ifsc_code: cachedKYCData.ifsc_code,
                 upi_id: cachedKYCData.upi_id,
                 status: "pending"
-            });
+            }, { onConflict: 'user_id' });
 
-        if(insertError){
-            console.error("KYC insertion error:", insertError);
+        if(upsertError){
+            console.error("KYC upsert error:", upsertError);
             otpError.style.color = "#dc2626";
             otpError.textContent = "Database save error. Try again.";
             verifyBtn.disabled = false;
