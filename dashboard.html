@@ -1,3141 +1,1954 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Skills Market | Dashboard</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-}
-
-body{
-    background:#f6f7fb;
-    color:#111827;
-    min-height:100vh;
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.dashboard{
-    width:100%;
-    max-width:1200px;
-    margin:0 auto;
-    padding:0 24px 24px;
-}
-
-
-/* =========================================================
-   NAVBAR
-========================================================= */
-
-.sm-navbar{
-    width:100%;
-    height:68px;
-    background:#ffffff;
-    border-bottom:1px solid #e5e7eb;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    z-index:5000;
-    padding:0 24px;
-}
-
-.sm-brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    text-decoration:none;
-    color:#111827;
-}
-
-.sm-brand-logo{
-    width:38px;
-    height:38px;
-    border-radius:11px;
-    background:linear-gradient(135deg,#7c3aed,#4f46e5);
-    color:#ffffff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:13px;
-    font-weight:900;
-    box-shadow:0 5px 15px rgba(79,70,229,.18);
-}
-
-.sm-brand-name{
-    font-size:18px;
-    font-weight:900;
-    letter-spacing:-.3px;
-}
-
-.sm-brand-name span{
-    color:#6d28d9;
-}
-
-.sm-nav-right{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-
-/* =========================================================
-   PROFILE DROPDOWN
-========================================================= */
-
-.profile-dropdown-wrap{
-    position:relative;
-}
-
-.profile-mini{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    border:0;
-    background:linear-gradient(135deg,#7c3aed,#4f46e5);
-    color:#ffffff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:14px;
-    font-weight:900;
-    cursor:pointer;
-    box-shadow:0 5px 15px rgba(79,70,229,.20);
-    outline:none;
-    transition:.2s;
-    overflow:hidden;
-    padding:0;
-}
-
-.profile-mini:hover{
-    transform:translateY(-1px);
-    box-shadow:0 7px 18px rgba(79,70,229,.25);
-}
-
-.profile-mini img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:50%;
-    display:block;
-}
-
-.profile-dropdown{
-    position:absolute;
-    top:50px;
-    right:0;
-    width:200px;
-    background:#ffffff;
-    border:1px solid #e5e7eb;
-    border-radius:14px;
-    padding:7px;
-    box-shadow:0 15px 35px rgba(15,23,42,.14);
-    display:none;
-    z-index:10000;
-}
-
-.profile-dropdown.active{
-    display:block;
-}
-
-.profile-dropdown-item{
-    width:100%;
-    min-height:43px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 12px;
-    border:0;
-    border-radius:9px;
-    background:transparent;
-    color:#334155;
-    text-decoration:none;
-    font-size:13px;
-    font-weight:700;
-    cursor:pointer;
-    text-align:left;
-}
-
-.profile-dropdown-item:hover{
-    background:#f5f3ff;
-    color:#6d28d9;
-}
-
-.profile-dropdown-item.logout-dropdown:hover{
-    background:#fef2f2;
-    color:#dc2626;
-}
-
-
-/* =========================================================
-   MENU BUTTON
-========================================================= */
-
-.menu-btn{
-    width:40px;
-    height:40px;
-    border:1px solid #e5e7eb;
-    border-radius:11px;
-    background:#ffffff;
-    color:#334155;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.menu-btn:hover{
-    background:#f8fafc;
-    border-color:#cbd5e1;
-}
-
-
-/* =========================================================
-   SIDE MENU
-========================================================= */
-
-.nav-menu{
-    position:fixed;
-    top:0;
-    right:-330px;
-    width:310px;
-    max-width:88%;
-    height:100vh;
-    background:#ffffff;
-    z-index:9999;
-    padding:20px 16px;
-    box-shadow:-10px 0 35px rgba(15,23,42,.15);
-    transition:right .3s ease;
-    overflow-y:auto;
-}
-
-.nav-menu.active{
-    right:0;
-}
-
-.menu-top{
-    height:48px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid #eef2f7;
-}
-
-.menu-title{
-    font-size:18px;
-    font-weight:900;
-    color:#111827;
-}
-
-.close-menu{
-    width:35px;
-    height:35px;
-    border:0;
-    border-radius:9px;
-    background:#f1f5f9;
-    color:#334155;
-    font-size:17px;
-    cursor:pointer;
-}
-
-
-/* =========================================================
-   MENU PROFILE
-========================================================= */
-
-.menu-profile{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:18px 4px;
-    border-bottom:1px solid #eef2f7;
-}
-
-.menu-avatar{
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#7c3aed,#4f46e5);
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:16px;
-    font-weight:900;
-    overflow:hidden;
-    flex-shrink:0;
-}
-
-.menu-avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:50%;
-    display:block;
-}
-
-.menu-profile-name{
-    font-size:14px;
-    font-weight:850;
-    color:#111827;
-}
-
-.menu-profile-id{
-    font-size:10px;
-    color:#64748b;
-    margin-top:3px;
-}
-
-.menu-links{
-    padding-top:14px;
-}
-
-.menu-link{
-    width:100%;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:12px;
-    margin-bottom:4px;
-    border-radius:10px;
-    text-decoration:none;
-    color:#334155;
-    font-size:12.5px;
-    font-weight:700;
-    transition:.2s;
-}
-
-.menu-link:hover{
-    background:#f5f3ff;
-    color:#6d28d9;
-}
-
-.menu-link.active{
-    background:#f3e8ff;
-    color:#6d28d9;
-}
-
-.menu-icon{
-    width:25px;
-    text-align:center;
-    font-size:15px;
-    flex-shrink:0;
-}
-
-.logout-link{
-    color:#dc2626;
-    margin-top:8px;
-}
-
-.logout-link:hover{
-    background:#fef2f2;
-    color:#dc2626;
-}
-
-.menu-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(15,23,42,.35);
-    z-index:9998;
-    opacity:0;
-    visibility:hidden;
-    transition:.3s;
-}
-
-.menu-overlay.active{
-    opacity:1;
-    visibility:visible;
-}
-
-
-/* =========================================================
-   PROFILE CARD
-========================================================= */
-
-.profile-card{
-    position:relative;
-    background:linear-gradient(
-        135deg,
-        #ffffff 0%,
-        #faf8ff 48%,
-        #f1f5ff 100%
-    );
-    border:1px solid rgba(99,102,241,.13);
-    border-radius:18px;
-    padding:22px 20px 17px;
-    margin-top:20px;
-    margin-bottom:20px;
-    overflow:hidden;
-    box-shadow:0 8px 25px rgba(30,41,59,.07);
-    isolation:isolate;
-}
-
-.profile-card::before{
-    content:"";
-    position:absolute;
-    width:190px;
-    height:190px;
-    right:-85px;
-    top:-105px;
-    border-radius:50%;
-    background:rgba(124,58,237,.09);
-    z-index:-1;
-}
-
-.profile-card::after{
-    content:"";
-    position:absolute;
-    width:150px;
-    height:150px;
-    left:-80px;
-    bottom:-90px;
-    border-radius:50%;
-    background:rgba(37,99,235,.07);
-    z-index:-1;
-}
-
-.profile-circle{
-    position:absolute;
-    border-radius:50%;
-    pointer-events:none;
-    z-index:-1;
-}
-
-.circle-one{
-    width:92px;
-    height:92px;
-    right:22px;
-    bottom:-55px;
-    border:1px solid rgba(124,58,237,.14);
-    animation:floatOne 5s ease-in-out infinite;
-}
-
-.circle-two{
-    width:58px;
-    height:58px;
-    right:76px;
-    top:20px;
-    border:1px solid rgba(37,99,235,.12);
-    animation:floatTwo 4s ease-in-out infinite;
-}
-
-.circle-three{
-    width:25px;
-    height:25px;
-    left:105px;
-    top:18px;
-    background:rgba(124,58,237,.07);
-    animation:pulseCircle 3s ease-in-out infinite;
-}
-
-.package-badge{
-    position:absolute;
-    top:0;
-    right:20px;
-    background:linear-gradient(135deg,#7c3aed,#6d28d9);
-    color:#fff;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.55px;
-    padding:6px 14px;
-    border-radius:0 0 9px 9px;
-}
-
-.profile-content{
-    position:relative;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    padding-top:5px;
-}
-
-.profile-avatar{
-    width:72px;
-    height:72px;
-    border-radius:50%;
-    padding:3px;
-    background:linear-gradient(
-        135deg,
-        #7c3aed,
-        #2563eb,
-        #06b6d4
-    );
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-}
-
-.profile-avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:50%;
-    border:2px solid #fff;
-    display:none;
-}
-
-.avatar-fallback{
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    background:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
-    font-weight:900;
-    color:#4f46e5;
-    border:2px solid #fff;
-}
-
-.profile-details{
-    min-width:0;
-}
-
-.profile-name{
-    font-size:18px;
-    font-weight:850;
-    color:#111827;
-    margin-bottom:5px;
-}
-
-.id-row{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-size:12px;
-    font-weight:700;
-    color:#475569;
-}
-
-.copy-btn{
-    width:24px;
-    height:24px;
-    border:0;
-    border-radius:7px;
-    background:#f1eaff;
-    color:#6d28d9;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-}
-
-
-/* =========================================================
-   REVENUE
-========================================================= */
-
-.revenue-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:16px;
-    margin-bottom:16px;
-}
-
-.revenue-card.full-width{
-    grid-column:span 2;
-}
-
-.revenue-card{
-    position:relative;
-    overflow:hidden;
-    border-radius:16px;
-    padding:18px 20px;
-    color:#fff;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.revenue-card::before{
-    content:"";
-    position:absolute;
-    width:105px;
-    height:105px;
-    border:1px solid rgba(255,255,255,.13);
-    border-radius:50%;
-    right:-45px;
-    top:-48px;
-}
-
-.card-icon{
-    position:absolute;
-    top:16px;
-    right:16px;
-    width:32px;
-    height:32px;
-    background:rgba(255,255,255,.15);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:14px;
-}
-
-.purple{
-    background:linear-gradient(135deg,#6b21a8,#581c87);
-}
-
-.indigo{
-    background:linear-gradient(135deg,#4f46e5,#3730a3);
-}
-
-.pink{
-    background:linear-gradient(135deg,#db2777,#9d174d);
-}
-
-.blue{
-    background:linear-gradient(135deg,#0284c7,#0369a1);
-}
-
-.gold{
-    background:linear-gradient(135deg,#ca8a04,#854d0e);
-}
-
-.revenue-amount{
-    position:relative;
-    font-size:26px;
-    font-weight:850;
-    margin-bottom:4px;
-}
-
-.revenue-title{
-    position:relative;
-    font-size:13px;
-    opacity:.95;
-    margin-bottom:14px;
-}
-
-.revenue-footer{
-    position:relative;
-    border-top:1px solid rgba(255,255,255,.25);
-    padding-top:10px;
-    font-size:12px;
-}
-
-.view-details{
-    color:#fff;
-    text-decoration:none;
-}
-
-.revenue-count{
-    color:#fff;
-    font-size:12px;
-    font-weight:700;
-    opacity:.95;
-}
-
-
-/* =========================================================
-   GRAPH
-========================================================= */
-
-.graph-card{
-    background:#fff;
-    border:1px solid #e2e8f0;
-    border-radius:18px;
-    padding:20px;
-    box-shadow:0 3px 12px rgba(0,0,0,.045);
-}
-
-.graph-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:16px;
-}
-
-.graph-title{
-    font-size:16px;
-    font-weight:850;
-}
-
-.graph-badge{
-    font-size:10px;
-    font-weight:700;
-    color:#6d28d9;
-    background:#f3e8ff;
-    padding:5px 10px;
-    border-radius:7px;
-}
-
-.graph-wrapper{
-    position:relative;
-    margin-left:35px;
-}
-
-.graph{
-    height:200px;
-    position:relative;
-    border-left:1px solid #cbd5e1;
-    border-bottom:1px solid #cbd5e1;
-    background:repeating-linear-gradient(
-        to bottom,
-        transparent 0,
-        transparent 36px,
-        #eef2f7 37px
-    );
-    overflow:hidden;
-}
-
-.y-axis{
-    position:absolute;
-    left:-35px;
-    top:0;
-    bottom:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    font-size:10px;
-    color:#94a3b8;
-}
-
-.zero-line{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height:2px;
-    background:#db2777;
-}
-
-.graph-line{
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    overflow:visible;
-}
-
-.graph-area{
-    fill:rgba(79,70,229,.08);
-    stroke:none;
-}
-
-.graph-path{
-    fill:none;
-    stroke:#4f46e5;
-    stroke-width:3;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-
-.graph-point{
-    fill:#ffffff;
-    stroke:#4f46e5;
-    stroke-width:3;
-}
-
-.graph-tooltip{
-    position:absolute;
-    display:none;
-    background:#111827;
-    color:#fff;
-    padding:6px 8px;
-    border-radius:7px;
-    font-size:10px;
-    white-space:nowrap;
-    pointer-events:none;
-    transform:translate(-50%,-120%);
-    z-index:10;
-}
-
-.graph-dates{
-    display:grid;
-    grid-template-columns:repeat(7,1fr);
-    margin-left:35px;
-    margin-top:10px;
-    font-size:10px;
-    color:#64748b;
-    text-align:center;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-    text-align:center;
-    color:#94a3b8;
-    font-size:11px;
-    padding:20px 0;
-}
-
-
-/* =========================================================
-   ANIMATIONS
-========================================================= */
-
-@keyframes floatOne{
-    0%,100%{
-        transform:translate(0,0);
-    }
-
-    50%{
-        transform:translate(-5px,-5px);
-    }
-}
-
-@keyframes floatTwo{
-    0%,100%{
-        transform:translate(0,0);
-    }
-
-    50%{
-        transform:translate(5px,4px);
-    }
-}
-
-@keyframes pulseCircle{
-    0%,100%{
-        transform:scale(1);
-        opacity:.45;
-    }
-
-    50%{
-        transform:scale(1.25);
-        opacity:1;
-    }
-}
-
-
-/* =========================================================
-   LAPTOP & DESKTOP
-========================================================= */
-
-@media(min-width:768px){
-
-    .dashboard{
-        padding:0 32px 30px;
-    }
-
-    .sm-navbar{
-        padding:0 32px;
-    }
-
-    .revenue-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .revenue-card.full-width{
-        grid-column:span 1;
-    }
-
-    .profile-card{
-        padding:26px 28px 22px;
-    }
-
-    .profile-avatar{
-        width:80px;
-        height:80px;
-    }
-
-    .profile-name{
-        font-size:21px;
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:600px){
-
-    .dashboard{
-        padding:0 12px 20px;
-    }
-
-    .sm-navbar{
-        padding:0 14px;
-        width:calc(100% + 24px);
-        margin-left:-12px;
-        margin-right:-12px;
-    }
-
-    .sm-brand-name{
-        font-size:17px;
-        white-space:nowrap;
-    }
-
-    .sm-brand-logo{
-        width:36px;
-        height:36px;
-    }
-
-    .profile-dropdown{
-        width:185px;
-    }
-
-    .profile-card{
-        margin-top:15px;
-    }
-
-    .profile-avatar{
-        width:66px;
-        height:66px;
-    }
-
-    .profile-name{
-        font-size:16px;
-    }
-
-    .revenue-grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
-    }
-
-    .revenue-card{
-        padding:14px;
-    }
-
-    .revenue-amount{
-        font-size:22px;
-    }
-
-    .revenue-title{
-        font-size:12px;
-    }
-
-    .revenue-footer{
-        font-size:10px;
-    }
-
-    .revenue-count{
-        font-size:10px;
-    }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media(max-width:380px){
-
-    .revenue-grid{
-        grid-template-columns:1fr;
-    }
-
-    .revenue-card.full-width{
-        grid-column:span 1;
-    }
-
-}
-
-</style>
-</head>
-
-<body>
-
-
-<!-- =======================================================
-     SIDE MENU OVERLAY
-======================================================= -->
-
-<div
-    class="menu-overlay"
-    id="menuOverlay"
-    onclick="closeMenu()">
-</div>
-
-
-<!-- =======================================================
-     SIDE MENU
-======================================================= -->
-
-<div
-    class="nav-menu"
-    id="navMenu">
-
-    <div class="menu-top">
-
-        <div class="menu-title">
-            Skills Market
-        </div>
-
-        <button
-            class="close-menu"
-            onclick="closeMenu()">
-            ✕
-        </button>
-
-    </div>
-
-
-    <div class="menu-profile">
-
-        <div
-            class="menu-avatar"
-            id="menuAvatar">
-
-            M
-
-        </div>
-
-        <div>
-
-            <div
-                class="menu-profile-name"
-                id="menuProfileName">
-                Member
-            </div>
-
-            <div
-                class="menu-profile-id"
-                id="menuProfileId">
-                ID: Loading...
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="menu-links">
-
-        <a href="dashboard.html" class="menu-link active">
-            <span class="menu-icon">⌂</span>
-            <span>Affiliate Dashboard</span>
-        </a>
-
-        <a href="my-course.html" class="menu-link">
-            <span class="menu-icon">📚</span>
-            <span>My Course</span>
-        </a>
-
-        <a href="profile.html" class="menu-link">
-            <span class="menu-icon">👤</span>
-            <span>My Profile</span>
-        </a>
-
-        <a href="affiliate-link.html" class="menu-link">
-            <span class="menu-icon">🔗</span>
-            <span>Affiliate Link</span>
-        </a>
-
-        <a href="kyc.html" class="menu-link">
-            <span class="menu-icon">🪪</span>
-            <span>KYC</span>
-        </a>
-
-        <a href="leaderboard.html" class="menu-link">
-            <span class="menu-icon">🏆</span>
-            <span>Leaderboard</span>
-        </a>
-
-        <a href="my-team.html" class="menu-link">
-            <span class="menu-icon">👥</span>
-            <span>My Team</span>
-        </a>
-
-        <a href="registration-request.html" class="menu-link">
-            <span class="menu-icon">📝</span>
-            <span>Registration Request</span>
-        </a>
-
-        <a href="withdrawal-request.html" class="menu-link">
-            <span class="menu-icon">💸</span>
-            <span>Withdrawal Request</span>
-        </a>
-
-        <a href="upgrade-request.html" class="menu-link">
-            <span class="menu-icon">⬆️</span>
-            <span>Upgrade Request</span>
-        </a>
-
-        <a href="qualification.html" class="menu-link">
-            <span class="menu-icon">🎯</span>
-            <span>Qualification</span>
-        </a>
-
-        <a href="payout-transaction.html" class="menu-link">
-            <span class="menu-icon">💳</span>
-            <span>Payout Transaction</span>
-        </a>
-
-        <a href="training.html" class="menu-link">
-            <span class="menu-icon">🎓</span>
-            <span>Training</span>
-        </a>
-
-        <a href="community-support.html" class="menu-link">
-            <span class="menu-icon">💬</span>
-            <span>Community &amp; Support</span>
-        </a>
-
-        <a
-            href="#"
-            class="menu-link logout-link"
-            onclick="logoutUser(event)">
-
-            <span class="menu-icon">↪</span>
-            <span>Logout</span>
-
-        </a>
-
-    </div>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Skills Market | Dashboard</title>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <style>  
+  
+/* =========================================================  
+   RESET  
+========================================================= */  
+  
+*{  
+    margin:0;  
+    padding:0;  
+    box-sizing:border-box;  
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;  
+}  
+  
+body{  
+    background:#f6f7fb;  
+    color:#111827;  
+    min-height:100vh;  
+}  
+  
+  
+/* =========================================================  
+   MAIN  
+========================================================= */  
+  
+.dashboard{  
+    width:100%;  
+    max-width:1200px;  
+    margin:0 auto;  
+    padding:0 24px 24px;  
+}  
+  
+  
+/* =========================================================  
+   EXACT PROFILE-STYLE NAVBAR  
+========================================================= */  
+  
+.sm-navbar{  
+    width:100%;  
+    height:68px;  
+    background:#ffffff;  
+    border-bottom:1px solid #e5e7eb;  
+    display:flex;  
+    align-items:center;  
+    justify-content:space-between;  
+    position:sticky;  
+    top:0;  
+    z-index:5000;  
+    padding:0 24px;  
+}  
+  
+.sm-brand{  
+    display:flex;  
+    align-items:center;  
+    gap:10px;  
+    text-decoration:none;  
+    color:#111827;  
+}  
+  
+.sm-brand-logo{  
+    width:38px;  
+    height:38px;  
+    border-radius:11px;  
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);  
+    color:#ffffff;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:13px;  
+    font-weight:900;  
+    box-shadow:0 5px 15px rgba(79,70,229,.18);  
+}  
+  
+.sm-brand-name{  
+    font-size:18px;  
+    font-weight:900;  
+    letter-spacing:-.3px;  
+}  
+  
+.sm-brand-name span{  
+    color:#6d28d9;  
+}  
+  
+.sm-nav-right{  
+    display:flex;  
+    align-items:center;  
+    gap:12px;  
+}  
+  
+  
+/* =========================================================  
+   PROFILE DROPDOWN  
+========================================================= */  
+  
+.profile-dropdown-wrap{  
+    position:relative;  
+}  
+  
+.profile-mini{  
+    width:40px;  
+    height:40px;  
+    border-radius:50%;  
+    border:0;  
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);  
+    color:#ffffff;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:14px;  
+    font-weight:900;  
+    cursor:pointer;  
+    box-shadow:0 5px 15px rgba(79,70,229,.20);  
+    outline:none;  
+    transition:.2s;  
+    overflow:hidden;  
+    padding:0;  
+}  
+  
+.profile-mini:hover{  
+    transform:translateY(-1px);  
+    box-shadow:0 7px 18px rgba(79,70,229,.25);  
+}  
+  
+.profile-mini img{  
+    width:100%;  
+    height:100%;  
+    object-fit:cover;  
+    border-radius:50%;  
+    display:block;  
+}  
+  
+.profile-dropdown{  
+    position:absolute;  
+    top:50px;  
+    right:0;  
+    width:200px;  
+    background:#ffffff;  
+    border:1px solid #e5e7eb;  
+    border-radius:14px;  
+    padding:7px;  
+    box-shadow:0 15px 35px rgba(15,23,42,.14);  
+    display:none;  
+    z-index:10000;  
+}  
+  
+.profile-dropdown.active{  
+    display:block;  
+}  
+  
+.profile-dropdown-item{  
+    width:100%;  
+    min-height:43px;  
+    display:flex;  
+    align-items:center;  
+    gap:10px;  
+    padding:10px 12px;  
+    border:0;  
+    border-radius:9px;  
+    background:transparent;  
+    color:#334155;  
+    text-decoration:none;  
+    font-size:13px;  
+    font-weight:700;  
+    cursor:pointer;  
+    text-align:left;  
+}  
+  
+.profile-dropdown-item:hover{  
+    background:#f5f3ff;  
+    color:#6d28d9;  
+}  
+  
+.profile-dropdown-item.logout-dropdown:hover{  
+    background:#fef2f2;  
+    color:#dc2626;  
+}  
+  
+  
+/* =========================================================  
+   MENU BUTTON  
+========================================================= */  
+  
+.menu-btn{  
+    width:40px;  
+    height:40px;  
+    border:1px solid #e5e7eb;  
+    border-radius:11px;  
+    background:#ffffff;  
+    color:#334155;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:20px;  
+    cursor:pointer;  
+    transition:.2s;  
+}  
+  
+.menu-btn:hover{  
+    background:#f8fafc;  
+    border-color:#cbd5e1;  
+}  
+  
+  
+/* =========================================================  
+   SIDE MENU  
+========================================================= */  
+  
+.nav-menu{  
+    position:fixed;  
+    top:0;  
+    right:-330px;  
+    width:310px;  
+    max-width:88%;  
+    height:100vh;  
+    background:#ffffff;  
+    z-index:9999;  
+    padding:20px 16px;  
+    box-shadow:-10px 0 35px rgba(15,23,42,.15);  
+    transition:right .3s ease;  
+    overflow-y:auto;  
+}  
+  
+.nav-menu.active{  
+    right:0;  
+}  
+  
+.menu-top{  
+    height:48px;  
+    display:flex;  
+    align-items:center;  
+    justify-content:space-between;  
+    border-bottom:1px solid #eef2f7;  
+}  
+  
+.menu-title{  
+    font-size:18px;  
+    font-weight:900;  
+    color:#111827;  
+}  
+  
+.close-menu{  
+    width:35px;  
+    height:35px;  
+    border:0;  
+    border-radius:9px;  
+    background:#f1f5f9;  
+    color:#334155;  
+    font-size:17px;  
+    cursor:pointer;  
+}  
+  
+  
+/* =========================================================  
+   MENU PROFILE  
+========================================================= */  
+  
+.menu-profile{  
+    display:flex;  
+    align-items:center;  
+    gap:12px;  
+    padding:18px 4px;  
+    border-bottom:1px solid #eef2f7;  
+}  
+  
+.menu-avatar{  
+    width:45px;  
+    height:45px;  
+    border-radius:50%;  
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);  
+    color:#fff;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:16px;  
+    font-weight:900;  
+    overflow:hidden;  
+    flex-shrink:0;  
+}  
+  
+.menu-avatar img{  
+    width:100%;  
+    height:100%;  
+    object-fit:cover;  
+    border-radius:50%;  
+    display:block;  
+}  
+  
+.menu-profile-name{  
+    font-size:14px;  
+    font-weight:850;  
+    color:#111827;  
+}  
+  
+.menu-profile-id{  
+    font-size:10px;  
+    color:#64748b;  
+    margin-top:3px;  
+}  
+  
+.menu-links{  
+    padding-top:14px;  
+}  
+  
+.menu-link{  
+    width:100%;  
+    display:flex;  
+    align-items:center;  
+    gap:12px;  
+    padding:12px;  
+    margin-bottom:4px;  
+    border-radius:10px;  
+    text-decoration:none;  
+    color:#334155;  
+    font-size:12.5px;  
+    font-weight:700;  
+    transition:.2s;  
+}  
+  
+.menu-link:hover{  
+    background:#f5f3ff;  
+    color:#6d28d9;  
+}  
+  
+.menu-link.active{  
+    background:#f3e8ff;  
+    color:#6d28d9;  
+}  
+  
+.menu-icon{  
+    width:25px;  
+    text-align:center;  
+    font-size:15px;  
+    flex-shrink:0;  
+}  
+  
+.logout-link{  
+    color:#dc2626;  
+    margin-top:8px;  
+}  
+  
+.logout-link:hover{  
+    background:#fef2f2;  
+    color:#dc2626;  
+}  
+  
+.menu-overlay{  
+    position:fixed;  
+    inset:0;  
+    background:rgba(15,23,42,.35);  
+    z-index:9998;  
+    opacity:0;  
+    visibility:hidden;  
+    transition:.3s;  
+}  
+  
+.menu-overlay.active{  
+    opacity:1;  
+    visibility:visible;  
+}  
+  
+  
+/* =========================================================  
+   PROFILE CARD  
+========================================================= */  
+  
+.profile-card{  
+    position:relative;  
+    background:linear-gradient(  
+        135deg,  
+        #ffffff 0%,  
+        #faf8ff 48%,  
+        #f1f5ff 100%  
+    );  
+    border:1px solid rgba(99,102,241,.13);  
+    border-radius:18px;  
+    padding:22px 20px 17px;  
+    margin-top:20px;  
+    margin-bottom:20px;  
+    overflow:hidden;  
+    box-shadow:0 8px 25px rgba(30,41,59,.07);  
+    isolation:isolate;  
+}  
+  
+.profile-card::before{  
+    content:"";  
+    position:absolute;  
+    width:190px;  
+    height:190px;  
+    right:-85px;  
+    top:-105px;  
+    border-radius:50%;  
+    background:rgba(124,58,237,.09);  
+    z-index:-1;  
+}  
+  
+.profile-card::after{  
+    content:"";  
+    position:absolute;  
+    width:150px;  
+    height:150px;  
+    left:-80px;  
+    bottom:-90px;  
+    border-radius:50%;  
+    background:rgba(37,99,235,.07);  
+    z-index:-1;  
+}  
+  
+.profile-circle{  
+    position:absolute;  
+    border-radius:50%;  
+    pointer-events:none;  
+    z-index:-1;  
+}  
+  
+.circle-one{  
+    width:92px;  
+    height:92px;  
+    right:22px;  
+    bottom:-55px;  
+    border:1px solid rgba(124,58,237,.14);  
+    animation:floatOne 5s ease-in-out infinite;  
+}  
+  
+.circle-two{  
+    width:58px;  
+    height:58px;  
+    right:76px;  
+    top:20px;  
+    border:1px solid rgba(37,99,235,.12);  
+    animation:floatTwo 4s ease-in-out infinite;  
+}  
+  
+.circle-three{  
+    width:25px;  
+    height:25px;  
+    left:105px;  
+    top:18px;  
+    background:rgba(124,58,237,.07);  
+    animation:pulseCircle 3s ease-in-out infinite;  
+}  
+  
+.package-badge{  
+    position:absolute;  
+    top:0;  
+    right:20px;  
+    background:linear-gradient(135deg,#7c3aed,#6d28d9);  
+    color:#fff;  
+    font-size:9px;  
+    font-weight:800;  
+    letter-spacing:.55px;  
+    padding:6px 14px;  
+    border-radius:0 0 9px 9px;  
+}  
+  
+.profile-content{  
+    position:relative;  
+    z-index:2;  
+    display:flex;  
+    align-items:center;  
+    gap:18px;  
+    padding-top:5px;  
+}  
+  
+.profile-avatar{  
+    width:72px;  
+    height:72px;  
+    border-radius:50%;  
+    padding:3px;  
+    background:linear-gradient(  
+        135deg,  
+        #7c3aed,  
+        #2563eb,  
+        #06b6d4  
+    );  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    overflow:hidden;  
+}  
+  
+.profile-avatar img{  
+    width:100%;  
+    height:100%;  
+    object-fit:cover;  
+    border-radius:50%;  
+    border:2px solid #fff;  
+    display:none;  
+}  
+  
+.avatar-fallback{  
+    width:100%;  
+    height:100%;  
+    border-radius:50%;  
+    background:#fff;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:25px;  
+    font-weight:900;  
+    color:#4f46e5;  
+    border:2px solid #fff;  
+}  
+  
+.profile-details{  
+    min-width:0;  
+}  
+  
+.profile-name{  
+    font-size:18px;  
+    font-weight:850;  
+    color:#111827;  
+    margin-bottom:5px;  
+}  
+  
+.id-row{  
+    display:flex;  
+    align-items:center;  
+    gap:8px;  
+    font-size:12px;  
+    font-weight:700;  
+    color:#475569;  
+}  
+  
+.copy-btn{  
+    width:24px;  
+    height:24px;  
+    border:0;  
+    border-radius:7px;  
+    background:#f1eaff;  
+    color:#6d28d9;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    cursor:pointer;  
+}  
+  
+  
+/* =========================================================  
+   REVENUE  
+========================================================= */  
+  
+.revenue-grid{  
+    display:grid;  
+    grid-template-columns:repeat(2,1fr);  
+    gap:16px;  
+    margin-bottom:16px;  
+}  
+  
+.revenue-card.full-width{  
+    grid-column:span 2;  
+}  
+  
+.revenue-card{  
+    position:relative;  
+    overflow:hidden;  
+    border-radius:16px;  
+    padding:18px 20px;  
+    color:#fff;  
+    box-shadow:0 5px 15px rgba(0,0,0,.08);  
+}  
+  
+.revenue-card::before{  
+    content:"";  
+    position:absolute;  
+    width:105px;  
+    height:105px;  
+    border:1px solid rgba(255,255,255,.13);  
+    border-radius:50%;  
+    right:-45px;  
+    top:-48px;  
+}  
+  
+.card-icon{  
+    position:absolute;  
+    top:16px;  
+    right:16px;  
+    width:32px;  
+    height:32px;  
+    background:rgba(255,255,255,.15);  
+    border-radius:50%;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:14px;  
+}  
+  
+.purple{  
+    background:linear-gradient(135deg,#6b21a8,#581c87);  
+}  
+  
+.indigo{  
+    background:linear-gradient(135deg,#4f46e5,#3730a3);  
+}  
+  
+.pink{  
+    background:linear-gradient(135deg,#db2777,#9d174d);  
+}  
+  
+.blue{  
+    background:linear-gradient(135deg,#0284c7,#0369a1);  
+}  
+  
+.gold{  
+    background:linear-gradient(135deg,#ca8a04,#854d0e);  
+}  
+  
+.revenue-amount{  
+    position:relative;  
+    font-size:26px;  
+    font-weight:850;  
+    margin-bottom:4px;  
+}  
+  
+.revenue-title{  
+    position:relative;  
+    font-size:13px;  
+    opacity:.95;  
+    margin-bottom:14px;  
+}  
+  
+.revenue-footer{  
+    position:relative;  
+    border-top:1px solid rgba(255,255,255,.25);  
+    padding-top:10px;  
+    font-size:12px;  
+}  
+  
+.view-details{  
+    color:#fff;  
+    text-decoration:none;  
+}  
+  
+  
+/* =========================================================  
+   GRAPH  
+========================================================= */  
+  
+.graph-card{  
+    background:#fff;  
+    border:1px solid #e2e8f0;  
+    border-radius:18px;  
+    padding:20px;  
+    box-shadow:0 3px 12px rgba(0,0,0,.045);  
+}  
+  
+.graph-header{  
+    display:flex;  
+    justify-content:space-between;  
+    align-items:center;  
+    margin-bottom:16px;  
+}  
+  
+.graph-title{  
+    font-size:16px;  
+    font-weight:850;  
+}  
+  
+.graph-badge{  
+    font-size:10px;  
+    font-weight:700;  
+    color:#6d28d9;  
+    background:#f3e8ff;  
+    padding:5px 10px;  
+    border-radius:7px;  
+}  
+  
+.graph-wrapper{  
+    position:relative;  
+    margin-left:35px;  
+}  
+  
+.graph{  
+    height:200px;  
+    position:relative;  
+    border-left:1px solid #cbd5e1;  
+    border-bottom:1px solid #cbd5e1;  
+    background:repeating-linear-gradient(  
+        to bottom,  
+        transparent 0,  
+        transparent 36px,  
+        #eef2f7 37px  
+    );  
+}  
+  
+.y-axis{  
+    position:absolute;  
+    left:-35px;  
+    top:0;  
+    bottom:0;  
+    display:flex;  
+    flex-direction:column;  
+    justify-content:space-between;  
+    font-size:10px;  
+    color:#94a3b8;  
+}  
+  
+.zero-line{  
+    position:absolute;  
+    left:0;  
+    right:0;  
+    bottom:0;  
+    height:2px;  
+    background:#db2777;  
+}  
+  
+.graph-dates{  
+    display:grid;  
+    grid-template-columns:repeat(7,1fr);  
+    margin-left:35px;  
+    margin-top:10px;  
+    font-size:10px;  
+    color:#64748b;  
+    text-align:center;  
+}  
+  
+  
+/* =========================================================  
+   FOOTER  
+========================================================= */  
+  
+.footer{  
+    text-align:center;  
+    color:#94a3b8;  
+    font-size:11px;  
+    padding:20px 0;  
+}  
+  
+  
+/* =========================================================  
+   ANIMATIONS  
+========================================================= */  
+  
+@keyframes floatOne{  
+    0%,100%{  
+        transform:translate(0,0);  
+    }  
+  
+    50%{  
+        transform:translate(-5px,-5px);  
+    }  
+}  
+  
+@keyframes floatTwo{  
+    0%,100%{  
+        transform:translate(0,0);  
+    }  
+  
+    50%{  
+        transform:translate(5px,4px);  
+    }  
+}  
+  
+@keyframes pulseCircle{  
+    0%,100%{  
+        transform:scale(1);  
+        opacity:.45;  
+    }  
+  
+    50%{  
+        transform:scale(1.25);  
+        opacity:1;  
+    }  
+}  
+  
+  
+/* =========================================================  
+   LAPTOP & DESKTOP  
+========================================================= */  
+  
+@media(min-width:768px){  
+  
+    .dashboard{  
+        padding:0 32px 30px;  
+    }  
+  
+    .sm-navbar{  
+        padding:0 32px;  
+    }  
+  
+    .revenue-grid{  
+        grid-template-columns:repeat(3,1fr);  
+    }  
+  
+    .revenue-card.full-width{  
+        grid-column:span 1;  
+    }  
+  
+    .profile-card{  
+        padding:26px 28px 22px;  
+    }  
+  
+    .profile-avatar{  
+        width:80px;  
+        height:80px;  
+    }  
+  
+    .profile-name{  
+        font-size:21px;  
+    }  
+  
+}  
+  
+  
+/* =========================================================  
+   MOBILE  
+========================================================= */  
+  
+@media(max-width:600px){  
+  
+    .dashboard{  
+        padding:0 12px 20px;  
+    }  
+  
+    .sm-navbar{  
+        padding:0 14px;  
+        width:calc(100% + 24px);  
+        margin-left:-12px;  
+        margin-right:-12px;  
+    }  
+  
+    .sm-brand-name{  
+        font-size:17px;  
+        white-space:nowrap;  
+    }  
+  
+    .sm-brand-logo{  
+        width:36px;  
+        height:36px;  
+    }  
+  
+    .profile-dropdown{  
+        width:185px;  
+    }  
+  
+    .profile-card{  
+        margin-top:15px;  
+    }  
+  
+    .profile-avatar{  
+        width:66px;  
+        height:66px;  
+    }  
+  
+    .profile-name{  
+        font-size:16px;  
+    }  
+  
+    .revenue-grid{  
+        grid-template-columns:repeat(2,1fr);  
+        gap:12px;  
+    }  
+  
+    .revenue-card{  
+        padding:14px;  
+    }  
+  
+    .revenue-amount{  
+        font-size:22px;  
+    }  
+  
+}  
+  
+</style>  </head>  <body>  <!-- =======================================================  
+     SIDE MENU OVERLAY  
+======================================================= -->  <div  
+    class="menu-overlay"  
+    id="menuOverlay"  
+    onclick="closeMenu()">  
+</div>  <!-- =======================================================  
+     SIDE MENU  
+======================================================= -->  <div  
+    class="nav-menu"  
+    id="navMenu">  <div class="menu-top">  
+
+    <div class="menu-title">  
+        Skills Market  
+    </div>  
+
+    <button  
+        class="close-menu"  
+        onclick="closeMenu()">  
+        ✕  
+    </button>  
+
+</div>  
+
+
+<div class="menu-profile">  
+
+    <div  
+        class="menu-avatar"  
+        id="menuAvatar">  
+
+        M  
+
+    </div>  
+
+    <div>  
+
+        <div  
+            class="menu-profile-name"  
+            id="menuProfileName">  
+            Member  
+        </div>  
+
+        <div  
+            class="menu-profile-id"  
+            id="menuProfileId">  
+            ID: Loading...  
+        </div>  
+
+    </div>  
+
+</div>  
+
+
+<div class="menu-links">  
+
+    <a href="dashboard.html" class="menu-link active">  
+        <span class="menu-icon">⌂</span>  
+        <span>Affiliate Dashboard</span>  
+    </a>  
+
+    <a href="my-course.html" class="menu-link">  
+        <span class="menu-icon">📚</span>  
+        <span>My Course</span>  
+    </a>  
+
+    <a href="profile.html" class="menu-link">  
+        <span class="menu-icon">👤</span>  
+        <span>My Profile</span>  
+    </a>  
+
+    <a href="affiliate-link.html" class="menu-link">  
+        <span class="menu-icon">🔗</span>  
+        <span>Affiliate Link</span>  
+    </a>  
+
+    <a href="kyc.html" class="menu-link">  
+        <span class="menu-icon">🪪</span>  
+        <span>KYC</span>  
+    </a>  
+
+    <a href="leaderboard.html" class="menu-link">  
+        <span class="menu-icon">🏆</span>  
+        <span>Leaderboard</span>  
+    </a>  
+
+    <a href="my-team.html" class="menu-link">  
+        <span class="menu-icon">👥</span>  
+        <span>My Team</span>  
+    </a>  
+
+    <a href="registration-request.html" class="menu-link">  
+        <span class="menu-icon">📝</span>  
+        <span>Registration Request</span>  
+    </a>  
+
+    <a href="withdrawal-request.html" class="menu-link">  
+        <span class="menu-icon">💸</span>  
+        <span>Withdrawal Request</span>  
+    </a>  
+
+    <a href="upgrade-request.html" class="menu-link">  
+        <span class="menu-icon">⬆️</span>  
+        <span>Upgrade Request</span>  
+    </a>  
+
+    <a href="qualification.html" class="menu-link">  
+        <span class="menu-icon">🎯</span>  
+        <span>Qualification</span>  
+    </a>  
+
+    <a href="payout-transaction.html" class="menu-link">  
+        <span class="menu-icon">💳</span>  
+        <span>Payout Transaction</span>  
+    </a>  
+
+    <a href="training.html" class="menu-link">  
+        <span class="menu-icon">🎓</span>  
+        <span>Training</span>  
+    </a>  
+
+    <a href="community-support.html" class="menu-link">  
+        <span class="menu-icon">💬</span>  
+        <span>Community &amp; Support</span>  
+    </a>  
+
+    <a  
+        href="#"  
+        class="menu-link logout-link"  
+        onclick="logoutUser(event)">  
+
+        <span class="menu-icon">↪</span>  
+        <span>Logout</span>  
+
+    </a>  
 
 </div>
 
+</div>  <!-- =======================================================  
+     NAVBAR  
+======================================================= -->  <nav class="sm-navbar">  <a  
+    href="dashboard.html"  
+    class="sm-brand">  
 
-<!-- =======================================================
-     NAVBAR
-======================================================= -->
+    <div class="sm-brand-logo">  
+        SM  
+    </div>  
 
-<nav class="sm-navbar">
+    <div class="sm-brand-name">  
+        Skills <span>Market</span>  
+    </div>  
 
-    <a
-        href="dashboard.html"
-        class="sm-brand">
+</a>  
 
-        <div class="sm-brand-logo">
-            SM
-        </div>
 
-        <div class="sm-brand-name">
-            Skills <span>Market</span>
-        </div>
+<div class="sm-nav-right">  
 
-    </a>
+    <div class="profile-dropdown-wrap">  
 
+        <button  
+            type="button"  
+            class="profile-mini"  
+            id="profileMini"  
+            onclick="toggleProfileDropdown(event)">  
 
-    <div class="sm-nav-right">
+            M  
 
-        <div class="profile-dropdown-wrap">
+        </button>  
 
-            <button
-                type="button"
-                class="profile-mini"
-                id="profileMini"
-                onclick="toggleProfileDropdown(event)">
+        <div  
+            class="profile-dropdown"  
+            id="profileDropdown">  
 
-                M
+            <a  
+                href="profile.html"  
+                class="profile-dropdown-item">  
 
-            </button>
+                <span>👤</span>  
+                <span>My Profile</span>  
 
-            <div
-                class="profile-dropdown"
-                id="profileDropdown">
+            </a>  
 
-                <a
-                    href="profile.html"
-                    class="profile-dropdown-item">
+            <a  
+                href="#"  
+                class="profile-dropdown-item"  
+                onclick="closeProfileDropdown()">  
 
-                    <span>👤</span>
-                    <span>My Profile</span>
+                <span>⚙️</span>  
+                <span>Account Settings</span>  
 
-                </a>
+            </a>  
 
-                <a
-                    href="#"
-                    class="profile-dropdown-item"
-                    onclick="closeProfileDropdown()">
+            <button  
+                type="button"  
+                class="profile-dropdown-item logout-dropdown"  
+                onclick="logoutUser(event)">  
 
-                    <span>⚙️</span>
-                    <span>Account Settings</span>
+                <span>🚪</span>  
+                <span>Logout</span>  
 
-                </a>
+            </button>  
 
-                <button
-                    type="button"
-                    class="profile-dropdown-item logout-dropdown"
-                    onclick="logoutUser(event)">
+        </div>  
 
-                    <span>🚪</span>
-                    <span>Logout</span>
+    </div>  
 
-                </button>
 
-            </div>
+    <button  
+        class="menu-btn"  
+        onclick="openMenu()"  
+        aria-label="Open menu">  
 
-        </div>
+        ☰  
 
-
-        <button
-            class="menu-btn"
-            onclick="openMenu()"
-            aria-label="Open menu">
-
-            ☰
-
-        </button>
-
-    </div>
-
-</nav>
-
-
-<!-- =======================================================
-     DASHBOARD
-======================================================= -->
-
-<div class="dashboard">
-
-
-<!-- =======================================================
-     PROFILE CARD
-======================================================= -->
-
-<section class="profile-card">
-
-    <div class="profile-circle circle-one"></div>
-    <div class="profile-circle circle-two"></div>
-    <div class="profile-circle circle-three"></div>
-
-    <div
-        class="package-badge"
-        id="packageBadge">
-        PACKAGE
-    </div>
-
-    <div class="profile-content">
-
-        <div class="profile-avatar">
-
-            <img
-                id="profileAvatarImage"
-                src=""
-                alt="Profile">
-
-            <div
-                class="avatar-fallback"
-                id="avatarFallback">
-                M
-            </div>
-
-        </div>
-
-
-        <div class="profile-details">
-
-            <div
-                class="profile-name"
-                id="profileName">
-                Member
-            </div>
-
-            <div class="id-row">
-
-                <span id="profileId">
-                    ID: Loading...
-                </span>
-
-                <button
-                    class="copy-btn"
-                    onclick="copyProfileID()">
-                    📋
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     REVENUE CARDS
-======================================================= -->
-
-<div class="revenue-grid">
-
-
-    <!-- TODAY -->
-    <div class="revenue-card purple">
-
-        <div class="card-icon">💳</div>
-
-        <div
-            class="revenue-amount"
-            id="todayRevenue">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Today's Revenue
-        </div>
-
-        <div class="revenue-footer">
-
-            <span
-                class="revenue-count"
-                id="todayCount">
-                0 Transactions
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- 7 DAYS -->
-    <div class="revenue-card indigo">
-
-        <div class="card-icon">📊</div>
-
-        <div
-            class="revenue-amount"
-            id="sevenDaysRevenue">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Last 7 Days Revenue
-        </div>
-
-        <div class="revenue-footer">
-
-            <span
-                class="revenue-count"
-                id="sevenDaysCount">
-                0 Transactions
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- 30 DAYS -->
-    <div class="revenue-card pink">
-
-        <div class="card-icon">🎓</div>
-
-        <div
-            class="revenue-amount"
-            id="thirtyDaysRevenue">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Last 30 Days Revenue
-        </div>
-
-        <div class="revenue-footer">
-
-            <span
-                class="revenue-count"
-                id="thirtyDaysCount">
-                0 Transactions
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- ALL TIME -->
-    <div class="revenue-card blue">
-
-        <div class="card-icon">🏆</div>
-
-        <div
-            class="revenue-amount"
-            id="allTimeRevenue">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            All Time Revenue
-        </div>
-
-        <div class="revenue-footer">
-
-            <span
-                class="revenue-count"
-                id="allTimeCount">
-                0 Transactions
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- PASSIVE -->
-    <div class="revenue-card gold full-width">
-
-        <div class="card-icon">💰</div>
-
-        <div
-            class="revenue-amount"
-            id="passiveIncome">
-            ₹ 0
-        </div>
-
-        <div class="revenue-title">
-            Passive Income
-        </div>
-
-        <div class="revenue-footer">
-
-            <span
-                class="revenue-count"
-                id="passiveCount">
-                0 Transactions
-            </span>
-
-        </div>
-
-    </div>
-
+    </button>  
 
 </div>
 
+</nav>  <!-- =======================================================  
+     DASHBOARD  
+======================================================= -->  <div class="dashboard">  <!-- =======================================================  
+     PROFILE CARD  
+======================================================= -->  <section class="profile-card">  <div class="profile-circle circle-one"></div>  
+<div class="profile-circle circle-two"></div>  
+<div class="profile-circle circle-three"></div>  
 
-<!-- =======================================================
-     GRAPH
-======================================================= -->
+<div  
+    class="package-badge"  
+    id="packageBadge">  
+    PACKAGE  
+</div>  
 
-<section class="graph-card">
+<div class="profile-content">  
 
-    <div class="graph-header">
+    <div class="profile-avatar">  
 
-        <div class="graph-title">
-            Sales Last 7 Days
-        </div>
+        <!-- PROFILE IMAGE -->  
+        <img  
+            id="profileAvatarImage"  
+            src=""  
+            alt="Profile">  
 
-        <div
-            class="graph-badge"
-            id="graphTotal">
-            ₹ 0
-        </div>
+        <!-- FALLBACK LETTER -->  
+        <div  
+            class="avatar-fallback"  
+            id="avatarFallback">  
+            M  
+        </div>  
 
-    </div>
-
-
-    <div class="graph-wrapper">
-
-        <div class="y-axis">
-
-            <span id="yTop">₹ 0</span>
-            <span id="y80">₹ 0</span>
-            <span id="y60">₹ 0</span>
-            <span id="y40">₹ 0</span>
-            <span id="y20">₹ 0</span>
-            <span>₹ 0</span>
-
-        </div>
+    </div>  
 
 
-        <div
-            class="graph"
-            id="incomeGraph">
+    <div class="profile-details">  
 
-            <div class="zero-line"></div>
+        <div  
+            class="profile-name"  
+            id="profileName">  
+            Member  
+        </div>  
 
-            <svg
-                class="graph-line"
-                id="graphSvg"
-                viewBox="0 0 700 200"
-                preserveAspectRatio="none">
+        <div class="id-row">  
 
-                <polygon
-                    id="graphArea"
-                    class="graph-area"
-                    points="">
-                </polygon>
+            <span id="profileId">  
+                ID: Loading...  
+            </span>  
 
-                <polyline
-                    id="graphPath"
-                    class="graph-path"
-                    points="">
-                </polyline>
+            <button  
+                class="copy-btn"  
+                onclick="copyProfileID()">  
+                📋  
+            </button>  
 
-                <g id="graphPoints"></g>
+        </div>  
 
-            </svg>
-
-            <div
-                class="graph-tooltip"
-                id="graphTooltip">
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div
-        class="graph-dates"
-        id="graphDates">
-
-        <span>-</span>
-        <span>-</span>
-        <span>-</span>
-        <span>-</span>
-        <span>-</span>
-        <span>-</span>
-        <span>-</span>
-
-    </div>
-
-</section>
-
-
-<div class="footer">
-    © 2026 Skills Market · All Rights Reserved
-</div>
-
+    </div>  
 
 </div>
 
+</section>  <!-- =======================================================  
+     REVENUE CARDS  
+======================================================= -->  <div class="revenue-grid">  <div class="revenue-card purple">  
 
-<script>
+    <div class="card-icon">💳</div>  
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+    <div class="revenue-amount">  
+        ₹ 0  
+    </div>  
 
-const SUPABASE_URL =
-    "https://hmlonjwqeqedakzhucix.supabase.co";
+    <div class="revenue-title">  
+        Today's Revenue  
+    </div>  
 
-const SUPABASE_KEY =
-    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+    <div class="revenue-footer">  
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+        <a  
+            href="#"  
+            class="view-details">  
+            Click here to view detail(s)  
+        </a>  
 
+    </div>  
 
-/* =========================================================
-   GLOBAL
-========================================================= */
+</div>  
 
-let currentMemberID = "";
-let currentTransactions = [];
 
+<div class="revenue-card indigo">  
 
-/* =========================================================
-   PROFILE DROPDOWN
-========================================================= */
+    <div class="card-icon">📊</div>  
 
-function toggleProfileDropdown(event){
+    <div class="revenue-amount">  
+        ₹ 0  
+    </div>  
 
-    event.stopPropagation();
+    <div class="revenue-title">  
+        Last 7 Days Revenue  
+    </div>  
 
-    const dropdown =
-        document.getElementById(
-            "profileDropdown"
-        );
+    <div class="revenue-footer">  
 
-    if(dropdown){
+        <a  
+            href="#"  
+            class="view-details">  
+            Click here to view detail(s)  
+        </a>  
 
-        dropdown.classList.toggle(
-            "active"
-        );
+    </div>  
 
-    }
+</div>  
 
-}
 
+<div class="revenue-card pink">  
 
-function closeProfileDropdown(){
+    <div class="card-icon">🎓</div>  
 
-    const dropdown =
-        document.getElementById(
-            "profileDropdown"
-        );
+    <div class="revenue-amount">  
+        ₹ 0  
+    </div>  
 
-    if(dropdown){
+    <div class="revenue-title">  
+        Last 30 Days Revenue  
+    </div>  
 
-        dropdown.classList.remove(
-            "active"
-        );
+    <div class="revenue-footer">  
 
-    }
+        <a  
+            href="#"  
+            class="view-details">  
+            Click here to view detail(s)  
+        </a>  
 
-}
+    </div>  
 
+</div>  
 
-document.addEventListener(
-    "click",
-    function(event){
 
-        const wrap =
-            document.querySelector(
-                ".profile-dropdown-wrap"
-            );
+<div class="revenue-card blue">  
 
-        if(
-            wrap &&
-            !wrap.contains(event.target)
-        ){
+    <div class="card-icon">🏆</div>  
 
-            closeProfileDropdown();
+    <div class="revenue-amount">  
+        ₹ 0  
+    </div>  
 
-        }
+    <div class="revenue-title">  
+        All Time Revenue  
+    </div>  
 
-    }
-);
+    <div class="revenue-footer">  
 
+        <a  
+            href="#"  
+            class="view-details">  
+            Click here to view detail(s)  
+        </a>  
 
-/* =========================================================
-   PROFILE IMAGE
-========================================================= */
+    </div>  
 
-function setAvatarImage(
-    imageUrl,
-    firstLetter
-){
+</div>  
 
-    const profileAvatarImage =
-        document.getElementById(
-            "profileAvatarImage"
-        );
 
-    const avatarFallback =
-        document.getElementById(
-            "avatarFallback"
-        );
+<div class="revenue-card gold full-width">  
 
-    const profileMini =
-        document.getElementById(
-            "profileMini"
-        );
+    <div class="card-icon">💰</div>  
 
-    const menuAvatar =
-        document.getElementById(
-            "menuAvatar"
-        );
+    <div class="revenue-amount">  
+        ₹ 0  
+    </div>  
 
-
-    if(
-        profileAvatarImage &&
-        avatarFallback
-    ){
-
-        if(imageUrl){
-
-            profileAvatarImage.src =
-                imageUrl;
-
-            profileAvatarImage.style.display =
-                "block";
-
-            avatarFallback.style.display =
-                "none";
-
-        }else{
-
-            profileAvatarImage.src =
-                "";
-
-            profileAvatarImage.style.display =
-                "none";
-
-            avatarFallback.style.display =
-                "flex";
-
-        }
-
-    }
-
-
-    if(profileMini){
-
-        if(imageUrl){
-
-            profileMini.innerHTML =
-                '<img src="' +
-                imageUrl +
-                '" alt="Profile">';
-
-        }else{
-
-            profileMini.textContent =
-                firstLetter;
-
-        }
-
-    }
-
-
-    if(menuAvatar){
-
-        if(imageUrl){
-
-            menuAvatar.innerHTML =
-                '<img src="' +
-                imageUrl +
-                '" alt="Profile">';
-
-        }else{
-
-            menuAvatar.textContent =
-                firstLetter;
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   APPLY PROFILE
-========================================================= */
-
-function applyProfileToScreen(
-    fullName,
-    memberID,
-    packageName,
-    avatarUrl
-){
-
-    currentMemberID =
-        memberID;
-
-
-    document.getElementById(
-        "profileName"
-    ).textContent =
-        fullName;
-
-
-    document.getElementById(
-        "profileId"
-    ).textContent =
-        "ID: " + memberID;
-
-
-    document.getElementById(
-        "packageBadge"
-    ).textContent =
-        packageName.toUpperCase();
-
-
-    const firstLetter =
-        fullName
-            .trim()
-            .charAt(0)
-            .toUpperCase() || "M";
-
-
-    document.getElementById(
-        "avatarFallback"
-    ).textContent =
-        firstLetter;
-
-
-    setAvatarImage(
-        avatarUrl || "",
-        firstLetter
-    );
-
-
-    document.getElementById(
-        "menuProfileName"
-    ).textContent =
-        fullName;
-
-
-    document.getElementById(
-        "menuProfileId"
-    ).textContent =
-        "ID: " + memberID;
-
-}
-
-
-/* =========================================================
-   CACHE
-========================================================= */
-
-function loadCachedProfile(){
-
-    try{
-
-        const cached =
-            sessionStorage.getItem(
-                "sm_profile_cache"
-            );
-
-
-        if(!cached){
-
-            return;
-
-        }
-
-
-        const profile =
-            JSON.parse(cached);
-
-
-        if(
-            profile &&
-            profile.fullName &&
-            profile.memberID
-        ){
-
-            applyProfileToScreen(
-
-                profile.fullName,
-
-                profile.memberID,
-
-                profile.packageName ||
-                "Package Not Assigned",
-
-                profile.avatarUrl ||
-                ""
-
-            );
-
-        }
-
-
-    }catch(error){
-
-        console.error(
-            "Profile cache error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   MONEY FORMAT
-========================================================= */
-
-function formatMoney(amount){
-
-    const value =
-        Number(amount || 0);
-
-    return (
-        "₹ " +
-        value.toLocaleString(
-            "en-IN",
-            {
-                maximumFractionDigits:2
-            }
-        )
-    );
-
-}
-
-
-/* =========================================================
-   TRANSACTION HELPERS
-========================================================= */
-
-function startOfLocalDay(date = new Date()){
-
-    const d =
-        new Date(date);
-
-    d.setHours(
-        0,
-        0,
-        0,
-        0
-    );
-
-    return d;
-
-}
-
-
-function getDateDaysAgo(days){
-
-    const d =
-        startOfLocalDay();
-
-    d.setDate(
-        d.getDate() - days
-    );
-
-    return d;
-
-}
-
-
-function transactionAmount(tx){
-
-    return Number(
-        tx.amount || 0
-    );
-
-}
-
-
-function isApproved(tx){
-
-    return (
-        String(tx.status || "")
-            .toLowerCase() ===
-        "approved"
-    );
-
-}
-
-
-function isPassive(tx){
-
-    return (
-        String(tx.income_type || "")
-            .toLowerCase() ===
-        "passive"
-    );
-
-}
-
-
-function isActive(tx){
-
-    return (
-        String(tx.income_type || "")
-            .toLowerCase() ===
-        "active"
-    );
-
-}
-
-
-/* =========================================================
-   SUM
-========================================================= */
-
-function calculateTotal(
-    transactions
-){
-
-    return transactions.reduce(
-        function(total,tx){
-
-            return (
-                total +
-                transactionAmount(tx)
-            );
-
-        },
-        0
-    );
-
-}
-
-
-/* =========================================================
-   UPDATE REVENUE CARD
-========================================================= */
-
-function updateRevenueCard(
-    amountID,
-    countID,
-    transactions
-){
-
-    const amount =
-        calculateTotal(
-            transactions
-        );
-
-    const count =
-        transactions.length;
-
-
-    const amountElement =
-        document.getElementById(
-            amountID
-        );
-
-    const countElement =
-        document.getElementById(
-            countID
-        );
-
-
-    if(amountElement){
-
-        amountElement.textContent =
-            formatMoney(amount);
-
-    }
-
-
-    if(countElement){
-
-        countElement.textContent =
-            count +
-            (
-                count === 1
-                ? " Transaction"
-                : " Transactions"
-            );
-
-    }
-
-}
-
-
-/* =========================================================
-   LOAD INCOME
-========================================================= */
-
-async function loadIncomeData(
-    memberID
-){
-
-    if(
-        !memberID ||
-        memberID === "Not Assigned"
-    ){
-
-        return;
-
-    }
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .from("income_transactions")
-            .select(
-                "member_id,income_type,amount,status,created_at"
-            )
-            .eq(
-                "member_id",
-                memberID
-            )
-            .eq(
-                "status",
-                "approved"
-            )
-            .order(
-                "created_at",
-                {
-                    ascending:true
-                }
-            );
-
-
-        if(error){
-
-            console.error(
-                "Income transaction error:",
-                error
-            );
-
-            return;
-
-        }
-
-
-        currentTransactions =
-            Array.isArray(data)
-                ? data
-                : [];
-
-
-        updateAllRevenueCards(
-            currentTransactions
-        );
-
-
-        updateSevenDayGraph(
-            currentTransactions
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Income loading error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   UPDATE ALL CARDS
-========================================================= */
-
-function updateAllRevenueCards(
-    transactions
-){
-
-    const now =
-        new Date();
-
-
-    const todayStart =
-        startOfLocalDay(
-            now
-        );
-
-
-    const sevenDaysStart =
-        getDateDaysAgo(6);
-
-
-    const thirtyDaysStart =
-        getDateDaysAgo(29);
-
-
-    /* -----------------------------------------
-       TODAY
-       ACTIVE + PASSIVE
-    ----------------------------------------- */
-
-    const todayTransactions =
-        transactions.filter(
-            function(tx){
-
-                const date =
-                    new Date(
-                        tx.created_at
-                    );
-
-                return (
-                    date >= todayStart
-                );
-
-            }
-        );
-
-
-    /* -----------------------------------------
-       LAST 7 DAYS
-       ACTIVE + PASSIVE
-    ----------------------------------------- */
-
-    const sevenDayTransactions =
-        transactions.filter(
-            function(tx){
-
-                const date =
-                    new Date(
-                        tx.created_at
-                    );
-
-                return (
-                    date >= sevenDaysStart
-                );
-
-            }
-        );
-
-
-    /* -----------------------------------------
-       LAST 30 DAYS
-       ACTIVE + PASSIVE
-    ----------------------------------------- */
-
-    const thirtyDayTransactions =
-        transactions.filter(
-            function(tx){
-
-                const date =
-                    new Date(
-                        tx.created_at
-                    );
-
-                return (
-                    date >= thirtyDaysStart
-                );
-
-            }
-        );
-
-
-    /* -----------------------------------------
-       ALL TIME
-       ACTIVE + PASSIVE
-    ----------------------------------------- */
-
-    const allTimeTransactions =
-        transactions;
-
-
-    /* -----------------------------------------
-       PASSIVE ONLY
-    ----------------------------------------- */
-
-    const passiveTransactions =
-        transactions.filter(
-            function(tx){
-
-                return isPassive(tx);
-
-            }
-        );
-
-
-    /* -----------------------------------------
-       APPLY CARDS
-    ----------------------------------------- */
-
-    updateRevenueCard(
-
-        "todayRevenue",
-
-        "todayCount",
-
-        todayTransactions
-
-    );
-
-
-    updateRevenueCard(
-
-        "sevenDaysRevenue",
-
-        "sevenDaysCount",
-
-        sevenDayTransactions
-
-    );
-
-
-    updateRevenueCard(
-
-        "thirtyDaysRevenue",
-
-        "thirtyDaysCount",
-
-        thirtyDayTransactions
-
-    );
-
-
-    updateRevenueCard(
-
-        "allTimeRevenue",
-
-        "allTimeCount",
-
-        allTimeTransactions
-
-    );
-
-
-    /* -----------------------------------------
-       PASSIVE CARD
-       ONLY PASSIVE
-    ----------------------------------------- */
-
-    updateRevenueCard(
-
-        "passiveIncome",
-
-        "passiveCount",
-
-        passiveTransactions
-
-    );
-
-}
-
-
-/* =========================================================
-   GRAPH - LAST 7 DAYS
-========================================================= */
-
-function updateSevenDayGraph(
-    transactions
-){
-
-    const days = [];
-
-
-    /*
-       Oldest → Newest
-       7 calendar days
-    */
-
-    for(
-        let i = 6;
-        i >= 0;
-        i--
-    ){
-
-        const date =
-            getDateDaysAgo(i);
-
-
-        days.push({
-
-            date:date,
-
-            label:
-                date.toLocaleDateString(
-                    "en-IN",
-                    {
-                        day:"2-digit",
-                        month:"short"
-                    }
-                ),
-
-            amount:0,
-
-            count:0
-
-        });
-
-    }
-
-
-    /* -----------------------------------------
-       ADD DAILY ACTIVE + PASSIVE
-    ----------------------------------------- */
-
-    transactions.forEach(
-        function(tx){
-
-            const txDate =
-                new Date(
-                    tx.created_at
-                );
-
-
-            for(
-                let i = 0;
-                i < days.length;
-                i++
-            ){
-
-                const day =
-                    days[i].date;
-
-
-                if(
-                    txDate.getFullYear() ===
-                        day.getFullYear() &&
-
-                    txDate.getMonth() ===
-                        day.getMonth() &&
-
-                    txDate.getDate() ===
-                        day.getDate()
-                ){
-
-                    days[i].amount +=
-                        transactionAmount(tx);
-
-                    days[i].count++;
-
-                    break;
-
-                }
-
-            }
-
-        }
-    );
-
-
-    renderGraph(
-        days
-    );
-
-}
-
-
-/* =========================================================
-   RENDER GRAPH
-========================================================= */
-
-function renderGraph(
-    days
-){
-
-    const graph =
-        document.getElementById(
-            "incomeGraph"
-        );
-
-    const svg =
-        document.getElementById(
-            "graphSvg"
-        );
-
-    const path =
-        document.getElementById(
-            "graphPath"
-        );
-
-    const area =
-        document.getElementById(
-            "graphArea"
-        );
-
-    const pointsGroup =
-        document.getElementById(
-            "graphPoints"
-        );
-
-    const datesContainer =
-        document.getElementById(
-            "graphDates"
-        );
-
-    const tooltip =
-        document.getElementById(
-            "graphTooltip"
-        );
-
-
-    if(
-        !graph ||
-        !svg ||
-        !path ||
-        !area ||
-        !pointsGroup ||
-        !datesContainer
-    ){
-
-        return;
-
-    }
-
-
-    const width =
-        700;
-
-    const height =
-        200;
-
-
-    const amounts =
-        days.map(
-            function(day){
-
-                return day.amount;
-
-            }
-        );
-
-
-    const maxAmount =
-        Math.max(
-            ...amounts,
-            0
-        );
-
-
-    /*
-       Give the graph some breathing room
-    */
-
-    const graphMax =
-        maxAmount > 0
-            ? Math.ceil(
-                maxAmount * 1.15
-              )
-            : 1;
-
-
-    /* -----------------------------------------
-       Y AXIS
-    ----------------------------------------- */
-
-    const yValues = [
-
-        graphMax,
-
-        graphMax * .8,
-
-        graphMax * .6,
-
-        graphMax * .4,
-
-        graphMax * .2,
-
-        0
-
-    ];
-
-
-    const yIDs = [
-
-        "yTop",
-        "y80",
-        "y60",
-        "y40",
-        "y20"
-
-    ];
-
-
-    yIDs.forEach(
-        function(id,index){
-
-            const element =
-                document.getElementById(
-                    id
-                );
-
-            if(element){
-
-                element.textContent =
-                    formatMoney(
-                        yValues[index]
-                    );
-
-            }
-
-        }
-    );
-
-
-    /* -----------------------------------------
-       GRAPH TOTAL
-    ----------------------------------------- */
-
-    const graphTotal =
-        calculateTotal(
-            days.map(
-                function(day){
-
-                    return {
-                        amount:day.amount
-                    };
-
-                }
-            )
-        );
-
-
-    const graphTotalElement =
-        document.getElementById(
-            "graphTotal"
-        );
-
-
-    if(graphTotalElement){
-
-        graphTotalElement.textContent =
-            formatMoney(
-                graphTotal
-            );
-
-    }
-
-
-    /* -----------------------------------------
-       POINTS
-    ----------------------------------------- */
-
-    const pointPadding =
-        20;
-
-
-    const usableWidth =
-        width -
-        (
-            pointPadding * 2
-        );
-
-
-    const xStep =
-        days.length > 1
-            ? usableWidth /
-              (days.length - 1)
-            : 0;
-
-
-    const graphPoints =
-        days.map(
-            function(day,index){
-
-                const x =
-                    pointPadding +
-                    (
-                        xStep * index
-                    );
-
-
-                const y =
-                    height -
-                    (
-                        (
-                            day.amount /
-                            graphMax
-                        ) *
-                        (
-                            height - 20
-                        )
-                    );
-
-
-                return {
-
-                    x:x,
-
-                    y:y,
-
-                    amount:
-                        day.amount,
-
-                    count:
-                        day.count
-
-                };
-
-            }
-        );
-
-
-    /* -----------------------------------------
-       POLYLINE
-    ----------------------------------------- */
-
-    const pointString =
-        graphPoints
-            .map(
-                function(point){
-
-                    return (
-                        point.x +
-                        "," +
-                        point.y
-                    );
-
-                }
-            )
-            .join(" ");
-
-
-    path.setAttribute(
-        "points",
-        pointString
-    );
-
-
-    /* -----------------------------------------
-       AREA
-    ----------------------------------------- */
-
-    const areaPoints =
-        [
-            pointPadding + "," + height,
-
-            pointString,
-
-            (
-                pointPadding +
-                usableWidth
-            ) +
-            "," +
-            height
-        ].join(" ");
-
-
-    area.setAttribute(
-        "points",
-        areaPoints
-    );
-
-
-    /* -----------------------------------------
-       POINT CIRCLES
-    ----------------------------------------- */
-
-    pointsGroup.innerHTML =
-        "";
-
-
-    graphPoints.forEach(
-        function(point,index){
-
-            const circle =
-                document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "circle"
-                );
-
-
-            circle.setAttribute(
-                "cx",
-                point.x
-            );
-
-
-            circle.setAttribute(
-                "cy",
-                point.y
-            );
-
-
-            circle.setAttribute(
-                "r",
-                "4"
-            );
-
-
-            circle.setAttribute(
-                "class",
-                "graph-point"
-            );
-
-
-            circle.style.cursor =
-                "pointer";
-
-
-            circle.addEventListener(
-                "mouseenter",
-                function(){
-
-                    if(!tooltip){
-
-                        return;
-
-                    }
-
-
-                    tooltip.style.display =
-                        "block";
-
-
-                    tooltip.textContent =
-                        days[index].label +
-                        " • " +
-                        formatMoney(
-                            point.amount
-                        ) +
-                        " • " +
-                        point.count +
-                        (
-                            point.count === 1
-                            ? " transaction"
-                            : " transactions"
-                        );
-
-
-                    const graphWidth =
-                        graph.clientWidth;
-
-
-                    const leftPercent =
-                        (
-                            point.x /
-                            width
-                        ) * 100;
-
-
-                    tooltip.style.left =
-                        leftPercent +
-                        "%";
-
-
-                    tooltip.style.top =
-                        (
-                            point.y /
-                            height
-                        ) *
-                        100 +
-                        "%";
-
-                }
-            );
-
-
-            circle.addEventListener(
-                "mouseleave",
-                function(){
-
-                    if(tooltip){
-
-                        tooltip.style.display =
-                            "none";
-
-                    }
-
-                }
-            );
-
-
-            pointsGroup.appendChild(
-                circle
-            );
-
-        }
-    );
-
-
-    /* -----------------------------------------
-       DATES
-    ----------------------------------------- */
-
-    datesContainer.innerHTML =
-        "";
-
-
-    days.forEach(
-        function(day){
-
-            const span =
-                document.createElement(
-                    "span"
-                );
-
-            span.textContent =
-                day.label;
-
-            datesContainer.appendChild(
-                span
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   LOAD DASHBOARD
-========================================================= */
-
-async function loadDashboard(){
-
-    try{
-
-        const {
-            data:{user},
-            error:authError
-        } =
-        await supabaseClient.auth.getUser();
-
-
-        if(
-            authError ||
-            !user
-        ){
-
-            sessionStorage.removeItem(
-                "sm_profile_cache"
-            );
-
-            window.location.href =
-                "login.html";
-
-            return;
-
-        }
-
-
-        const {
-            data:profile,
-            error
-        } =
-        await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq(
-                "id",
-                user.id
-            )
-            .maybeSingle();
-
-
-        if(error){
-
-            console.error(
-                "Profile error:",
-                error
-            );
-
-            return;
-
-        }
-
-
-        if(!profile){
-
-            console.warn(
-                "Profile record not found."
-            );
-
-            return;
-
-        }
-
-
-        const fullName =
-            profile.full_name ||
-            user.user_metadata?.full_name ||
-            "Member";
-
-
-        const memberID =
-            profile.member_id ||
-            "Not Assigned";
-
-
-        const packageName =
-            profile.package_name ||
-            "Package Not Assigned";
-
-
-        const avatarUrl =
-            user.user_metadata?.avatar_url ||
-            "";
-
-
-        applyProfileToScreen(
-
-            fullName,
-
-            memberID,
-
-            packageName,
-
-            avatarUrl
-
-        );
-
-
-        /* -----------------------------------------
-           CACHE PROFILE
-        ----------------------------------------- */
-
-        sessionStorage.setItem(
-
-            "sm_profile_cache",
-
-            JSON.stringify({
-
-                userId:
-                    user.id,
-
-                fullName:
-                    fullName,
-
-                memberID:
-                    memberID,
-
-                packageName:
-                    packageName,
-
-                avatarUrl:
-                    avatarUrl
-
-            })
-
-        );
-
-
-        /* -----------------------------------------
-           LOAD INCOME
-        ----------------------------------------- */
-
-        await loadIncomeData(
-            memberID
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Dashboard error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   SIDE MENU
-========================================================= */
-
-function openMenu(){
-
-    closeProfileDropdown();
-
-    document
-        .getElementById("navMenu")
-        .classList.add("active");
-
-    document
-        .getElementById("menuOverlay")
-        .classList.add("active");
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-function closeMenu(){
-
-    document
-        .getElementById("navMenu")
-        .classList.remove("active");
-
-    document
-        .getElementById("menuOverlay")
-        .classList.remove("active");
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =========================================================
-   COPY MEMBER ID
-========================================================= */
-
-function copyProfileID(){
-
-    if(!currentMemberID){
-
-        return;
-
-    }
-
-
-    if(navigator.clipboard){
-
-        navigator.clipboard
-            .writeText(currentMemberID)
-            .then(function(){
-
-                const button =
-                    document.querySelector(
-                        ".copy-btn"
-                    );
-
-                if(button){
-
-                    button.textContent =
-                        "✓";
-
-
-                    setTimeout(
-                        function(){
-
-                            button.textContent =
-                                "📋";
-
-                        },
-                        1200
-                    );
-
-                }
-
-            });
-
-    }
-
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-async function logoutUser(event){
-
-    if(event){
-
-        event.preventDefault();
-
-    }
-
-
-    closeProfileDropdown();
-
-    closeMenu();
-
-
-    const confirmLogout =
-        confirm(
-            "Are you sure you want to logout?"
-        );
-
-
-    if(!confirmLogout){
-
-        return;
-
-    }
-
-
-    const {
-        error
-    } =
-    await supabaseClient.auth.signOut();
-
-
-    if(error){
-
-        alert(
-            "Logout failed."
-        );
-
-        console.error(error);
-
-        return;
-
-    }
-
-
-    sessionStorage.removeItem(
-        "sm_profile_cache"
-    );
-
-
-    window.location.href =
-        "login.html";
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-loadCachedProfile();
-
-loadDashboard();
-
-</script>
-
-</body>
+    <div class="revenue-title">  
+        Passive Income  
+    </div>  
+
+    <div class="revenue-footer">  
+
+        <a  
+            href="#"  
+            class="view-details">  
+            Click here to view detail(s)  
+        </a>  
+
+    </div>  
+
+</div>
+
+</div>  <!-- =======================================================  
+     GRAPH  
+======================================================= -->  <section class="graph-card">  <div class="graph-header">  
+
+    <div class="graph-title">  
+        Sales Last 7 Days  
+    </div>  
+
+    <div class="graph-badge">  
+        7 DAYS  
+    </div>  
+
+</div>  
+
+
+<div class="graph-wrapper">  
+
+    <div class="y-axis">  
+
+        <span>1.0</span>  
+        <span>0.8</span>  
+        <span>0.6</span>  
+        <span>0.4</span>  
+        <span>0.2</span>  
+        <span>0</span>  
+        <span>-0.2</span>  
+        <span>-0.4</span>  
+        <span>-0.6</span>  
+        <span>-0.8</span>  
+        <span>-1.0</span>  
+
+    </div>  
+
+
+    <div class="graph">  
+
+        <div class="zero-line"></div>  
+
+    </div>  
+
+</div>  
+
+
+<div class="graph-dates">  
+
+    <span></span>  
+    <span></span>  
+    <span></span>  
+    <span></span>  
+    <span></span>  
+    <span></span>  
+    <span></span>  
+
+</div>
+
+</section>  <div class="footer">  
+    © 2026 Skills Market · All Rights Reserved  
+</div>  </div>  <script>  
+  
+/* =========================================================  
+   SUPABASE  
+========================================================= */  
+  
+const SUPABASE_URL =  
+    "https://hmlonjwqeqedakzhucix.supabase.co";  
+  
+const SUPABASE_KEY =  
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";  
+  
+const supabaseClient =  
+    window.supabase.createClient(  
+        SUPABASE_URL,  
+        SUPABASE_KEY  
+    );  
+  
+  
+/* =========================================================  
+   PROFILE DROPDOWN  
+========================================================= */  
+  
+function toggleProfileDropdown(event){  
+  
+    event.stopPropagation();  
+  
+    const dropdown =  
+        document.getElementById(  
+            "profileDropdown"  
+        );  
+  
+    if(dropdown){  
+  
+        dropdown.classList.toggle(  
+            "active"  
+        );  
+  
+    }  
+  
+}  
+  
+  
+function closeProfileDropdown(){  
+  
+    const dropdown =  
+        document.getElementById(  
+            "profileDropdown"  
+        );  
+  
+    if(dropdown){  
+  
+        dropdown.classList.remove(  
+            "active"  
+        );  
+  
+    }  
+  
+}  
+  
+  
+document.addEventListener(  
+    "click",  
+    function(event){  
+  
+        const wrap =  
+            document.querySelector(  
+                ".profile-dropdown-wrap"  
+            );  
+  
+        if(  
+            wrap &&  
+            !wrap.contains(event.target)  
+        ){  
+  
+            closeProfileDropdown();  
+  
+        }  
+  
+    }  
+);  
+  
+  
+/* =========================================================  
+   PROFILE IMAGE  
+========================================================= */  
+  
+function setAvatarImage(  
+    imageUrl,  
+    firstLetter  
+){  
+  
+    const profileAvatarImage =  
+        document.getElementById(  
+            "profileAvatarImage"  
+        );  
+  
+    const avatarFallback =  
+        document.getElementById(  
+            "avatarFallback"  
+        );  
+  
+    const profileMini =  
+        document.getElementById(  
+            "profileMini"  
+        );  
+  
+    const menuAvatar =  
+        document.getElementById(  
+            "menuAvatar"  
+        );  
+  
+  
+    /* -----------------------------------------  
+       DASHBOARD PROFILE CARD  
+    ----------------------------------------- */  
+  
+    if(  
+        profileAvatarImage &&  
+        avatarFallback  
+    ){  
+  
+        if(imageUrl){  
+  
+            profileAvatarImage.src =  
+                imageUrl;  
+  
+            profileAvatarImage.style.display =  
+                "block";  
+  
+            avatarFallback.style.display =  
+                "none";  
+  
+        }else{  
+  
+            profileAvatarImage.src =  
+                "";  
+  
+            profileAvatarImage.style.display =  
+                "none";  
+  
+            avatarFallback.style.display =  
+                "flex";  
+  
+        }  
+  
+    }  
+  
+  
+    /* -----------------------------------------  
+       NAVBAR PROFILE  
+    ----------------------------------------- */  
+  
+    if(profileMini){  
+  
+        if(imageUrl){  
+  
+            profileMini.innerHTML =  
+                '<img src="' +  
+                imageUrl +  
+                '" alt="Profile">';  
+  
+        }else{  
+  
+            profileMini.textContent =  
+                firstLetter;  
+  
+        }  
+  
+    }  
+  
+  
+    /* -----------------------------------------  
+       SIDE MENU PROFILE  
+    ----------------------------------------- */  
+  
+    if(menuAvatar){  
+  
+        if(imageUrl){  
+  
+            menuAvatar.innerHTML =  
+                '<img src="' +  
+                imageUrl +  
+                '" alt="Profile">';  
+  
+        }else{  
+  
+            menuAvatar.textContent =  
+                firstLetter;  
+  
+        }  
+  
+    }  
+  
+}  
+  
+  
+/* =========================================================  
+   DASHBOARD PROFILE  
+========================================================= */  
+  
+let currentMemberID = "";  
+  
+  
+function applyProfileToScreen(  
+    fullName,  
+    memberID,  
+    packageName,  
+    avatarUrl  
+){  
+  
+    currentMemberID =  
+        memberID;  
+  
+  
+    document.getElementById(  
+        "profileName"  
+    ).textContent =  
+        fullName;  
+  
+  
+    document.getElementById(  
+        "profileId"  
+    ).textContent =  
+        "ID: " + memberID;  
+  
+  
+    document.getElementById(  
+        "packageBadge"  
+    ).textContent =  
+        packageName.toUpperCase();  
+  
+  
+    const firstLetter =  
+        fullName  
+            .trim()  
+            .charAt(0)  
+            .toUpperCase() || "M";  
+  
+  
+    document.getElementById(  
+        "avatarFallback"  
+    ).textContent =  
+        firstLetter;  
+  
+  
+    setAvatarImage(  
+        avatarUrl || "",  
+        firstLetter  
+    );  
+  
+  
+    document.getElementById(  
+        "menuProfileName"  
+    ).textContent =  
+        fullName;  
+  
+  
+    document.getElementById(  
+        "menuProfileId"  
+    ).textContent =  
+        "ID: " + memberID;  
+  
+}  
+  
+  
+/* =========================================================  
+   CACHE  
+========================================================= */  
+  
+function loadCachedProfile(){  
+  
+    try{  
+  
+        const cached =  
+            sessionStorage.getItem(  
+                "sm_profile_cache"  
+            );  
+  
+  
+        if(!cached){  
+  
+            return;  
+  
+        }  
+  
+  
+        const profile =  
+            JSON.parse(cached);  
+  
+  
+        if(  
+            profile &&  
+            profile.fullName &&  
+            profile.memberID  
+        ){  
+  
+            applyProfileToScreen(  
+  
+                profile.fullName,  
+  
+                profile.memberID,  
+  
+                profile.packageName ||  
+                "Package Not Assigned",  
+  
+                profile.avatarUrl ||  
+                ""  
+  
+            );  
+  
+        }  
+  
+  
+    }catch(error){  
+  
+        console.error(  
+            "Profile cache error:",  
+            error  
+        );  
+  
+    }  
+  
+}  
+  
+  
+/* =========================================================  
+   LOAD DASHBOARD  
+========================================================= */  
+  
+async function loadDashboard(){  
+  
+    try{  
+  
+        const {  
+            data:{user},  
+            error:authError  
+        } =  
+        await supabaseClient.auth.getUser();  
+  
+  
+        if(  
+            authError ||  
+            !user  
+        ){  
+  
+            sessionStorage.removeItem(  
+                "sm_profile_cache"  
+            );  
+  
+            window.location.href =  
+                "login.html";  
+  
+            return;  
+  
+        }  
+  
+  
+        const {  
+            data:profile,  
+            error  
+        } =  
+        await supabaseClient  
+            .from("profiles")  
+            .select("*")  
+            .eq(  
+                "id",  
+                user.id  
+            )  
+            .maybeSingle();  
+  
+  
+        if(error){  
+  
+            console.error(  
+                "Profile error:",  
+                error  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(!profile){  
+  
+            console.warn(  
+                "Profile record not found."  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        const fullName =  
+            profile.full_name ||  
+            user.user_metadata?.full_name ||  
+            "Member";  
+  
+  
+        const memberID =  
+            profile.member_id ||  
+            "Not Assigned";  
+  
+  
+        const packageName =  
+            profile.package_name ||  
+            "Package Not Assigned";  
+  
+  
+        /* -----------------------------------------  
+           GET PROFILE IMAGE FROM SUPABASE AUTH  
+        ----------------------------------------- */  
+  
+        const avatarUrl =  
+            user.user_metadata?.avatar_url ||  
+            "";  
+  
+  
+        applyProfileToScreen(  
+  
+            fullName,  
+  
+            memberID,  
+  
+            packageName,  
+  
+            avatarUrl  
+  
+        );  
+  
+  
+        /* -----------------------------------------  
+           CACHE PROFILE  
+        ----------------------------------------- */  
+  
+        sessionStorage.setItem(  
+  
+            "sm_profile_cache",  
+  
+            JSON.stringify({  
+  
+                userId:  
+                    user.id,  
+  
+                fullName:  
+                    fullName,  
+  
+                memberID:  
+                    memberID,  
+  
+                packageName:  
+                    packageName,  
+  
+                avatarUrl:  
+                    avatarUrl  
+  
+            })  
+  
+        );  
+  
+  
+    }catch(error){  
+  
+        console.error(  
+            "Dashboard error:",  
+            error  
+        );  
+  
+    }  
+  
+}  
+  
+  
+/* =========================================================  
+   SIDE MENU  
+========================================================= */  
+  
+function openMenu(){  
+  
+    closeProfileDropdown();  
+  
+    document  
+        .getElementById("navMenu")  
+        .classList.add("active");  
+  
+    document  
+        .getElementById("menuOverlay")  
+        .classList.add("active");  
+  
+    document.body.style.overflow =  
+        "hidden";  
+  
+}  
+  
+  
+function closeMenu(){  
+  
+    document  
+        .getElementById("navMenu")  
+        .classList.remove("active");  
+  
+    document  
+        .getElementById("menuOverlay")  
+        .classList.remove("active");  
+  
+    document.body.style.overflow =  
+        "";  
+  
+}  
+  
+  
+/* =========================================================  
+   COPY MEMBER ID  
+========================================================= */  
+  
+function copyProfileID(){  
+  
+    if(!currentMemberID){  
+  
+        return;  
+  
+    }  
+  
+  
+    if(navigator.clipboard){  
+  
+        navigator.clipboard  
+            .writeText(currentMemberID)  
+            .then(function(){  
+  
+                const button =  
+                    document.querySelector(  
+                        ".copy-btn"  
+                    );  
+  
+                button.textContent =  
+                    "✓";  
+  
+  
+                setTimeout(  
+                    function(){  
+  
+                        button.textContent =  
+                            "📋";  
+  
+                    },  
+                    1200  
+                );  
+  
+            });  
+  
+    }  
+  
+}  
+  
+  
+/* =========================================================  
+   LOGOUT  
+========================================================= */  
+  
+async function logoutUser(event){  
+  
+    if(event){  
+  
+        event.preventDefault();  
+  
+    }  
+  
+  
+    closeProfileDropdown();  
+  
+    closeMenu();  
+  
+  
+    const confirmLogout =  
+        confirm(  
+            "Are you sure you want to logout?"  
+        );  
+  
+  
+    if(!confirmLogout){  
+  
+        return;  
+  
+    }  
+  
+  
+    const {  
+        error  
+    } =  
+    await supabaseClient.auth.signOut();  
+  
+  
+    if(error){  
+  
+        alert(  
+            "Logout failed."  
+        );  
+  
+        console.error(error);  
+  
+        return;  
+  
+    }  
+  
+  
+    sessionStorage.removeItem(  
+        "sm_profile_cache"  
+    );  
+  
+  
+    window.location.href =  
+        "login.html";  
+  
+}  
+  
+  
+/* =========================================================  
+   START  
+========================================================= */  
+  
+loadCachedProfile();  
+  
+loadDashboard();  
+  
+</script>  </body>  
 </html>
