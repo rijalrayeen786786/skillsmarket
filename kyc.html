@@ -952,17 +952,20 @@ async function verifyAndSubmitKYC(){
             return;
         }
 
+        // Fresh session user fetch karein
+        const { data: { user: freshUser } } = await supabaseClient.auth.getUser();
+        const currentUserId = freshUser ? freshUser.id : cachedKYCData.user_id;
+
         // Insert into database table after successful verification
         const { error: insertError } = await supabaseClient
             .from("kyc_submissions")
             .insert({
-                user_id: cachedKYCData.user_id,
+                user_id: currentUserId,
                 holder_name: cachedKYCData.holder_name,
                 bank_name: cachedKYCData.bank_name,
                 ifsc_code: cachedKYCData.ifsc_code,
                 account_number: cachedKYCData.account_number,
-                upi_id: cachedKYCData.upi_id,
-                status: "pending"
+                upi_id: cachedKYCData.upi_id
             });
 
         if(insertError){
