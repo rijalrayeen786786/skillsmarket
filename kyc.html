@@ -6,6 +6,8 @@
 
 <title>KYC | Skills Market</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{
     margin:0;
@@ -15,289 +17,567 @@
 
 body{
     font-family:Arial, Helvetica, sans-serif;
+    background:#f6f7fb;
+    color:#111827;
     min-height:100vh;
-    background:
-        radial-gradient(circle at top left, rgba(229,9,20,.15), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(156,39,176,.12), transparent 35%),
-        linear-gradient(135deg,#050505,#160000,#050505);
-    color:#fff;
+}
 
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    height:72px;
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
     display:flex;
-    justify-content:center;
     align-items:center;
-
-    padding:40px 20px;
+    justify-content:space-between;
+    padding:0 28px;
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
-/* MAIN CONTAINER */
-.form-container{
-    width:100%;
-    max-width:560px;
-
-    background:#101010;
-    border:1px solid #2b2b2b;
-    border-radius:20px;
-
-    padding:35px;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.55),
-        0 0 35px rgba(229,9,20,.06);
-}
-
-/* BRAND */
 .brand{
-    text-align:center;
-    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:#111827;
 }
 
-.brand h1{
+.logo{
+    width:40px;
+    height:40px;
+    border-radius:11px;
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+    font-weight:800;
+}
+
+.brand-name{
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand-name span{
+    color:#7c3aed;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.profile-btn{
+    border:1px solid #e5e7eb;
+    background:#fff;
+    padding:7px 12px 7px 7px;
+    border-radius:30px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    cursor:pointer;
+}
+
+.profile-avatar{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    overflow:hidden;
+}
+
+.profile-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.profile-name{
+    font-size:13px;
+    font-weight:700;
+    max-width:130px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.menu-btn{
+    width:42px;
+    height:42px;
+    border:1px solid #e5e7eb;
+    background:#fff;
+    border-radius:11px;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+}
+
+.menu-btn span{
+    width:18px;
+    height:2px;
+    background:#4f46e5;
+    border-radius:3px;
+}
+
+/* =========================
+   SIDE MENU
+========================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.35);
+    z-index:1090;
+    display:none;
+}
+
+.overlay.show{
+    display:block;
+}
+
+.side-menu{
+    position:fixed;
+    top:0;
+    right:-330px;
+    width:310px;
+    height:100vh;
+    background:#fff;
+    z-index:1100;
+    box-shadow:-10px 0 35px rgba(0,0,0,.12);
+    transition:.3s ease;
+    overflow-y:auto;
+}
+
+.side-menu.open{
+    right:0;
+}
+
+.side-header{
+    height:72px;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.side-title{
+    font-size:18px;
+    font-weight:800;
+}
+
+.close-menu{
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:10px;
+    background:#f3f4f6;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.menu-list{
+    padding:14px;
+}
+
+.menu-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 14px;
+    margin-bottom:5px;
+    border-radius:11px;
+    text-decoration:none;
+    color:#4b5563;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.menu-link:hover{
+    background:#f5f3ff;
+    color:#6d28d9;
+}
+
+.menu-link.active{
+    background:linear-gradient(135deg,#ede9fe,#eef2ff);
+    color:#6d28d9;
+}
+
+.menu-icon{
+    width:30px;
+    text-align:center;
+    font-size:17px;
+}
+
+.logout{
+    color:#dc2626;
+}
+
+.logout:hover{
+    background:#fef2f2;
+    color:#dc2626;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    width:100%;
+    max-width:1100px;
+    margin:0 auto;
+    padding:35px 25px 45px;
+}
+
+/* Page heading */
+
+.page-heading{
+    margin-bottom:24px;
+}
+
+.page-heading h1{
     font-size:30px;
     font-weight:800;
-    letter-spacing:.3px;
+    margin-bottom:7px;
 }
 
-.brand span{
-    color:#e50914;
-}
-
-.subtitle{
-    text-align:center;
-    color:#999;
+.page-heading p{
+    color:#6b7280;
     font-size:14px;
-    line-height:1.5;
-    margin-bottom:30px;
 }
 
-/* HEADING */
-h2{
-    font-size:21px;
-    margin-bottom:6px;
+/* =========================
+   PROFILE INFO
+========================= */
+
+.user-info{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    box-shadow:0 5px 20px rgba(31,41,55,.04);
+}
+
+.user-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.user-avatar{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
     color:#fff;
+    font-weight:800;
+    font-size:18px;
 }
 
-.heading-note{
-    color:#777;
+.user-details h3{
+    font-size:16px;
+    margin-bottom:4px;
+}
+
+.user-details p{
     font-size:12px;
+    color:#6b7280;
+}
+
+.status{
+    padding:8px 13px;
+    border-radius:20px;
+    background:#f3f4f6;
+    color:#6b7280;
+    font-size:12px;
+    font-weight:700;
+}
+
+/* =========================
+   KYC CARD
+========================= */
+
+.kyc-card{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 8px 30px rgba(31,41,55,.05);
+}
+
+.card-heading{
+    padding-bottom:20px;
     margin-bottom:25px;
+    border-bottom:1px solid #eef0f4;
 }
 
-/* FORM */
+.card-heading h2{
+    font-size:21px;
+    margin-bottom:7px;
+}
+
+.card-heading p{
+    color:#6b7280;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
 .form-group{
-    margin-bottom:18px;
+    display:flex;
+    flex-direction:column;
 }
 
-label{
-    display:block;
-    color:#d8d8d8;
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+.form-group label{
     font-size:13px;
     font-weight:700;
     margin-bottom:8px;
+    color:#374151;
 }
 
-input{
+.form-group input{
     width:100%;
     height:48px;
-
+    border:1px solid #dfe3ea;
+    border-radius:11px;
     padding:0 14px;
-
-    border:1px solid #353535;
-    border-radius:10px;
-
-    background:#181818;
-    color:#fff;
-
     font-size:14px;
-
     outline:none;
-
-    transition:
-        border-color .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+    background:#fff;
+    color:#111827;
+    transition:.2s;
 }
 
-input::placeholder{
-    color:#6f6f6f;
+.form-group input:focus{
+    border-color:#7c3aed;
+    box-shadow:0 0 0 3px rgba(124,58,237,.10);
 }
 
-input:focus{
-    background:#1b1b1b;
-    border-color:#e50914;
-    box-shadow:0 0 0 3px rgba(229,9,20,.10);
+.form-group input::placeholder{
+    color:#9ca3af;
 }
 
-/* BUTTON */
-.btn-submit{
-    width:100%;
-    height:50px;
+.help-text{
+    margin-top:6px;
+    color:#9ca3af;
+    font-size:11px;
+}
 
-    margin-top:7px;
+.submit-area{
+    margin-top:28px;
+    padding-top:22px;
+    border-top:1px solid #eef0f4;
+    display:flex;
+    justify-content:flex-end;
+}
 
+.submit-btn{
     border:0;
-    border-radius:28px;
-
-    background:linear-gradient(135deg,#e50914,#b00008);
-
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
     color:#fff;
-
-    font-size:15px;
-    font-weight:700;
-
+    height:48px;
+    padding:0 28px;
+    border-radius:11px;
+    font-size:14px;
+    font-weight:800;
     cursor:pointer;
-
-    transition:
-        transform .2s ease,
-        opacity .2s ease,
-        box-shadow .2s ease;
+    box-shadow:0 8px 18px rgba(79,70,229,.20);
+    transition:.2s;
 }
 
-.btn-submit:hover{
-    transform:translateY(-2px);
-    opacity:.94;
-    box-shadow:0 8px 25px rgba(229,9,20,.22);
+.submit-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 10px 22px rgba(79,70,229,.27);
 }
 
-.btn-submit:active{
-    transform:translateY(0);
+.submit-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+    transform:none;
 }
 
-/* STATUS */
-.status{
+/* =========================
+   NOTICE
+========================= */
+
+.notice{
+    margin-top:22px;
+    padding:15px 17px;
+    background:#f5f3ff;
+    border:1px solid #ddd6fe;
+    border-radius:12px;
+    color:#5b21b6;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.message{
     display:none;
-
     margin-top:18px;
     padding:13px 15px;
-
     border-radius:10px;
-
-    text-align:center;
-
-    font-size:13px;
-    line-height:1.5;
-}
-
-.status.success{
-    background:#102518;
-    border:1px solid #236b38;
-    color:#6be38c;
-}
-
-/* SECURITY NOTE */
-.note{
-    margin-top:22px;
-
-    color:#777;
-
-    font-size:11px;
-    line-height:1.6;
-
-    text-align:center;
-}
-
-/* BACK BUTTON */
-.back{
-    display:block;
-
-    margin-top:20px;
-
-    text-align:center;
-
-    color:#e50914;
-
-    text-decoration:none;
-
     font-size:13px;
     font-weight:600;
 }
 
-.back:hover{
-    text-decoration:underline;
+.message.show{
+    display:block;
 }
 
-/* LAPTOP */
-@media(min-width:900px){
-
-    body{
-        padding:60px 30px;
-    }
-
-    .form-container{
-        max-width:600px;
-        padding:40px;
-    }
-
-    .brand h1{
-        font-size:32px;
-    }
-
-    h2{
-        font-size:23px;
-    }
-
-    input{
-        height:50px;
-        font-size:15px;
-    }
-
-    .btn-submit{
-        height:52px;
-        font-size:16px;
-    }
+.message.success{
+    background:#ecfdf5;
+    color:#047857;
+    border:1px solid #a7f3d0;
 }
 
-/* TABLET */
-@media(max-width:700px){
-
-    body{
-        padding:25px 16px;
-    }
-
-    .form-container{
-        max-width:520px;
-        padding:28px 24px;
-    }
+.message.error{
+    background:#fef2f2;
+    color:#b91c1c;
+    border:1px solid #fecaca;
 }
 
-/* MOBILE */
-@media(max-width:480px){
+/* =========================
+   FOOTER
+========================= */
 
-    body{
-        padding:18px 12px;
-        align-items:flex-start;
-        padding-top:25px;
+.footer{
+    background:#fff;
+    border-top:1px solid #e5e7eb;
+    padding:28px 25px;
+    text-align:center;
+}
+
+.footer-brand{
+    font-size:17px;
+    font-weight:800;
+    margin-bottom:7px;
+}
+
+.footer-brand span{
+    color:#7c3aed;
+}
+
+.footer p{
+    color:#9ca3af;
+    font-size:12px;
+    line-height:1.6;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+    .navbar{
+        height:66px;
+        padding:0 15px;
     }
 
-    .form-container{
-        padding:24px 18px;
-        border-radius:16px;
+    .brand-name{
+        font-size:17px;
     }
 
-    .brand h1{
+    .logo{
+        width:37px;
+        height:37px;
+    }
+
+    .profile-name{
+        display:none;
+    }
+
+    .profile-btn{
+        padding:4px;
+        border:0;
+    }
+
+    .main{
+        padding:25px 15px 35px;
+    }
+
+    .page-heading h1{
         font-size:25px;
     }
 
-    .subtitle{
-        font-size:12px;
-        margin-bottom:25px;
+    .user-info{
+        align-items:flex-start;
+        flex-direction:column;
     }
 
-    h2{
-        font-size:19px;
+    .kyc-card{
+        padding:20px 16px;
+        border-radius:16px;
     }
 
-    .heading-note{
-        font-size:11px;
+    .form-grid{
+        grid-template-columns:1fr;
+        gap:17px;
     }
 
-    input{
-        height:47px;
-        font-size:14px;
+    .form-group.full{
+        grid-column:auto;
     }
 
-    .btn-submit{
-        height:49px;
-        font-size:14px;
+    .submit-area{
+        justify-content:stretch;
+    }
+
+    .submit-btn{
+        width:100%;
+    }
+
+    .side-menu{
+        width:290px;
+    }
+}
+
+@media(max-width:400px){
+
+    .brand-name{
+        font-size:16px;
+    }
+
+    .page-heading h1{
+        font-size:23px;
+    }
+
+    .kyc-card{
+        padding:18px 14px;
     }
 }
 </style>
@@ -305,173 +585,748 @@ input:focus{
 
 <body>
 
-<div class="form-container">
+<!-- =========================
+     NAVBAR
+========================= -->
 
-    <!-- BRAND -->
-    <div class="brand">
-        <h1>Skills <span>Market</span></h1>
-    </div>
+<header class="navbar">
 
-    <div class="subtitle">
-        Secure KYC & Bank Account Verification
-    </div>
-
-    <!-- HEADING -->
-    <h2>Bank Account Information</h2>
-
-    <div class="heading-note">
-        Enter your bank details carefully for verification.
-    </div>
-
-    <!-- FORM -->
-    <form id="kycForm">
-
-        <div class="form-group">
-            <label for="holderName">Holder Name</label>
-
-            <input
-                type="text"
-                id="holderName"
-                placeholder="Apna Naam ya Company Name daalein"
-                autocomplete="name"
-                required>
+    <a href="dashboard.html" class="brand">
+        <div class="logo">SM</div>
+        <div class="brand-name">
+            Skills <span>Market</span>
         </div>
-
-        <div class="form-group">
-            <label for="ifsc">IFSC Code</label>
-
-            <input
-                type="text"
-                id="ifsc"
-                placeholder="Example: SBIN0001234"
-                maxlength="11"
-                style="text-transform:uppercase;"
-                required>
-        </div>
-
-        <div class="form-group">
-            <label for="accountNumber">Account Number</label>
-
-            <input
-                type="text"
-                id="accountNumber"
-                placeholder="Account Number daalein"
-                inputmode="numeric"
-                autocomplete="off"
-                required>
-        </div>
-
-        <div class="form-group">
-            <label for="bankName">Bank Name</label>
-
-            <input
-                type="text"
-                id="bankName"
-                placeholder="Bank ka Naam daalein"
-                required>
-        </div>
-
-        <div class="form-group">
-            <label for="upi">UPI ID <span style="color:#777;">(Optional)</span></label>
-
-            <input
-                type="text"
-                id="upi"
-                placeholder="example@upi"
-                autocomplete="off">
-        </div>
-
-        <button
-            type="submit"
-            class="btn-submit">
-            Submit KYC
-        </button>
-
-        <div
-            id="status"
-            class="status success">
-            ✓ KYC details submitted successfully.
-        </div>
-
-    </form>
-
-    <!-- SECURITY NOTE -->
-    <div class="note">
-        Please make sure the information you enter belongs to your
-        own bank account. Your KYC information should only be submitted
-        through your authenticated Skills Market account.
-    </div>
-
-    <!-- BACK -->
-    <a href="dashboard.html" class="back">
-        ← Back to Dashboard
     </a>
 
-</div>
+    <div class="nav-right">
+
+        <button class="profile-btn" id="profileBtn">
+            <div class="profile-avatar" id="navAvatar">
+                SM
+            </div>
+
+            <div class="profile-name" id="navName">
+                Loading...
+            </div>
+        </button>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     OVERLAY
+========================= -->
+
+<div class="overlay" id="overlay"></div>
+
+
+<!-- =========================
+     SIDE MENU
+========================= -->
+
+<aside class="side-menu" id="sideMenu">
+
+    <div class="side-header">
+        <div class="side-title">Menu</div>
+
+        <button class="close-menu" id="closeMenu">
+            ×
+        </button>
+    </div>
+
+    <div class="menu-list">
+
+        <a href="dashboard.html" class="menu-link">
+            <span class="menu-icon">📊</span>
+            <span>Affiliate Dashboard</span>
+        </a>
+
+        <a href="my-course.html" class="menu-link">
+            <span class="menu-icon">📚</span>
+            <span>My Course</span>
+        </a>
+
+        <a href="profile.html" class="menu-link">
+            <span class="menu-icon">👤</span>
+            <span>My Profile</span>
+        </a>
+
+        <a href="affiliate-link.html" class="menu-link">
+            <span class="menu-icon">🔗</span>
+            <span>Affiliate Link</span>
+        </a>
+
+        <a href="kyc.html" class="menu-link active">
+            <span class="menu-icon">🪪</span>
+            <span>KYC</span>
+        </a>
+
+        <a href="leaderboard.html" class="menu-link">
+            <span class="menu-icon">🏆</span>
+            <span>Leaderboard</span>
+        </a>
+
+        <a href="my-team.html" class="menu-link">
+            <span class="menu-icon">👥</span>
+            <span>My Team</span>
+        </a>
+
+        <a href="registration-request.html" class="menu-link">
+            <span class="menu-icon">📝</span>
+            <span>Registration Request</span>
+        </a>
+
+        <a href="withdrawal-request.html" class="menu-link">
+            <span class="menu-icon">💸</span>
+            <span>Withdrawal Request</span>
+        </a>
+
+        <a href="upgrade-request.html" class="menu-link">
+            <span class="menu-icon">⬆️</span>
+            <span>Upgrade Request</span>
+        </a>
+
+        <a href="qualification.html" class="menu-link">
+            <span class="menu-icon">🎯</span>
+            <span>Qualification</span>
+        </a>
+
+        <a href="payout-transaction.html" class="menu-link">
+            <span class="menu-icon">💳</span>
+            <span>Payout Transaction</span>
+        </a>
+
+        <a href="training.html" class="menu-link">
+            <span class="menu-icon">🎓</span>
+            <span>Training</span>
+        </a>
+
+        <a href="community-support.html" class="menu-link">
+            <span class="menu-icon">💬</span>
+            <span>Community & Support</span>
+        </a>
+
+        <a href="#" class="menu-link logout" id="logoutBtn">
+            <span class="menu-icon">🚪</span>
+            <span>Logout</span>
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main class="main">
+
+    <div class="page-heading">
+        <h1>KYC Verification</h1>
+        <p>Submit your bank account information for your account verification.</p>
+    </div>
+
+
+    <!-- USER INFORMATION -->
+
+    <section class="user-info">
+
+        <div class="user-left">
+
+            <div class="user-avatar" id="userAvatar">
+                SM
+            </div>
+
+            <div class="user-details">
+                <h3 id="userName">Loading...</h3>
+                <p>Member ID: <span id="memberId">Loading...</span></p>
+            </div>
+
+        </div>
+
+        <div class="status" id="kycStatus">
+            Not Submitted
+        </div>
+
+    </section>
+
+
+    <!-- KYC FORM -->
+
+    <section class="kyc-card">
+
+        <div class="card-heading">
+            <h2>Bank Account Information</h2>
+            <p>
+                Enter your bank details carefully. Make sure the account holder
+                name and bank information are correct.
+            </p>
+        </div>
+
+
+        <form id="kycForm">
+
+            <div class="form-grid">
+
+                <!-- Holder Name -->
+
+                <div class="form-group">
+
+                    <label for="holderName">
+                        Holder Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="holderName"
+                        name="holderName"
+                        placeholder="Apna Naam ya Company Name daalein"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Bank Name -->
+
+                <div class="form-group">
+
+                    <label for="bankName">
+                        Bank Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="bankName"
+                        name="bankName"
+                        placeholder="Bank ka Naam daalein"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- IFSC -->
+
+                <div class="form-group">
+
+                    <label for="ifsc">
+                        IFSC Code *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ifsc"
+                        name="ifsc"
+                        placeholder="IFSC Code daalein"
+                        maxlength="11"
+                        style="text-transform:uppercase;"
+                        required
+                    >
+
+                    <div class="help-text">
+                        Example format: ABCD0123456
+                    </div>
+
+                </div>
+
+
+                <!-- Account Number -->
+
+                <div class="form-group">
+
+                    <label for="accountNumber">
+                        Account Number *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountNumber"
+                        name="accountNumber"
+                        placeholder="Account Number daalein"
+                        inputmode="numeric"
+                        maxlength="18"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- UPI -->
+
+                <div class="form-group full">
+
+                    <label for="upi">
+                        UPI ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="upi"
+                        name="upi"
+                        placeholder="UPI ID daalein"
+                    >
+
+                    <div class="help-text">
+                        UPI ID optional hai.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="notice">
+                🔒 Your bank information should only be submitted through your
+                official Skills Market account. Never share your password or
+                OTP with anyone.
+            </div>
+
+
+            <div class="message" id="message"></div>
+
+
+            <div class="submit-area">
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submitBtn"
+                >
+                    Submit KYC
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div class="footer-brand">
+        Skills <span>Market</span>
+    </div>
+
+    <p>
+        Learn practical skills. Build real opportunities.
+    </p>
+
+    <p>
+        © 2026 Skills Market. All rights reserved.
+    </p>
+
+</footer>
+
 
 <script>
 
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://hmlonjwqeqedakzhucix.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const menuBtn = document.getElementById("menuBtn");
+const closeMenu = document.getElementById("closeMenu");
+const sideMenu = document.getElementById("sideMenu");
+const overlay = document.getElementById("overlay");
+const logoutBtn = document.getElementById("logoutBtn");
+
+const navName = document.getElementById("navName");
+const navAvatar = document.getElementById("navAvatar");
+
+const userName = document.getElementById("userName");
+const memberId = document.getElementById("memberId");
+const userAvatar = document.getElementById("userAvatar");
+
 const kycForm = document.getElementById("kycForm");
+const submitBtn = document.getElementById("submitBtn");
+const message = document.getElementById("message");
+const kycStatus = document.getElementById("kycStatus");
 
-kycForm.addEventListener("submit", function(event){
 
-    event.preventDefault();
+/* =========================
+   MENU
+========================= */
 
-    const holderName =
-        document.getElementById("holderName").value.trim();
+function openMenu(){
+    sideMenu.classList.add("open");
+    overlay.classList.add("show");
+}
 
-    const ifsc =
-        document.getElementById("ifsc").value.trim().toUpperCase();
+function closeSideMenu(){
+    sideMenu.classList.remove("open");
+    overlay.classList.remove("show");
+}
 
-    const accountNumber =
-        document.getElementById("accountNumber").value.trim();
+menuBtn.addEventListener("click", openMenu);
+closeMenu.addEventListener("click", closeSideMenu);
+overlay.addEventListener("click", closeSideMenu);
 
-    const bankName =
-        document.getElementById("bankName").value.trim();
 
-    const upi =
-        document.getElementById("upi").value.trim();
+/* =========================
+   PROFILE
+========================= */
 
-    /* REQUIRED FIELD CHECK */
-    if(
-        !holderName ||
-        !ifsc ||
-        !accountNumber ||
-        !bankName
-    ){
-        alert("Please fill all required details.");
-        return;
+function getInitials(name){
+
+    if(!name){
+        return "SM";
     }
 
-    /* BASIC IFSC CHECK */
-    const ifscPattern = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+    return name
+        .trim()
+        .split(/\s+/)
+        .slice(0,2)
+        .map(word => word.charAt(0).toUpperCase())
+        .join("");
+}
 
-    if(!ifscPattern.test(ifsc)){
-        alert("Please enter a valid IFSC Code.");
-        return;
+
+function setAvatar(element, name, avatarUrl){
+
+    if(avatarUrl){
+
+        element.innerHTML =
+        `<img src="${avatarUrl}" alt="Profile">`;
+
+    }else{
+
+        element.textContent =
+        getInitials(name);
+
     }
 
-    /* ACCOUNT NUMBER CHECK */
-    if(!/^[0-9]{8,18}$/.test(accountNumber)){
-        alert("Please enter a valid account number.");
-        return;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(text, type){
+
+    message.textContent = text;
+
+    message.className =
+        "message show " + type;
+
+}
+
+
+/* =========================
+   LOAD USER
+========================= */
+
+async function loadUser(){
+
+    try{
+
+        const {
+            data: { user },
+            error
+        } = await supabaseClient.auth.getUser();
+
+
+        if(error || !user){
+
+            window.location.href = "login.html";
+            return;
+
+        }
+
+
+        const {
+            data: profile
+        } = await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id", user.id)
+            .maybeSingle();
+
+
+        const name =
+            profile?.full_name ||
+            user.user_metadata?.full_name ||
+            user.email?.split("@")[0] ||
+            "Member";
+
+
+        const id =
+            profile?.member_id ||
+            "Not Assigned";
+
+
+        const avatarUrl =
+            user.user_metadata?.avatar_url ||
+            "";
+
+
+        navName.textContent = name;
+
+        userName.textContent = name;
+
+        memberId.textContent = id;
+
+
+        setAvatar(
+            navAvatar,
+            name,
+            avatarUrl
+        );
+
+
+        setAvatar(
+            userAvatar,
+            name,
+            avatarUrl
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
     }
 
-    /*
-        CURRENTLY DEMO SUBMISSION
+}
 
-        Supabase KYC database connection will be added here.
-        Do not store sensitive bank information in localStorage.
-    */
 
-    document.getElementById("status").style.display = "block";
+/* =========================
+   LOGOUT
+========================= */
 
-    document.getElementById("status").scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
+logoutBtn.addEventListener("click", async function(e){
+
+    e.preventDefault();
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href = "login.html";
 
 });
+
+
+/* =========================
+   FORM VALIDATION
+========================= */
+
+kycForm.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+
+    const holderName =
+        document.getElementById("holderName")
+        .value.trim();
+
+    const bankName =
+        document.getElementById("bankName")
+        .value.trim();
+
+    const ifsc =
+        document.getElementById("ifsc")
+        .value.trim()
+        .toUpperCase();
+
+    const accountNumber =
+        document.getElementById("accountNumber")
+        .value.trim();
+
+    const upi =
+        document.getElementById("upi")
+        .value.trim();
+
+
+    /* IFSC CHECK */
+
+    const ifscPattern =
+        /^[A-Z]{4}0[A-Z0-9]{6}$/;
+
+
+    if(!ifscPattern.test(ifsc)){
+
+        showMessage(
+            "Please enter a valid IFSC Code.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /* ACCOUNT CHECK */
+
+    const accountPattern =
+        /^[0-9]{8,18}$/;
+
+
+    if(!accountPattern.test(accountNumber)){
+
+        showMessage(
+            "Please enter a valid Account Number.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       IMPORTANT:
+       KYC data is NOT stored in localStorage/sessionStorage.
+       Real database submission should be connected
+       after creating the KYC table with proper RLS.
+    */
+
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+
+    try{
+
+        const {
+            data: { user },
+            error
+        } = await supabaseClient.auth.getUser();
+
+
+        if(error || !user){
+
+            window.location.href = "login.html";
+            return;
+
+        }
+
+
+        /*
+          DATABASE INSERT
+
+          This requires a Supabase table named:
+          kyc_submissions
+
+          with appropriate RLS policies.
+        */
+
+        const { error: insertError } =
+            await supabaseClient
+            .from("kyc_submissions")
+            .insert({
+
+                user_id: user.id,
+
+                holder_name: holderName,
+
+                bank_name: bankName,
+
+                ifsc_code: ifsc,
+
+                account_number: accountNumber,
+
+                upi_id: upi || null,
+
+                status: "pending"
+
+            });
+
+
+        if(insertError){
+
+            console.error(insertError);
+
+            showMessage(
+                "KYC submit nahi hua. Supabase KYC table/RLS setup check karein.",
+                "error"
+            );
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit KYC";
+
+            return;
+
+        }
+
+
+        showMessage(
+            "KYC successfully submitted. Your KYC status is now Pending.",
+            "success"
+        );
+
+
+        kycStatus.textContent =
+            "Pending";
+
+        kycStatus.style.background =
+            "#fff7ed";
+
+        kycStatus.style.color =
+            "#c2410c";
+
+
+        submitBtn.textContent =
+            "KYC Submitted";
+
+
+        submitBtn.disabled = true;
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "Something went wrong. Please try again.",
+            "error"
+        );
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit KYC";
+
+    }
+
+});
+
+
+/* =========================
+   START
+========================= */
+
+loadUser();
 
 </script>
 
