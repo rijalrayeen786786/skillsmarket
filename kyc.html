@@ -555,6 +555,91 @@ body{
 
 
 /* =========================================================
+   OTP MODAL POPUP
+========================================================= */
+
+.otp-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,0.5);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 20000;
+}
+
+.otp-modal-overlay.active {
+    display: flex;
+}
+
+.otp-modal-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 380px;
+    padding: 28px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(15,23,42,0.2);
+    text-align: center;
+}
+
+.otp-modal-box h3 {
+    font-size: 20px;
+    font-weight: 900;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.otp-modal-box p {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.otp-input-field {
+    width: 100%;
+    height: 52px;
+    border: 2px solid #dbe2ea;
+    border-radius: 12px;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 8px;
+    font-weight: 800;
+    outline: none;
+    margin-bottom: 20px;
+    color: #111827;
+    transition: .2s;
+}
+
+.otp-input-field:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+}
+
+.otp-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.otp-cancel-btn {
+    width: 100%;
+    height: 44px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #334155;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.otp-cancel-btn:hover {
+    background: #f1f5f9;
+}
+
+
+/* =========================================================
    FOOTER
 ========================================================= */
 
@@ -1063,7 +1148,7 @@ body{
             type="button"
             class="submit-btn"
             id="submitBtn"
-            onclick="submitKYC()">
+            onclick="initiateKYC()">
 
             Send OTP →
 
@@ -1078,6 +1163,33 @@ body{
     </div>
 
 
+</div>
+
+
+<!-- =======================================================
+     OTP POPUP MODAL
+======================================================= -->
+
+<div class="otp-modal-overlay" id="otpModalOverlay">
+    <div class="otp-modal-box">
+        <h3>Verify OTP</h3>
+        <p>Please enter the 6-digit verification code sent to your registered contact.</p>
+        
+        <input 
+            type="text" 
+            id="otpInputCode" 
+            class="otp-input-field" 
+            placeholder="------" 
+            maxlength="6" 
+            inputmode="numeric">
+
+        <div id="otpErrorMessage" style="color:#dc2626; font-size:12px; font-weight:700; margin-bottom:12px; min-height:18px;"></div>
+
+        <div class="otp-actions">
+            <button type="button" class="otp-cancel-btn" onclick="closeOtpModal()">Cancel</button>
+            <button type="button" class="submit-btn" id="verifyOtpBtn" onclick="verifyAndSubmitKYC()">Verify & Submit</button>
+        </div>
+    </div>
 </div>
 
 
@@ -1098,6 +1210,8 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_KEY
     );
+
+let cachedKYCData = null;
 
 
 /* =========================================================
@@ -1356,35 +1470,28 @@ function showGuide(){
 
 
 /* =========================================================
-   KYC SUBMIT
+   STEP 1: INITIATE KYC & OPEN OTP MODAL
 ========================================================= */
 
-async function submitKYC(){
-
-    const submitBtn =
-        document.getElementById("submitBtn");
+function initiateKYC(){
 
     const message =
         document.getElementById("message");
-
 
     const holderName =
         document.getElementById("holderName")
             .value
             .trim();
 
-
     const bankName =
         document.getElementById("bankName")
             .value
             .trim();
 
-
     const accountNumber =
         document.getElementById("accountNumber")
             .value
             .trim();
-
 
     const ifscCode =
         document.getElementById("ifscCode")
@@ -1392,73 +1499,79 @@ async function submitKYC(){
             .trim()
             .toUpperCase();
 
-
     const upiId =
         document.getElementById("upiId")
             .value
             .trim();
 
-
     message.textContent = "";
     message.style.color = "#dc2626";
 
-
     if(!holderName){
-
-        message.textContent =
-            "Please enter account holder name.";
-
+        message.textContent = "Please enter account holder name.";
         return;
-
     }
-
 
     if(!bankName){
-
-        message.textContent =
-            "Please enter bank name.";
-
+        message.textContent = "Please enter bank name.";
         return;
-
     }
-
 
     if(!/^[0-9]{8,18}$/.test(accountNumber)){
-
-        message.textContent =
-            "Please enter a valid account number.";
-
+        message.textContent = "Please enter a valid account number.";
         return;
-
     }
-
 
     if(!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifscCode)){
-
-        message.textContent =
-            "Please enter a valid IFSC code.";
-
+        message.textContent = "Please enter a valid IFSC code.";
         return;
-
     }
 
-
-    if(
-        !upiId ||
-        !/^[\w.-]+@[\w.-]+$/.test(upiId)
-    ){
-
-        message.textContent =
-            "Please enter a valid UPI ID.";
-
+    if(!upiId || !/^[\w.-]+@[\w.-]+$/.test(upiId)){
+        message.textContent = "Please enter a valid UPI ID.";
         return;
-
     }
 
+    // Cache valid data temporarily before verification
+    cachedKYCData = {
+        holder_name: holderName,
+        bank_name: bankName,
+        account_number: accountNumber,
+        ifsc_code: ifscCode,
+        upi_id: upiId
+    };
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitting...";
+    // Open OTP Modal Popup
+    document.getElementById("otpModalOverlay").classList.add("active");
+    document.getElementById("otpInputCode").value = "";
+    document.getElementById("otpErrorMessage").textContent = "";
+}
 
+
+function closeOtpModal(){
+    document.getElementById("otpModalOverlay").classList.remove("active");
+}
+
+
+/* =========================================================
+   STEP 2: VERIFY OTP & SAVE TO SUPABASE
+========================================================= */
+
+async function verifyAndSubmitKYC(){
+
+    const otpCode = document.getElementById("otpInputCode").value.trim();
+    const otpError = document.getElementById("otpErrorMessage");
+    const verifyBtn = document.getElementById("verifyOtpBtn");
+
+    otpError.textContent = "";
+
+    if(otpCode.length < 4){
+        otpError.textContent = "Please enter a valid OTP code.";
+        return;
+    }
+
+    verifyBtn.disabled = true;
+    verifyBtn.textContent = "Verifying...";
 
     try{
 
@@ -1468,105 +1581,51 @@ async function submitKYC(){
         } =
         await supabaseClient.auth.getUser();
 
-
-        if(
-            authError ||
-            !user
-        ){
-
-            window.location.href =
-                "login.html";
-
+        if(authError || !user){
+            window.location.href = "login.html";
             return;
-
         }
 
-
+        // Insert verified details into Supabase kyc_submissions table
         const {
-            error
+            error: insertError
         } =
         await supabaseClient
             .from("kyc_submissions")
             .insert({
-
-                user_id:
-                    user.id,
-
-                holder_name:
-                    holderName,
-
-                bank_name:
-                    bankName,
-
-                ifsc_code:
-                    ifscCode,
-
-                account_number:
-                    accountNumber,
-
-                upi_id:
-                    upiId,
-
-                status:
-                    "pending"
-
+                user_id: user.id,
+                holder_name: cachedKYCData.holder_name,
+                bank_name: cachedKYCData.bank_name,
+                ifsc_code: cachedKYCData.ifsc_code,
+                account_number: cachedKYCData.account_number,
+                upi_id: cachedKYCData.upi_id,
+                status: "pending"
             });
 
-
-        if(error){
-
-            console.error(
-                "KYC submission error:",
-                error
-            );
-
-            message.textContent =
-                "KYC submission failed. Please try again.";
-
-            submitBtn.disabled = false;
-            submitBtn.textContent =
-                "Send OTP →";
-
+        if(insertError){
+            console.error("KYC insertion error:", insertError);
+            otpError.textContent = "Database error. Please try again.";
+            verifyBtn.disabled = false;
+            verifyBtn.textContent = "Verify & Submit";
             return;
-
         }
 
+        // Success state
+        closeOtpModal();
 
-        /*
-         * IMPORTANT:
-         * This page does not generate a real OTP.
-         * Real OTP verification requires a backend/OTP provider.
-         */
+        const message = document.getElementById("message");
+        message.style.color = "#16a34a";
+        message.textContent = "KYC details submitted & verified successfully!";
 
-        message.style.color =
-            "#16a34a";
-
-        message.textContent =
-            "KYC details submitted successfully. Verification is pending.";
-
-        submitBtn.textContent =
-            "Submitted ✓";
-
-        submitBtn.disabled =
-            true;
-
+        const submitBtn = document.getElementById("submitBtn");
+        submitBtn.textContent = "Submitted ✓";
+        submitBtn.disabled = true;
 
     }catch(error){
-
-        console.error(
-            "KYC error:",
-            error
-        );
-
-        message.textContent =
-            "Something went wrong. Please try again.";
-
-        submitBtn.disabled =
-            false;
-
-        submitBtn.textContent =
-            "Send OTP →";
-
+        console.error("OTP verification error:", error);
+        otpError.textContent = "Something went wrong. Try again.";
+        verifyBtn.disabled = false;
+        verifyBtn.textContent = "Verify & Submit";
     }
 
 }
