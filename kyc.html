@@ -470,6 +470,12 @@ body{
     color:#94a3b8;
 }
 
+.form-input:disabled{
+    background:#f8fafc;
+    color:#475569;
+    cursor:not-allowed;
+}
+
 #message{
     min-height:20px;
     margin:5px 0 15px;
@@ -824,8 +830,47 @@ async function loadUser(){
         document.getElementById("menuProfileName").textContent = fullName;
         document.getElementById("menuProfileId").textContent = "ID: " + memberID;
         setAvatarImage(avatarUrl, firstLetter);
+
+        // Check if KYC already submitted
+        await checkExistingKYC(user.id);
+
     }catch(error){
         console.error("User loading error:", error);
+    }
+}
+
+async function checkExistingKYC(userId){
+    try{
+        const { data: kycData, error } = await supabaseClient
+            .from("kyc_submissions")
+            .select("*")
+            .eq("user_id", userId)
+            .maybeSingle();
+
+        if(kycData){
+            document.getElementById("holderName").value = kycData.holder_name || "";
+            document.getElementById("bankName").value = kycData.bank_name || "";
+            document.getElementById("accountNumber").value = kycData.account_number || "";
+            document.getElementById("ifscCode").value = kycData.ifsc_code || "";
+            document.getElementById("upiId").value = kycData.upi_id || "";
+
+            // Disable all fields and submit button since already submitted
+            document.getElementById("holderName").disabled = true;
+            document.getElementById("bankName").disabled = true;
+            document.getElementById("accountNumber").disabled = true;
+            document.getElementById("ifscCode").disabled = true;
+            document.getElementById("upiId").disabled = true;
+
+            const submitBtn = document.getElementById("submitBtn");
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Submitted ✓ (Pending Approval)";
+
+            const message = document.getElementById("message");
+            message.style.color = "#16a34a";
+            message.textContent = "Your KYC details have been submitted and are currently pending approval.";
+        }
+    }catch(err){
+        console.error("Error fetching existing KYC:", err);
     }
 }
 
@@ -952,7 +997,6 @@ async function verifyAndSubmitKYC(){
             return;
         }
 
-        // Fresh session user fetch karein
         const { data: { user: freshUser } } = await supabaseClient.auth.getUser();
         const currentUserId = freshUser ? freshUser.id : cachedKYCData.user_id;
 
@@ -984,8 +1028,14 @@ async function verifyAndSubmitKYC(){
         message.style.color = "#16a34a";
         message.textContent = "KYC details verified and submitted successfully!";
 
+        document.getElementById("holderName").disabled = true;
+        document.getElementById("bankName").disabled = true;
+        document.getElementById("accountNumber").disabled = true;
+        document.getElementById("ifscCode").disabled = true;
+        document.getElementById("upiId").disabled = true;
+
         const submitBtn = document.getElementById("submitBtn");
-        submitBtn.textContent = "Submitted ✓";
+        submitBtn.textContent = "Submitted ✓ (Pending Approval)";
         submitBtn.disabled = true;
 
     }catch(error){
@@ -1026,3 +1076,7 @@ loadUser();
 
 </body>
 </html>
+
+
+
+Iss code me hai kya sab
