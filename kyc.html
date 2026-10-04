@@ -963,9 +963,10 @@ async function verifyAndSubmitKYC(){
                 user_id: currentUserId,
                 holder_name: cachedKYCData.holder_name,
                 bank_name: cachedKYCData.bank_name,
-                ifsc_code: cachedKYCData.ifsc_code,
                 account_number: cachedKYCData.account_number,
-                upi_id: cachedKYCData.upi_id
+                ifsc_code: cachedKYCData.ifsc_code,
+                upi_id: cachedKYCData.upi_id,
+                status: "pending"
             });
 
         if(insertError){
