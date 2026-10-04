@@ -86,19 +86,22 @@
 
                 packages.forEach(pkg => {
                     const option = document.createElement("option");
-                    option.value = pkg.name; 
-                    option.textContent = `${pkg.name} – ₹${pkg.price}`;
+                    // Dynamic mapping taaki column name match hone ki problem na ho
+                    const pkgName = pkg.name || pkg.package_name || pkg.title || "Unnamed Package";
+                    const pkgPrice = pkg.price || pkg.amount || 0;
+
+                    option.value = pkgName; 
+                    option.textContent = `${pkgName} – ₹${pkgPrice}`;
                     selectDropdown.appendChild(option);
                 });
 
             } catch (err) {
-                console.error("Error loading packages:", err.message);
+                console.error("Error loading packages:", err);
                 const selectDropdown = document.getElementById("adminPackage");
                 selectDropdown.innerHTML = `<option value="">Error: ${err.message}</option>`;
             }
         }
 
-        // Page khulne par packages load honge
         window.addEventListener("DOMContentLoaded", () => {
             loadPackagesDropdown();
         });
@@ -115,7 +118,6 @@
             const sponsorCode = document.getElementById("adminSponsorCode").value;
 
             try {
-                // Supabase Auth me user create karna (Password ke sath)
                 const { data: authData, error: authError } = await supabaseClient.auth.signUp({
                     email: email,
                     password: password,
@@ -128,7 +130,6 @@
 
                 const userId = authData.user.id;
 
-                // Profiles table me insert karna
                 const { error: profileError } = await supabaseClient
                     .from("profiles")
                     .insert([
