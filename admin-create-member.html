@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin | Create Member | Skills Market</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#080808;
+    color:#fff;
+    padding:30px 15px;
+}
+
+.container{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+}
+
+.header{
+    margin-bottom:25px;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:800;
+}
+
+.logo span{
+    color:#e50914;
+}
+
+.header p{
+    color:#888;
+    font-size:13px;
+    margin-top:6px;
+}
+
+.card{
+    background:#121212;
+    border:1px solid #292929;
+    border-radius:18px;
+    padding:28px;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.card h1{
+    font-size:23px;
+    margin-bottom:7px;
+}
+
+.card-description{
+    color:#888;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+label{
+    display:block;
+    color:#ddd;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:7px;
+}
+
+input,
+select{
+    width:100%;
+    height:47px;
+    border-radius:9px;
+    border:1px solid #333;
+    background:#191919;
+    color:#fff;
+    padding:0 13px;
+    outline:none;
+    font-size:14px;
+}
+
+input:focus,
+select:focus{
+    border-color:#e50914;
+}
+
+select option{
+    background:#191919;
+}
+
+.referrer-box{
+    display:none;
+    margin-top:-7px;
+    margin-bottom:17px;
+    padding:12px;
+    border-radius:9px;
+    background:rgba(53,217,130,.08);
+    border:1px solid rgba(53,217,130,.25);
+    color:#45dc85;
+    font-size:12px;
+}
+
+.referrer-box.show{
+    display:block;
+}
+
+.button{
+    width:100%;
+    height:52px;
+    border:none;
+    border-radius:10px;
+    background:#e50914;
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+.button:hover{
+    background:#c90812;
+}
+
+.button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    padding:13px;
+    border-radius:9px;
+    margin-bottom:18px;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.message.show{
+    display:block;
+}
+
+.message.error{
+    color:#ff6977;
+    background:rgba(229,9,20,.08);
+    border:1px solid rgba(229,9,20,.25);
+}
+
+.message.success{
+    color:#5ce18c;
+    background:rgba(53,217,130,.08);
+    border:1px solid rgba(53,217,130,.25);
+}
+
+.result{
+    display:none;
+    margin-top:22px;
+    padding:18px;
+    border-radius:12px;
+    background:#191919;
+    border:1px dashed #e50914;
+}
+
+.result.show{
+    display:block;
+}
+
+.result-title{
+    color:#aaa;
+    font-size:12px;
+    margin-bottom:12px;
+}
+
+.result-row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    padding:8px 0;
+    border-bottom:1px solid #292929;
+    font-size:13px;
+}
+
+.result-row:last-child{
+    border-bottom:none;
+}
+
+.result-row span{
+    color:#888;
+}
+
+.result-row strong{
+    color:#fff;
+    text-align:right;
+}
+
+.member-id{
+    color:#e50914 !important;
+    font-size:18px;
+}
+
+.note{
+    margin-top:20px;
+    color:#666;
+    font-size:11px;
+    line-height:1.6;
+}
+
+@media(max-width:500px){
+    body{
+        padding:18px 12px;
+    }
+
+    .card{
+        padding:20px 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="logo">
+            Skills<span>Market</span>
+        </div>
+
+        <p>
+            Admin Panel • Member Registration
+        </p>
+    </div>
+
+    <div class="card">
+
+        <h1>Create Member ID</h1>
+
+        <p class="card-description">
+            Create a new member account manually.
+            Member ID and personal Referral Code will be generated automatically.
+        </p>
+
+        <div id="message" class="message"></div>
+
+        <form id="memberForm">
+
+            <div class="form-group">
+                <label>Full Name *</label>
+
+                <input
+                    type="text"
+                    id="fullName"
+                    placeholder="Enter member full name"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number *</label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="10-digit phone number"
+                    maxlength="10"
+                    inputmode="numeric"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address *</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="member@email.com"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Package *</label>
+
+                <select id="package" required>
+
+                    <option value="">
+                        Select Package
+                    </option>
+
+                    <option value="Skill Starter Package|265">
+                        Skill Starter Package — ₹265
+                    </option>
+
+                    <option value="Skill Growth Package|520">
+                        Skill Growth Package — ₹520
+                    </option>
+
+                    <option value="Skill Elite Package|1299">
+                        Skill Elite Package — ₹1,299
+                    </option>
+
+                    <option value="Skill Prime Package|2399">
+                        Skill Prime Package — ₹2,399
+                    </option>
+
+                    <option value="Skill Premium Package|4999">
+                        Skill Premium Package — ₹4,999
+                    </option>
+
+                    <option value="Skill Legacy Package|9999">
+                        Skill Legacy Package — ₹9,999
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Referral Code</label>
+
+                <input
+                    type="text"
+                    id="referralCode"
+                    placeholder="Enter referrer's code"
+                    autocomplete="off">
+            </div>
+
+            <div id="referrerBox" class="referrer-box"></div>
+
+            <button
+                type="submit"
+                class="button"
+                id="createButton">
+
+                Create Member ID
+
+            </button>
+
+        </form>
+
+        <div id="result" class="result">
+
+            <div class="result-title">
+                MEMBER CREATED SUCCESSFULLY
+            </div>
+
+            <div class="result-row">
+                <span>Member Name</span>
+                <strong id="resultName">—</strong>
+            </div>
+
+            <div class="result-row">
+                <span>Member ID</span>
+                <strong id="resultMemberId" class="member-id">—</strong>
+            </div>
+
+            <div class="result-row">
+                <span>Referral Code</span>
+                <strong id="resultReferral">—</strong>
+            </div>
+
+            <div class="result-row">
+                <span>Referrer</span>
+                <strong id="resultReferrer">—</strong>
+            </div>
+
+            <div class="result-row">
+                <span>Package</span>
+                <strong id="resultPackage">—</strong>
+            </div>
+
+            <div class="result-row">
+                <span>Status</span>
+                <strong>Pending Verification</strong>
+            </div>
+
+        </div>
+
+        <div class="note">
+            Admin-created accounts are marked as manually created.
+            Payment and income verification can be connected later.
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://hmlonjwqeqedakzhucix.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_6HJhKU30iWPoGG5RVuxBPA_VAlQUsYV";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const form =
+    document.getElementById("memberForm");
+
+const fullName =
+    document.getElementById("fullName");
+
+const phone =
+    document.getElementById("phone");
+
+const email =
+    document.getElementById("email");
+
+const packageInput =
+    document.getElementById("package");
+
+const referralCode =
+    document.getElementById("referralCode");
+
+const referrerBox =
+    document.getElementById("referrerBox");
+
+const createButton =
+    document.getElementById("createButton");
+
+const message =
+    document.getElementById("message");
+
+const result =
+    document.getElementById("result");
+
+
+let selectedReferrer = null;
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(text,type){
+
+    message.className =
+        "message show " + type;
+
+    message.textContent =
+        text;
+}
+
+function hideMessage(){
+
+    message.className =
+        "message";
+
+    message.textContent =
+        "";
+}
+
+
+/* =====================================================
+   PHONE
+===================================================== */
+
+phone.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+            .replace(/\D/g,"")
+            .slice(0,10);
+
+    }
+);
+
+
+/* =====================================================
+   REFERRAL LOOKUP
+===================================================== */
+
+let referralTimer = null;
+
+referralCode.addEventListener(
+    "input",
+    function(){
+
+        clearTimeout(referralTimer);
+
+        const code =
+            this.value
+            .trim()
+            .toUpperCase();
+
+        this.value = code;
+
+        selectedReferrer = null;
+
+        referrerBox.classList.remove(
+            "show"
+        );
+
+        referrerBox.textContent = "";
+
+        if(!code){
+            return;
+        }
+
+        referralTimer =
+            setTimeout(
+                async function(){
+
+                    try{
+
+                        const {
+                            data,
+                            error
+                        } =
+                        await supabaseClient
+                        .from("profiles")
+                        .select(
+                            "full_name,member_id,referral_code"
+                        )
+                        .eq(
+                            "referral_code",
+                            code
+                        )
+                        .maybeSingle();
+
+                        if(error){
+                            console.error(error);
+                            return;
+                        }
+
+                        if(!data){
+                            referrerBox.className =
+                                "referrer-box show";
+
+                            referrerBox.style.color =
+                                "#ff6977";
+
+                            referrerBox.textContent =
+                                "✕ Referral Code not found.";
+
+                            return;
+                        }
+
+                        selectedReferrer =
+                            data;
+
+                        referrerBox.className =
+                            "referrer-box show";
+
+                        referrerBox.style.color =
+                            "#45dc85";
+
+                        referrerBox.textContent =
+                            "✓ Referred by: " +
+                            (data.full_name || "Member") +
+                            " • Member ID: " +
+                            (data.member_id || "—");
+
+                    }catch(error){
+
+                        console.error(
+                            "Referral lookup error:",
+                            error
+                        );
+
+                    }
+
+                },
+                400
+            );
+
+    }
+);
+
+
+/* =====================================================
+   MEMBER ID GENERATOR
+===================================================== */
+
+function randomMemberId(){
+
+    const number =
+        Math.floor(
+            10000 +
+            Math.random() * 90000
+        );
+
+    return "SM" + number;
+}
+
+
+async function generateUniqueMemberId(){
+
+    for(let i=0;i<20;i++){
+
+        const candidate =
+            randomMemberId();
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .from("profiles")
+        .select("member_id")
+        .eq("member_id",candidate)
+        .maybeSingle();
+
+        if(error){
+            throw error;
+        }
+
+        if(!data){
+            return candidate;
+        }
+    }
+
+    throw new Error(
+        "Could not generate a unique Member ID."
+    );
+}
+
+
+/* =====================================================
+   REFERRAL CODE GENERATOR
+===================================================== */
+
+async function generateUniqueReferralCode(){
+
+    for(let i=0;i<20;i++){
+
+        const candidate =
+            randomMemberId();
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .from("profiles")
+        .select("referral_code")
+        .eq("referral_code",candidate)
+        .maybeSingle();
+
+        if(error){
+            throw error;
+        }
+
+        if(!data){
+            return candidate;
+        }
+    }
+
+    throw new Error(
+        "Could not generate a unique Referral Code."
+    );
+}
+
+
+/* =====================================================
+   CREATE MEMBER
+===================================================== */
+
+form.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+        hideMessage();
+
+        result.classList.remove(
+            "show"
+        );
+
+        const name =
+            fullName.value.trim();
+
+        const mobile =
+            phone.value.trim();
+
+        const memberEmail =
+            email.value.trim().toLowerCase();
+
+        const selectedPackage =
+            packageInput.value;
+
+        const enteredReferral =
+            referralCode.value
+            .trim()
+            .toUpperCase();
+
+
+        /* ---------------------------------------------
+           VALIDATION
+        --------------------------------------------- */
+
+        if(name.length < 2){
+
+            showMessage(
+                "Please enter the member's full name.",
+                "error"
+            );
+
+            return;
+        }
+
+        if(mobile.length !== 10){
+
+            showMessage(
+                "Please enter a valid 10-digit phone number.",
+                "error"
+            );
+
+            return;
+        }
+
+        if(!memberEmail){
+
+            showMessage(
+                "Please enter the member's email address.",
+                "error"
+            );
+
+            return;
+        }
+
+        if(!selectedPackage){
+
+            showMessage(
+                "Please select a package.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           REFERRAL RE-CHECK
+        --------------------------------------------- */
+
+        let referrerMemberId = null;
+        let referrerName = null;
+
+        if(enteredReferral){
+
+            const {
+                data,
+                error
+            } =
+            await supabaseClient
+            .from("profiles")
+            .select(
+                "full_name,member_id,referral_code"
+            )
+            .eq(
+                "referral_code",
+                enteredReferral
+            )
+            .maybeSingle();
+
+            if(error){
+
+                showMessage(
+                    "Referral verification failed: " +
+                    error.message,
+                    "error"
+                );
+
+                return;
+            }
+
+            if(!data){
+
+                showMessage(
+                    "Invalid Referral Code.",
+                    "error"
+                );
+
+                return;
+            }
+
+            referrerMemberId =
+                data.member_id;
+
+            referrerName =
+                data.full_name || "Member";
+        }
+
+
+        /* ---------------------------------------------
+           PACKAGE
+        --------------------------------------------- */
+
+        const parts =
+            selectedPackage.split("|");
+
+        const packageName =
+            parts[0];
+
+        const packagePrice =
+            Number(parts[1]);
+
+
+        /* ---------------------------------------------
+           BUTTON
+        --------------------------------------------- */
+
+        createButton.disabled =
+            true;
+
+        createButton.textContent =
+            "Creating Member...";
+
+
+        try{
+
+            /* -----------------------------------------
+               GENERATE IDs
+            ----------------------------------------- */
+
+            const memberId =
+                await generateUniqueMemberId();
+
+            const ownReferralCode =
+                await generateUniqueReferralCode();
+
+
+            /* -----------------------------------------
+               INSERT PROFILE
+            ----------------------------------------- */
+
+            const profileData = {
+
+                member_id:
+                    memberId,
+
+                full_name:
+                    name,
+
+                phone:
+                    mobile,
+
+                package_name:
+                    packageName,
+
+                package_price:
+                    packagePrice,
+
+                referral_code:
+                    ownReferralCode,
+
+                referrer_member_id:
+                    referrerMemberId,
+
+                referrer_name:
+                    referrerName,
+
+                account_status:
+                    "Pending Verification",
+
+                created_by_admin:
+                    true,
+
+                active_income:
+                    0,
+
+                income_status:
+                    "Test / Unverified"
+
+            };
+
+
+            const {
+                data,
+                error
+            } =
+            await supabaseClient
+            .from("profiles")
+            .insert(
+                profileData
+            )
+            .select()
+            .single();
+
+
+            if(error){
+                throw error;
+            }
+
+
+            /* -----------------------------------------
+               SUCCESS
+            ----------------------------------------- */
+
+            document.getElementById(
+                "resultName"
+            ).textContent =
+                data.full_name || name;
+
+            document.getElementById(
+                "resultMemberId"
+            ).textContent =
+                data.member_id;
+
+            document.getElementById(
+                "resultReferral"
+            ).textContent =
+                data.referral_code;
+
+            document.getElementById(
+                "resultReferrer"
+            ).textContent =
+                referrerName
+                ? referrerName +
+                  " (" +
+                  referrerMemberId +
+                  ")"
+                : "Direct / None";
+
+            document.getElementById(
+                "resultPackage"
+            ).textContent =
+                packageName;
+
+            result.classList.add(
+                "show"
+            );
+
+            showMessage(
+                "✓ Member ID created successfully.",
+                "success"
+            );
+
+            form.reset();
+
+            selectedReferrer =
+                null;
+
+            referrerBox.classList.remove(
+                "show"
+            );
+
+        }catch(error){
+
+            console.error(
+                "CREATE MEMBER ERROR:",
+                error
+            );
+
+            let errorMessage =
+                error.message ||
+                "Something went wrong.";
+
+            if(
+                errorMessage
+                .toLowerCase()
+                .includes("row-level security")
+            ){
+
+                errorMessage =
+                    "Supabase RLS is blocking this admin insert. Admin INSERT policy is required.";
+
+            }
+
+            showMessage(
+                "Member creation failed: " +
+                errorMessage,
+                "error"
+            );
+
+        }finally{
+
+            createButton.disabled =
+                false;
+
+            createButton.textContent =
+                "Create Member ID";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
