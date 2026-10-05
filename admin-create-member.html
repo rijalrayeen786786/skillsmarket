@@ -15,7 +15,6 @@
             padding: 20px;
         }
 
-        /* Security Guard: Initially hide the container */
         #secureAdminPanel {
             display: none;
         }
@@ -89,29 +88,23 @@
 
 <body>
 
-<!-- SECURITY SCRIPT: Page khulte hi password puchenge -->
 <script>
-    // Yahan apna secret admin password set kar lijiye (Jaise: admin123)
     const ADMIN_SECRET_PASSWORD = "admin123"; 
 
     function checkAdminAuth() {
         const enteredPassword = prompt("🔒 Enter Admin Security Password to Access Panel:");
         
         if (enteredPassword === ADMIN_SECRET_PASSWORD) {
-            // Password sahi hai, toh panel dikha do
             document.getElementById("secureAdminPanel").style.display = "block";
         } else {
-            // Password galat hai, toh wapas bhej do ya blank page dikhao
             alert("❌ Incorrect Password! Access Denied.");
             document.body.innerHTML = "<h2 style='text-align:center; color:red; margin-top:50px;'>Access Denied. Unauthorized Page.</h2>";
         }
     }
 
-    // Page load hote hi function chalega
     window.onload = checkAdminAuth;
 </script>
 
-<!-- Pura Admin Panel is div ke andar hai jo secure rahega -->
 <div id="secureAdminPanel">
     <div class="container">
 
@@ -199,12 +192,21 @@
     </div>
 </div>
 
-
 <script>
     const SUPABASE_URL = "https://furlonjuwqnndskuhcks.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtbG9uandxZXFlZGFremh1Y2l4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NzM3NTcsImV4cCI6MjEwNjQ0OTc1N30.6G8zhYVgG05NHG82PZiGkaXtqAOSAaKbqQDm1i8BEpQ";
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Packages ki rank set ki gayi hai taaki chote/bade ka pata chal sake
+    const packageRanks = {
+        "Skill Starter Package": 1,
+        "Skill Growth Package": 2,
+        "Skill Elite Package": 3,
+        "Skill Prime Package": 4,
+        "Skill Premium Package": 5,
+        "Skill Legacy Package": 6
+    };
 
     function generateMemberID() {
         const number = Math.floor(10000 + Math.random() * 90000);
@@ -234,17 +236,25 @@
         }
 
         try {
-            // 1. Verify Sponsor
+            // 1. Verify Sponsor & Get Sponsor's Package
             const { data: sponsor, error: sponsorError } = await supabaseClient
                 .from("profiles")
-                .select("id, member_id, full_name, referral_code")
+                .select("id, member_id, full_name, referral_code, package_name")
                 .eq("referral_code", sponsorCode)
                 .maybeSingle();
 
             if (sponsorError) throw sponsorError;
             if (!sponsor) throw new Error("Invalid Sponsor Referral Code.");
 
-            // 2. Create Auth User
+            // 2. Package Level Restriction Check (Sponsor package must be >= New Package)
+            const sponsorRank = packageRanks[sponsor.package_name] || 0;
+            const newPackageRank = packageRanks[packageName] || 0;
+
+            if (sponsorRank < newPackageRank) {
+                throw new Error(`Sponsor (${sponsor.full_name}) has '${sponsor.package_name}', which is lower than the selected package ('${packageName}'). Sponsor must upgrade first to sell this package.`);
+            }
+
+            // 3. Create Auth User
             const { data: authData, error: authError } = await supabaseClient.auth.signUp({
                 email: email,
                 password: password,
@@ -259,7 +269,7 @@
             const userId = authData.user.id;
             const memberID = generateMemberID();
 
-            // 3. Insert Profile (Safely mapped columns)
+            // 4. Insert Profile
             const { error: profileError } = await supabaseClient
                 .from("profiles")
                 .insert([{
