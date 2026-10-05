@@ -1480,11 +1480,6 @@ async function checkReferralCode(code){
 
     }
 
-    /*
-       We search by referral_code and fetch
-       both the member ID and full name.
-    */
-
     const {
         data,
         error
@@ -1564,11 +1559,6 @@ referral.addEventListener(
             setTimeout(
                 async function(){
 
-                    /*
-                       Make sure we are checking
-                       the latest input value.
-                    */
-
                     const latestCode =
                         referral.value
                         .trim()
@@ -1612,10 +1602,6 @@ referral.addEventListener(
 
                         }
 
-
-                        /*
-                           Valid referral.
-                        */
 
                         if(
                             !data.member_id
@@ -2091,11 +2077,6 @@ form.addEventListener(
         }
 
 
-        /*
-           Referral is optional.
-           If entered, it must be valid.
-        */
-
         if(
             referralCode &&
             !referralValid
@@ -2289,11 +2270,6 @@ paidButton.addEventListener(
         }
 
 
-        /*
-           Re-check referral directly from database.
-           This ensures the saved referrer is correct.
-        */
-
         let verifiedReferral = null;
 
         if(referralCode){
@@ -2351,10 +2327,6 @@ paidButton.addEventListener(
 
         try{
 
-            /* =========================================
-               CURRENT SESSION
-            ========================================= */
-
             const sessionResult =
                 await supabaseClient
                 .auth
@@ -2375,10 +2347,6 @@ paidButton.addEventListener(
                 ?.user ||
                 null;
 
-
-            /* =========================================
-               CREATE AUTH ACCOUNT
-            ========================================= */
 
             if(!authUser){
 
@@ -2432,10 +2400,6 @@ paidButton.addEventListener(
                 authUser.id;
 
 
-            /* =========================================
-               CHECK EXISTING PROFILE
-            ========================================= */
-
             const existingResult =
                 await supabaseClient
                 .from("profiles")
@@ -2466,34 +2430,13 @@ paidButton.addEventListener(
                 null;
 
 
-            /* =========================================
-               CREATE PROFILE
-            ========================================= */
-
             if(!existingResult.data){
-
-                /*
-                   Generate new Member ID.
-                */
 
                 memberId =
                     await generateUniqueMemberId();
 
-
-                /*
-                   Generate the new member's
-                   personal Referral Code.
-                */
-
                 const ownReferralCode =
                     await generateUniqueReferralCode();
-
-
-                /*
-                   Referrer Member ID:
-                   This is the Member ID of the person
-                   whose referral code was entered.
-                */
 
                 const referrerMemberId =
                     verifiedReferral
@@ -2501,6 +2444,9 @@ paidButton.addEventListener(
                     null;
 
 
+                /* =========================================
+                   CORRECTED PROFILE DATA (Matches Database)
+                ========================================= */
                 const profileData = {
 
                     id:
@@ -2515,20 +2461,14 @@ paidButton.addEventListener(
                     phone:
                         phone,
 
-                    package_name:
+                    package:
                         selectedPackage.name,
-
-                    package_price:
-                        selectedPackage.price,
 
                     referral_code:
                         ownReferralCode,
 
                     referrer_member_id:
-                        referrerMemberId,
-
-                    account_status:
-                        "Pending Verification"
+                        referrerMemberId
 
                 };
 
@@ -2549,10 +2489,6 @@ paidButton.addEventListener(
 
             }
 
-
-            /* =========================================
-               SUCCESS
-            ========================================= */
 
             paymentStatus.classList.add(
                 "show"
