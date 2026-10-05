@@ -15,6 +15,11 @@
             padding: 20px;
         }
 
+        /* Security Guard: Initially hide the container */
+        #secureAdminPanel {
+            display: none;
+        }
+
         .container {
             max-width: 500px;
             margin: 0 auto;
@@ -84,89 +89,114 @@
 
 <body>
 
-<div class="container">
+<!-- SECURITY SCRIPT: Page khulte hi password puchenge -->
+<script>
+    // Yahan apna secret admin password set kar lijiye (Jaise: admin123)
+    const ADMIN_SECRET_PASSWORD = "admin123"; 
 
-    <h2>Admin Panel • Member Registration</h2>
+    function checkAdminAuth() {
+        const enteredPassword = prompt("🔒 Enter Admin Security Password to Access Panel:");
+        
+        if (enteredPassword === ADMIN_SECRET_PASSWORD) {
+            // Password sahi hai, toh panel dikha do
+            document.getElementById("secureAdminPanel").style.display = "block";
+        } else {
+            // Password galat hai, toh wapas bhej do ya blank page dikhao
+            alert("❌ Incorrect Password! Access Denied.");
+            document.body.innerHTML = "<h2 style='text-align:center; color:red; margin-top:50px;'>Access Denied. Unauthorized Page.</h2>";
+        }
+    }
 
-    <p style="color:#94a3b8;font-size:14px;margin-bottom:20px;">
-        Create a new member account manually with a password.
-    </p>
+    // Page load hote hi function chalega
+    window.onload = checkAdminAuth;
+</script>
 
-    <form id="adminCreateMemberForm">
+<!-- Pura Admin Panel is div ke andar hai jo secure rahega -->
+<div id="secureAdminPanel">
+    <div class="container">
 
-        <div class="form-group">
-            <label>Full Name *</label>
-            <input
-                type="text"
-                id="adminFullName"
-                required
-                placeholder="Enter full name"
-            >
-        </div>
+        <h2>Admin Panel • Member Registration</h2>
 
-        <div class="form-group">
-            <label>Phone Number *</label>
-            <input
-                type="text"
-                id="adminPhone"
-                required
-                placeholder="Enter phone number"
-            >
-        </div>
+        <p style="color:#94a3b8;font-size:14px;margin-bottom:20px;">
+            Create a new member account manually with a password.
+        </p>
 
-        <div class="form-group">
-            <label>Email Address *</label>
-            <input
-                type="email"
-                id="adminEmail"
-                required
-                placeholder="Enter email address"
-            >
-        </div>
+        <form id="adminCreateMemberForm">
 
-        <div class="form-group">
-            <label>Password *</label>
-            <input
-                type="password"
-                id="adminPassword"
-                required
-                placeholder="Enter login password for user"
-            >
-        </div>
+            <div class="form-group">
+                <label>Full Name *</label>
+                <input
+                    type="text"
+                    id="adminFullName"
+                    required
+                    placeholder="Enter full name"
+                >
+            </div>
 
-        <div class="form-group">
-            <label>Package *</label>
+            <div class="form-group">
+                <label>Phone Number *</label>
+                <input
+                    type="text"
+                    id="adminPhone"
+                    required
+                    placeholder="Enter phone number"
+                >
+            </div>
 
-            <select id="adminPackage" required>
-                <option value="">Select Package</option>
-                <option value="Skill Starter Package">Skill Starter Package – ₹265</option>
-                <option value="Skill Growth Package">Skill Growth Package – ₹520</option>
-                <option value="Skill Elite Package">Skill Elite Package – ₹1,299</option>
-                <option value="Skill Prime Package">Skill Prime Package – ₹2,399</option>
-                <option value="Skill Premium Package">Skill Premium Package – ₹4,999</option>
-                <option value="Skill Legacy Package">Skill Legacy Package – ₹9,999</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label>Email Address *</label>
+                <input
+                    type="email"
+                    id="adminEmail"
+                    required
+                    placeholder="Enter email address"
+                >
+            </div>
 
-        <div class="form-group">
-            <label>Sponsor Referral Code *</label>
-            <input
-                type="text"
-                id="adminSponsorCode"
-                required
-                placeholder="Enter sponsor code (e.g. SM48594)"
-            >
-        </div>
+            <div class="form-group">
+                <label>Password *</label>
+                <input
+                    type="password"
+                    id="adminPassword"
+                    required
+                    placeholder="Enter login password for user"
+                >
+            </div>
 
-        <button type="submit">
-            Create Member ID
-        </button>
+            <div class="form-group">
+                <label>Package *</label>
 
-    </form>
+                <select id="adminPackage" required>
+                    <option value="">Select Package</option>
+                    <option value="Skill Starter Package">Skill Starter Package – ₹265</option>
+                    <option value="Skill Growth Package">Skill Growth Package – ₹520</option>
+                    <option value="Skill Elite Package">Skill Elite Package – ₹1,299</option>
+                    <option value="Skill Prime Package">Skill Prime Package – ₹2,399</option>
+                    <option value="Skill Premium Package">Skill Premium Package – ₹4,999</option>
+                    <option value="Skill Legacy Package">Skill Legacy Package – ₹9,999</option>
+                </select>
+            </div>
 
-    <div id="successBox" class="success-box"></div>
-    <div id="errorBox" class="error-box"></div>
+            <div class="form-group">
+                <label>Sponsor Referral Code *</label>
+                <input
+                    type="text"
+                    id="adminSponsorCode"
+                    required
+                    placeholder="Enter sponsor code (e.g. SM48594)"
+                >
+            </div>
 
+            <button type="submit">
+                Create Member ID
+            </button>
+
+        </form>
+
+        <div id="successBox" class="success-box"></div>
+        <div id="errorBox" class="error-box"></div>
+
+    </div>
 </div>
 
 
